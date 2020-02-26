@@ -40,7 +40,7 @@ in {
     functions = {
       emacs_start_daemon = ''
         emacsclient --no-wait --eval '(ignore)' >/dev/null 2>/dev/null \
-          || env GDK_BACKEND=x11 /usr/bin/emacs --bg-daemon >/dev/null 2>/dev/null &
+          || env GDK_BACKEND=x11 emacs --bg-daemon >/dev/null 2>/dev/null &
 
         # for some reason, starting the daemon can "error" (but still starts
         # Emacs), so reset the exit code to 0
@@ -54,9 +54,10 @@ in {
       # function __fish_command_not_found_handler --on-event fish_command_not_found
       #   __fish_default_command_not_found_handler $argv[1]
       # end
+      nix-locate = "nix-locate --top-level $argv";
 
       cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
-      mpv = "mpv --player-operation-mode=pseudo-gui $argv";
+      mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
       std = "rustup doc --std"; # TODO: nix-ify
       t = "todo.sh $argv";
       win10 = "sudo virsh start windows10";
@@ -78,7 +79,6 @@ in {
     } // cgitcAbbrs;
 
     shellInit = ''
-      set --global --export LOCALE_ARCHIVE "${pkgs.glibcLocales}/lib/locale/locale-archive";
 
       # Miscellaneous exports
       set --global --export EDITOR 'nvim'
@@ -105,6 +105,7 @@ in {
     '';
 
     promptInit = ''
+
       # Deactivate the default virtualenv prompt so that we can add our own
       set --global --export VIRTUAL_ENV_DISABLE_PROMPT 1
 
@@ -132,6 +133,13 @@ in {
     '';
 
     interactiveShellInit = ''
+
+      # if terminal is TTY (TERM == linux), unset __HM_SESS_VARS_SOURCED,
+      # because the graphical session will inherit this
+      if [ $TERM = "linux" ]
+        set -e __HM_SESS_VARS_SOURCED
+      end
+
       # GPG configuration
       set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
       set --global --export SSH_AUTH_SOCK /run/user/(id -u)/gnupg/S.gpg-agent.ssh
@@ -159,29 +167,29 @@ in {
 
       # I don't even remember where I got these from, but these are colors that
       # complement gruvbox dark hard
-      set --universal fish_color_autosuggestion afafaf
-      set --universal fish_color_cancel normal
-      set --universal fish_color_command 87d75f
-      set --universal fish_color_comment afafaf
-      set --universal fish_color_cwd 008000
-      set --universal fish_color_cwd_root 800000
-      set --universal fish_color_end afafaf
-      set --universal fish_color_error ff0000
-      set --universal fish_color_escape 00a6b2
-      set --universal fish_color_history_current normal
-      set --universal fish_color_host normal
-      set --universal fish_color_host_remote yellow
-      set --universal fish_color_match normal
-      set --universal fish_color_normal normal
-      set --universal fish_color_operator 00a6b2
-      set --universal fish_color_param 5fd7d7
-      set --universal fish_color_quote d78700
-      set --universal fish_color_redirection afafaf
-      set --universal fish_color_search_match ffff00
-      set --universal fish_color_selection c0c0c0
-      set --universal fish_color_status red
-      set --universal fish_color_user 00ff00
-      set --universal fish_color_valid_path --underline
+      # set --universal fish_color_autosuggestion afafaf
+      # set --universal fish_color_cancel normal
+      # set --universal fish_color_command 87d75f
+      # set --universal fish_color_comment afafaf
+      # set --universal fish_color_cwd 008000
+      # set --universal fish_color_cwd_root 800000
+      # set --universal fish_color_end afafaf
+      # set --universal fish_color_error ff0000
+      # set --universal fish_color_escape 00a6b2
+      # set --universal fish_color_history_current normal
+      # set --universal fish_color_host normal
+      # set --universal fish_color_host_remote yellow
+      # set --universal fish_color_match normal
+      # set --universal fish_color_normal normal
+      # set --universal fish_color_operator 00a6b2
+      # set --universal fish_color_param 5fd7d7
+      # set --universal fish_color_quote d78700
+      # set --universal fish_color_redirection afafaf
+      # set --universal fish_color_search_match ffff00
+      # set --universal fish_color_selection c0c0c0
+      # set --universal fish_color_status red
+      # set --universal fish_color_user 00ff00
+      # set --universal fish_color_valid_path --underline
 
       # Themed man output
       # from http://linuxtidbits.wordpress.com/2009/03/23/less-colors-for-man-pages/

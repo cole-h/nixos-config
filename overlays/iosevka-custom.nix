@@ -1,7 +1,7 @@
 self: super:
 
 {
-  iosevka = (super.iosevka.override {
+  iosevka-custom = (super.iosevka.override {
     privateBuildPlan = {
       family = "Iosevka Custom";
 
@@ -33,20 +33,11 @@ self: super:
     };
 
     set = "custom";
-  }).overrideAttrs (old: {
-    buildPhase = ''
-      runHook preBuild
-
-      echo "building without ugly node progress"
-      npm run build -- ttf::$pname >/dev/null
-
-      runHook postBuild
-    '';
-
+  }).overrideAttrs (_: {
     installPhase = ''
       fontdir="$out/share/fonts/truetype"
       install -d "$fontdir"
-      install "dist/$pname/ttf"/* "$fontdir"
+      install dist/$pname/ttf/* "$fontdir"
     '';
   });
 }

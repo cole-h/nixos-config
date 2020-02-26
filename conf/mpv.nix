@@ -28,7 +28,8 @@
       "1" = "cycle border";
       "Ctrl+a" = "cycle ontop";
       n = "show-text \${file-name}";
-      MBTN_LEFT = "ignore";
+      MBTN_LEFT = "cycle pause";
+      # MBTN_LEFT = "ignore";
       MBTN_LEFT_DBL = "cycle fullscreen";
       MBTN_RIGHT = "ignore";
       z = "script-binding Blackbox";

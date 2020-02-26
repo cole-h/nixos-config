@@ -1,11 +1,12 @@
-{ lib }:
+{ lib, fetchFromGitHub }:
 
 let
-  cgitcAbbrs = builtins.readFile (builtins.fetchurl {
-    url =
-      "https://raw.githubusercontent.com/simnalamburt/cgitc/0adb83f765e17dea0fffb83cbdfb576da1400c09/abbreviations";
-    sha256 = "00ym53cli2x184mql6ng35c29ggqpvlkl0k3kmycj9hfvzpmah2y";
-  });
+  cgitcAbbrs = builtins.readFile (fetchFromGitHub {
+    owner = "simnalamburt";
+    repo = "cgitc";
+    rev = "0adb83f765e17dea0fffb83cbdfb576da1400c09";
+    sha256 = "0yicd77kphm9xxpcr70wig4rmx68i1byz9ibirk27m9z0s657n1m";
+  } + "/abbreviations");
 
   filterComments = with lib;
     abbrString:
@@ -39,5 +40,5 @@ let
           (builtins.substring (len + 1) (builtins.stringLength x) x);
       in { ${abbr} = "${contents}"; });
 
-  abbrs = abbrsToFish (filterComments cgitcAbbrs);
-in { abbrs = builtins.foldl' (x: y: x // y) { } abbrs; }
+  abbrevs = abbrsToFish (filterComments cgitcAbbrs);
+in { abbrs = builtins.foldl' (x: y: x // y) { } abbrevs; }

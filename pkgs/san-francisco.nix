@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl, unzip, libarchive }:
+{ stdenv, fetchurl, mkfontscale, unzip, libarchive }:
 
 stdenv.mkDerivation rec {
   pname = "san-francisco";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
 
   phases = [ "unpackPhase" "installPhase" ];
 
-  nativeBuildInputs = [ unzip libarchive ];
+  nativeBuildInputs = [ unzip libarchive mkfontscale ];
 
   unpackPhase = ''
     unzip $src
@@ -25,17 +25,16 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     fontdir="$out/share/fonts/opentype"
-    install -d "$fontdir"
-    install -m644 Library/Fonts/*.otf "$fontdir"
 
-    install -d $out/usr/share/licenses/$pname/
-    install -m644 'SF Pro Font License.rtf' $out/usr/share/licenses/$pname/LICENSE.rtf
+    install -Dm644 'SF Pro Font License.rtf' -t $out/usr/share/licenses/${pname}/LICENSE.rtf
+    install -Dm644 Library/Fonts/*.otf -t "$fontdir"
+    mkfontscale "$fontdir"
   '';
 
-  meta = with lib; {
+  meta = with stdenv.lib; {
     description = "The system font for macOS, iOS, watchOS, and tvOS.";
     homepage = "https://developer.apple.com/fonts";
     license = licenses.unfree;
-    platforms = platforms.linux;
+    platforms = platforms.all;
   };
 }

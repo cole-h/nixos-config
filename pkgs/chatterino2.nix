@@ -35,6 +35,6 @@ mkDerivation rec {
     homepage = "https://github.com/fourtf/chatterino2";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ rexim ];
+    maintainers = with maintainers; [ cole-h ];
   };
 }

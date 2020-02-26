@@ -1,8 +1,8 @@
-{ stdenv, lib, fetchurl, p7zip }:
+{ stdenv, fetchurl, p7zip, mkfontscale }:
 
 stdenv.mkDerivation rec {
+  pname = "sarasa-gothic";
   version = "0.10.2";
-  name = "sarasa-gothic";
 
   src = fetchurl {
     url =
@@ -10,18 +10,23 @@ stdenv.mkDerivation rec {
     sha256 = "05id15j7ylrli053rpl5mad3xy2c950amnbqahn9h3l4d649k3w8";
   };
 
+  nativeBuildInputs = [ mkfontscale ];
   phases = [ "unpackPhase" ];
 
   unpackPhase = ''
-    ${p7zip}/bin/7z x $src -o$out/share/fonts/truetype
+    fontdir="$out/share/fonts/truetype"
+
+    ${p7zip}/bin/7z x $src -o"$fontdir"
+    mkfontscale "$fontdir"
   '';
 
-  meta = with lib; {
-    description =
-      "SARASA GOTHIC is a Chinese & Japanese programming font based on Iosevka and Source Han Sans";
+  meta = with stdenv.lib; {
+    description = ''
+      SARASA GOTHIC is a Chinese & Japanese programming font based on Iosevka
+      and Source Han Sans
+    '';
     homepage = "https://github.com/be5invis/Sarasa-Gothic";
     license = licenses.ofl;
-    maintainers = with maintainers; [ ChengCat ];
     platforms = platforms.all;
   };
 }

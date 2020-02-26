@@ -1,1 +1,15 @@
+### Nix ###
 result*
+
+### Elisp ###
+# Compiled
+*.elc
+# Packaging
+.cask
+# Backup files
+*~
+# Undo-tree save-files
+*.~undo-tree
+
+# removes doom-emacs TODOs from my todo list in emacs :)
+pkgs/doom-emacs
