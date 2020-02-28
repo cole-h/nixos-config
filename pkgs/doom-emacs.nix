@@ -1,11 +1,10 @@
-{ stdenv, lib }:
+{ stdenv }:
 
 stdenv.mkDerivation {
   pname = "doom-emacs";
   version = "git-20200224";
 
-  # TODO: clone doom-emacs if it doesn't exist
-  src = ./doom-emacs;
+  src = ./doom-emacs; # submodule :)
 
   outputs = [ "out" "bin" ];
 

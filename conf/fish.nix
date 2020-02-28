@@ -54,7 +54,7 @@ in {
       # function __fish_command_not_found_handler --on-event fish_command_not_found
       #   __fish_default_command_not_found_handler $argv[1]
       # end
-      nix-locate = "nix-locate --top-level $argv";
+      nix-locate = "command nix-locate --top-level $argv";
 
       cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
       mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
@@ -68,12 +68,12 @@ in {
     };
 
     shellAbbrs = {
-      l = "exa"; # TODO: nix-ify exa installation
+      l = "exa";
       la = "exa -la";
       ll = "exa -l";
       ls = "exa";
       tree = "exa -T";
-      vi = "nvim"; # TODO: nix-ify nvim installation
+      vi = "nvim";
       vim = "nvim";
       weechat = "screen -d -r weechat"; # TODO: nix-ify weechat installation
     } // cgitcAbbrs;
@@ -135,16 +135,18 @@ in {
     interactiveShellInit = ''
 
       # if terminal is TTY (TERM == linux), unset __HM_SESS_VARS_SOURCED,
-      # because the graphical session will inherit this
+      # because the graphical session will inherit this (which means child
+      # applications will never re-source if necessary)
       if [ $TERM = "linux" ]
         set -e __HM_SESS_VARS_SOURCED
       end
 
       # GPG configuration
       set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
-      set --global --export SSH_AUTH_SOCK /run/user/(id -u)/gnupg/S.gpg-agent.ssh
-      set --global --export GPG_TTY (tty)
+      set --global --export SSH_AUTH_SOCK /run/user/(${pkgs.coreutils}/bin/id -u)/gnupg/S.gpg-agent.ssh
+      set --global --export GPG_TTY (${pkgs.coreutils}/bin/tty)
       gpg-connect-agent updatestartuptty /bye >/dev/null &
+      # ''${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye >/dev/null &
 
       # FIXME: "Fontconfig error: Cannot load config file from /etc/fonts/fonts.conf"
       # Probably related to not being NixOS

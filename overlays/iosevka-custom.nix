@@ -1,4 +1,4 @@
-self: super:
+final: super:
 
 {
   iosevka-custom = (super.iosevka.override {

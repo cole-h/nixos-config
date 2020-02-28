@@ -13,5 +13,6 @@
     # ./gpg.nix # GPG config
     # ./weechat.nix # weechat config
     # ./mpd.nix # mpd config
+    # ./rust.nix # rust-related
   ];
 }

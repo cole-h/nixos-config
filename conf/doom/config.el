@@ -170,6 +170,8 @@ If PEEK is non-nil, keep focus in status buffer window."
    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
                     :major-modes '(nix-mode)
                     :server-id 'nix)))
+(after! centaur-tabs
+  (setq centaur-tabs-cycle-scope 'tabs))
 
 ;; map! and friends
 ;; (map! :n "u" #'undo-fu-only-undo)

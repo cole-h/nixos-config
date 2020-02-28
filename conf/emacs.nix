@@ -1,13 +1,16 @@
 { config, pkgs, ... }:
 
-let doom = pkgs.doom-emacs;
-in {
+{
   # Emacs 27+ supports the XDG Base Directory specification, so drop doom into
   # $XDG_CONFIG_HOME/emacs
-  xdg.configFile."emacs".source = "${doom}/share/doom-emacs";
+  xdg.configFile."emacs".source = "${pkgs.doom-emacs}/share/doom-emacs";
 
   home = {
-    packages = [ doom ];
+    packages = with pkgs; [
+      doom-emacs
+      emacsGit # from emacs-overlay [overlays]
+    ];
+
     sessionVariables = {
       # Separate doom-emacs and its local things so updating doesn't wipe out
       # straight packages and such.

@@ -18,6 +18,7 @@
   home = {
     extraOutputsToInstall = [ "man" ];
 
+    # TODO: a lot of these should go in system packages once I switch to NixOS
     packages = with pkgs; [
       ## nix-related
       nix # adds nix.sh to .nix-profile/etc/profile.d
@@ -49,10 +50,12 @@
       ffsend
       gitAndTools.delta # TODO: remove me when I enable the git conf
 
+      # TODO: go through fish history and make a note of binaries
+      #   general purpose binaries (like above) should probably go into system packages
+
       # evince
       # gdb
       # lldb
-
       # need cups for printing, etc.; gutenprint + canon-pixma-m920-complete (aur)
       # need ntfs-3g + fuse for mounting NTFS
       # TODO: package qimgv
@@ -67,14 +70,13 @@
       # borg-backup (maybe restic? but it doesn't have compression yet)
       # ccls
       # wireguard
-      # qemu + libvirt + ovmf + virt-manager
+      # qemu + libvirt + ovmf + virt-manager (vfio)
 
       # lsof
       # jq
 
       ## misc
       chatterino2 # Twitch chat client [overlays]
-      emacsGit # from emacs-overlay [overlays]
     ];
 
     activation = with lib; {
@@ -84,7 +86,8 @@
         fontsdir="$HOME/.nix-profile/share/fonts"
 
         for dirname in $fontsdir/*; do
-          $DRY_RUN_CMD unlink ${config.xdg.dataHome}/fonts/$(basename $dirname) || true
+          $DRY_RUN_CMD unlink ${config.xdg.dataHome}/fonts/$(basename $dirname) \
+              || true
         done
       '';
 

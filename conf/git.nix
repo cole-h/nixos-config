@@ -1,9 +1,9 @@
+# TODO: git-crypt, vault, transcrypt
 { config, pkgs, ... }:
 
-let delta = pkgs.gitAndTools.delta;
-in {
+{
   home = {
-    packages = [ delta ];
+    packages = [ pkgs.gitAndTools.delta ];
     file.".gitexclude".text = ".gdb_history";
   };
 
@@ -31,7 +31,7 @@ in {
 
       core = {
         excludesfile = "${config.xdg.configHome}/git/gitexcludes";
-        pager = "${delta}/bin/delta --dark --width=variable";
+        pager = "${pkgs.gitAndTools.delta}/bin/delta --dark --width=variable";
       };
 
       url = {
