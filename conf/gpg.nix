@@ -71,7 +71,10 @@ in {
     maxCacheTtlSsh = 86400;
     pinentryFlavor = null; # I use my own pinentry script :)
     sshKeys = [
+      # GPG Auth subkey
       "83818B85C21D07A75D8BC0A09840E3B10F0BC4E7"
+
+      # RSA key
       "ECD05CCB74C478364F6C42E7ADDF04E1BFC5F6A6"
     ];
     verbose = true;

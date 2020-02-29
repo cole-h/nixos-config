@@ -8,11 +8,12 @@
     ./fonts.nix # contains fonts to import
     ./emacs.nix # doom-emacs setup
     ./neovim.nix # neovim config
+    ./git # git config
     # TODO: activate
-    # ./git.nix # git config
+    # ./wayland # sway, etc config
     # ./gpg.nix # GPG config
     # ./weechat.nix # weechat config
     # ./mpd.nix # mpd config
-    # ./rust.nix # rust-related
+    # ./rust # rust-related
   ];
 }

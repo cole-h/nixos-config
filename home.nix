@@ -21,14 +21,15 @@
     # TODO: a lot of these should go in system packages once I switch to NixOS
     packages = with pkgs; [
       ## nix-related
-      nix # adds nix.sh to .nix-profile/etc/profile.d
-      nix-index
-      nixfmt
       cachix
-      nixpkgs-fmt
-      niv
-      nox
       direnv
+      niv
+      nix # adds nix.sh to .nix-profile/etc/profile.d
+      nixfmt
+      nix-index
+      nixpkgs-fmt
+      nix-top
+      nox
 
       glibcLocales # to deal with locale issues on non-NixOS
 
@@ -73,7 +74,6 @@
       # qemu + libvirt + ovmf + virt-manager (vfio)
 
       # lsof
-      # jq
 
       ## misc
       chatterino2 # Twitch chat client [overlays]

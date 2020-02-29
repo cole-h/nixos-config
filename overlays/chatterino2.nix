@@ -1,10 +1,11 @@
 final: super:
+with super;
 
 {
-  chatterino2 = super.chatterino2.overrideAttrs (old: rec {
+  chatterino2 = chatterino2.overrideAttrs (old: rec {
     version = "2.1.7";
 
-    src = super.fetchFromGitHub {
+    src = fetchFromGitHub {
       owner = "Chatterino";
       repo = old.pname;
       rev = "v${version}";
@@ -13,9 +14,9 @@ final: super:
     };
 
     # NOTE: creates files in ~/.local/share/.chatterino-wrapped (or similar) now
-    buildInputs = with super; old.buildInputs ++ [ makeWrapper ];
+    buildInputs = old.buildInputs ++ [ makeWrapper ];
 
-    postInstall = ''
+    postInstall = old.postInstall or "" + ''
       wrapProgram $out/bin/chatterino \
         --set QT_XCB_FORCE_SOFTWARE_OPENGL 1 \
         --set QT_QPA_PLATFORM xcb

@@ -18,4 +18,6 @@
     hyperfine
     mdbook
   ];
+
+  home.file.".cargo/credentials".source = ./cargo-credentials;
 }

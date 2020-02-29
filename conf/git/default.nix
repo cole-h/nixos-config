@@ -1,15 +1,28 @@
-# TODO: git-crypt, vault, transcrypt
 { config, pkgs, ... }:
 
 {
   home = {
-    packages = [ pkgs.gitAndTools.delta ];
-    file.".gitexclude".text = ".gdb_history";
+    packages = with pkgs; [
+      gitAndTools.delta # better looking diffs
+      git-crypt # store secrets [overlays]
+    ];
+
+    # file.".gitexclude".text = ''
+    #   .gdb_history
+    # '';
   };
 
-  programs.git = {
+  xdg.configFile = {
+    "git/gitauth.inc".source = ./gitauth.inc;
+    # "git/gitexcludes".text = ''
+    "git/ignore".text = ''
+      .gdb_history
+    '';
+  };
+
+  programs.git = with pkgs; {
     enable = true;
-    package = pkgs.gitAndTools.gitFull;
+    package = gitAndTools.gitFull;
 
     userEmail = "cole.e.helbling@outlook.com";
     userName = "Cole Helbling";
@@ -27,18 +40,16 @@
       git.autocrlf = "input";
       tag.forceSignAnnotated = true;
 
-      diff."nodiff".command = "${pkgs.coreutils}/bin/true";
+      diff."nodiff".command = "${coreutils}/bin/true";
 
       core = {
-        excludesfile = "${config.xdg.configHome}/git/gitexcludes";
-        pager = "${pkgs.gitAndTools.delta}/bin/delta --dark --width=variable";
+        # excludesfile = "${config.xdg.configHome}/git/gitexcludes";
+        pager = "${gitAndTools.delta}/bin/delta --dark --width=variable";
       };
 
       url = {
         "https://github.com/".insteadOf = ''"gh:"'';
         "ssh://git@github.com".pushInsteadOf = ''"gh:"'';
-        # "https://aur.archlinux.org/".insteadOf = "aur:";
-        # "ssh://aur@aur.archlinux.org/".pushInsteadOf = "aur:";
       };
     };
   };
