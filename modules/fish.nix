@@ -1,12 +1,11 @@
 { config, lib, pkgs, ... }:
 
-let cgitcAbbrs = (pkgs.callPackage ../pkgs/fish/cgitc.nix { }).abbrs;
+let cgitcAbbrs = (pkgs.callPackage ../drvs/fish/cgitc.nix { }).abbrs;
 in {
   programs.fish = {
     enable = true;
 
     plugins = [
-      # sha256 = "0000000000000000000000000000000000000000000000000000";
       {
         # allows nix and home-manager to work properly on expatriate systems
         name = "nix-env.fish";
@@ -38,27 +37,23 @@ in {
     ];
 
     functions = {
+      __fish_command_not_found_handler = {
+        body = "__fish_default_command_not_found_handler $argv[1]";
+        onEvent = "fish_command_not_found";
+      };
       emacs_start_daemon = ''
         emacsclient --no-wait --eval '(ignore)' >/dev/null 2>/dev/null \
-          || env GDK_BACKEND=x11 emacs --bg-daemon >/dev/null 2>/dev/null &
+            || env GDK_BACKEND=x11 emacs --bg-daemon >/dev/null 2>/dev/null &
 
         # for some reason, starting the daemon can "error" (but still starts
-        # Emacs), so reset the exit code to 0
+        # Emacs), so reset the exit code
         true
       '';
       emacs = "env GDK_BACKEND=x11 emacs $argv";
-
-      # TODO: hack on home-manager to allow event handlers
-      #   maybe func = { event = "someevent"; body = "func_body"; };
-      # TODO:
-      # function __fish_command_not_found_handler --on-event fish_command_not_found
-      #   __fish_default_command_not_found_handler $argv[1]
-      # end
       nix-locate = "command nix-locate --top-level $argv";
-
       cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
       mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
-      std = "rustup doc --std"; # TODO: nix-ify
+      std = "rustup doc --std";
       t = "todo.sh $argv";
       win10 = "sudo virsh start windows10";
       "..." = "cd ../..";
@@ -76,6 +71,7 @@ in {
       vi = "nvim";
       vim = "nvim";
       weechat = "screen -d -r weechat"; # TODO: nix-ify weechat installation
+      "cd.." = "cd ..";
     } // cgitcAbbrs;
 
     shellInit = ''
@@ -102,6 +98,12 @@ in {
 
       # Set PATH without actually modifying PATH
       set --global --append fish_user_paths $CARGO_HOME/bin $DEVKITPRO/tools/bin $HOME/.local/bin/ $GOPATH/bin
+
+      # Add local conf and local nixpkgs to NIX_PATH
+      # This deduplicates disk space (why use a channel when I have a local repo
+      #   -- waste of bandwidth and disk space)
+      set --global --append NIX_PATH "vin=${toString ./..}" \
+          "nixpkgs=${toString ~/workspace/vcs/nixpkgs}"
     '';
 
     promptInit = ''
@@ -143,8 +145,8 @@ in {
 
       # GPG configuration
       set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
-      set --global --export SSH_AUTH_SOCK /run/user/(${pkgs.coreutils}/bin/id -u)/gnupg/S.gpg-agent.ssh
-      set --global --export GPG_TTY (${pkgs.coreutils}/bin/tty)
+      set --global --export SSH_AUTH_SOCK /run/user/(id -u)/gnupg/S.gpg-agent.ssh
+      set --global --export GPG_TTY (tty)
       gpg-connect-agent updatestartuptty /bye >/dev/null &
       # ''${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye >/dev/null &
 
@@ -157,41 +159,17 @@ in {
           ''"/etc/fonts/fonts.conf"''
       }
 
-      set --global --export --prepend LD_LIBRARY_PATH (rustc +nightly --print sysroot)"/lib"
-      set --global --export RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
-      # set --global --export RUSTFLAGS "-C link-arg=-fuse-ld=lld" # TODO: use lorri + direnv for this
+      # Rust stuff
+      if command -q rustc
+        set --global --export --prepend LD_LIBRARY_PATH (rustc +nightly --print sysroot)"/lib"
+        set --global --export RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
+      end
 
       eval (${pkgs.direnv}/bin/direnv hook fish) &
 
       emacs_start_daemon &
       t ls
       printf '\n'
-
-      # I don't even remember where I got these from, but these are colors that
-      # complement gruvbox dark hard
-      # set --universal fish_color_autosuggestion afafaf
-      # set --universal fish_color_cancel normal
-      # set --universal fish_color_command 87d75f
-      # set --universal fish_color_comment afafaf
-      # set --universal fish_color_cwd 008000
-      # set --universal fish_color_cwd_root 800000
-      # set --universal fish_color_end afafaf
-      # set --universal fish_color_error ff0000
-      # set --universal fish_color_escape 00a6b2
-      # set --universal fish_color_history_current normal
-      # set --universal fish_color_host normal
-      # set --universal fish_color_host_remote yellow
-      # set --universal fish_color_match normal
-      # set --universal fish_color_normal normal
-      # set --universal fish_color_operator 00a6b2
-      # set --universal fish_color_param 5fd7d7
-      # set --universal fish_color_quote d78700
-      # set --universal fish_color_redirection afafaf
-      # set --universal fish_color_search_match ffff00
-      # set --universal fish_color_selection c0c0c0
-      # set --universal fish_color_status red
-      # set --universal fish_color_user 00ff00
-      # set --universal fish_color_valid_path --underline
 
       # Themed man output
       # from http://linuxtidbits.wordpress.com/2009/03/23/less-colors-for-man-pages/

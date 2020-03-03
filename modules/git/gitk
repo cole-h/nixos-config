@@ -1,0 +1,63 @@
+set mainfont {{SF Pro Text} 10}
+set textfont {{JetBrains Mono} 10}
+set uifont {{SF Pro Display} 10 bold}
+set tabstop 8
+set findmergefiles 0
+set maxgraphpct 50
+set maxwidth 16
+set cmitmode patch
+set wrapcomment none
+set autoselect 1
+set autosellen 40
+set showneartags 1
+set maxrefs 20
+set visiblerefs {"master"}
+set hideremotes 0
+set showlocalchanges 1
+set datetimeformat {%Y-%m-%d %H:%M:%S}
+set limitdiffs 1
+set uicolor #44475a
+set want_ttk 0
+set bgcolor #282a36
+set fgcolor #f8f8f2
+set uifgcolor #f8f8f2
+set uifgdisabledcolor #6272a4
+set colors {#50fa7b #ff5555 #bd93f9 #ff79c6 #f8f8f8 #ffb86c #ffb86c}
+set diffcolors {#ff5555 #50fa7b #bd93f9}
+set mergecolors {#ff5555 #bd93f9 #50fa7b #bd93f9 #ffb86c #8be9fd #ff79c6 #f1fa8c #8be9fd #ff79c6 #8be9fd #ffb86c #8be9fd #50fa7b #ffb86c #ff79c6}
+set markbgcolor #282a36
+set diffcontext 3
+set selectbgcolor #44475a
+set foundbgcolor #f1fa8c
+set currentsearchhitbgcolor #ffb86c
+set extdifftool meld
+set perfile_attrs 0
+set headbgcolor #50fa7b
+set headfgcolor black
+set headoutlinecolor #f8f8f2
+set remotebgcolor #ffb86c
+set tagbgcolor #f1fa8c
+set tagfgcolor black
+set tagoutlinecolor #f8f8f2
+set reflinecolor #f8f8f2
+set filesepbgcolor #44475a
+set filesepfgcolor #f8f8f2
+set linehoverbgcolor #f1fa8c
+set linehoverfgcolor black
+set linehoveroutlinecolor #f8f8f2
+set mainheadcirclecolor #f1fa8c
+set workingfilescirclecolor #ff5555
+set indexcirclecolor #50fa7b
+set circlecolors {#282a36 #bd93f9 #44475a #bd93f9 #bd93f9}
+set linkfgcolor #bd93f9
+set circleoutlinecolor #44475a
+set web_browser xdg-open
+set geometry(main) 1351x752+2204+163
+set geometry(state) normal
+set geometry(topwidth) 1349
+set geometry(topheight) 255
+set geometry(pwsash0) "479 1"
+set geometry(pwsash1) "719 1"
+set geometry(botwidth) 1331
+set geometry(botheight) 485
+set permviews {}

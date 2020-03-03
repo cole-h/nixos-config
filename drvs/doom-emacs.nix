@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "doom-emacs";
-  version = "git-20200224";
+  version = "git";
 
   src = ./doom-emacs; # submodule :)
 

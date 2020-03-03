@@ -64,7 +64,8 @@ in {
   services.gpg-agent = {
     enable = true;
 
-    # enableSshSupport = true; # TODO: why did I have this disabled in my original config
+    # TODO: why did I have this disabled in my original config
+    enableSshSupport = true;
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 86400;
     maxCacheTtl = 7200;

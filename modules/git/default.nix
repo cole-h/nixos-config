@@ -1,20 +1,33 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-{
+let
+  gitk = pkgs.writeText "gitk" (builtins.readFile (pkgs.fetchFromGitHub {
+    owner = "dracula";
+    repo = "gitk";
+    rev = "b98afab830d49803e14b44ce330e3390360c7cd2";
+    sha256 = "1cmirzrvk9y5n2yxjl7ghjspdpk4xqjx3in546prqjcfg7dl27ss";
+  } + "/gitk") + ''
+    set mainfont {{SF Pro Text} 10}
+    set textfont {{JetBrains Mono} 10}
+    set uifont {{SF Pro Display} 10 bold}
+  '');
+in {
   home = {
     packages = with pkgs; [
       gitAndTools.delta # better looking diffs
       git-crypt # store secrets [overlays]
     ];
 
-    # file.".gitexclude".text = ''
-    #   .gdb_history
-    # '';
+    activation = with lib; {
+      gitk = hm.dag.entryAfter [ "writeBoundary" ] ''
+        ln -sf ${gitk} $HOME/.config/git/gitk
+      '';
+    };
   };
 
   xdg.configFile = {
     "git/gitauth.inc".source = ./gitauth.inc;
-    # "git/gitexcludes".text = ''
+
     "git/ignore".text = ''
       .gdb_history
     '';
@@ -43,7 +56,6 @@
       diff."nodiff".command = "${coreutils}/bin/true";
 
       core = {
-        # excludesfile = "${config.xdg.configHome}/git/gitexcludes";
         pager = "${gitAndTools.delta}/bin/delta --dark --width=variable";
       };
 

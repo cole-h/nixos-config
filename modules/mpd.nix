@@ -1,16 +1,21 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = [ pkgs.cantata ];
-  # TODO
-  # cantata
+  home.packages = with pkgs; [
+    cantata # gui
+    ncmpcpp # tui
+  ];
+
+  # TODO: cantata settings maybe?
   services.mpd = rec {
     enable = true;
+
     dataDir = "${config.xdg.configHome}/mpd";
     musicDirectory = "${config.home.homeDirectory}/Music";
     playlistDirectory = "${dataDir}/playlists";
     dbFile = "${dataDir}/database";
     network.listenAddress = "127.0.0.1";
+
     extraConfig = ''
       log_file "${dataDir}/log"
       pid_file "${dataDir}/pid"
@@ -39,6 +44,7 @@
   };
 
   systemd.user.services.mpd = {
+    Unit = { Documentation = "man:mpd(1) man:mpd.conf(5)"; };
     Service = {
       # allow MPD to use real-time priority 50
       LimitRTPRIO = 50;
@@ -51,6 +57,8 @@
       # AF_NETLINK is required by libsmbclient, or it will exit() .. *sigh*
       RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX AF_NETLINK";
       RestrictNamespaces = "yes";
+      # The logfile can grow large... After ~5 months, it was roughly 1.5GiB
+      ExecStopPost = "echo > ${config.services.mpd.dataDir}/log";
     };
   };
 }

@@ -1,4 +1,4 @@
-[submodule "pkgs/doom-emacs"]
-    path = pkgs/doom-emacs
+[submodule "drvs/doom-emacs"]
+    path = drvs/doom-emacs
     url = https://github.com/hlissner/doom-emacs.git
     branch = develop

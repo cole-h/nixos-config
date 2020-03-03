@@ -1,0 +1,5 @@
+# ensure gitattributes doesn't accidentally get encrypted
+.gitattributes !filter !diff
+
+modules/git/gitauth.inc filter=git-crypt diff=git-crypt
+modules/rust/cargo-credentials filter=git-crypt diff=git-crypt

@@ -1,3 +1,3 @@
 # dotfiles
 
-TODO: stuff here
+TODO: firefox using nixpkgs-mozilla

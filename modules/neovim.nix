@@ -4,6 +4,10 @@
   programs.neovim = {
     enable = true;
 
+    withPython = false;
+    withRuby = false;
+    withPython3 = false;
+
     plugins = with pkgs.vimPlugins; [
       # Actual plugins
       vim-fugitive

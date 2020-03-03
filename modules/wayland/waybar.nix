@@ -1,19 +1,20 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  home.packages = with pkgs; [ waybar ];
+
   xdg.configFile = {
     "waybar/style.css".text = ''
       * {
           border: none;
           border-radius: 0;
-          font-family: "Inter V", Helvetica, Arial, sans-serif;
-          font-size: 14px;
+          font-family: "SF Display", Helvetica, Arial, sans-serif;
+          font-size: 15px;
           min-height: 0;
       }
 
       window#waybar {
-          /* background: #222222; */ /* onedark bg */
-          background: #1d2021; /* gruvbox dark bg */
+          background: #282a36;
           color: #CCC;
       }
 
@@ -26,16 +27,16 @@
       }
 
       #workspaces button.focused {
-          background: #1d2021; /* gruvbox dark bg */
+          background: #282a36; /* dracula bg */
           border-bottom: 2px solid #BBBBBB;
       }
 
       #mode {
-          background: #fbf1c7; /* gruvbox light bg */
-          color: #1d2021; /* gruvbox dark text */
+          background: #f8f8f2; /* dracula fg */
+          color: #282a36; /* dracula bg */
       }
 
-      #clock, #battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-spotify, #tray, #mode, #idle_inhibitor {
+      #clock, #pulseaudio, #tray, #mode {
           padding: 0 7px;
       }
 
@@ -43,16 +44,8 @@
           padding: 0 7px;
       }
 
-      #custom-nowplaying {
-          padding: 0 7px;
-      }
-
       #mpd {
           padding: 0 7px;
-      }
-
-      #idle_inhibitor.deactivated {
-          color: #888;
       }
     '';
 
@@ -64,7 +57,9 @@
               "sway/workspaces",
               "sway/mode"
           ],
-          "modules-center": ["sway/window"],
+          "modules-center": [
+              "sway/window"
+          ],
           "modules-right": [
               "mpd",
               "pulseaudio",
@@ -86,7 +81,7 @@
               "spacing": 10
           },
           "clock": {
-              "format": "{:%d %B %G %R}",
+              "format": "{:%d %B %G %T}",
               "tooltip": false,
               "interval": 1
           },
@@ -94,7 +89,6 @@
               "tooltip": false,
               "format": "{volume}%",
               "format-muted": "MUTED",
-              // TODO: maybe replace with pkgs.pavucontrol?
               "on-click": "pavucontrol"
           },
           "mpd": {
@@ -107,7 +101,6 @@
               "unknown-tag": "N/A",
               "server": "localhost",
               "port": 6600,
-              // TODO: maybe replace with pkgs.pavucontrol?
               "on-click": "cantata",
               "state-icons": {
                   "paused": "||",

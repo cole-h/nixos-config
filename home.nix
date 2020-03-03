@@ -1,19 +1,16 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./conf ];
+  imports = [ ./modules ];
 
   programs = {
-    # only for non-NixOS -- otherwise complains about locale
-    man.enable = false;
-
     home-manager = {
       enable = true;
       path = "$HOME/workspace/git/home-manager";
     };
   };
 
-  # xdg.enable = true;
+  xdg.enable = true;
 
   home = {
     extraOutputsToInstall = [ "man" ];
@@ -31,7 +28,7 @@
       nix-top
       nox
 
-      glibcLocales # to deal with locale issues on non-NixOS
+      # glibcLocales # to deal with locale issues on non-NixOS
 
       ## system-related
       # musl
@@ -49,7 +46,7 @@
       tokei
       ytop
       ffsend
-      gitAndTools.delta # TODO: remove me when I enable the git conf
+      qimgv
 
       # TODO: go through fish history and make a note of binaries
       #   general purpose binaries (like above) should probably go into system packages
@@ -59,14 +56,13 @@
       # lldb
       # need cups for printing, etc.; gutenprint + canon-pixma-m920-complete (aur)
       # need ntfs-3g + fuse for mounting NTFS
-      # TODO: package qimgv
       # libguestfs, libguestfs-tools, libiscis -- for vfio iSCSI
       # android stuff
       # pulseaudio + alsa + jack + cadence, cantata + mpd
       # syncthing
       # texlive-core, texlive-most, texlive, auctex -- LaTeX stuff
       # libreoffice
-      # sonarr, radarr, rtorrent + rutorrent
+      # sonarr, radarr, rtorrent + rutorrent (or deluge, or qbittorrent...)
       # strace
       # borg-backup (maybe restic? but it doesn't have compression yet)
       # ccls
@@ -80,30 +76,18 @@
     ];
 
     activation = with lib; {
-      # There is no automatic cleanup for user-defined activation scripts, so I
-      # have to take care of that myself.
-      cleanFonts = hm.dag.entryAfter [ "writeBoundary" ] ''
-        fontsdir="$HOME/.nix-profile/share/fonts"
-
-        for dirname in $fontsdir/*; do
-          $DRY_RUN_CMD unlink ${config.xdg.dataHome}/fonts/$(basename $dirname) \
-              || true
-        done
-      '';
-
       # Some software requires fonts to be present in $XDG_DATA_HOME/fonts in
       # order to use/see them (like Emacs), so we just link to them.
-      setupFonts = hm.dag.entryAfter [ "cleanFonts" ] ''
+      setupFonts = hm.dag.entryAfter [ "writeBoundary" ] ''
         fontsdir="$HOME/.nix-profile/share/fonts"
 
-        $DRY_RUN_CMD ln -s $VERBOSE_ARG \
+        $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
             $fontsdir/* ${config.xdg.dataHome}/fonts
       '';
     };
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
-    # otherwise, when `home-manager switch`ing, the new sessionVariables won't
-    # be sourced
+    # otherwise the new sessionVariables won't be sourced in new shells
     sessionVariables = {
       # solve locale issues on non-NixOS
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";

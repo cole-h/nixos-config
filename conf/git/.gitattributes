@@ -1,2 +1,0 @@
-.gitattributes !filter !diff
-gitauth.inc filter=git-crypt diff=git-crypt
