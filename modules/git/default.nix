@@ -20,7 +20,9 @@ in {
 
     activation = with lib; {
       gitk = hm.dag.entryAfter [ "writeBoundary" ] ''
-        ln -sf ${gitk} $HOME/.config/git/gitk
+        $DRY_RUN_CMD unlink ${config.home.homeDirectory}/.config/git/gitk || true
+        $DRY_RUN_CMD ln -s $VERBOSE_ARG \
+          ${gitk} ${config.home.homeDirectory}/.config/git/gitk
       '';
     };
   };

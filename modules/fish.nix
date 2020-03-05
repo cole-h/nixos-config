@@ -70,7 +70,8 @@ in {
       tree = "exa -T";
       vi = "nvim";
       vim = "nvim";
-      weechat = "screen -d -r weechat"; # TODO: nix-ify weechat installation
+      weechat = "tmux -L weechat attach"; # TODO: nix-ify weechat installation
+      # weechat = "screen -d -r weechat";
       "cd.." = "cd ..";
     } // cgitcAbbrs;
 

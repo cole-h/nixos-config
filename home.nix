@@ -6,7 +6,7 @@
   programs = {
     home-manager = {
       enable = true;
-      path = "$HOME/workspace/git/home-manager";
+      path = "$HOME/workspace/vcs/home-manager";
     };
   };
 
@@ -79,8 +79,10 @@
       # Some software requires fonts to be present in $XDG_DATA_HOME/fonts in
       # order to use/see them (like Emacs), so we just link to them.
       setupFonts = hm.dag.entryAfter [ "writeBoundary" ] ''
-        fontsdir="$HOME/.nix-profile/share/fonts"
+        fontsdir="${config.home.homeDirectory}/.nix-profile/share/fonts"
 
+        # force necessary because of the many different fonts in colliding
+        # directories
         $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
             $fontsdir/* ${config.xdg.dataHome}/fonts
       '';

@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "e2c6271ea37cbaf9da873d3758e14f389b22602d",
-        "sha256": "0bb8zj8iiv5rlfz9zykfhcvdmqg7vpw78bk0qpjj133snkgj9lz0",
+        "rev": "baf7bd768486a1e79ae512fb49c9302a8dd2a25f",
+        "sha256": "1k93faalsm7vb3al2pr53nng1zfn84cvv31qa05acf7rd2npbp5a",
         "type": "tarball",
-        "url": "https://github.com/nix-community/emacs-overlay/archive/e2c6271ea37cbaf9da873d3758e14f389b22602d.tar.gz",
+        "url": "https://github.com/nix-community/emacs-overlay/archive/baf7bd768486a1e79ae512fb49c9302a8dd2a25f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -33,6 +33,18 @@
         "sha256": "08fvzb8w80bkkabc1iyhzd15f4sm7ra10jn32kfch5klgl0gj3j3",
         "type": "tarball",
         "url": "https://github.com/mozilla/nixpkgs-mozilla/archive/e912ed483e980dfb4666ae0ed17845c4220e5e7c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs-wayland": {
+        "branch": "master",
+        "description": "Automated, pre-built packages for Wayland (sway/wlroots) tools for NixOS.",
+        "homepage": "",
+        "owner": "colemickens",
+        "repo": "nixpkgs-wayland",
+        "rev": "6da23712811868febe621edb6c4e5ae5b79d9702",
+        "sha256": "0v1myjyvx2c15kxilg2w815ap7197f5z8l2qc4vy6kl5dlmj6frk",
+        "type": "tarball",
+        "url": "https://github.com/colemickens/nixpkgs-wayland/archive/6da23712811868febe621edb6c4e5ae5b79d9702.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

@@ -109,22 +109,6 @@ in {
 
         Install.WantedBy = [ "sway-session.target" ];
       };
-
-      # mako
-      mako = {
-        Unit = {
-          Description = "A lightweight Wayland notification daemon";
-          Documentation = "man:mako(1)";
-          PartOf = [ "graphical-session.target" ];
-        };
-
-        Service = {
-          Type = "simple";
-          ExecStart = "${pkgs.mako}/bin/mako --default-timeout 3000";
-        };
-
-        Install.WantedBy = [ "sway-session.target" ];
-      };
     };
   };
 }

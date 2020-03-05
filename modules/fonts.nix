@@ -6,7 +6,8 @@
   home.packages = with pkgs; [
     fontconfig # needed for fc-{match,cache,list} binaries
 
-    noto-fonts-emoji # emoji font
+    emojione
+    # noto-fonts-emoji # emoji font
     # noto-fonts-cjk # JP font
     iosevka-custom # code font [overlays]
     sarasa-gothic # Iosevka, but Eastern [pkgs]

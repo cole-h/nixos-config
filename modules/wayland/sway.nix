@@ -26,6 +26,7 @@ in {
 
   wayland.windowManager.sway = {
     enable = true;
+    package = pkgs.sway;
 
     config = {
       output = {
@@ -292,16 +293,17 @@ in {
                 | echo $(</dev/stdin).jpg | tee -a ~/pasters.log \
                 | wl-copy --trim-newline; mode default'';
           # capture the specified screen area to clipboard
-          "Shift+a" = ''exec grim -g "$(slurp)" - | wl-copy -t image/png'';
+          "Shift+a" =
+            ''exec grim -g "$(slurp)" - | wl-copy -t image/png; mode default'';
           # capture the focused monitor to clipboard
           "Shift+m" = ''
             exec grim -o $(swaymsg -t get_outputs \
-                | jq -r '.[] | select(.focused) | .name') - | wl-copy -t image/png'';
+                | jq -r '.[] | select(.focused) | .name') - | wl-copy -t image/png; mode default'';
           # capture the focused window to clipboard
           "Shift+w" = ''
             exec swaymsg -t get_tree \
                 | jq -r '.. | (.nodes? // empty)[] | if (.pid and .focused) then select(.pid and .focused) | .rect | "(.x),(.y) (.width)x(.height)" else (.floating_nodes? // empty)[] | select(.pid and .visible) | .rect | "(.x),(.y) (.width)x(.height)" end' \
-                | grim -g - - | wl-copy -t image/png'';
+                | grim -g - - | wl-copy -t image/png; mode default'';
           # return to default mode
           Escape = "mode default";
           Return = "mode default";
