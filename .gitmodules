@@ -2,3 +2,7 @@
     path = drvs/doom-emacs
     url = https://github.com/hlissner/doom-emacs.git
     branch = develop
+[submodule "secrets"]
+    path = secrets
+    url = git@github.com:cole-h/nix-secrets.git
+    branch = master

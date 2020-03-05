@@ -6,7 +6,13 @@ result*
 *~
 *.~undo-tree
 
+*.gz
+*.pem
+*.log
+
 ### Misc ###
 # removes doom-emacs TODOs from my todo list in emacs :)
 pkgs/doom-emacs
 modules/weechat/weechat-conf/xfer
+modules/weechat/weechat-conf/logs
+modules/weechat/weechat-conf/urlserver_list.txt
