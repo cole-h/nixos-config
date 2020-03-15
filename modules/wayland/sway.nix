@@ -357,89 +357,92 @@ in
         };
       };
 
-      window.commands = [
-        {
-          criteria = { app_id = "firefox"; };
-          command = "inhibit_idle fullscreen, layout tabbed";
-        }
-        {
-          criteria = { class = "cantata"; };
-          command = "floating enable, border none";
-        }
-        {
-          criteria = { app_id = "pavucontrol"; };
-          command = "floating enable";
-        }
-        {
-          criteria = { app_id = "mpv"; };
-          command =
-            "border none, resize set width 1520 px height 1030 px, move left, inhibit_idle visible";
-        }
-        {
-          criteria = {
-            title = "^Emotes.*";
-            class = "chatterino";
-          };
-          command = "floating enable";
-        }
-        {
-          criteria = {
-            title = "^Chatterino Settings$";
-            class = "chatterino";
-          };
-          command = "floating enable";
-        }
-        {
-          criteria = { app_id = "python3"; };
-          command = "floating enable";
-          # command = "floating enable, border none";
-        }
-        {
-          criteria = { app_id = "Alacritty"; };
-          command = "border pixel 2";
-        }
-        {
-          criteria = { app_id = "kitty"; };
-          command = "border pixel 2";
-        }
-        {
-          criteria = { instance = "emacs"; };
-          command = "border pixel 2";
-        }
-        {
-          criteria = { app_id = "emacs"; };
-          command = "border pixel 2";
-        }
-        {
-          criteria = { app_id = "org.qutebrowser.qutebrowser"; };
-          command = "border none";
-        }
-        {
-          criteria = { instance = "rofi"; };
-          command = "floating enable, border none";
-        }
-        {
-          criteria = {
-            app_id = "firefox";
-            title = "Picture-in-Picture";
-          };
-          command = "floating enable, move position 877 450, sticky enable";
-        }
-        {
-          criteria = { workspace = "10"; };
-          command = "floating enable";
-        }
-        {
-          criteria = { app_id = "SCRATCHTERM"; };
-          command = "move scratchpad, border pixel, opacity 0.95, sticky enable";
-        }
-        # set opacity to 0 so that we don't see the flicker as a result of being
-        # unable to specify alacritty's size in pixels
-        {
-          criteria = { app_id = "drawfloat"; };
-          command = "floating enable, border pixel, opacity 0";
-        }
-      ];
+      window = {
+        titlebar = true;
+
+        commands = [
+          {
+            criteria = { app_id = "firefox"; };
+            command = "inhibit_idle fullscreen, layout tabbed";
+          }
+          {
+            criteria = { class = "cantata"; };
+            command = "floating enable, border none";
+          }
+          {
+            criteria = { app_id = "pavucontrol"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { app_id = "mpv"; };
+            command =
+              "border none, resize set width 1520 px height 1030 px, move left, inhibit_idle visible";
+          }
+          {
+            criteria = {
+              title = "^Emotes.*";
+              class = "chatterino";
+            };
+            command = "floating enable";
+          }
+          {
+            criteria = {
+              title = "^Chatterino Settings$";
+              class = "chatterino";
+            };
+            command = "floating enable";
+          }
+          {
+            criteria = { app_id = "python3"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { app_id = "Alacritty"; };
+            command = "border pixel 2";
+          }
+          {
+            criteria = { app_id = "kitty"; };
+            command = "border pixel 2";
+          }
+          {
+            criteria = { instance = "emacs"; };
+            command = "border pixel 2";
+          }
+          {
+            criteria = { app_id = "emacs"; };
+            command = "border pixel 2";
+          }
+          {
+            criteria = { app_id = "org.qutebrowser.qutebrowser"; };
+            command = "border none";
+          }
+          {
+            criteria = { instance = "rofi"; };
+            command = "floating enable, border none";
+          }
+          {
+            criteria = {
+              app_id = "firefox";
+              title = "Picture-in-Picture";
+            };
+            command = "floating enable, move position 877 450, sticky enable";
+          }
+          {
+            criteria = { workspace = "10"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { app_id = "SCRATCHTERM"; };
+            command = "move scratchpad, border pixel, opacity 0.95, sticky enable";
+          }
+          # set opacity to 0 so that we don't see the flicker as a result of being
+          # unable to specify alacritty's size in pixels
+          {
+            criteria = { app_id = "drawfloat"; };
+            command = "floating enable, border pixel, opacity 0";
+          }
+        ];
+      };
 
       assigns = {
         "${ws2}" = [
@@ -449,19 +452,9 @@ in
       };
 
       startup = [
-        { command = "alacritty --class SCRATCHTERM"; }
-        # {
-        #   # TODO: make a systemd user service
-        #   command = "${pkgs.mako}/bin/mako"; # --default-timeout 5000";
-        # }
-        # {
-        #   command =
-        #     "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        # }
-        # { command = "sleep 1 && systemctl restart --user redshift"; }
+        { command = "alacritty --class SCRATCHTERM -e tmux -L scratch"; }
       ];
 
-      # bars = [ { command = "${pkgs.waybar}/bin/waybar"; } ];
       bars = [];
     };
 
