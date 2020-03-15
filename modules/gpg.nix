@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }:
-
 let
   my-pinentry = with pkgs;
     writeShellScriptBin "my-pinentry" ''
@@ -18,7 +17,8 @@ let
 
       exec ${pinentry.curses}/bin/pinentry-curses "$@"
     '';
-in {
+in
+{
   home = {
     packages = [ my-pinentry ];
 

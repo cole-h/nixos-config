@@ -41,5 +41,9 @@ with super;
       install -d "$fontdir"
       install dist/$pname/ttf/* "$fontdir"
     '';
+
+    outputHash = "1vn1s12imc1g62hjpdr4k7cl82hdn5jvcb192h31alj57d01pwni";
+    outputHashAlgo = "sha256";
+    outputHashMode = "recursive";
   });
 }

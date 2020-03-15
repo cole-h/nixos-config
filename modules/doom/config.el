@@ -82,7 +82,7 @@
         ;; evil-operator-state-cursor 'evil-half-cursor
         ;; evil-replace-state-cursor '("chocolate" (hbar . 2))
         ;; evil-visual-state-cursor '("gray" (hbar . 2))
-  ))
+        ))
 (after! evil-magit
   (setq evil-magit-use-z-for-folds t))
 (after! evil-escape
@@ -129,8 +129,8 @@
     (forward-line -1)
     (indent-according-to-mode))
   (setq rustic-format-on-save t
-        rustic-lsp-server 'rust-analyzer
-        fill-column 100)
+        rustic-lsp-server 'rust-analyzer)
+  (setq-default fill-column 100)
   (sp-local-pair 'rustic-mode "({" "})" :post-handlers '((smooth-curly-block "RET")))
   (sp-local-pair 'rustic-mode "{" "}" :post-handlers '((curly-space "SPC") (smooth-curly-block "RET"))))
 (after! smartparens
@@ -144,7 +144,7 @@
   (sp-pair "{" "}" :actions :rem)
   ;; remove autoclosing of parentheses unless in elisp
   (sp-pair "(" ")" :actions :rem))
-  ;; (sp-pair "(" ")" :when '(eq major-mode 'emacs-lisp-mode)))
+;; (sp-pair "(" ")" :when '(eq major-mode 'emacs-lisp-mode)))
 ;; (after! base16-theme
 ;;   ;; I don't want any italics/slanted characters in my modeline
 ;;   (custom-set-faces! '(mode-line-emphasis :slant normal)))
@@ -164,12 +164,9 @@ If PEEK is non-nil, keep focus in status buffer window."
         (select-window status-window)))))
 (after! prescient
   (setq ivy-posframe-border-width 1))
-(after! (nix-mode lsp-mode)
-  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                    :major-modes '(nix-mode)
-                    :server-id 'nix)))
+(after! nix-mode
+  (setq nix-nixfmt-bin "nixpkgs-fmt")
+  (set-formatter! 'nixpkgs-fmt "nixpkgs-fmt" :modes '(nix-mode)))
 (after! centaur-tabs
   (setq centaur-tabs-cycle-scope 'tabs))
 

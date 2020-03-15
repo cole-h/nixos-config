@@ -25,11 +25,6 @@
           ${config.xdg.configHome}/weechat 2>/dev/null || true
         $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
           ${toString ./weechat-conf} ${config.xdg.configHome}/weechat
-
-        # $DRY_RUN_CMD unlink \
-        #   ${config.home.homeDirectory}/.weechat 2>/dev/null || true
-        # $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
-        #   ${toString ./weechat-conf} ${config.home.homeDirectory}/.weechat
       '';
     };
   };

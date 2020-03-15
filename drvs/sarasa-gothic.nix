@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     fontdir="$out/share/fonts/truetype"
 
     ${p7zip}/bin/7z x $src -o"$fontdir"
-    # mkfontscale "$fontdir"
+    mkfontscale "$fontdir"
   '';
 
   meta = with stdenv.lib; {

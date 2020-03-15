@@ -1,23 +1,29 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    youtube-dl
+  ];
+
   programs.mpv = {
     enable = true;
 
     config = {
-      watch-later-directory = "${config.xdg.cacheHome}/mpv-watch-later/";
-      osc = "yes";
-      audio-display = "no";
-      mute = "no";
       alang = "jp,jpn,ja,Japanese,japanese,en,eng";
-      slang = "en,eng";
-      screenshot-format = "png";
-      screenshot-directory = "~/Pictures/mpv-screenshots/";
-      gpu-context = "wayland";
-      cache = "yes";
-      cache-secs = 600;
+      audio-display = "no";
       cache-pause = "no";
+      cache-secs = 600;
+      cache = "yes";
+      gpu-context = "wayland";
+      mute = "no";
+      osc = "yes";
+      profile = "gpu-hq";
+      screenshot-directory = "~/Pictures/mpv-screenshots/";
+      screenshot-format = "png";
+      slang = "en,eng";
+      vo = "gpu";
       volume = 75;
+      watch-later-directory = "${config.xdg.cacheHome}/mpv-watch-later/";
     };
 
     bindings = {
@@ -29,7 +35,6 @@
       "Ctrl+a" = "cycle ontop";
       n = "show-text \${file-name}";
       MBTN_LEFT = "cycle pause";
-      # MBTN_LEFT = "ignore";
       MBTN_LEFT_DBL = "cycle fullscreen";
       MBTN_RIGHT = "ignore";
       z = "script-binding Blackbox";
@@ -74,6 +79,7 @@
         sha256 = "14pj50w8yznjp2ac77lb6sfvxw5rkx3vw2pz7w1avfj0xqyhyxax";
       } + "/scripts";
     };
+
     "mpv/scripts/navigator.lua".source = fetchFromGitHub {
       owner = "jonniek";
       repo = "mpv-filenavigator";

@@ -10,7 +10,7 @@
     ./git # git config
     ./weechat # weechat config
     # TODO: activate
-    # ./wayland # sway, etc config
+    ./wayland # sway, etc config
     # ./gpg.nix # GPG config
     # ./rust # rust-related
   ];

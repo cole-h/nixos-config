@@ -147,8 +147,8 @@
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        (java             ; the poster child for carpal tunnel syndrome
-       ;; +lsp
-       ;; +meghanada
+        +lsp
+        +meghanada
        )
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB

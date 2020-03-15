@@ -1,10 +1,79 @@
 { pkgs, ... }:
+let
+  waybar-config = {
+    position = "top"; # Waybar position (top|bottom|left|right);
+    height = 30; # Waybar height;
 
-{
-  home.packages = with pkgs;
-    [
-      waybar # [overlays]
+    modules-left = [
+      "sway/workspaces"
+      "sway/mode"
     ];
+
+    modules-center = [
+      "sway/window"
+    ];
+
+    modules-right = [
+      "mpd"
+      "pulseaudio"
+      "clock"
+      "tray"
+    ];
+
+    # Modules configuration
+    "sway/workspaces" = {
+      disable-scroll = true;
+      all-outputs = false;
+      format = "{name} {icon}";
+
+      format-icons = {
+        urgent = "";
+        focused = "●";
+        default = "○";
+      };
+    };
+
+    tray = {
+      spacing = 10;
+    };
+
+    clock = {
+      format = "{:%d %B %G %T}";
+      tooltip = false;
+      interval = 1;
+    };
+
+    pulseaudio = {
+      tooltip = false;
+      format = "{volume}%";
+      format-muted = "MUTED";
+      on-click = "pavucontrol";
+    };
+
+    mpd = {
+      format = "{stateIcon} {artist} – {title} ♫";
+      format-disconnected = "Disconnected ♫";
+      format-stopped = "Stopped ♫";
+      interval = 1;
+      signal = 1;
+      max-length = 60;
+      unknown-tag = "N/A";
+      server = "localhost";
+      port = 6600;
+      on-click = "${pkgs.cantata}/bin/cantata";
+      tooltip = false;
+
+      state-icons = {
+        paused = "||";
+        playing = ">";
+      };
+    };
+  };
+in
+{
+  home.packages = with pkgs; [
+    waybar # [overlays]
+  ];
 
   xdg.configFile = {
     "waybar/style.css".text = ''
@@ -39,79 +108,11 @@
           color: #282A36; /* dracula bg */
       }
 
-      #clock, #pulseaudio, #tray, #mode {
-          padding: 0 7px;
-      }
-
-      #pulseaudio {
-          padding: 0 7px;
-      }
-
-      #mpd {
+      #clock, #pulseaudio, #tray, #mode, #mpd {
           padding: 0 7px;
       }
     '';
 
-    "waybar/config".text = ''
-      {
-          "position": "top", // Waybar position (top|bottom|left|right)
-          "height": 30, // Waybar height
-          "modules-left": [
-              "sway/workspaces",
-              "sway/mode"
-          ],
-          "modules-center": [
-              "sway/window"
-          ],
-          "modules-right": [
-              "mpd",
-              "pulseaudio",
-              "clock",
-              "tray"
-          ],
-          // Modules configuration
-          "sway/workspaces": {
-              "disable-scroll": true,
-              "all-outputs": false,
-              "format": "{name} {icon}",
-              "format-icons": {
-                  "urgent": "",
-                  "focused": "●",
-                  "default": "○"
-              }
-          },
-          "tray": {
-              "spacing": 10
-          },
-          "clock": {
-              "format": "{:%d %B %G %T}",
-              "tooltip": false,
-              "interval": 1
-          },
-          "pulseaudio": {
-              "tooltip": false,
-              "format": "{volume}%",
-              "format-muted": "MUTED",
-              "on-click": "pavucontrol"
-          },
-          "mpd": {
-              "format": "{stateIcon} {artist} – {title} ♫",
-              "format-disconnected": "Disconnected ♫",
-              "format-stopped": "Stopped ♫",
-              "interval": 1,
-              "signal": 1,
-              "max-length": 60,
-              "unknown-tag": "N/A",
-              "server": "localhost",
-              "port": 6600,
-              "on-click": "cantata",
-              "state-icons": {
-                  "paused": "||",
-                  "playing": ">"
-              },
-              "tooltip": false
-          }
-      }
-    '';
+    "waybar/config".text = builtins.toJSON waybar-config;
   };
 }
