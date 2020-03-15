@@ -1,20 +1,23 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ waybar ];
+  home.packages = with pkgs;
+    [
+      waybar # [overlays]
+    ];
 
   xdg.configFile = {
     "waybar/style.css".text = ''
       * {
           border: none;
           border-radius: 0;
-          font-family: "SF Display", Helvetica, Arial, sans-serif;
-          font-size: 15px;
+          font-family: DejaVu Sans, Roboto, Helvetica, Arial, sans-serif;
+          font-size: 14px;
           min-height: 0;
       }
 
       window#waybar {
-          background: #282a36;
+          background: #282A36;
           color: #CCC;
       }
 
@@ -27,13 +30,13 @@
       }
 
       #workspaces button.focused {
-          background: #282a36; /* dracula bg */
+          background: #282A36; /* dracula bg */
           border-bottom: 2px solid #BBBBBB;
       }
 
       #mode {
-          background: #f8f8f2; /* dracula fg */
-          color: #282a36; /* dracula bg */
+          background: #F8F8F2; /* dracula fg */
+          color: #282A36; /* dracula bg */
       }
 
       #clock, #pulseaudio, #tray, #mode {

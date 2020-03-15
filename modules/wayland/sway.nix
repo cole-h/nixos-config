@@ -1,32 +1,43 @@
 { config, lib, pkgs, ... }:
 
 let
-  # Logo key. Use Mod1 for Alt.
-  mod = "Mod4";
-  meta = "Mod1";
-  # Home row direction keys, like vim
-  up = "k";
-  down = "j";
-  left = "h";
-  right = "l";
-  # Your preferred terminal emulator
   term = toString ~/scripts/alacritty.sh;
   alacritty = "env RUST_BACKTRACE=1 alacritty";
   kitty = "kitty";
-  menu = "rofi -show drun -show-icons -normal-window";
+  menu = ''
+    j4-dmenu-desktop --dmenu="bemenu --grab --ignorecase" \
+        --usage-log=$HOME/.cache/.j4_history
+  '';
+  # menu = "rofi -show drun -show-icons -normal-window";
   wallpaper = toString ./wallpaper.png;
 in {
   home.packages = with pkgs; [
-    mako # nbtifications
-    redshift-wlr # blue-light filter [overlays]
+    mako # notifications
     libnotify
-    grim
-    jq
+    redshift-wlr # blue-light filter [overlays]
+    bemenu # dmenu launcher
+    j4-dmenu-desktop # desktop files
   ];
 
   wayland.windowManager.sway = {
     enable = true;
-    package = pkgs.sway;
+
+    systemdIntegration = true;
+    xwayland = true;
+    wrapperFeatures = { gtk = true; };
+
+    extraSessionCommands = ''
+      export __HM_SESS_VARS_SOURCED= # in order to allow sessionVariables to take effect
+      export NIX_PATH= # so that it doesn't have duplicates
+      export FONTCONFIG_FILE=/etc/fonts/fonts.conf # TODO: probably unnecessary on NixOS
+
+      export SSH_AUTH_SOCK="/run/user/$(id -u)/gnupg/S.gpg-agent.ssh"
+
+      export GDK_BACKEND=wayland
+      # export QT_QPA_PLATFORM=wayland
+      # export SDL_VIDEODRIVER=wayland
+      export _JAVA_AWT_WM_NONREPARENTING=1
+    '';
 
     config = {
       output = {
@@ -49,7 +60,7 @@ in {
         smartGaps = true;
       };
 
-      fonts = [ "SF Pro Display 11" ];
+      fonts = [ "IPAGothic 11" "DejaVu Sans Mono 10" ];
 
       input = {
         "6940:6931:Corsair_Corsair_K70_RGB_Gaming_Keyboard__Keyboard" = {
@@ -68,7 +79,8 @@ in {
       # Despite the name, also works for non-floating windows.
       # Change normal to inverse to use left mouse button for resizing and right
       # mouse button for dragging.
-      floating.modifier = "${mod}";
+      floating.modifier = "Mod4";
+      # floating.modifier = "$mod";
 
       keybindings = {
         "Ctrl+Alt+l" = "exec swaylock -f -i ${wallpaper} --scaling fill";
@@ -86,6 +98,7 @@ in {
         # reload the configuration file
         "$mod+Shift+c" = "reload";
         # open file browser
+        # TODO: add nautilus, also check gsettings I have set
         "$mod+e" = "exec nautilus";
         # open password menu
         "$mod+p" = "exec ~/scripts/passmenu";
@@ -182,7 +195,7 @@ in {
         "Ctrl+$mod+Left " = "workspace prev";
         "Ctrl+$mod+Right" = "workspace next";
 
-        ## Layout stuff
+        ## Layout
         # You can "split" the current object of your focus with
         # $mod+b or $mod+v, for horizontal and vertical splits
         # respectively.
@@ -214,7 +227,7 @@ in {
         "$mod+KP_Subtract" = "scratchpad show";
 
         ## Audio control
-        # TODO: ${pulseaudioFull}/bin/pactl
+        # TODO: ${pulseaudioLight}/bin/pactl
         "XF86AudioRaiseVolume" =
           "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
         "XF86AudioLowerVolume" =
@@ -222,11 +235,13 @@ in {
         "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
 
         # TODO: ${mpc_cli}/bin/mpc
+        # or playerctl, but need to enable mpris for mpd
         "XF86AudioPlay" = "exec mpc toggle";
         "XF86AudioStop" = "exec mpc stop";
         "XF86AudioPrev" = "exec mpc prev";
         "XF86AudioNext" = "exec mpc next";
 
+        ## Modes
         "$mod+r" = "mode resize";
         "$mod+Pause" = "mode passthrough";
         "$mod+Shift+e" = ''mode "$system"'';
@@ -270,8 +285,6 @@ in {
           Escape = "mode default";
         };
 
-        # TODO: bindsym $mod+s mode "$screenie"
-        # TODO: wl-copy, tee, curl, grim, jq, swaymsg
         # set $screenie (a) area, (m) monitor, (w) window, (A) to clipboard, (M) to clipboard, (W) to clipboard
         "$screenie" = {
           # capture the specified screen area to clipboard
@@ -312,16 +325,8 @@ in {
 
       window.commands = [
         {
-          criteria = { app_id = "keepassxc"; };
-          command = "move scratchpad";
-        }
-        {
           criteria = { app_id = "firefox"; };
           command = "inhibit_idle fullscreen, layout tabbed";
-        }
-        {
-          criteria = { app_id = "cantata"; };
-          command = "floating enable, border none";
         }
         {
           criteria = { class = "cantata"; };
@@ -352,7 +357,8 @@ in {
         }
         {
           criteria = { app_id = "python3"; };
-          command = "floating enable, border none";
+          command = "floating enable";
+          # command = "floating enable, border none";
         }
         {
           criteria = { app_id = "Alacritty"; };
@@ -394,41 +400,32 @@ in {
           command = "move scratchpad, border pixel, opacity 0.95";
         }
         # set opacity to 0 so that we don't see the flicker as a result of being
-        # unable to specify exact size in pixels
+        # unable to specify alacritty's size in pixels
         {
           criteria = { app_id = "drawfloat"; };
           command = "floating enable, border pixel, opacity 0";
         }
       ];
 
-      assigns = {
-        "$ws2" = [{
-          app_id = "mpv";
-          class = "chatterino";
-        }];
-      };
+      assigns = { "$ws2" = [ { app_id = "mpv"; } { class = "chatterino"; } ]; };
 
-      # startup = [
-      #   {
-      #     command =
-      #       "mako --default-timeout 5000"; # TODO: make a systemd user service
-      #   }
-      #   # { command = "ibus-daemon -xrd"; } # TODO: figure out JP input
-      #   # { command = "cadence-session-start --system-start"; }
-      #   {
-      #     # TODO: wat do
-      #     command = "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1";
-      #   }
-      #   { command = "sleep 1 && systemctl restart --user redshift"; }
-      # ];
-
-      bars = [
-        #
-        { command = "${pkgs.waybar}/bin/waybar"; }
+      startup = [
+        {
+          # TODO: make a systemd user service
+          command = "${pkgs.mako}/bin/mako"; # --default-timeout 5000";
+        }
+        {
+          command =
+            "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        }
+        { command = "sleep 1 && systemctl restart --user redshift"; }
       ];
+
+      bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
     };
 
     extraConfig = ''
+      ## Variable definitions
       # Logo key. Use Mod1 for Alt.
       set $mod Mod4
       set $meta Mod1
@@ -485,8 +482,7 @@ in {
 
       seat * hide_cursor 5000
 
-      ## Modes
-      # TODO
+      # TODO: Japanese input stuff
       # set $mode_lang j: japanese; esc: english
       # mode "$mode_lang" {
       #     bindsym j exec ibus engine anthy, mode "default"
@@ -497,7 +493,6 @@ in {
 
       set $system System: (l) lock, (e) logout, (s) suspend
       set $screenie (a) area, (m) monitor, (w) window, (A) to clipboard, (M) to clipboard, (W) to clipboard
-
     '';
   };
 }

@@ -16,3 +16,6 @@ pkgs/doom-emacs
 modules/weechat/weechat-conf/xfer
 modules/weechat/weechat-conf/logs
 modules/weechat/weechat-conf/urlserver_list.txt
+modules/weechat/weechat-conf/irc.conf
+modules/weechat/weechat-conf/sec.conf
+modules/weechat/weechat-conf/relay.conf

@@ -6,23 +6,29 @@
 
     activation = with lib; {
       weechatSecrets = hm.dag.entryBefore [ "weechatConfig" ] ''
-        $DRY_RUN_CMD unlink ${toString ./weechat-conf/sec.conf} || true
-        $DRY_RUN_CMD ln -s $VERBOSE_ARG \
+        $DRY_RUN_CMD unlink \
+          ${toString ./weechat-conf/sec.conf} 2>/dev/null || true
+        $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
           ${toString <vin/secrets/weechat/sec.conf>} \
           ${toString ./weechat-conf/sec.conf}
 
-        $DRY_RUN_CMD unlink ${toString ./weechat-conf/irc.conf} || true
-        $DRY_RUN_CMD ln -s $VERBOSE_ARG \
+        $DRY_RUN_CMD unlink \
+          ${toString ./weechat-conf/irc.conf} 2>/dev/null || true
+        $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
           ${toString <vin/secrets/weechat/irc.conf>} \
           ${toString ./weechat-conf/irc.conf}
       '';
 
       weechatConfig = hm.dag.entryAfter [ "linkGeneration" ] ''
-        $DRY_RUN_CMD unlink ${config.xdg.configHome}/weechat || true
-        # $DRY_RUN_CMD unlink ${config.home.homeDirectory}/.weechat || true
-        $DRY_RUN_CMD ln -s $VERBOSE_ARG \
+        # WeeChat still does not support the XDG spec :'(
+        $DRY_RUN_CMD unlink \
+          ${config.xdg.configHome}/weechat 2>/dev/null || true
+        $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
           ${toString ./weechat-conf} ${config.xdg.configHome}/weechat
-        # $DRY_RUN_CMD ln -s $VERBOSE_ARG \
+
+        # $DRY_RUN_CMD unlink \
+        #   ${config.home.homeDirectory}/.weechat 2>/dev/null || true
+        # $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
         #   ${toString ./weechat-conf} ${config.home.homeDirectory}/.weechat
       '';
     };
@@ -42,8 +48,8 @@
       Type = "forking";
       Environment = [ "WEECHAT_HOME=${config.xdg.configHome}/weechat" ];
       ExecStart =
-        "${pkgs.tmux}/bin/tmux -L weechat new -d -s weechat ${pkgs.weechat}/bin/weechat";
-      EexecStartPost =
+        "${pkgs.tmux}/bin/tmux -L weechat new -s weechat -d ${pkgs.weechat}/bin/weechat";
+      ExecStartPost =
         "${pkgs.tmux}/bin/tmux -L weechat set status"; # turn off the status bar
       ExecStop = "${pkgs.tmux}/bin/tmux -L weechat kill-session -t weechat";
     };

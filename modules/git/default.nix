@@ -20,13 +20,15 @@ in {
 
     activation = with lib; {
       gitk = hm.dag.entryAfter [ "linkGeneration" ] ''
-        $DRY_RUN_CMD unlink ${config.home.homeDirectory}/.config/git/gitk || true
+        $DRY_RUN_CMD unlink \
+          ${config.home.homeDirectory}/.config/git/gitk 2>/dev/null || true
         $DRY_RUN_CMD ln -s $VERBOSE_ARG \
           ${gitk} ${config.home.homeDirectory}/.config/git/gitk
       '';
 
       gitauth = hm.dag.entryAfter [ "linkGeneration" ] ''
-        $DRY_RUN_CMD unlink ${config.xdg.configHome}/git/gitauth.inc || true
+        $DRY_RUN_CMD unlink \
+          ${config.xdg.configHome}/git/gitauth.inc 2>/dev/null || true
         $DRY_RUN_CMD ln -s $VERBOSE_ARG \
           ${toString <vin/secrets/gitauth.inc>} \
           ${config.xdg.configHome}/git/gitauth.inc

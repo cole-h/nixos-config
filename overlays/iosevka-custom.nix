@@ -1,7 +1,10 @@
 final: super:
+with super;
 
 {
-  iosevka-custom = (super.iosevka.override {
+  iosevka-custom = (iosevka.override {
+    set = "custom";
+
     privateBuildPlan = {
       family = "Iosevka Custom";
 
@@ -31,11 +34,10 @@ final: super:
         "v-percent-dots"
       ];
     };
-
-    set = "custom";
   }).overrideAttrs (_: {
     installPhase = ''
       fontdir="$out/share/fonts/truetype"
+
       install -d "$fontdir"
       install dist/$pname/ttf/* "$fontdir"
     '';

@@ -1,8 +1,9 @@
 final: super:
+with super;
 
 {
-  redshift-wlr = super.redshift-wlr.overrideAttrs (old: {
-    src = super.fetchFromGitHub {
+  redshift-wlr = redshift-wlr.overrideAttrs (old: {
+    src = fetchFromGitHub {
       owner = "minus7";
       repo = "redshift";
       rev = "7da875d34854a6a34612d5ce4bd8718c32bec804";

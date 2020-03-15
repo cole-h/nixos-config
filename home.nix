@@ -6,7 +6,7 @@
   programs = {
     home-manager = {
       enable = true;
-      path = "$HOME/workspace/vcs/home-manager";
+      path = "${config.home.homeDirectory}/workspace/vcs/home-manager";
     };
   };
 
@@ -21,8 +21,9 @@
       cachix
       direnv
       niv
-      nix # adds nix.sh to .nix-profile/etc/profile.d
-      nixfmt
+      nix # adds nix.sh to .nix-profile/etc/profile.d, which sets path stuff,
+          # which allows us to use binaries
+      nixfmt # [overlays]
       nix-index
       nixpkgs-fmt
       nix-top
@@ -39,7 +40,7 @@
 
       ## tools
       exa
-      (ripgrep.override { withPCRE2 = true; })
+      ripgrep # [overlays]
       fd
       bat
       skim
@@ -51,14 +52,18 @@
       # TODO: go through fish history and make a note of binaries
       #   general purpose binaries (like above) should probably go into system packages
 
+      #### TODO: most of these become system packages on NixOS
+      # curl
+      # coreutils
       # evince
       # gdb
       # lldb
+      # htop
       # need cups for printing, etc.; gutenprint + canon-pixma-m920-complete (aur)
       # need ntfs-3g + fuse for mounting NTFS
       # libguestfs, libguestfs-tools, libiscis -- for vfio iSCSI
-      # android stuff
-      # pulseaudio + alsa + jack + cadence, cantata + mpd
+      # android stuff (probably just a lorri/nix-shell env)
+      # jack (1024 buffer size (period), 2 periods/buffer (nperiods)) + pipewire, cantata + mpd
       # syncthing
       # texlive-core, texlive-most, texlive, auctex -- LaTeX stuff
       # libreoffice
@@ -68,11 +73,12 @@
       # ccls
       # wireguard
       # qemu + libvirt + ovmf + virt-manager (vfio)
+      # procps-ng for pgrep and ps
 
       # lsof
 
       ## misc
-      chatterino2 # Twitch chat client [overlays]
+      chatterino2 # Twitch chat client [drvs]
     ];
 
     activation = with lib; {
@@ -93,6 +99,20 @@
     sessionVariables = {
       # solve locale issues on non-NixOS
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+
+      # Add local conf and local nixpkgs to NIX_PATH
+      # This deduplicates disk space (why use a channel when I have a local repo
+      #   -- waste of bandwidth and disk space)
+      NIX_PATH =
+        "vin=${toString ./.}:nixpkgs=${toString ~/workspace/vcs/nixpkgs}";
+
+      # FIXME: "Fontconfig error: Cannot load config file from /etc/fonts/fonts.conf"
+      # Probably related to not being NixOS
+      FONTCONFIG_FILE = if config.fonts.fontconfig.enable then
+        "${pkgs.fontconfig.out}/etc/fonts/fonts.conf"
+      else
+        "/etc/fonts/fonts.conf";
+
     };
 
     # This value determines the Home Manager release that your
@@ -115,7 +135,7 @@
         # lorri complains about no nixpkgs because NIX_PATH is unset for it
       in mkForce [
         "PATH=${path}"
-        "NIX_PATH=${config.home.homeDirectory}/.nix-defexpr/channels"
+        "NIX_PATH=nixpkgs=${config.home.homeDirectory}/workspace/vcs/nixpkgs:vin=${config.xdg.configHome}/nixpkgs"
       ];
 
     systemctlPath = "/usr/bin/systemctl";

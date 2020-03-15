@@ -22,7 +22,8 @@
 
     activation = with lib; {
       cargoCredentials = hm.dag.entryAfter [ "linkGeneration" ] ''
-        $DRY_RUN_CMD unlink ${config.home.homeDirectory}/.cargo/credentials || true
+        $DRY_RUN_CMD unlink \
+          ${config.home.homeDirectory}/.cargo/credentials 2>/dev/null || true
         $DRY_RUN_CMD ln -s $VERBOSE_ARG \
            ${toString <vin/secrets/cargo-credentials>} \
            ${config.home.homeDirectory}/.cargo/credentials

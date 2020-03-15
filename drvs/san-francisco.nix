@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
     install -Dm644 'SF Pro Font License.rtf' -t $out/usr/share/licenses/${pname}/LICENSE.rtf
     install -Dm644 Library/Fonts/*.otf -t "$fontdir"
-    mkfontscale "$fontdir"
+    # mkfontscale "$fontdir"
   '';
 
   meta = with stdenv.lib; {

@@ -70,8 +70,7 @@ in {
       tree = "exa -T";
       vi = "nvim";
       vim = "nvim";
-      weechat = "tmux -L weechat attach"; # TODO: nix-ify weechat installation
-      # weechat = "screen -d -r weechat";
+      weechat = "tmux -L weechat attach";
       "cd.." = "cd ..";
     } // cgitcAbbrs;
 
@@ -99,12 +98,6 @@ in {
 
       # Set PATH without actually modifying PATH
       set --global --append fish_user_paths $CARGO_HOME/bin $DEVKITPRO/tools/bin $HOME/.local/bin/ $GOPATH/bin
-
-      # Add local conf and local nixpkgs to NIX_PATH
-      # This deduplicates disk space (why use a channel when I have a local repo
-      #   -- waste of bandwidth and disk space)
-      set --global --append NIX_PATH "vin=${toString ./..}" \
-          "nixpkgs=${toString ~/workspace/vcs/nixpkgs}"
     '';
 
     promptInit = ''
@@ -150,15 +143,6 @@ in {
       set --global --export GPG_TTY (tty)
       gpg-connect-agent updatestartuptty /bye >/dev/null &
       # ''${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye >/dev/null &
-
-      # FIXME: "Fontconfig error: Cannot load config file from /etc/fonts/fonts.conf"
-      # Probably related to not being NixOS
-      set --global --export FONTCONFIG_FILE ${
-        if config.fonts.fontconfig.enable then
-          ''"${pkgs.fontconfig.out}/etc/fonts/fonts.conf"''
-        else
-          ''"/etc/fonts/fonts.conf"''
-      }
 
       # Rust stuff
       if command -q rustc
