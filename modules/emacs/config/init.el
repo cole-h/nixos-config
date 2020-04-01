@@ -6,13 +6,16 @@
   (setq evil-want-C-i-jump t))
 
 (setq doom-localleader-key ","
+      ;; doom-theme 'doom-snazzy)
+      ;; doom-theme 'base16-default-dark)
       doom-theme 'doom-dracula)
       ;; doom-theme 'base16-gruvbox-dark-hard)
 ;; spacegray
 ;; tomorrow-night
 ;; molokai
 
-(setq doom-font (font-spec :family "JetBrainsMono" :size 10.5)
+(setq doom-font (font-spec :family "Iosevka Custom Book" :size 12.0)
+;; (setq doom-font (font-spec :family "JetBrainsMono" :size 10.5)
       frame-title-format "%b")
 
 ;; (setq doom-font (font-spec :family "Iosevka Custom" :size 12.0)
@@ -122,7 +125,7 @@
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :lang
-       ;;agda              ; types of types of types of types.           . .
+       ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
        (cc                 ; C/C++/Obj-C madness
         +lsp)

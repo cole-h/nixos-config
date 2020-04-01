@@ -1,4 +1,9 @@
-{ stdenv, fetchurl, mkfontscale, unzip, libarchive }:
+{ stdenv
+, fetchurl
+, mkfontscale
+, unzip
+, libarchive
+}:
 
 stdenv.mkDerivation rec {
   pname = "san-francisco";
@@ -6,7 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://developer.apple.com/fonts/downloads/SFPro.zip";
-    hash = "sha256:1mivrvbsawy8cpwlmq051s7803y9h4rr6d7lld73l4nh6xl8ad8j";
+    sha256 = "1mivrvbsawy8cpwlmq051s7803y9h4rr6d7lld73l4nh6xl8ad8j";
   };
 
   phases = [ "unpackPhase" "installPhase" ];

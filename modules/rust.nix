@@ -1,5 +1,13 @@
-{ pkgs, lib, ... }:
+{ config, lib, pkgs, ... }:
+let
+  betaChannel = false;
+  nightlyChannel = false;
 
+  toolchains = with pkgs.latest.rustChannels;
+    [ stable.rust ]
+    ++ lib.optional betaChannel beta.rust
+    ++ lib.optional nightlyChannel nightly.rust;
+in
 {
   home = {
     packages = with pkgs; [
@@ -15,14 +23,12 @@
       cargo-license
       cargo-tree
       flamegraph
-      hexyl
-      hyperfine
-      mdbook
-      rust-analyzer
-    ];
 
-    # TODO: find a way to .source without adding to store or relying on NIX_PATH
-    # home.file.".cargo/credentials".source = ./cargo-credentials;
+      # FIXME: https://github.com/NixOS/nixpkgs/pull/77752
+      # rust-analyzer
+    ] ++ toolchains;
+
+    # TODO: find a way to link without adding to store or relying on NIX_PATH
     activation = with lib; {
       cargoCredentials = hm.dag.entryAfter [ "linkGeneration" ] ''
         $DRY_RUN_CMD unlink \

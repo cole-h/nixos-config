@@ -87,11 +87,11 @@
   (setq evil-magit-use-z-for-folds t))
 (after! evil-escape
   (setq evil-escape-inhibit t))
-(after! hl-todo
-  (setq hl-todo-keyword-faces '(("TODO" . "#ecbe7b")
-                                ("FIXME" . "#ff6c6b")
-                                ("NOTE" . "#98be65")
-                                ("XXX" . "red"))))
+;; (after! hl-todo
+;;   (setq hl-todo-keyword-faces '(("TODO" . "#ecbe7b")
+;;                                 ("FIXME" . "#ff6c6b")
+;;                                 ("NOTE" . "#98be65")
+;;                                 ("XXX" . "red"))))
 (after! magit
   (setq magit-display-buffer-function 'magit-display-buffer-traditional
         magit-completing-read-function 'ivy-completing-read
@@ -128,26 +128,28 @@
     (indent-according-to-mode)
     (forward-line -1)
     (indent-according-to-mode))
+  (sp-local-pair 'rustic-mode "({" "})" :post-handlers '((smooth-curly-block "RET")))
+  (sp-local-pair 'rustic-mode "{" "}" :post-handlers '((curly-space "SPC") (smooth-curly-block "RET")))
   (setq rustic-format-on-save t
         rustic-lsp-server 'rust-analyzer)
-  (setq-default fill-column 100)
-  (sp-local-pair 'rustic-mode "({" "})" :post-handlers '((smooth-curly-block "RET")))
-  (sp-local-pair 'rustic-mode "{" "}" :post-handlers '((curly-space "SPC") (smooth-curly-block "RET"))))
+  (setq-local fill-column 100))
 (after! smartparens
-  ;; remove autoclosing of escaped quotes
-  (sp-pair "\\\"" "\\\"" :actions :rem)
-  ;; remove autoclosing of double quotes
-  (sp-pair "\"" "\"" :actions :rem)
-  ;; remove autoclosing of single quotes
-  ;; (sp-pair "'" "'" :actions :rem) ;; haskell mode doesn't like this
-  ;; remove autoclosing of curly braces
-  (sp-pair "{" "}" :actions :rem)
-  ;; remove autoclosing of parentheses unless in elisp
-  (sp-pair "(" ")" :actions :rem))
-;; (sp-pair "(" ")" :when '(eq major-mode 'emacs-lisp-mode)))
-;; (after! base16-theme
-;;   ;; I don't want any italics/slanted characters in my modeline
-;;   (custom-set-faces! '(mode-line-emphasis :slant normal)))
+  (smartparens-global-mode -1)
+;;   ;; remove autoclosing of escaped quotes
+;;   (sp-pair "\\\"" "\\\"" :actions :rem)
+;;   ;; remove autoclosing of double quotes
+;;   (sp-pair "\"" "\"" :actions :rem)
+;;   ;; remove autoclosing of single quotes
+;;   ;; (sp-pair "'" "'" :actions :rem) ;; haskell mode doesn't like this
+;;   ;; remove autoclosing of curly braces
+;;   (sp-pair "{" "}" :actions :rem)
+;;   ;; remove autoclosing of parentheses unless in elisp
+;;   (sp-pair "(" ")" :actions :rem))
+;; ;; (sp-pair "(" ")" :when '(eq major-mode 'emacs-lisp-mode)))
+  )
+(after! base16-theme
+  ;; I don't want any italics/slanted characters in my modeline
+  (custom-set-faces! '(mode-line-emphasis :slant normal)))
 (after! magit-todos
   (cl-defun magit-todos-jump-to-item (&key peek (item (oref (magit-current-section) value)))
     "Show current item.

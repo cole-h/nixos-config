@@ -1,4 +1,8 @@
-{ stdenv, fetchurl, p7zip, mkfontscale }:
+{ stdenv
+, fetchurl
+, p7zip
+, mkfontscale
+}:
 
 stdenv.mkDerivation rec {
   pname = "sarasa-gothic";
@@ -19,14 +23,4 @@ stdenv.mkDerivation rec {
     ${p7zip}/bin/7z x $src -o"$fontdir"
     mkfontscale "$fontdir"
   '';
-
-  meta = with stdenv.lib; {
-    description = ''
-      SARASA GOTHIC is a Chinese & Japanese programming font based on Iosevka
-      and Source Han Sans
-    '';
-    homepage = "https://github.com/be5invis/Sarasa-Gothic";
-    license = licenses.ofl;
-    platforms = platforms.all;
-  };
 }

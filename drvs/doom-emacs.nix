@@ -1,14 +1,19 @@
-{ stdenv }:
-
+{ stdenv
+, callPackage
+}:
+let
+  sources = import <vin/nix/sources.nix>;
+  gitignoreSource = (callPackage sources.gitignore {}).gitignoreSource;
+in
 stdenv.mkDerivation {
   pname = "doom-emacs";
   version = "git";
 
-  src = ./doom-emacs; # submodule :)
+  src = gitignoreSource ./doom-emacs; # git submodule :)
 
   outputs = [ "out" "bin" ];
-
   phases = [ "installPhase" ];
+
   installPhase = ''
     mkdir -p $out/share/doom-emacs
     cp -r $src/* $out/share/doom-emacs

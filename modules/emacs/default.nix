@@ -7,8 +7,8 @@
 
   home = {
     packages = with pkgs; [
-      doom-emacs
-      emacsGit # from emacs-overlay [overlays]
+      doom-emacs # for `doom sync` and `doom update`; [drvs]
+      emacsGit # from emacs-overlay; [overlays]
     ];
 
     sessionVariables = {
@@ -18,7 +18,7 @@
 
       # Don't want to have to `home-manager switch` every time I change something,
       # so don't add it to the store.
-      DOOMDIR = ./doom;
+      DOOMDIR = toString ./config;
     };
   };
 }

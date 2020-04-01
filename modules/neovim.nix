@@ -5,8 +5,8 @@
     enable = true;
 
     withPython = false;
-    withRuby = false;
     withPython3 = false;
+    withRuby = false;
 
     plugins = with pkgs.vimPlugins; [
       # Actual plugins
@@ -19,6 +19,7 @@
       vim-commentary
       vim-sensible
       indentLine
+
       # Syntax highlighting
       vim-fish
       vim-markdown
@@ -154,21 +155,6 @@
       highlight ColorColumn ctermbg=darkgrey guibg=lightgrey
       highlight jsParensError ctermbg=NONE
 
-      " Transparent editing of gpg encrypted files.
-      " By Wouter Hanegraaff
-      " augroup encrypted
-      "   au!
-      "   autocmd BufReadPre,FileReadPre *.gpg set viminfo=
-      "   autocmd BufReadPre,FileReadPre *.gpg set noswapfile noundofile nobackup
-      "   autocmd BufReadPre,FileReadPre *.gpg set bin
-      "   autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
-      "   autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt --default-recipient-self 2> /dev/null
-      "   autocmd BufReadPost,FileReadPost *.gpg set nobin
-      "   autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
-      "   autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
-      "   autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --encrypt --default-recipient-self 2>/dev/null
-      "   autocmd BufWritePost,FileWritePost *.gpg u
-      " augroup END
       augroup encrypted
         au!
         autocmd BufReadPre,FileReadPre *.gpg

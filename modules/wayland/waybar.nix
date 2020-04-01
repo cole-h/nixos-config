@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   waybar-config = {
+    layer = "top";
     position = "top"; # Waybar position (top|bottom|left|right);
-    height = 30; # Waybar height;
+    height = 25; # Waybar height;
 
     modules-left = [
       "sway/workspaces"
@@ -38,8 +39,9 @@ let
     };
 
     clock = {
+      tooltip-format = "{calendar}";
       format = "{:%d %B %G %T}";
-      tooltip = false;
+      tooltip = true;
       interval = 1;
     };
 
@@ -47,7 +49,7 @@ let
       tooltip = false;
       format = "{volume}%";
       format-muted = "MUTED";
-      on-click = "pavucontrol";
+      on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
     };
 
     mpd = {
@@ -71,6 +73,7 @@ let
   };
 in
 {
+  # TODO: just use default swaybar, but need to get mpd and volume widgets
   home.packages = with pkgs; [
     waybar # [overlays]
   ];
@@ -80,7 +83,7 @@ in
       * {
           border: none;
           border-radius: 0;
-          font-family: DejaVu Sans, Roboto, Helvetica, Arial, sans-serif;
+          font-family: Iosevka Custom Book, Roboto, Helvetica, Arial, sans-serif;
           font-size: 14px;
           min-height: 0;
       }
@@ -115,4 +118,10 @@ in
 
     "waybar/config".text = builtins.toJSON waybar-config;
   };
+
+  # home.activation = with lib; {
+  #   waybarConfig = hm.dag.entryAfter [ "linkGeneration" ] ''
+  #     ${pkgs.jq}/bin/jq <<< ${lib.escapeShellArg (builtins.toJSON waybar-config)} > ~/.config/waybar/config;
+  #   '';
+  # };
 }

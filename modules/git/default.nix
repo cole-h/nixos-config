@@ -9,17 +9,24 @@ let
         sha256 = "1cmirzrvk9y5n2yxjl7ghjspdpk4xqjx3in546prqjcfg7dl27ss";
       } + "/gitk"
     ) + ''
-      set mainfont {{SF Pro Text} 10}
+      set mainfont {{DejaVu Sans Mono} 10}
       set textfont {{JetBrains Mono} 10}
-      set uifont {{SF Pro Display} 10 bold}
+      set uifont {{DejaVu Sans Mono} 10 bold}
     ''
   );
+  gdbinit = pkgs.fetchFromGitHub {
+    owner = "cyrus-and";
+    repo = "gdb-dashboard";
+    rev = "b656071f4a2688045f3bd697bcb7885e99d89918";
+    sha256 = "1rad11grnndh18bwa17m50i9bm2lnjhld8my9w0njsq6lq66myvx";
+  } + "/.gdbinit";
 in
 {
   home = {
+    file.".gdbinit".source = gdbinit;
+
     packages = with pkgs.gitAndTools; [
-      delta # better looking diffs
-      git-crypt # store secrets [overlays]
+      git-crypt # store secrets; [overlays]
     ];
 
     activation = with lib; {
@@ -46,9 +53,9 @@ in
     '';
   };
 
-  programs.git = with pkgs; {
+  programs.git = {
     enable = true;
-    package = gitAndTools.gitFull;
+    package = pkgs.gitAndTools.gitFull;
 
     userEmail = "cole.e.helbling@outlook.com";
     userName = "Cole Helbling";
@@ -66,11 +73,7 @@ in
       git.autocrlf = "input";
       tag.forceSignAnnotated = true;
 
-      diff."nodiff".command = "${coreutils}/bin/true";
-
-      core = {
-        pager = "${gitAndTools.delta}/bin/delta --dark --width=variable";
-      };
+      diff."nodiff".command = "${pkgs.coreutils}/bin/true";
 
       url = {
         "https://github.com/".insteadOf = ''"gh:"'';

@@ -7,40 +7,47 @@
   ];
 
   # TODO: cantata settings maybe?
-  services.mpd = rec {
-    enable = true;
+  services = {
+    mpd = rec {
+      enable = true;
 
-    dataDir = "${config.xdg.configHome}/mpd";
-    musicDirectory = "${config.home.homeDirectory}/Music";
-    playlistDirectory = "${dataDir}/playlists";
-    dbFile = "${dataDir}/database";
-    network.listenAddress = "127.0.0.1";
+      dataDir = "${config.xdg.configHome}/mpd";
+      musicDirectory = "${config.home.homeDirectory}/Music";
+      playlistDirectory = "${dataDir}/playlists";
+      dbFile = "${dataDir}/database";
+      network.listenAddress = "127.0.0.1";
 
-    extraConfig = ''
-      log_file "${dataDir}/log"
-      pid_file "${dataDir}/pid"
+      extraConfig = ''
+        log_file "syslog"
 
-      group "audio"
+        group "audio"
 
-      auto_update "yes"
+        auto_update "yes"
 
-      zeroconf_enabled "yes"
-      zeroconf_name "MPD @ Scadrial"
+        zeroconf_enabled "yes"
+        zeroconf_name "MPD @ Scadrial"
 
-      # input {
-      #     plugin "curl"
-      # }
+        # input {
+        #     plugin "curl"
+        # }
 
-      audio_output {
-          type "pulse"
-          name "My Pulse Output"
-          mixer_type "software"
-      }
+        audio_output {
+            type "pulse"
+            name "My Pulse Output"
+            mixer_type "software"
+        }
 
-      replaygain "auto"
-      replaygain_limit "yes"
-      volume_normalization "yes"
-    '';
+        replaygain "auto"
+        replaygain_limit "yes"
+        volume_normalization "yes"
+      '';
+    };
+
+    mpdris2 = {
+      enable = true;
+      notifications = true;
+      # multimediaKeys = true;
+    };
   };
 
   systemd.user.services.mpd = {
@@ -57,8 +64,6 @@
       # AF_NETLINK is required by libsmbclient, or it will exit() .. *sigh*
       RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX AF_NETLINK";
       RestrictNamespaces = "yes";
-      # The logfile can grow large... After ~5 months, it was roughly 1.5GiB
-      ExecStopPost = "echo > ${config.services.mpd.dataDir}/log";
     };
   };
 }

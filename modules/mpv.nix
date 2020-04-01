@@ -61,6 +61,7 @@
       a = "cycle audio";
       "Shift+a" = "cycle audio down";
       "Ctrl+M" = "cycle mute";
+      "=" = ''af toggle "lavfi=[pan=1c|c0=0.5*c0+0.5*c1]" ; show-text "Audio mix set to Mono"'';
 
       # Frame-step
       ">" = "frame-step";

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, pkgs, ... }:
 let
   ## Variables for bindings
   # Logo key
@@ -12,18 +12,20 @@ let
   right = "l";
 
   ## Modes
-  system = "System: (l) lock, (e) logout, (s) suspend";
+  system = "(l) lock, (e) logout, (s) suspend";
+  # screenie = "(a) area, (A) to clipboard, (M) to clipboard, (W) to clipboard";
   screenie = "(a) area, (m) monitor, (w) window, (A) to clipboard, (M) to clipboard, (W) to clipboard";
 
   ## Executables
-  term = toString ~/scripts/alacritty.sh;
-  alacritty = "env RUST_BACKTRACE=1 alacritty";
-  kitty = "kitty";
+  imgur = toString ./scripts/imgur.sh;
+  term = toString ./scripts/alacritty.sh;
+  alacritty = "${pkgs.alacritty}/bin/alacritty"; # [drvs]
+  kitty = "${pkgs.kitty}/bin/kitty";
   menu = ''
-    j4-dmenu-desktop --dmenu="bemenu --grab --ignorecase" \
-        --usage-log=$HOME/.cache/.j4_history
+    ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop \
+        --usage-log=${config.xdg.cacheHome}/.j4_history \
+        --dmenu="${pkgs.bemenu}/bin/bemenu --ignorecase --no-overlap" # [drvs]
   '';
-  # menu = "rofi -show drun -show-icons -normal-window";
 
   ## Workspaces
   # output DP-2 (left)
@@ -50,6 +52,16 @@ let
   wsF10 = "20";
 in
 {
+  home.activation = with lib; {
+    cargoCredentials = hm.dag.entryAfter [ "linkGeneration" ] ''
+      $DRY_RUN_CMD unlink \
+        ${config.xdg.configHome}/imgur 2>/dev/null || true
+      $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
+         ${toString <vin/secrets/imgur>} \
+         ${config.xdg.configHome}/imgur
+    '';
+  };
+
   wayland.windowManager.sway = {
     enable = true;
 
@@ -58,9 +70,8 @@ in
     wrapperFeatures = { gtk = true; };
 
     extraSessionCommands = ''
-      export __HM_SESS_VARS_SOURCED= # in order to allow further sessionVariables modifications to take effect
-
-      export SSH_AUTH_SOCK="/run/user/$(id -u)/gnupg/S.gpg-agent.ssh"
+      # in order to allow further sessionVariables modifications to take effect
+      # systemctl --user unset-environment __HM_SESS_VARS_SOURCED
 
       export MOZ_ENABLE_WAYLAND=1
       # export QT_QPA_PLATFORM=wayland
@@ -69,10 +80,11 @@ in
       # export SDL_VIDEODRIVER=wayland
       export GDK_BACKEND=wayland
       export _JAVA_AWT_WM_NONREPARENTING=1
-      export XDG_CURRENT_DESKTOP=Unity
+      export XDG_CURRENT_DESKTOP=sway
     '';
 
-    config = rec {
+    # TODO: swayidle+swaylock command
+    config = {
       output = {
         "*".bg = "${config.my.wallpaper} fit";
         "DP-2" = {
@@ -123,22 +135,24 @@ in
         # start a terminal
         "${modifier}+Return" = "exec ${term}";
         "${modifier}+Shift+Return" = "exec ${alacritty}";
-        "${modifier}+${meta}+Shift+Return" = "exec ${kitty}";
+        "${modifier}+Ctrl+Shift+Return" = "exec ${kitty}";
         # kill focused window
         "${modifier}+Shift+q" = "kill";
         # start your launcher
         "${modifier}+d" = "exec ${menu}";
+        # TODO: package rofi-emoji plugin
         "${modifier}+m" = "exec rofi -show emoji -normal-window";
         # reload the configuration file
         "${modifier}+Shift+c" = "reload";
         # open file browser
-        # TODO: add nautilus, also check gsettings I have set
+        # TODO: check gsettings I have set
+        # "${modifier}+e" = "exec ${pkgs.gnome3.nautilus}/bin/nautilus";
         "${modifier}+e" = "exec nautilus";
         # open password menu
-        "${modifier}+p" = "exec ~/scripts/passmenu";
-        "${modifier}+Shift+p" = "exec ~/scripts/otpmenu";
+        "${modifier}+p" = "exec ${toString ./scripts/passmenu}";
+        "${modifier}+Shift+p" = "exec ${toString ./scripts/otpmenu}";
         # paste to paste.sr.ht
-        "${modifier}+c" = "exec ~/scripts/paste";
+        # "${modifier}+c" = "exec ~/scripts/paste";
 
         ## Moving around
         # Move your focus around
@@ -261,19 +275,17 @@ in
         "${modifier}+KP_Subtract" = "scratchpad show";
 
         ## Audio control
-        # TODO: ${pulseaudioLight}/bin/pactl
         "XF86AudioRaiseVolume" =
-          "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
+          "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
         "XF86AudioLowerVolume" =
-          "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
-        "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
+        "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
 
-        # TODO: ${mpc_cli}/bin/mpc
         # or playerctl, but need to enable mpris for mpd
-        "XF86AudioPlay" = "exec mpc toggle";
-        "XF86AudioStop" = "exec mpc stop";
-        "XF86AudioPrev" = "exec mpc prev";
-        "XF86AudioNext" = "exec mpc next";
+        "XF86AudioPlay" = "exec ${pkgs.mpc_cli}/bin/mpc toggle";
+        "XF86AudioStop" = "exec ${pkgs.mpc_cli}/bin/mpc stop";
+        "XF86AudioPrev" = "exec ${pkgs.mpc_cli}/bin/mpc prev";
+        "XF86AudioNext" = "exec ${pkgs.mpc_cli}/bin/mpc next";
 
         ## Modes
         "${modifier}+r" = "mode resize";
@@ -309,10 +321,10 @@ in
           Pause = "mode default";
         };
 
-        # set $system System: (l) lock, (e) logout, (s) suspend
+        # set $system (l) lock, (e) logout, (s) suspend
         "${system}" = {
           l = "exec swaylock -f -i ${config.my.wallpaper} --scaling fill, mode default";
-          e = "exit";
+          e = "exec systemctl --user stop sway"; # "exit;
           s = "exec --no-startup-id systemctl suspend, mode default";
           # return to default mode
           Return = "mode default";
@@ -321,36 +333,50 @@ in
 
         # set $screenie (a) area, (m) monitor, (w) window, (A) to clipboard, (M) to clipboard, (W) to clipboard
         "${screenie}" = {
-          # capture the specified screen area to clipboard
+          # capture the specified screen area and upload to paste.rs
           a = ''
-            exec grim -g "$(slurp)" - \
-                | curl --data-binary @- https://paste.rs | echo $(</dev/stdin).jpg \
-                | tee -a ~/pasters.log | wl-copy --trim-newline; mode default'';
-          # capture the focused monitor to clipboard
+            exec ${pkgs.slurp}/bin/slurp \
+              | ${pkgs.grim}/bin/grim -g - - \
+              | ${imgur}; mode default
+          '';
+          # capture the focused monitor and upload to paste.rs
           m = ''
-            exec grim -o $(swaymsg -t get_outputs \
-                | jq -r '.[] | select(.focused) | .name') - \
-                | curl --data-binary @- https://paste.rs | echo $(</dev/stdin).jpg \
-                | tee -a ~/pasters.log | wl-copy --trim-newline; mode default'';
-          # capture the focused window to clipboard
+            exec swaymsg -t get_outputs \
+              | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' \
+              | tail -1 \
+              | ${pkgs.grim}/bin/grim -g - - \
+              | ${imgur}; mode default
+          '';
+          # capture the focused window and upload to paste.rs
           w = ''
             exec swaymsg -t get_tree \
-                | jq -r '.. | (.nodes? // empty)[] | if (.pid and .focused) then select(.pid and .focused) | .rect | "\(.x),\(.y) \(.width)x\(.height)" else (.floating_nodes? // empty)[] | select(.pid and .visible) | .rect | "\(.x),\(.y) \(.width)x\(.height)" end' \
-                | grim -g - - | curl --data-binary @- https://paste.rs \
-                | echo $(</dev/stdin).jpg | tee -a ~/pasters.log \
-                | wl-copy --trim-newline; mode default'';
+              | ${pkgs.jq}/bin/jq -r '.. | (.nodes? // empty)[] | if (.pid and .focused) then select(.pid and .focused) | .rect | "\(.x),\(.y) \(.width)x\(.height)" else (.floating_nodes? // empty)[] | select(.pid and .visible) | .rect | "\(.x),\(.y) \(.width)x\(.height)" end' \
+              | tail -1 \
+              | ${pkgs.grim}/bin/grim -g - - \
+              | ${imgur}; mode default
+          '';
           # capture the specified screen area to clipboard
-          "Shift+a" =
-            ''exec grim -g "$(slurp)" - | wl-copy -t image/png; mode default'';
+          "Shift+a" = ''
+            exec ${pkgs.slurp}/bin/slurp \
+              | ${pkgs.grim}/bin/grim -g - - \
+              | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png; mode default
+          '';
           # capture the focused monitor to clipboard
           "Shift+m" = ''
-            exec grim -o $(swaymsg -t get_outputs \
-                | jq -r '.[] | select(.focused) | .name') - | wl-copy -t image/png; mode default'';
+            exec swaymsg -t get_outputs \
+              | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' \
+              | tail -1 \
+              | ${pkgs.grim}/bin/grim -g - - \
+              | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png; mode default
+          '';
           # capture the focused window to clipboard
           "Shift+w" = ''
             exec swaymsg -t get_tree \
-                | jq -r '.. | (.nodes? // empty)[] | if (.pid and .focused) then select(.pid and .focused) | .rect | "(.x),(.y) (.width)x(.height)" else (.floating_nodes? // empty)[] | select(.pid and .visible) | .rect | "(.x),(.y) (.width)x(.height)" end' \
-                | grim -g - - | wl-copy -t image/png; mode default'';
+              | ${pkgs.jq}/bin/jq -r '.. | (.nodes? // empty)[] | if (.pid and .focused) then select(.pid and .focused) | .rect | "\(.x),\(.y) \(.width)x\(.height)" else (.floating_nodes? // empty)[] | select(.pid and .visible) | .rect | "\(.x),\(.y) \(.width)x\(.height)" end' \
+              | tail -1 \
+              | ${pkgs.grim}/bin/grim -g - - \
+              | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png; mode default
+          '';
           # return to default mode
           Escape = "mode default";
           Return = "mode default";
@@ -367,7 +393,7 @@ in
           }
           {
             criteria = { class = "cantata"; };
-            command = "floating enable, border none";
+            command = "floating enable";
           }
           {
             criteria = { app_id = "pavucontrol"; };
@@ -441,6 +467,18 @@ in
             criteria = { app_id = "drawfloat"; };
             command = "floating enable, border pixel, opacity 0";
           }
+          {
+            criteria = { title = "QEMU.*"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { class = "jetbrains-studio"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { app_id = "org.pwmt.zathura"; };
+            command = "border pixel";
+          }
         ];
       };
 
@@ -452,9 +490,24 @@ in
       };
 
       startup = [
-        { command = "alacritty --class SCRATCHTERM -e tmux -L scratch"; }
+        {
+          command = "cadence-session-start --system-start";
+        }
+        {
+          command = "alacritty --class SCRATCHTERM -e tmux -L scratch";
+        }
+        {
+          command = ''
+            swayidle -w \
+              timeout 900 'swaylock -f -i ${config.my.wallpaper} --scaling fill' \
+              timeout 1200 'swaymsg "output * dpms off"' \
+                resume 'swaymsg "output * dpms on"' \
+              before-sleep 'swaylock -f -i ${config.my.wallpaper} --scaling fill'
+          '';
+        }
       ];
 
+      # use systemd-controlled waybar unit (see ./default.nix)
       bars = [];
     };
 

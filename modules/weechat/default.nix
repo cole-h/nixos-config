@@ -49,6 +49,6 @@
       ExecStop = "${pkgs.tmux}/bin/tmux -L weechat kill-session -t weechat";
     };
 
-    Install.WantedBy = [ "multi-user.target" ];
+    Install.WantedBy = [ "default.target" ];
   };
 }

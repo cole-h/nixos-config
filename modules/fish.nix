@@ -5,7 +5,7 @@ in
 {
   home.packages = with pkgs; [
     # https://www.youtube.com/watch?v=Oyg5iFddsJI
-    zoxide
+    zoxide # z-rs; [overlays]
   ];
 
   programs = {
@@ -22,17 +22,7 @@ in
 
       plugins = with pkgs; [
         {
-          # allows nix and home-manager to work properly on expatriate systems
-          name = "nix-env.fish";
-          src = fetchFromGitHub {
-            owner = "lilyball";
-            repo = "nix-env.fish";
-            rev = "cf99a2e6e8f4ba864e70cf286f609d2cd7645263";
-            sha256 = "0170c7yy6givwd0nylqkdj7kds828a79jkw77qwi4zzvbby4yf51";
-          };
-        }
-        {
-          # pretty and simple prompt :)
+          # simple prompt
           name = "pure";
           src = fetchFromGitHub {
             owner = "rafaelrinaldi";
@@ -58,10 +48,11 @@ in
           true
         '';
 
-        emacs = "env GDK_BACKEND=x11 emacs $argv";
-        nix-locate = "command nix-locate --top-level $argv";
         cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
+        emacs = "env GDK_BACKEND=x11 emacs $argv";
         mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
+        nix-locate = "command nix-locate --top-level $argv";
+        ssh = "env TERM=xterm-256color ssh $argv";
         std = "rustup doc --std";
         t = "todo.sh $argv";
         win10 = "doas virsh start windows10";
@@ -77,18 +68,40 @@ in
         ll = "exa -l";
         ls = "exa";
         tree = "exa -T";
-        vi = "nvim";
         vim = "nvim";
+        vi = "nvim";
         "cd.." = "cd ..";
         weechat = "tmux -L weechat attach";
       } // cgitcAbbrs;
 
-      shellInit = ''
+      loginShellInit = ''
 
-        # Miscellaneous exports
-        set --global --export SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
-        set --global --export SKIM_DEFAULT_OPTIONS '--height 20%'
-        set --global --export LS_COLORS 'ow=36:di=1;34;40:fi=32:ex=31:ln=35:'
+        # tmux counts as a login shell
+        if [ -z $TMUX ]
+          # If terminal is login, unset __HM_SESS_VARS_SOURCED, because the
+          # graphical session will inherit this (which means child applications
+          # will never re-source when necessary)
+          set -e __HM_SESS_VARS_SOURCED
+
+          # If running from tty1, start sway
+          if [ (tty) = "/dev/tty1" ]
+            if [ (systemctl --user is-active sway.service) != "active" ]
+              systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY __HM_SESS_VARS_SOURCED
+              systemctl --user import-environment
+              exec systemctl --user --wait start sway.service
+            end
+          end
+
+          if [ (tty) = "/dev/tty5" ]
+            exec doas virsh start windows10
+          end
+
+          set --global pure_symbol_prompt "\$"
+          exit
+        end
+      '';
+
+      shellInit = ''
 
         # Set PATH without actually modifying PATH
         set --global --append fish_user_paths $CARGO_HOME/bin $DEVKITPRO/tools/bin $HOME/.local/bin/ $GOPATH/bin
@@ -122,19 +135,10 @@ in
 
       interactiveShellInit = ''
 
-        # if terminal is TTY (TERM == linux), unset __HM_SESS_VARS_SOURCED,
-        # because the graphical session will inherit this (which means child
-        # applications will never re-source if necessary)
-        if [ "$TERM" = "linux" ]
-          set -e __HM_SESS_VARS_SOURCED
-        end
-
         # GPG configuration
-        set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
-        # set --global --export SSH_AUTH_SOCK /run/user/(id -u)/gnupg/S.gpg-agent.ssh
+        set --global --export PINENTRY_USER_DATA (tty) # nonstandard -- used by my pinentry script
         set --global --export GPG_TTY (tty)
-        gpg-connect-agent updatestartuptty /bye >/dev/null &
-        # ''${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye >/dev/null &
+        ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye >/dev/null &
 
         # Rust stuff
         if command -q rustc
@@ -142,22 +146,17 @@ in
           set --global --export RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
         end
 
+        # Miscellaneous exports
+        set --global --export SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
+        set --global --export SKIM_DEFAULT_OPTIONS '--height 20%'
+        set --global --export LS_COLORS 'ow=36:di=1;34;40:fi=32:ex=31:ln=35:'
+
         eval (${pkgs.direnv}/bin/direnv hook fish)
         ${pkgs.zoxide}/bin/zoxide init fish | source
 
         emacs_start_daemon &
         t ls
         printf '\n'
-
-        # Themed man output
-        # from http://linuxtidbits.wordpress.com/2009/03/23/less-colors-for-man-pages/
-        # set --global --export LESS_TERMCAP_mb \e'[01;31m'                # begin blinking
-        # set --global --export LESS_TERMCAP_md \e'[01;38;5;74m'           # begin bold
-        # set --global --export LESS_TERMCAP_me \e'[0m'                    # end mode
-        # set --global --export LESS_TERMCAP_se \e'[0m'                    # end standout-mode
-        # set --global --export LESS_TERMCAP_so \e'[01;38;5;246;48;5;15m'  # begin standout-mode - info box and searches
-        # set --global --export LESS_TERMCAP_ue \e'[0m'                    # end underline
-        # set --global --export LESS_TERMCAP_us \e'[04;38;5;146m'          # begin underline
       '';
     };
   };
