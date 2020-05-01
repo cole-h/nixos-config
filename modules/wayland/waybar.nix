@@ -15,11 +15,20 @@ let
     ];
 
     modules-right = [
-      "mpd"
+      # "mpd"
+      # "custom/mpd"
       "pulseaudio"
       "clock"
       "tray"
     ];
+
+    # "custom/mpd" = {
+    #   exec = toString ~/workspace/langs/c/mpd/mpdinfo;
+    #   on-click = "${pkgs.cantata}/bin/cantata";
+    #   format = "{} ";
+    #   interval = "0";
+    #   tooltip = false;
+    # };
 
     # Modules configuration
     "sway/workspaces" = {
@@ -83,7 +92,7 @@ in
       * {
           border: none;
           border-radius: 0;
-          font-family: Iosevka Custom Book, Roboto, Helvetica, Arial, sans-serif;
+          font-family: Iosevka Custom Book Extended, Roboto, Helvetica, Arial, sans-serif;
           font-size: 14px;
           min-height: 0;
       }

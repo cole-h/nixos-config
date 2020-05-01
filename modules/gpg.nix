@@ -2,22 +2,40 @@
 let
   my-pinentry = with pkgs;
     writeShellScriptBin "my-pinentry" ''
-      # https://gist.github.com/msteen/6d1737a589e2ee5b492632182abdf658
-      # http://unix.stackexchange.com/questions/236746/change-pinentry-program-temporarily-with-gpg-agent
-      # https://github.com/keybase/keybase-issues/issues/1099#issuecomment-59313502
+      # choose pinentry depending on PINENTRY_USER_DATA
+      # requires pinentry-curses and pinentry-gnome3
+      # this *only works* with gpg 2
+      # see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=802020
 
-      if [[ -z "$PINENTRY_USER_DATA" ]]; then
+      if [ "''${PINENTRY_USER_DATA+x}" = "x" ]; then
         exec ${pinentry.gnome3}/bin/pinentry-gnome3 "$@"
       else
-        exec ${pinentry.curses}/bin/pinentry-curses --ttyname "$PINENTRY_USER_DATA" "$@"
+        exec ${pinentry.curses}/bin/pinentry-curses "$@"
       fi
     '';
+  # my-pinentry = with pkgs;
+  #   writeShellScriptBin "my-pinentry" ''
+  #     # https://gist.github.com/msteen/6d1737a589e2ee5b492632182abdf658
+  #     # http://unix.stackexchange.com/questions/236746/change-pinentry-program-temporarily-with-gpg-agent
+  #     # https://github.com/keybase/keybase-issues/issues/1099#issuecomment-59313502
+
+  #     if [[ -z "$PINENTRY_USER_DATA" ]]; then
+  #       exec ${pinentry.gnome3}/bin/pinentry-gnome3 "$@"
+  #     else
+  #       exec ${pinentry.curses}/bin/pinentry-curses "$@"
+  #       # exec ''${pinentry.curses}/bin/pinentry-curses --ttyname "$PINENTRY_USER_DATA" "$@"
+  #     fi
+  #   '';
 in
 {
-  home.file.".gnupg/dirmngr.conf".text = ''
-    # keyserver hkps://hkps.pool.sks-keyservers.net
-    keyserver hkps://keys.openpgp.org
-  '';
+  home.file = {
+    ".mozilla/native-messaging-hosts".source = "${pkgs.passff-host}/lib/mozilla/native-messaging-hosts";
+
+    ".gnupg/dirmngr.conf".text = ''
+      # keyserver hkps://hkps.pool.sks-keyservers.net
+      keyserver hkps://keys.openpgp.org
+    '';
+  };
 
   programs.gpg = {
     enable = true;
@@ -49,7 +67,7 @@ in
     # If this is enabled, `git push` does not work. Maybe other ssh actions as
     # well, but just that is enough to make me disable it. I still get prompted
     # for my GPG password, so no loss in functionality or protection.
-    # enableSshSupport = true;
+    enableSshSupport = true;
     defaultCacheTtl = 600;
     defaultCacheTtlSsh = 86400;
     maxCacheTtl = 7200;
@@ -69,6 +87,7 @@ in
       pinentry-program ${my-pinentry}/bin/my-pinentry
       allow-loopback-pinentry
       pinentry-timeout 600
+      debug-all
     '';
   };
 }

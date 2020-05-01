@@ -7,8 +7,8 @@ password_files=( "$prefix"/**/otp.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-password=$(printf '%s\n' "${password_files[@]}" | bemenu -i "$@" -p '>')
+password=$(printf '%s\n' "${password_files[@]}" | bemenu -ni "$@" -p '>')
 
 [[ -n $password ]] || exit
 
-pass otp -c "$password" 2>/dev/null
+passrs otp code -c "$password" 2>/dev/null

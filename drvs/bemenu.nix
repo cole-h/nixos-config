@@ -8,12 +8,12 @@
 , harfbuzz
 , pcre
 , pkgconfig
-, ncursesSupport ? true
+, ncursesSupport ? false
 , ncurses ? null
 , waylandSupport ? true
 , wayland ? null
 , wayland-protocols ? null
-, x11Support ? true
+, x11Support ? false
 , xlibs ? null
 , xorg ? null
 }:

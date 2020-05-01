@@ -1,3 +1,7 @@
-modules/weechat/weechat-conf
-modules/doom
-drvs/doom-emacs
+secrets/
+modules/weechat/weechat-conf/
+modules/emacs/config/
+modules/libvirt/qemu.d/
+*.xml
+drvs/pgtk-emacs/
+drvs/doom-emacs/

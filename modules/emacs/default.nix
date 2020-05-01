@@ -1,5 +1,23 @@
 { config, pkgs, ... }:
+let
+  # emacsGit # from emacs-overlay; [overlays]
+  emacsPkg = pkgs.emacs26;
+  em = pkgs.writeShellScriptBin "em" ''
+    case "$1" in
+         -*)
+          exec emacsclient "$@"
+    esac
 
+    # Checks if there's a frame open
+    ${emacsPkg}/bin/emacsclient --no-wait --eval "(if (> (length (frame-list)) 1) 't)" 2> /dev/null | grep t &> /dev/null
+
+    if [[ "$?" -eq 1 ]]; then
+      exec ${emacsPkg}/bin/emacsclient --no-wait --quiet --create-frame "$@" --alternate-editor=""
+    else
+      exec ${emacsPkg}/bin/emacsclient --no-wait --quiet "$@"
+    fi
+  '';
+in
 {
   # Emacs 27+ supports the XDG Base Directory specification, so drop doom into
   # $XDG_CONFIG_HOME/emacs
@@ -8,7 +26,8 @@
   home = {
     packages = with pkgs; [
       doom-emacs # for `doom sync` and `doom update`; [drvs]
-      emacsGit # from emacs-overlay; [overlays]
+      emacsPkg # [drvs]
+      em
     ];
 
     sessionVariables = {

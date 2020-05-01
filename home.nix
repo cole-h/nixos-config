@@ -31,10 +31,9 @@
       nix # adds nix.sh to .nix-profile/etc/profile.d, which sets path stuff, which allows us to use binaries
       nix-index
       nixpkgs-fmt
+      nix-prefetch-scripts
       nix-top
-
-      ## system-related
-      # musl
+      # nix-prefetch-github
 
       ## tools
       bat # cat but better
@@ -49,78 +48,103 @@
       hexyl # hev viewer
       hyperfine # cli benchmarker
       aerc # terminal email reader (why tf does it bring emacs into its closure????)
-      # broot # tree cd'er thing
+      tmate # "Instant Terminal Sharing" -- for debugging darwin issues via GH Actions
+
+      ccls # C/C++ LSP
 
       # latest.firefox-beta-bin
       latest.firefox-nightly-bin
-      pass
-      passff-host
-      android-studio # android apps
+      pass-otp
+      # android-studio # android apps
 
       newsboat # rss/atom feed reader
 
       ## misc
       chatterino2 # Twitch chat client; [drvs]
       discord
-      # (
-      #   runCommand "discord" { buildInputs = [ makeWrapper ]; } ''
-      #     mkdir -p $out/bin
-      #     makeWrapper ${discord}/bin/Discord $out/bin/discord \
-      #       --set "GDK_BACKEND" "x11"
-      #     # ln -s ''${discord}/bin/Discord $out/bin/discord
-      #   ''
-      # )
+      todo-txt-cli # TODOs tracker
 
-      #### TODO: most of these become system packages on NixOS
-      # hexdump
-      # ffprobe
-      # bash, zsh, gcc (use via nix-shell), dirname, todo.txt (todo.sh)
-      # killall, nc, tail, gdb, go (use via nix-shell)
-      # xdg-mime, file, tput, lp{stat,admin,...}, cups*
-      # evince, zathura, objdump, strip, watch, stat, {p,}kill, ps aux
-      # strace, pulaseaudio, dkms?, python (black), firewalld (or ufw)
-      # df, lsblk, umount, aplay, awk, bc, binwalk, blockdev, bootctl
-      # borgbackup, brctl, bsdtar, cadence, chattr, cfdisk, chmod, chown
-      # convert/mogrify (imagemagick), dig, file-roller, find, firefox, firejail,
-      # fontforge, gcc, haskell stuff, getcap, getenf, getfacl, getfattr
-      # gpg-error (libgpgerror), head, hub (github cli), inxi, iotop, ip
-      # LATEX STUFF!!!, ldd, less, libreoffice, ln, locale, lsmod, {sha256,md5,...}sum
-      # mpc, nautilus, ncdu, neofetch, nm-connection-editor, obs studio, openconnect, openssl
-      # pactl, pgrep, pidof, ping, pkill, qemu, FIXME: ra_lsp_server, ranger, readlink/realpath
-      # reptyr, sed, seq, showkey, shred, openssh, stow?, streamlink, syncthinc, tracepath
-      # wireguard, wine?, youtube-dl
-
-      # curl
-      # coreutils
-      # evince
-      # gdb
+      #### User Packages
+      # go # maybe
+      evince
+      zathura
+      cadence
+      # gitAndTools.hub
+      # ncdu
+      # rust-analyzer # (ra_lsp_server
       # lldb
-      # htop
-      # TODO: doas and suid wrapper
-      # switch USB stuff
-      # need cups for printing, etc.; gutenprint + canon-pixma-m920-complete (aur)
-      # cryptsetup + veracrypt for external TODO: buy larger external and move to luks2
-      # need ntfs-3g + fuse for mounting NTFS (can be removed after switching backup drive to luks)
-      # libguestfs, libguestfs-tools, libiscsi -- for vfio iSCSI
-      # android stuff (probably just a lorri/nix-shell env)
-      # jack (1024 buffer size (period), 2 periods/buffer (nperiods)) + pipewire?, cantata + mpd
-      # syncthing
-      # udevmon or whatever for Caps -> Esc
-      # texlive-core, texlive-most, texlive, auctex -- LaTeX stuff
-      # libreoffice
-      # sonarr, radarr, rtorrent + rutorrent (infinisil recommends transmission)
+      # kbd # showkey
+      gnome3.networkmanagerapplet
+      gnome3.nautilus # GUI file manager
+      gnome3.file-roller
+      foliate
+      filezilla
+      # streamlink
+      # youtube-dl
+      # cantata
+      # texlive.combined.scheme-medium # texlive-core, texlive-most, texlive, auctex -- LaTeX stuff
+      # ccls # C lsp server
+      # binwalk
+
+      #### System Packages
+      # utillinux # (hexdump, lsblk, umount, blockdev, cfdisk
+      # ffmpeg # (ffprobe)
+      # bash
+      # zsh
+      # fish
+      # psmisc # (killall)
+      # netcat-openbsd # (nc)
+      # coreutils # (tail, stat, kill, df, chmod, chown, head, ln, readlink, realpath, seq, shred, dirname
+      # gdb
+      # xdg_utils # (xdg-mime
+      # file
+      # ncurses # (tput, tic)
+      # cups # (lpstat, lpadmin, ...) -- gutenprint + canon-pixma-m920-complete (aur)
+      # binutils # (objdump, strip)
+      # procps-ng # (watch, pkill, ps, pgrep, pidof
       # strace
-      # borg-backup (maybe restic? but it doesn't have compression yet)
-      # ccls
-      # wireguard
-      # qemu + libvirt + ovmf + virt-manager (vfio)
-      # procps-ng for pgrep and ps
+      # alsaUtils # (aplay
+      # gawk # (awk
+      # gnused
+      # bc
+      # borgbackup # (borg)
+      # bridge_utils # maybe unnecssary?
+      # libarchive # (bsdtar
+      # e2fsprogs # (chattr
+      # imagemagick # (convert, mogrify)
+      # dnsutils # (dig
+      # findutils # (find
+      # libcap # (getcap
+      # acl # (getfacl
+      # attr # (getfattr
+      # iproute # (ip
+      # glibc/musl # (ldd
+      # less
+      # kmod # (lsmod
+      # openssl # (openssl base64 -d, openssl md5, etc)
+      # openconnect # for school VPN, if needed
+      # iputils # (ping, tracepath
+      # wireguard # (wg, wg-quick
+      # curl
+      # htop
+      # cryptsetup
+      # ntfs3g
+      # libguestfs # (guestmount,
+      # libreoffice
       # lsof
+
+      ## haskell stuff
+      ## Switch USB stuff
+      ## syncthing service
+      ## qemu + libvirt + ovmf + virt-manager (vfio) + libvirt hooks
+      ## sonarr, radarr, rtorrent + rutorrent (infinisil recommends transmission)
+      ## udevmon or whatever for Caps -> Esc (or buy the Drop CTRL lol)
     ];
 
     activation = with lib; {
       # Some software requires fonts to be present in $XDG_DATA_HOME/fonts in
       # order to use/see them (like Emacs), so just link to them.
+      # FIXME: remove me once migrate to NixOS
       setupFonts = hm.dag.entryAfter [ "linkGeneration" ] ''
         fontsdir="${config.home.profileDirectory}/share/fonts"
         userfontsdir="${config.xdg.dataHome}/fonts"
@@ -159,6 +183,7 @@
       MAKEFLAGS = "\${MAKEFLAGS:+$MAKEFLAGS }-j$(nproc)";
 
       # Solves locale issues on non-NixOS
+      # FIXME: remove after switch to NixOS
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
 
       # Add local conf and local nixpkgs to NIX_PATH
@@ -167,26 +192,11 @@
       # maybe investigate flakes
       # (see: https://github.com/nrdxp/nixflk/)
       NIX_PATH = lib.concatStringsSep ":" [
-        "vin=${toString ./.}"
-        "nixpkgs=${toString ~/workspace/vcs/nixpkgs}"
+        "nixpkgs=${toString ~/workspace/vcs/nixpkgs/master}"
       ];
 
-      # Otherwise, apps that rely on this being set (*cough* wrapped GApps *cough*) will function
-      # improperly
-      # TODO: package rofi-emoji properly and drop this
-      XDG_DATA_DIRS = lib.concatStringsSep ":" [
-        "/usr/share"
-        "/usr/local/share"
-        "/nix/var/nix/profiles/default/share"
-        "$HOME/.nix-profile/share"
-      ] + "\${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}";
+      MPD_HOST = "127.0.0.1";
     };
-
-    # The host operating system that Home Manager will be installed
-    # on. This enables OS-specific workarounds and tweaks to increase
-    # the general cohesiveness of the system.
-    # For a list of supported systems, see `man home-configuration.nix`.
-    targetOperatingSystem = "linux";
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
@@ -199,18 +209,22 @@
     stateVersion = "20.03";
   };
 
-  services.lorri.enable = true;
+  # This enables workarounds and tweaks to increase the general cohesiveness of
+  # the system when not on NixOS.
+  # FIXME: remove after switch to NixOS
+  targets.genericLinux.enable = true;
+
+  services = {
+    syncthing.enable = true;
+    lorri.enable = true;
+  };
 
   systemd.user = {
-    services.lorri.Service.Environment = with lib;
-      let
-        path = with pkgs; makeSearchPath "bin" [ nix gitMinimal gnutar gzip ];
-        # lorri complains about no nixpkgs because NIX_PATH is unset for it
-      in mkForce [
-        "PATH=${path}"
-        "NIX_PATH=${config.home.sessionVariables.NIX_PATH}"
-      ];
+    sessionVariables = {
+      NIX_PATH = lib.mkForce config.home.sessionVariables.NIX_PATH;
+    };
 
+    # FIXME: remove after switch to NixOS
     systemctlPath = "/usr/bin/systemctl";
   };
 }

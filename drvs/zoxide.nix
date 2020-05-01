@@ -1,28 +1,34 @@
 { lib
-, fetchFromGitHub
+, buildPackage # from naersk
 , fzf
-, callPackage
+, git
 }:
-let
-  src = toString ~/workspace/vcs/zoxide;
-  sources = import <vin/nix/sources.nix>;
-  naersk = callPackage sources.naersk {};
-  gitignoreSource = (callPackage sources.gitignore {}).gitignoreSource;
-  commitHash = with lib; substring 0 8 (commitIdFromGitRepo "${src}/.git");
-in
-naersk.buildPackage {
+buildPackage {
   pname = "zoxide";
-  version = commitHash;
+  version = "0.3.1";
 
-  root = gitignoreSource src;
+  root = lib.cleanSourceWith {
+    src = toString ~/workspace/vcs/zoxide;
+    filter = name: type: let baseName = baseNameOf (toString name); in !(
+      # Filter out version control software files/directories
+      (type == "directory" && baseName == "target")
+      || # Filter out nix-build result symlinks
+      (type == "symlink" && lib.hasPrefix "result" baseName)
+    );
+  };
+
   cargoOptions = (opts: opts ++ [ "--locked" ]);
 
   postPatch = ''
-    sed -i 's@, hash@, "-${commitHash}"@' \
+    sed -i 's@"])@", "--dirty="])@' \
       build.rs
   '';
 
-  buildInputs = [
-    fzf
-  ];
+  buildInputs = [ fzf ];
+
+  override = (
+    old: {
+      nativeBuildInputs = old.nativeBuildInputs ++ [ git ];
+    }
+  );
 }

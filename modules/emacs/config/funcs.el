@@ -1,4 +1,4 @@
-;;; ~/.doom.d/funcs.el -*- lexical-binding: t; -*-
+;;; funcs.el -*- lexical-binding: t; -*-
 
 (defun vin/alternate-buffer (&optional window)
   "Switch back and forth between current and last buffer in the

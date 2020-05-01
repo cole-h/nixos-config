@@ -6,23 +6,11 @@
   (setq evil-want-C-i-jump t))
 
 (setq doom-localleader-key ","
-      ;; doom-theme 'doom-snazzy)
-      ;; doom-theme 'base16-default-dark)
       doom-theme 'doom-dracula)
-      ;; doom-theme 'base16-gruvbox-dark-hard)
-;; spacegray
-;; tomorrow-night
-;; molokai
 
-(setq doom-font (font-spec :family "Iosevka Custom Book" :size 12.0)
-;; (setq doom-font (font-spec :family "JetBrainsMono" :size 10.5)
+(setq doom-font (font-spec :family "DejaVu Sans Mono" :size 10.5)
+;; (setq doom-font (font-spec :family "Iosevka Custom Book Extended" :size 10.5)
       frame-title-format "%b")
-
-;; (setq doom-font (font-spec :family "Iosevka Custom" :size 12.0)
-;;       doom-variable-pitch-font (font-spec :family "Iosevka Custom" :size 12.0)
-;;       doom-unicode-font (font-spec :family "Iosevka Custom" :size 12.0)
-;;       doom-big-font (font-spec :family "Iosevka Custom" :size 16.0)
-;;       frame-title-format "%b")
 
 (setq +popup-defaults
       (list :side    'bottom
@@ -102,8 +90,8 @@
 
        :tools
        ;;ansible
-       (debugger           ; FIXME stepping through code, to help you add bugs
-        +lsp)
+       ;; (debugger           ; FIXME stepping through code, to help you add bugs
+       ;;  +lsp)
        direnv
        ;;docker
        editorconfig        ; let someone else argue about tabs vs spaces

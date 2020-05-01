@@ -9,7 +9,7 @@ if [ "$1" = "refresh" ]; then
         --form "client_id=$client_id" \
         --form "client_secret=$client_secret" \
         --form "grant_type=refresh_token")"
-    echo -e "$res\n"
+    echo -e "$res" | tee -a ~/imgur.log
 
     new_auth="$(jq -r '.access_token' <<< $res)"
     new_refresh="$(jq -r '.refresh_token' <<< $res)"
@@ -19,12 +19,14 @@ if [ "$1" = "refresh" ]; then
 else
     res="$(curl --location --request POST 'https://api.imgur.com/3/image' \
         --header "$auth" --data-binary @-)"
-    echo -e "$res\n"
+    echo "$res"
 
+    url="$(jq -r '.data.link' <<< $res)"
     id="$(jq -r '.data.id' <<< $res)"
     res="$(curl --location --request POST "https://api.imgur.com/3/album/$albumid/add" \
         --header "$auth" --form "ids[]=$id")"
-    echo -e "$res\n"
+    echo "$res"
 
-    echo "https://i.imgur.com/$id.png" | wl-copy --trim-newline
+
+    echo "$url" | tee -a ~/imgur.log | wl-copy --trim-newline
 fi

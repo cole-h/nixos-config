@@ -14,36 +14,16 @@
     slurp # select region
     wl-clipboard # clipboard
     alacritty # [drvs]
-    kitty # alt terminal in case of backup
+    kitty # alt terminal as backup
     mako # notifications
     libnotify # notifications part 2: electric boogaloo
     redshift-wlr # blue-light filter; [overlays]
     bemenu # dmenu launcher; [overlays]
     j4-dmenu-desktop # desktop files
+    rofi # has rofi-emoji as a plugin; [overlays]
     # TODO: TUI display manager for fanciness so I don't have to `systemctl --user import-environment`
     # ly
-
-    rofi # [overlays]
-    adwaita-qt
-    gnome3.adwaita-icon-theme
-    qgnomeplatform
-    qt5.qtwayland
   ];
-
-  gtk = {
-    enable = true;
-    # gtk2.extraConfig = "gtk-application-prefer-dark-theme = true";
-    # gtk3.extraConfig = { gtk-application-prefer-dark-theme = true; };
-    iconTheme = {
-      name = "Adwaita";
-      package = pkgs.gnome3.adwaita-icon-theme;
-    };
-  };
-
-  qt = {
-    enable = false;
-    platformTheme = "gtk";
-  };
 
   xdg.configFile = {
     # ref: https://github.com/lovesegfault/nix-config/blob/03c4b9d9a01ca5439736c6f0f4b762b900aaddf7/users/bemeurer/sway/mako.nix
@@ -51,7 +31,7 @@
     "mako/config".text = ''
       layer=overlay
       anchor=top-center
-      width=500
+      width=400
       default-timeout=15000
     '';
   };
@@ -167,28 +147,27 @@
       #   };
       # };
 
-      waybar = {
-        Unit = {
-          Description = "waybar";
-          Documentation = [ "https://github.com/Alexays/Waybar/wiki" ];
-          PartOf = [ "graphical-session.target" ];
-          # Wait on both in order to inherit SWAYSOCK, etc
-          # After = [ "sway-session.target" "sway.service" ];
-          Requires = [ "sway-session.target" "sway.service" ];
-        };
+      # waybar = {
+      #   Unit = {
+      #     Description = "waybar";
+      #     Documentation = [ "https://github.com/Alexays/Waybar/wiki" ];
+      #     PartOf = [ "graphical-session.target" ];
+      #     # Wait on both in order to inherit SWAYSOCK, etc
+      #     # After = [ "sway-session.target" "sway.service" ];
+      #     Requires = [ "sway-session.target" "sway.service" ];
+      #   };
 
-        Service = {
-          Type = "simple";
-          # ExecStartPre = "systemctl --user import-environment SWAYSOCK WAYLAND_DISPLAY";
-          ExecStart = "${pkgs.waybar}/bin/waybar";
-          RestartSec = 1;
-          Restart = "always";
-        };
+      #   Service = {
+      #     Type = "simple";
+      #     ExecStart = "${pkgs.waybar}/bin/waybar";
+      #     # RestartSec = 1;
+      #     Restart = "always";
+      #   };
 
-        Install = {
-          WantedBy = [ "sway-session.target" ];
-        };
-      };
+      #   Install = {
+      #     WantedBy = [ "sway-session.target" ];
+      #   };
+      # };
     };
   };
 }

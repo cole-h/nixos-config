@@ -1,5 +1,5 @@
 ;; -*- no-byte-compile: t; -*-
-;;; ~/.doom.d/packages.el
+;;; packages.el
 
 ;;; Examples:
 ;; (package! some-package)
@@ -13,7 +13,3 @@
 (package! evil-unimpaired :recipe (:host github :repo "zmaas/evil-unimpaired")) ;; gives ]f (next file)
 (package! org-web-tools)
 (package! org-recent-headings)
-(package! base16-theme)
-;; (package! rust-analyzer :recipe (:host github
-;;                                        :repo "rust-analyzer/rust-analyzer"
-;;                                        :files ("editors/emacs/rust-analyzer.el")))

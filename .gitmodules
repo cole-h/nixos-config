@@ -6,3 +6,7 @@
     path = secrets
     url = git@github.com:cole-h/nix-secrets.git
     branch = master
+[submodule "drvs/pgtk-emacs"]
+    path = drvs/pgtk-emacs
+    url = https://github.com/masm11/emacs.git
+    branch = pgtk

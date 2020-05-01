@@ -6,10 +6,12 @@ let
   composeExtensions4 = f: g: h: i:
     composeExtensions2 f (composeExtensions3 g h i);
 
-  sources = import <vin/nix/sources.nix>;
+  sources = import ../nix/sources.nix;
   emacs = import sources.emacs-overlay;
   wayland = import sources.nixpkgs-wayland;
   mozilla = import sources.nixpkgs-mozilla;
+
+  # wayland = import ~/workspace/vcs/nixpkgs-wayland;
 in
 composeExtensions3 mozilla emacs wayland
   final super

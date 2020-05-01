@@ -41,7 +41,7 @@ in
         $DRY_RUN_CMD unlink \
           ${config.xdg.configHome}/git/gitauth.inc 2>/dev/null || true
         $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
-          ${toString <vin/secrets/gitauth.inc>} \
+          ${toString ../../secrets/gitauth.inc} \
           ${config.xdg.configHome}/git/gitauth.inc
       '';
     };
@@ -72,12 +72,18 @@ in
     extraConfig = {
       git.autocrlf = "input";
       tag.forceSignAnnotated = true;
+      pull.rebase = true;
+      rebase.autoStash = true;
 
       diff."nodiff".command = "${pkgs.coreutils}/bin/true";
 
       url = {
         "https://github.com/".insteadOf = ''"gh:"'';
         "ssh://git@github.com".pushInsteadOf = ''"gh:"'';
+        # TODO: remove me after switching to NixOS
+        "https://aur.archlinux.org/".insteadOf = "aur:";
+        "ssh://aur@aur.archlinux.org/".pushInsteadOf = "aur:";
+
       };
     };
   };

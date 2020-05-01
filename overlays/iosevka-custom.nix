@@ -79,30 +79,32 @@ with super;
         };
 
         design = [
+          "no-ligation"
           "sp-term"
-          "v-l-italic"
-          "v-i-serifed"
           "v-a-doublestorey"
+          "v-asterisk-high"
+          "v-at-threefold"
+          "v-brace-curly"
+          "v-caret-high"
+          "v-dollar-through"
+          "v-eszet-sulzbacher"
           "v-f-straight"
           "v-g-singlestorey"
+          "v-i-serifed"
+          "v-lig-ltgteq-slanted"
+          "v-l-italic"
           "v-m-shortleg"
-          "v-t-standard"
-          "v-q-taily"
-          "v-y-straight"
-          "v-zero-slashed"
+          "v-numbersign-slanted"
           "v-one-base"
+          "v-paragraph-high"
+          "v-percent-dots"
+          "v-q-taily"
           "v-three-flattop"
           "v-tilde-low"
-          "v-asterisk-high"
-          "v-paragraph-high"
-          "v-caret-high"
+          "v-t-standard"
           "v-underscore-high"
-          "v-at-fourfold"
-          "v-eszet-sulzbacher"
-          "v-brace-curly"
-          "v-dollar-through"
-          "v-numbersign-slanted"
-          "v-percent-dots"
+          "v-y-straight"
+          "v-zero-reverse-slashed"
         ];
       };
     }
@@ -115,7 +117,7 @@ with super;
         install dist/$pname/ttf/* "$fontdir"
       '';
 
-      outputHash = "0ygvy89gik2bn52j68kcxxadpll75m1j9bd1qgwiq2a7jm5bwxra";
+      outputHash = "0y62myxrlc1r8lgr6bbxrxp87k3d041q0rwnqikr68bxh58cf03f";
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
     }

@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  cgitcAbbrs = (pkgs.callPackage ../drvs/fish/cgitc.nix {}).abbrs;
+  cgitcAbbrs = (pkgs.callPackage ../drvs/fish/cgitc.nix { }).abbrs;
 in
 {
   home.packages = with pkgs; [
@@ -21,6 +21,16 @@ in
       enable = true;
 
       plugins = with pkgs; [
+        # {
+        #   # allows nix and home-manager to work properly on expatriate systems (kept as a backup)
+        #   name = "nix-env.fish";
+        #   src = fetchFromGitHub {
+        #     owner = "lilyball";
+        #     repo = "nix-env.fish";
+        #     rev = "cf99a2e6e8f4ba864e70cf286f609d2cd7645263";
+        #     sha256 = "0170c7yy6givwd0nylqkdj7kds828a79jkw77qwi4zzvbby4yf51";
+        #   };
+        # }
         {
           # simple prompt
           name = "pure";
@@ -41,7 +51,7 @@ in
 
         emacs_start_daemon = ''
           emacsclient --no-wait --eval '(ignore)' 2>/dev/null >/dev/null \
-              || env GDK_BACKEND=x11 emacs --bg-daemon 2>/dev/null >/dev/null &
+              || emacs --bg-daemon 2>/dev/null >/dev/null &
 
           # for some reason, starting the daemon can "error" (but still starts
           # Emacs), so reset the exit code
@@ -49,7 +59,7 @@ in
         '';
 
         cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
-        emacs = "env GDK_BACKEND=x11 emacs $argv";
+        # emacs = "env GDK_BACKEND=x11 emacs $argv";
         mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
         nix-locate = "command nix-locate --top-level $argv";
         ssh = "env TERM=xterm-256color ssh $argv";
@@ -83,15 +93,17 @@ in
           # will never re-source when necessary)
           set -e __HM_SESS_VARS_SOURCED
 
-          # If running from tty1, start sway
+          # Start sway
           if [ (tty) = "/dev/tty1" ]
             if [ (systemctl --user is-active sway.service) != "active" ]
-              systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY __HM_SESS_VARS_SOURCED
+              systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY \
+                        IN_NIX_SHELL __HM_SESS_VARS_SOURCED GPG_TTY
               systemctl --user import-environment
               exec systemctl --user --wait start sway.service
             end
           end
 
+          # Start windows VM
           if [ (tty) = "/dev/tty5" ]
             exec doas virsh start windows10
           end
@@ -127,7 +139,8 @@ in
             printf "nix-shell "
           end
 
-          echo "λ"
+          echo '$'
+          # echo "λ"
         )
 
         set --global pure_symbol_prompt "$nix_shell_info"
@@ -136,9 +149,9 @@ in
       interactiveShellInit = ''
 
         # GPG configuration
-        set --global --export PINENTRY_USER_DATA (tty) # nonstandard -- used by my pinentry script
+        set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
         set --global --export GPG_TTY (tty)
-        ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye >/dev/null &
+        # ''${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye >/dev/null &
 
         # Rust stuff
         if command -q rustc
@@ -152,7 +165,7 @@ in
         set --global --export LS_COLORS 'ow=36:di=1;34;40:fi=32:ex=31:ln=35:'
 
         eval (${pkgs.direnv}/bin/direnv hook fish)
-        ${pkgs.zoxide}/bin/zoxide init fish | source
+        ${pkgs.zoxide}/bin/zoxide init fish --hook pwd | source
 
         emacs_start_daemon &
         t ls

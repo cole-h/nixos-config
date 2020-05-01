@@ -1,22 +1,32 @@
 final: super:
 with super;
-
+let
+  sources = import ../nix/sources.nix;
+  naersk = callPackage sources.naersk { };
+in
 {
   # fonts
-  san-francisco = callPackage ../drvs/san-francisco.nix {};
-  sarasa-gothic = callPackage ../drvs/sarasa-gothic.nix {};
+  # san-francisco = callPackage ../drvs/san-francisco.nix {};
+  # sarasa-gothic = callPackage ../drvs/sarasa-gothic.nix {};
 
   # misc
-  doom-emacs = callPackage ../drvs/doom-emacs.nix {};
-  zoxide = callPackage ../drvs/zoxide.nix {};
-  gsfonts = callPackage ../drvs/gsfonts.nix {};
-  aerc = callPackage ../drvs/aerc.nix {};
-  alacritty = callPackage ../drvs/alacritty.nix {};
-  bemenu = (callPackage ../drvs/bemenu.nix {}).override { ncursesSupport = false; x11Support = false; };
-  fish = callPackage ../drvs/fish/fish.nix {};
+  aerc = callPackage ../drvs/aerc.nix { };
+  bemenu = callPackage ../drvs/bemenu.nix { };
+  chatterino2 = libsForQt5.callPackage ../drvs/chatterino2.nix { };
+  doom-emacs = callPackage ../drvs/doom-emacs.nix { };
+  fish = callPackage ../drvs/fish/fish.nix { };
+  foliate = callPackage ../drvs/foliate.nix { };
+  gsfonts = callPackage ../drvs/gsfonts.nix { };
+
+  alacritty = callPackage ../drvs/alacritty.nix {
+    inherit (naersk) buildPackage;
+  };
+
+  zoxide = callPackage ../drvs/zoxide.nix {
+    inherit (naersk) buildPackage;
+  };
 
   # single-line overrides
-  mpv = mpv.override { vdpauSupport = false; };
   ripgrep = ripgrep.override { withPCRE2 = true; };
   rofi = rofi.override { plugins = [ rofi-emoji ]; };
 }

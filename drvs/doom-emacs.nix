@@ -2,7 +2,7 @@
 , callPackage
 }:
 let
-  sources = import <vin/nix/sources.nix>;
+  sources = import ../nix/sources.nix;
   gitignoreSource = (callPackage sources.gitignore {}).gitignoreSource;
 in
 stdenv.mkDerivation {

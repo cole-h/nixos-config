@@ -1,5 +1,13 @@
 { config, lib, pkgs, ... }:
 let
+  status = with pkgs; writeShellScriptBin "status" ''
+    music="$(${mpc_cli}/bin/mpc current --format "%artist% – %title%") ♫"
+    volume="$(${pamixer}/bin/pamixer --get-volume)%"
+    time="$(${coreutils}/bin/date +'%d %B %G %T')"
+
+    printf "%s  %s  %s\n" "$music" "$volume" "$time"
+  '';
+
   ## Variables for bindings
   # Logo key
   modifier = "Mod4";
@@ -13,7 +21,6 @@ let
 
   ## Modes
   system = "(l) lock, (e) logout, (s) suspend";
-  # screenie = "(a) area, (A) to clipboard, (M) to clipboard, (W) to clipboard";
   screenie = "(a) area, (m) monitor, (w) window, (A) to clipboard, (M) to clipboard, (W) to clipboard";
 
   ## Executables
@@ -53,11 +60,11 @@ let
 in
 {
   home.activation = with lib; {
-    cargoCredentials = hm.dag.entryAfter [ "linkGeneration" ] ''
+    imgurCredentials = hm.dag.entryAfter [ "linkGeneration" ] ''
       $DRY_RUN_CMD unlink \
         ${config.xdg.configHome}/imgur 2>/dev/null || true
       $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
-         ${toString <vin/secrets/imgur>} \
+         ${toString ../../secrets/imgur} \
          ${config.xdg.configHome}/imgur
     '';
   };
@@ -70,9 +77,6 @@ in
     wrapperFeatures = { gtk = true; };
 
     extraSessionCommands = ''
-      # in order to allow further sessionVariables modifications to take effect
-      # systemctl --user unset-environment __HM_SESS_VARS_SOURCED
-
       export MOZ_ENABLE_WAYLAND=1
       # export QT_QPA_PLATFORM=wayland
       # export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
@@ -81,6 +85,7 @@ in
       export GDK_BACKEND=wayland
       export _JAVA_AWT_WM_NONREPARENTING=1
       export XDG_CURRENT_DESKTOP=sway
+      export PINENTRY_USER_DATA=gtk
     '';
 
     # TODO: swayidle+swaylock command
@@ -105,7 +110,7 @@ in
         smartGaps = true;
       };
 
-      fonts = [ "IPAexGothic 11" "DejaVu Sans Mono 10" ];
+      fonts = [ "IPAexGothic 11" "Iosevka Custom Book Extended 10" ];
 
       input = {
         "6940:6931:Corsair_Corsair_K70_RGB_Gaming_Keyboard__Keyboard" = {
@@ -134,6 +139,7 @@ in
         ## Basics
         # start a terminal
         "${modifier}+Return" = "exec ${term}";
+        "${modifier}+KP_Enter" = "exec ${term}";
         "${modifier}+Shift+Return" = "exec ${alacritty}";
         "${modifier}+Ctrl+Shift+Return" = "exec ${kitty}";
         # kill focused window
@@ -146,8 +152,8 @@ in
         "${modifier}+Shift+c" = "reload";
         # open file browser
         # TODO: check gsettings I have set
-        # "${modifier}+e" = "exec ${pkgs.gnome3.nautilus}/bin/nautilus";
-        "${modifier}+e" = "exec nautilus";
+        "${modifier}+e" = "exec ${pkgs.gnome3.nautilus}/bin/nautilus";
+        # "${modifier}+e" = "exec nautilus";
         # open password menu
         "${modifier}+p" = "exec ${toString ./scripts/passmenu}";
         "${modifier}+Shift+p" = "exec ${toString ./scripts/otpmenu}";
@@ -491,7 +497,7 @@ in
 
       startup = [
         {
-          command = "cadence-session-start --system-start";
+          command = "${pkgs.cadence}/bin/cadence-session-start --system-start";
         }
         {
           command = "alacritty --class SCRATCHTERM -e tmux -L scratch";
@@ -508,7 +514,24 @@ in
       ];
 
       # use systemd-controlled waybar unit (see ./default.nix)
-      bars = [];
+      # TODO: look at ddevault's bar
+      bars = [
+        {
+          statusCommand = "while ${status}/bin/status; do sleep 0.1; done";
+          position = "top";
+          fonts = [ "IPAexGothic 11" "Iosevka Custom Book Extended 10" ];
+          colors = {
+            background = "#1f1f1f";
+            # inactiveWorkspace = { background = "#808080"; border = "#808080"; text = "#888888"; };
+            # activeWorkspace = { background = "#808080"; border = "#808080"; text = "#ffffff"; };
+            # focusedWorkspace = { background = "#0000ff"; border = "#0000ff"; text = "#ffffff"; };
+            # urgentWorkspace = { background = "#ff0000"; border = "#ff0000"; text = "#ffffff"; };
+          };
+          extraConfig = ''
+            pango_markup disabled
+          '';
+        }
+      ];
     };
 
     extraConfig = ''
@@ -536,6 +559,7 @@ in
       workspace ${wsF10} output HDMI-A-1
 
       seat * hide_cursor 5000
+      seat * xcursor_theme default 24
 
       # TODO: Japanese input stuff
       # set $mode_lang j: japanese; esc: english

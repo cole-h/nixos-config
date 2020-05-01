@@ -2,20 +2,29 @@
 
 {
   home = {
-    packages = with pkgs; [ weechat tmux ];
+    packages = with pkgs; [
+      weechat
+      tmux
+    ];
 
     activation = with lib; {
       weechatSecrets = hm.dag.entryBefore [ "weechatConfig" ] ''
         $DRY_RUN_CMD unlink \
+          ${toString ./weechat-conf/freenode.pem} 2>/dev/null || true
+        $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
+          ${toString ../../secrets/weechat/freenode.pem} \
+          ${toString ./weechat-conf/freenode.pem}
+
+        $DRY_RUN_CMD unlink \
           ${toString ./weechat-conf/sec.conf} 2>/dev/null || true
         $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
-          ${toString <vin/secrets/weechat/sec.conf>} \
+          ${toString ../../secrets/weechat/sec.conf} \
           ${toString ./weechat-conf/sec.conf}
 
         $DRY_RUN_CMD unlink \
           ${toString ./weechat-conf/irc.conf} 2>/dev/null || true
         $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
-          ${toString <vin/secrets/weechat/irc.conf>} \
+          ${toString ../../secrets/weechat/irc.conf} \
           ${toString ./weechat-conf/irc.conf}
       '';
 

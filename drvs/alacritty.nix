@@ -1,5 +1,5 @@
 { lib
-, callPackage
+, buildPackage
 , makeWrapper
 , installShellFiles
 
@@ -20,15 +20,10 @@
 , pkgconfig
 , python3
 , xdg_utils
+, git
 , releaseBuild ? true
 }:
 let
-  src = toString ~/workspace/vcs/alacritty;
-  sources = import <vin/nix/sources.nix>;
-  naersk = callPackage sources.naersk {};
-  gitignoreSource = (callPackage sources.gitignore {}).gitignoreSource;
-  commitHash = with lib; substring 0 8 (commitIdFromGitRepo "${src}/.git");
-
   rpathLibs = [
     expat
     fontconfig
@@ -45,10 +40,18 @@ let
   ];
 in
 (
-  naersk.buildPackage {
+  buildPackage {
     name = "alacritty";
-    version = commitHash;
-    root = gitignoreSource src;
+    version = "0.5.0";
+
+    root = lib.cleanSourceWith {
+      src = toString ~/workspace/vcs/alacritty;
+      filter = name: type:
+        let baseName = baseNameOf (toString name); in
+          !((type == "directory" && baseName == "target")
+            || (type == "symlink" && lib.hasPrefix "result" baseName));
+    };
+
     buildInputs = [
       makeWrapper
       installShellFiles
@@ -56,38 +59,44 @@ in
       pkgconfig
       python3
     ] ++ rpathLibs;
+
     cargoOptions = (opts: opts ++ [ "--locked" ]);
     release = releaseBuild;
     doCheck = false;
+
+    override = (
+      { nativeBuildInputs ? [ ], ... }: {
+        nativeBuildInputs = nativeBuildInputs ++ [ git ];
+      }
+    );
   }
-).overrideAttrs (
-  _: {
-    postPatch = ''
-      substituteInPlace alacritty/src/config/mouse.rs \
-        --replace xdg-open ${xdg_utils}/bin/xdg-open
+).overrideAttrs
+  (
+    { ... }: {
+      postPatch = ''
+        substituteInPlace alacritty/src/config/mouse.rs \
+          --replace xdg-open ${xdg_utils}/bin/xdg-open
+      '';
 
-      sed -i 's@let hash =.*@let hash = "${commitHash}";@' \
-        alacritty/build.rs
-    '';
+      installPhase = ''
+        runHook preInstall
 
-    installPhase = ''
-      runHook preInstall
+        install -D target/${ if releaseBuild then "release" else "debug"}/alacritty $out/bin/alacritty
 
-      install -D target/${if releaseBuild then "release" else "debug"}/alacritty $out/bin/alacritty
+        install -D extra/linux/Alacritty.desktop -t $out/share/applications/
+        install -D extra/logo/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
 
-      install -D extra/linux/Alacritty.desktop -t $out/share/applications/
-      install -D extra/logo/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
-      patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/alacritty
+        strip -S $out/bin/alacritty
+        patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/alacritty
 
-      installShellCompletion --zsh extra/completions/_alacritty
-      installShellCompletion extra/completions/alacritty.{fish,bash}
+        installShellCompletion --zsh extra/completions/_alacritty
+        installShellCompletion extra/completions/alacritty.{fish,bash}
+        installManPage extra/alacritty.man
 
-      install -dm 755 "$out/share/man/man1"
-      gzip -c extra/alacritty.man > "$out/share/man/man1/alacritty.1.gz"
+        runHook postInstall
+      '';
 
-      runHook postInstall
-    '';
-
-    dontPatchELF = true; # we already did it :)
-  }
-)
+      dontStrip = true;
+      dontPatchELF = true; # we already did it :)
+    }
+  )

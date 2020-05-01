@@ -34,7 +34,7 @@ in
         $DRY_RUN_CMD unlink \
           ${config.home.homeDirectory}/.cargo/credentials 2>/dev/null || true
         $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
-           ${toString <vin/secrets/cargo-credentials>} \
+           ${toString ../secrets/cargo-credentials} \
            ${config.home.homeDirectory}/.cargo/credentials
       '';
     };
