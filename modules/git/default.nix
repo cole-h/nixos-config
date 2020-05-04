@@ -1,19 +1,21 @@
 { config, lib, pkgs, ... }:
 let
-  gitk = pkgs.writeText "gitk" (
-    builtins.readFile (
-      pkgs.fetchFromGitHub {
-        owner = "dracula";
-        repo = "gitk";
-        rev = "b98afab830d49803e14b44ce330e3390360c7cd2";
-        sha256 = "1cmirzrvk9y5n2yxjl7ghjspdpk4xqjx3in546prqjcfg7dl27ss";
-      } + "/gitk"
-    ) + ''
-      set mainfont {{DejaVu Sans Mono} 10}
-      set textfont {{JetBrains Mono} 10}
-      set uifont {{DejaVu Sans Mono} 10 bold}
-    ''
-  );
+  gitk = pkgs.writeText "gitk"
+    (
+      builtins.readFile
+        (
+          pkgs.fetchFromGitHub {
+            owner = "dracula";
+            repo = "gitk";
+            rev = "b98afab830d49803e14b44ce330e3390360c7cd2";
+            sha256 = "1cmirzrvk9y5n2yxjl7ghjspdpk4xqjx3in546prqjcfg7dl27ss";
+          } + "/gitk"
+        ) + ''
+        set mainfont {{DejaVu Sans Mono} 10}
+        set textfont {{JetBrains Mono} 10}
+        set uifont {{DejaVu Sans Mono} 10 bold}
+      ''
+    );
   gdbinit = pkgs.fetchFromGitHub {
     owner = "cyrus-and";
     repo = "gdb-dashboard";
@@ -78,8 +80,8 @@ in
       diff."nodiff".command = "${pkgs.coreutils}/bin/true";
 
       url = {
-        "https://github.com/".insteadOf = ''"gh:"'';
-        "ssh://git@github.com".pushInsteadOf = ''"gh:"'';
+        "https://github.com/".insteadOf = "gh:";
+        "ssh://git@github.com".pushInsteadOf = "gh:";
         # TODO: remove me after switching to NixOS
         "https://aur.archlinux.org/".insteadOf = "aur:";
         "ssh://aur@aur.archlinux.org/".pushInsteadOf = "aur:";

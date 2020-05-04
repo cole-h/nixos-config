@@ -99,19 +99,19 @@
 
 (after! rustic
   ;; workaround from https://github.com/hlissner/doom-emacs/pull/2466
-  (require 'smartparens-rust)
-  (defun curly-space (&rest _ignored)
-    "Correctly format if you hit space inside of {}"
-    (left-char 1)
-    (insert " "))
-  (defun smooth-curly-block (&rest _ignored)
-    "Correctly format if you hit enter inside of ({})"
-    (newline)
-    (indent-according-to-mode)
-    (forward-line -1)
-    (indent-according-to-mode))
-  (sp-local-pair 'rustic-mode "({" "})" :post-handlers '((smooth-curly-block "RET")))
-  (sp-local-pair 'rustic-mode "{" "}" :post-handlers '((curly-space "SPC") (smooth-curly-block "RET")))
+  ;; (require 'smartparens-rust)
+  ;; (defun curly-space (&rest _ignored)
+  ;;   "Correctly format if you hit space inside of {}"
+  ;;   (left-char 1)
+  ;;   (insert " "))
+  ;; (defun smooth-curly-block (&rest _ignored)
+  ;;   "Correctly format if you hit enter inside of ({})"
+  ;;   (newline)
+  ;;   (indent-according-to-mode)
+  ;;   (forward-line -1)
+  ;;   (indent-according-to-mode))
+  ;; (sp-local-pair 'rustic-mode "({" "})" :post-handlers '((smooth-curly-block "RET")))
+  ;; (sp-local-pair 'rustic-mode "{" "}" :post-handlers '((curly-space "SPC") (smooth-curly-block "RET")))
   (setq rustic-format-on-save t
         rustic-lsp-server 'rust-analyzer)
   (setq-local fill-column 100))

@@ -54,8 +54,8 @@
       ExecStart =
         "${pkgs.tmux}/bin/tmux -L weechat new -s weechat -d ${pkgs.weechat}/bin/weechat";
       ExecStartPost =
-        "${pkgs.tmux}/bin/tmux -L weechat set status"; # turn off the status bar
-      ExecStop = "${pkgs.tmux}/bin/tmux -L weechat kill-session -t weechat";
+        "${pkgs.tmux}/bin/tmux -L ${pkgs.weechat}/bin/weechat set status"; # turn off the status bar
+      ExecStop = "${pkgs.tmux}/bin/tmux -L ${pkgs.weechat}/bin/weechat set status kill-session -t weechat";
     };
 
     Install.WantedBy = [ "default.target" ];

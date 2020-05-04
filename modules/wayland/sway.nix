@@ -1,7 +1,12 @@
 { config, lib, pkgs, ... }:
 let
   status = with pkgs; writeShellScriptBin "status" ''
-    music="$(${mpc_cli}/bin/mpc current --format "%artist% – %title%") ♫"
+    LEN=35
+    artist="$(${mpc_cli}/bin/mpc current --format "%artist%")"
+    a="''${artist:$LEN:1}"
+    title="$(${mpc_cli}/bin/mpc current --format "%title%")"
+    t="''${title:$LEN:1}"
+    music="''${artist::$LEN}''${a:+…} – ''${title::$LEN}''${t:+…}"
     volume="$(${pamixer}/bin/pamixer --get-volume)%"
     time="$(${coreutils}/bin/date +'%d %B %G %T')"
 

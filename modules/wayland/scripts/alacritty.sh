@@ -6,13 +6,17 @@ if [[ $(jq -r ".app_id" <<< "$focused") == "Alacritty" ]]; then
   pid="$(pgrep -P "$(jq '.pid' <<< "$focused")")"
 
   # if child isn't our shell, climb parents until it is
-  while [[ $pid -ne 1 && $(cat /proc/"$pid"/comm) != 'fish' ]]; do
+  while [[ -n $pid && $pid -ne 1 && $(cat /proc/"$pid"/comm) != *"fish"* ]]; do
     pid="$(ps -o ppid= -p "$pid")"
   done
 
   dir="$(readlink /proc/"$pid"/cwd)"
 
-  exec alacritty --working-directory "$dir" "$@" || exec alacritty "$@"
+  if [[ -n $dir ]]; then
+    exec alacritty --working-directory "$dir" "$@" || exec alacritty "$@"
+  else
+    exec alacritty "$@"
+  fi
 else
   exec alacritty "$@"
 fi

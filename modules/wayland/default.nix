@@ -22,12 +22,13 @@
     j4-dmenu-desktop # desktop files
     rofi # has rofi-emoji as a plugin; [overlays]
     # TODO: TUI display manager for fanciness so I don't have to `systemctl --user import-environment`
+    # https://github.com/meatcar/dots/blob/6acc6d2075eb88b144a7fceb001044edbcac4d93/modules/ly.nix
     # ly
   ];
 
   xdg.configFile = {
     # ref: https://github.com/lovesegfault/nix-config/blob/03c4b9d9a01ca5439736c6f0f4b762b900aaddf7/users/bemeurer/sway/mako.nix
-    # TODO: verify I don't need that icon stuff on NixOS
+    # TODO: verify I don't need that icon stuff on NixOS when I switch
     "mako/config".text = ''
       layer=overlay
       anchor=top-center
@@ -139,28 +140,6 @@
       #         before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${config.my.wallpaper} --scaling fill'
       #     '';
       #     RestartSec = 3;
-      #     Restart = "always";
-      #   };
-
-      #   Install = {
-      #     WantedBy = [ "sway-session.target" ];
-      #   };
-      # };
-
-      # waybar = {
-      #   Unit = {
-      #     Description = "waybar";
-      #     Documentation = [ "https://github.com/Alexays/Waybar/wiki" ];
-      #     PartOf = [ "graphical-session.target" ];
-      #     # Wait on both in order to inherit SWAYSOCK, etc
-      #     # After = [ "sway-session.target" "sway.service" ];
-      #     Requires = [ "sway-session.target" "sway.service" ];
-      #   };
-
-      #   Service = {
-      #     Type = "simple";
-      #     ExecStart = "${pkgs.waybar}/bin/waybar";
-      #     # RestartSec = 1;
       #     Restart = "always";
       #   };
 
