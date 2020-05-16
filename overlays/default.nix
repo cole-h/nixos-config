@@ -14,9 +14,10 @@ in
   bemenu = callPackage ../drvs/bemenu.nix { };
   chatterino2 = libsForQt5.callPackage ../drvs/chatterino2.nix { };
   doom-emacs = callPackage ../drvs/doom-emacs.nix { };
-  fish = callPackage ../drvs/fish/fish.nix { };
+  fish = callPackage ../drvs/fish.nix { };
   foliate = callPackage ../drvs/foliate.nix { };
   gsfonts = callPackage ../drvs/gsfonts.nix { };
+  iosevka-custom = callPackage ../drvs/iosevka/iosevka-custom.nix { };
 
   alacritty = callPackage ../drvs/alacritty.nix {
     inherit (naersk) buildPackage;

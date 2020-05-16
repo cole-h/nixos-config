@@ -1,13 +1,17 @@
 final: super:
 with super;
+let
+  sources = import ../nix/sources.nix;
+  gitignoreSource = (callPackage sources.gitignore { }).gitignoreSource;
+in
 {
   emacs26 =
     enableDebugging
       (emacs26.overrideAttrs
         (
-          { buildInputs, configureFlags ? [ ], postPatch ? "", nativeBuildInputs ? [ ], ... }:
+          { buildInputs, nativeBuildInputs ? [ ], configureFlags ? [ ], ... }:
           {
-            src = ../drvs/pgtk-emacs;
+            src = gitignoreSource ../drvs/pgtk-emacs;
 
             patches = [ ];
             buildInputs = buildInputs ++ [ wayland wayland-protocols ];

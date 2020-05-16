@@ -16,6 +16,7 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (evil-unimpaired-mode)
+(global-eldoc-mode -1)
 
 ;; loading and friends
 (load! "funcs.el")
@@ -177,7 +178,7 @@ If PEEK is non-nil, keep focus in status buffer window."
 ;; add-hook! and friends
 ;; TODO: https://with-emacs.com/posts/ui-hacks/show-matching-lines-when-parentheses-go-off-screen/
 (add-hook! 'ediff-cleanup-hook #'vin/ediff-janitor)
-(add-hook! 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+;; (add-hook! 'emacs-lisp-mode-hook #'aggressive-indent-mode)
 (add-hook! 'text-mode-hook (visual-line-mode 1))
 (add-hook! 'rustic-mode-hook #'((rainbow-delimiters-mode 1)
                       (#'adjust-rust-company-backends)))

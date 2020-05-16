@@ -4,9 +4,14 @@ let
     LEN=35
     artist="$(${mpc_cli}/bin/mpc current --format "%artist%")"
     a="''${artist:$LEN:1}"
+
     title="$(${mpc_cli}/bin/mpc current --format "%title%")"
     t="''${title:$LEN:1}"
-    music="''${artist::$LEN}''${a:+…} – ''${title::$LEN}''${t:+…}"
+
+    if [[ -n "$artist" && -n "$artist" ]]; then
+      music="''${artist::$LEN}''${a:+…} – ''${title::$LEN}''${t:+…}"
+    fi
+
     volume="$(${pamixer}/bin/pamixer --get-volume)%"
     time="$(${coreutils}/bin/date +'%d %B %G %T')"
 
@@ -64,14 +69,8 @@ let
   wsF10 = "20";
 in
 {
-  home.activation = with lib; {
-    imgurCredentials = hm.dag.entryAfter [ "linkGeneration" ] ''
-      $DRY_RUN_CMD unlink \
-        ${config.xdg.configHome}/imgur 2>/dev/null || true
-      $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
-         ${toString ../../secrets/imgur} \
-         ${config.xdg.configHome}/imgur
-    '';
+  xdg.configFile = {
+    "imgur".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/imgur;
   };
 
   wayland.windowManager.sway = {
@@ -82,6 +81,7 @@ in
     wrapperFeatures = { gtk = true; };
 
     extraSessionCommands = ''
+      # export WLR_DRM_NO_ATOMIC=1
       export MOZ_ENABLE_WAYLAND=1
       # export QT_QPA_PLATFORM=wayland
       # export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
@@ -115,17 +115,23 @@ in
         smartGaps = true;
       };
 
-      fonts = [ "IPAexGothic 11" "Iosevka Custom Book Extended 10" ];
+      fonts = [ "IPAexGothic 11" "DejaVu Sans Mono 10" ];
+      # fonts = [ "IPAexGothic 11" "Iosevka Custom Book Extended 10" ];
 
       input = {
         "6940:6931:Corsair_Corsair_K70_RGB_Gaming_Keyboard__Keyboard" = {
           xkb_numlock = "enabled";
           xkb_capslock = "disabled";
+          # xkb_options = "compose:ralt";
         };
 
         "1133:16487:Logitech_G903" = {
           accel_profile = "flat";
           pointer_accel = "0";
+        };
+        "1118:36:Microsoft_Microsoft_Trackball_Explorer®" = {
+          accel_profile = "flat";
+          pointer_accel = "1";
         };
       };
 
@@ -524,7 +530,7 @@ in
         {
           statusCommand = "while ${status}/bin/status; do sleep 0.1; done";
           position = "top";
-          fonts = [ "IPAexGothic 11" "Iosevka Custom Book Extended 10" ];
+          fonts = [ "IPAexGothic 11" "DejaVu Sans Mono 10" ];
           colors = {
             background = "#1f1f1f";
             # inactiveWorkspace = { background = "#808080"; border = "#808080"; text = "#888888"; };

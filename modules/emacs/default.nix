@@ -40,4 +40,25 @@ in
       DOOMDIR = toString ./config;
     };
   };
+
+  systemd.user = {
+    services = {
+      emacs = {
+        Unit = {
+          Description = "emacs";
+          Documentation = [ "man:emacs(1)" ];
+        };
+
+        Service = {
+          Type = "simple";
+          ExecStart = "${emacsPkg}/bin/emacs --fg-daemon";
+          Restart = "on-failure";
+        };
+
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
+      };
+    };
+  };
 }

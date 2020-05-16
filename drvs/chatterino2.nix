@@ -40,7 +40,7 @@ mkDerivation rec {
 
   qtWrapperArgs = [
     "--set QT_XCB_FORCE_SOFTWARE_OPENGL 1"
-    "--set QT_QPA_PLATFORM xcb"
+    # "--set QT_QPA_PLATFORM xcb"
   ];
 
   meta = with lib; {

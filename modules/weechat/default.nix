@@ -8,34 +8,18 @@
     ];
 
     activation = with lib; {
-      weechatSecrets = hm.dag.entryBefore [ "weechatConfig" ] ''
-        $DRY_RUN_CMD unlink \
-          ${toString ./weechat-conf/freenode.pem} 2>/dev/null || true
-        $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
-          ${toString ../../secrets/weechat/freenode.pem} \
-          ${toString ./weechat-conf/freenode.pem}
-
-        $DRY_RUN_CMD unlink \
-          ${toString ./weechat-conf/sec.conf} 2>/dev/null || true
-        $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
-          ${toString ../../secrets/weechat/sec.conf} \
-          ${toString ./weechat-conf/sec.conf}
-
-        $DRY_RUN_CMD unlink \
-          ${toString ./weechat-conf/irc.conf} 2>/dev/null || true
-        $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
-          ${toString ../../secrets/weechat/irc.conf} \
-          ${toString ./weechat-conf/irc.conf}
-      '';
-
-      weechatConfig = hm.dag.entryAfter [ "linkGeneration" ] ''
+      weechatConfig = hm.dag.entryAfter [ "writeBoundary" ] ''
         # WeeChat still does not support the XDG spec :'(
-        $DRY_RUN_CMD unlink \
-          ${config.xdg.configHome}/weechat 2>/dev/null || true
         $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
-          ${toString ./weechat-conf} ${config.xdg.configHome}/weechat
+          ${toString ./weechat-conf} \
+          ${config.xdg.configHome}/weechat
       '';
     };
+  };
+
+  xdg.configFile = {
+    "nixpkgs/modules/weechat/weechat-conf/freenode.pem".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/weechat/freenode.pem;
+    "nixpkgs/modules/weechat/weechat-conf/irc.conf".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/weechat/irc.conf;
   };
 
   # NOTE: Only works well with lingering enabled -- otherwise systemd might kill
@@ -54,8 +38,8 @@
       ExecStart =
         "${pkgs.tmux}/bin/tmux -L weechat new -s weechat -d ${pkgs.weechat}/bin/weechat";
       ExecStartPost =
-        "${pkgs.tmux}/bin/tmux -L ${pkgs.weechat}/bin/weechat set status"; # turn off the status bar
-      ExecStop = "${pkgs.tmux}/bin/tmux -L ${pkgs.weechat}/bin/weechat set status kill-session -t weechat";
+        "${pkgs.tmux}/bin/tmux -L weechat set status"; # turn off the status bar
+      ExecStop = "${pkgs.tmux}/bin/tmux -L weechat set status kill-session -t weechat";
     };
 
     Install.WantedBy = [ "default.target" ];

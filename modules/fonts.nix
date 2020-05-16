@@ -9,7 +9,7 @@ let
     # jetbrains-mono # code font
     iosevka-custom # code font [overlays]
     cantarell-fonts # REALLY nice UI font
-    liberation_ttf # like Microsoft fonts, but not
+    # liberation_ttf # like Microsoft fonts, but not
     # emojione
     # joypixels # emoji font
     # gsfonts # [drvs]
@@ -102,10 +102,10 @@ in
 
       <match target="font">
         <test name="family" compare="eq">
-            <string>Iosevka Custom Extended</string>
+            <string>DejaVu Sans Mono</string>
         </test>
         <edit name="family" mode="assign_replace">
-          <string>Iosevka Custom Extended</string>
+          <string>DejaVu Sans Mono</string>
         </edit>
         <edit name="family" mode="append_last">
           <string>monospace</string>
@@ -117,7 +117,7 @@ in
             <string>monospace</string>
         </test>
         <edit name="family" mode="prepend_first">
-          <string>Iosevka Custom Extended</string>
+          <string>DejaVu Sans Mono</string>
         </edit>
         <edit name="family" mode="prepend_first">
           <string>Noto Color Emoji</string>

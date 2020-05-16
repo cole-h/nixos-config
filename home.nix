@@ -33,6 +33,7 @@
       nixpkgs-fmt
       nix-prefetch-scripts
       nix-top
+      lorri
       # nix-prefetch-github
 
       ## tools
@@ -49,8 +50,7 @@
       hyperfine # cli benchmarker
       aerc # terminal email reader (why tf does it bring emacs into its closure????)
       tmate # "Instant Terminal Sharing" -- for debugging darwin issues via GH Actions
-
-      ccls # C/C++ LSP
+      libreoffice
 
       # latest.firefox-beta-bin
       latest.firefox-nightly-bin
@@ -69,6 +69,7 @@
       evince
       zathura
       cadence
+      pavucontrol
       # gitAndTools.hub
       # ncdu
       # rust-analyzer # (ra_lsp_server
@@ -145,7 +146,7 @@
       # Some software requires fonts to be present in $XDG_DATA_HOME/fonts in
       # order to use/see them (like Emacs), so just link to them.
       # FIXME: remove me once migrate to NixOS
-      setupFonts = hm.dag.entryAfter [ "linkGeneration" ] ''
+      setupFonts = hm.dag.entryAfter [ "writeBoundary" ] ''
         fontsdir="${config.home.profileDirectory}/share/fonts"
         userfontsdir="${config.xdg.dataHome}/fonts"
 
@@ -175,9 +176,9 @@
       GOPATH = "${config.home.homeDirectory}/.go";
       CARGO_HOME = "${config.home.homeDirectory}/.cargo";
       # ANDROID_HOME = "${pkgs.androidenv.androidPks_9_0.androidsdk}/libexec/android-sdk";
-      DEVKITPRO = "/opt/devkitpro";
-      DEVKITARM = "${DEVKITPRO}/devkitARM";
-      DEVKITPPC = "${DEVKITPRO}/devkitPPC";
+      # DEVKITPRO = "/opt/devkitpro";
+      # DEVKITARM = "${DEVKITPRO}/devkitARM";
+      # DEVKITPPC = "${DEVKITPRO}/devkitPPC";
 
       # Use all processors :)
       MAKEFLAGS = "\${MAKEFLAGS:+$MAKEFLAGS }-j$(nproc)";
@@ -193,6 +194,7 @@
       # (see: https://github.com/nrdxp/nixflk/)
       NIX_PATH = lib.concatStringsSep ":" [
         "nixpkgs=${toString ~/workspace/vcs/nixpkgs/master}"
+        # "nixpkgs-20.03=${toString ~/workspace/vcs/nixpkgs/release-20.03}"
       ];
 
       MPD_HOST = "127.0.0.1";
@@ -216,12 +218,14 @@
 
   services = {
     syncthing.enable = true;
-    lorri.enable = true;
   };
 
   systemd.user = {
     sessionVariables = {
       NIX_PATH = lib.mkForce config.home.sessionVariables.NIX_PATH;
+
+      inherit (config.home.sessionVariables)
+        LOCALE_ARCHIVE;
     };
 
     # FIXME: remove after switch to NixOS

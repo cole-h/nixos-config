@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  cgitcAbbrs = (pkgs.callPackage ../drvs/fish/cgitc.nix { }).abbrs;
+  cgitcAbbrs = (pkgs.callPackage ../drvs/cgitc.nix { }).abbrs;
 in
 {
   home.packages = with pkgs; [
@@ -167,7 +167,7 @@ in
         eval (${pkgs.direnv}/bin/direnv hook fish)
         ${pkgs.zoxide}/bin/zoxide init fish --hook pwd | source
 
-        emacs_start_daemon &
+        # emacs_start_daemon &
         t ls
         printf '\n'
       '';

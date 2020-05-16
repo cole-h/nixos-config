@@ -127,10 +127,4 @@ in
 
     "waybar/config".text = builtins.toJSON waybar-config;
   };
-
-  # home.activation = with lib; {
-  #   waybarConfig = hm.dag.entryAfter [ "linkGeneration" ] ''
-  #     ${pkgs.jq}/bin/jq <<< ${lib.escapeShellArg (builtins.toJSON waybar-config)} > ~/.config/waybar/config;
-  #   '';
-  # };
 }

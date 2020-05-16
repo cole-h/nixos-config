@@ -1,25 +1,24 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, writeText
-  # nativeBuildInputs
-, makeWrapper
-, cmake
-  # buildInputs
-, libiconv
-, ncurses
-, pcre2
-  # propagatedBuildInputs
 , coreutils
-, gettext
-, gnugrep
-, gnused
-, groff
-, less
-, man-db
-, python3
 , utillinux
+, which
+, gnused
+, gnugrep
+, groff
+, man-db
+, getent
+, libiconv
+, pcre2
+, gettext
+, ncurses
+, python3
+, cmake
 
+, runCommand
+, writeText
+, nixosTests
 , useOperatingSystemEtc ? true
 }:
 let
@@ -94,78 +93,120 @@ let
     end
   '';
 
-  # Required binaries during execution
-  # Python: Autocompletion generated from manpages and config editing
-  runtimeBinaries = [
-    coreutils
-    gettext
-    gnugrep
-    gnused
-    groff
-    less
-    python3
-    utillinux
+  rev = "ad020e84ddf41a9d26545bc961df2204ea107a63";
 
-    ## new
-    # ncurses
-    # als
-    # git
-  ] ++ lib.optional (!stdenv.isDarwin) man-db;
+  sha256 = "130n7lqwjvfq0hx69jd2mh4sayj194pqrxbmwfpkbrfdp0zg0rd7";
 
-  rev = "2951c05934c67e6328eac743385423d0126e4a3c";
-  sha256 = "1akrk5s8dyw01zv54rcmz5cmvwc4nqr4m7qi1b12f6sgadyqm7d8";
+  fish = stdenv.mkDerivation rec {
+    pname = "fish";
+    version = "3.1.2-git";
+
+    src = fetchFromGitHub {
+      owner = "fish-shell";
+      repo = "fish-shell";
+      inherit rev sha256;
+    };
+
+    # We don't have access to the codesign executable, so we patch this out.
+    # For more information, see: https://github.com/fish-shell/fish-shell/issues/6952
+    patches = lib.optional stdenv.isDarwin ./dont-codesign-on-mac.diff;
+
+    nativeBuildInputs = [
+      cmake
+      python3.pkgs.sphinx # for documentation generation
+    ];
+
+    buildInputs = [
+      ncurses
+      libiconv
+      pcre2
+    ];
+
+    preConfigure = ''
+      echo ${version} > version
+      patchShebangs build_tools/git_version_gen.sh
+    '';
+
+    preBuild = ''
+      # generating documentation wants access to $HOME for some reason, give it a
+      # temporary one
+      export HOME=$(mktemp -d)
+    '';
+
+    # Required binaries during execution
+    # Python: Autocompletion generated from manpages and config editing
+    propagatedBuildInputs = [
+      coreutils
+      gnugrep
+      gnused
+      python3
+      groff
+      gettext
+    ] ++ lib.optional (!stdenv.isDarwin) man-db;
+
+    postInstall = with lib; ''
+      sed -i "s|/usr/local/sbin /sbin /usr/sbin||" \
+             $out/share/fish/completions/{sudo.fish,doas.fish}
+
+      cat > $out/share/fish/functions/__fish_anypython.fish <<EOF
+      function __fish_anypython
+          echo ${python3.interpreter}
+          return 0
+      end
+      EOF
+    '' + optionalString useOperatingSystemEtc ''
+      tee -a $out/etc/fish/config.fish < ${etcConfigAppendix}
+    '' + ''
+      tee -a $out/share/fish/__fish_build_paths.fish < ${fishPreInitHooks}
+    '';
+
+    enableParallelBuilding = true;
+
+    meta = with lib; {
+      description = "Smart and user-friendly command line shell";
+      homepage = "http://fishshell.com/";
+      license = licenses.gpl2;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [ ocharles cole-h ];
+    };
+
+    passthru = {
+      shellPath = "/bin/fish";
+      tests = {
+        nixos = nixosTests.fish;
+
+        # Test the fish_config tool by checking the generated splash page.
+        # Since the webserver requires a port to run, it is not started.
+        fishConfig =
+          let fishScript = writeText "test.fish" ''
+            set -x __fish_bin_dir ${fish}/bin
+            echo $__fish_bin_dir
+            cp -r ${fish}/share/fish/tools/web_config/* .
+            chmod -R +w *
+
+            # if we don't set `delete=False`, the file will get cleaned up
+            # automatically (leading the test to fail because there's no
+            # tempfile to check)
+            sed -e "s@, mode='w'@, mode='w', delete=False@" -i webconfig.py
+
+            # we delete everything after the fileurl is assigned
+            sed -e '/fileurl =/q' -i webconfig.py
+            echo "print(fileurl)" >> webconfig.py
+
+            # and check whether the message appears on the page
+            cat (${python3}/bin/python ./webconfig.py \
+              | tail -n1 | sed -ne 's|.*\(/build/.*\)|\1|p' \
+            ) | grep 'a href="http://localhost.*Start the Fish Web config'
+
+            # cannot test the http server because it needs a localhost port
+          '';
+          in
+          runCommand "test-web-config" { } ''
+            HOME=$(mktemp -d)
+            ${fish}/bin/fish ${fishScript} && touch $out
+          '';
+      };
+    };
+  };
 in
-stdenv.mkDerivation rec {
-  pname = "fish";
-  version = "3.1.1-${lib.substring 0 8 rev}";
-
-  src = fetchFromGitHub {
-    owner = "fish-shell";
-    repo = "fish-shell";
-    inherit rev sha256;
-  };
-
-  nativeBuildInputs = [
-    cmake
-    python3.pkgs.sphinx # for documentation generation
-    makeWrapper
-  ];
-
-  buildInputs = [
-    libiconv
-    ncurses
-    pcre2
-  ];
-
-  preConfigure = ''
-    echo ${version} > version
-    patchShebangs build_tools/git_version_gen.sh
-  '';
-
-  preBuild = ''
-    # generating documentation wants access to $HOME for some reason, give it a
-    # temporary one
-    export HOME=$(mktemp -d)
-  '';
-
-  postInstall = lib.optionalString useOperatingSystemEtc ''
-    tee -a $out/etc/fish/config.fish < ${etcConfigAppendix}
-  '' + ''
-    tee -a $out/share/fish/__fish_build_paths.fish < ${fishPreInitHooks}
-
-    sed "\@/usr/local/sbin /sbin /usr/sbin@d" \
-      -i $out/share/fish/completions/{sudo,doas}.fish
-  '';
-
-  # TODO: no wrapping -- only substituting
-  postFixup = ''
-    wrapProgram $out/bin/fish \
-      --prefix PATH : ${lib.makeBinPath runtimeBinaries}
-  '';
-
-  enableParallelBuilding = true;
-
-  passthru = {
-    shellPath = "/bin/fish";
-  };
-}
+fish

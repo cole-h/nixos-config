@@ -4,7 +4,7 @@
 {
   imports = [
     ./sway.nix # sway config
-    ./waybar.nix # waybar config
+    # ./waybar.nix # waybar config
     # ./japanese.nix # JP config
   ];
 
@@ -17,7 +17,7 @@
     kitty # alt terminal as backup
     mako # notifications
     libnotify # notifications part 2: electric boogaloo
-    redshift-wlr # blue-light filter; [overlays]
+    redshift-wayland # blue-light filter; [overlays]
     bemenu # dmenu launcher; [overlays]
     j4-dmenu-desktop # desktop files
     rofi # has rofi-emoji as a plugin; [overlays]
@@ -86,7 +86,7 @@
 
         Service = {
           Type = "simple";
-          ExecStart = "${pkgs.redshift-wlr}/bin/redshift -t 6500:3000 -l 38.68:-121.14";
+          ExecStart = "${pkgs.redshift-wayland}/bin/redshift -t 6500:3000 -l 38.68:-121.14";
           RestartSec = 3;
           Restart = "always";
         };
@@ -112,6 +112,7 @@
             "LD_LIBRARY_PATH=${pkgs.mesa_drivers}/lib"
             "LIBGL_DRIVERS_PATH=${pkgs.mesa_drivers}/lib/dri"
             "SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh"
+            # "WAYLAND_DEBUG=1"
           ];
 
           ExecStart = "${config.wayland.windowManager.sway.package}/bin/sway";
