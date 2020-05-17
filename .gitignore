@@ -13,9 +13,9 @@ result*
 ### Misc ###
 # removes doom-emacs TODOs from my todo list in emacs :)
 pkgs/doom-emacs
-modules/weechat/weechat-conf/xfer
-modules/weechat/weechat-conf/logs
-modules/weechat/weechat-conf/urlserver_list.txt
-modules/weechat/weechat-conf/irc.conf
-modules/weechat/weechat-conf/sec.conf
-modules/weechat/weechat-conf/relay.conf
+modules/weechat/config/xfer
+modules/weechat/config/logs
+modules/weechat/config/urlserver_list.txt
+modules/weechat/config/irc.conf
+modules/weechat/config/sec.conf
+modules/weechat/config/relay.conf

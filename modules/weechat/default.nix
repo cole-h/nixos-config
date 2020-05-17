@@ -11,15 +11,15 @@
       weechatConfig = hm.dag.entryAfter [ "writeBoundary" ] ''
         # WeeChat still does not support the XDG spec :'(
         $DRY_RUN_CMD ln -sfT $VERBOSE_ARG \
-          ${toString ./weechat-conf} \
+          ${toString ./config} \
           ${config.xdg.configHome}/weechat
       '';
     };
   };
 
   xdg.configFile = {
-    "nixpkgs/modules/weechat/weechat-conf/freenode.pem".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/weechat/freenode.pem;
-    "nixpkgs/modules/weechat/weechat-conf/irc.conf".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/weechat/irc.conf;
+    "nixpkgs/modules/weechat/config/freenode.pem".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/weechat/freenode.pem;
+    "nixpkgs/modules/weechat/config/irc.conf".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/weechat/irc.conf;
   };
 
   # NOTE: Only works well with lingering enabled -- otherwise systemd might kill

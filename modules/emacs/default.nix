@@ -2,6 +2,7 @@
 let
   # emacsGit # from emacs-overlay; [overlays]
   emacsPkg = pkgs.emacs26;
+
   em = pkgs.writeShellScriptBin "em" ''
     case "$1" in
          -*)
@@ -17,6 +18,10 @@ let
       exec ${emacsPkg}/bin/emacsclient --no-wait --quiet "$@"
     fi
   '';
+
+  emn = pkgs.writeShellScriptBin "emn" ''
+    exec ${emacsPkg}/bin/emacsclient --no-wait --quiet --create-frame "$@" --alternate-editor=""
+  '';
 in
 {
   # Emacs 27+ supports the XDG Base Directory specification, so drop doom into
@@ -28,6 +33,7 @@ in
       doom-emacs # for `doom sync` and `doom update`; [drvs]
       emacsPkg # [drvs]
       em
+      emn
     ];
 
     sessionVariables = {

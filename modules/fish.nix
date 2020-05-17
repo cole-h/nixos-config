@@ -49,15 +49,6 @@ in
           onEvent = "fish_command_not_found";
         };
 
-        emacs_start_daemon = ''
-          emacsclient --no-wait --eval '(ignore)' 2>/dev/null >/dev/null \
-              || emacs --bg-daemon 2>/dev/null >/dev/null &
-
-          # for some reason, starting the daemon can "error" (but still starts
-          # Emacs), so reset the exit code
-          true
-        '';
-
         cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
         # emacs = "env GDK_BACKEND=x11 emacs $argv";
         mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
@@ -167,7 +158,6 @@ in
         eval (${pkgs.direnv}/bin/direnv hook fish)
         ${pkgs.zoxide}/bin/zoxide init fish --hook pwd | source
 
-        # emacs_start_daemon &
         t ls
         printf '\n'
       '';
