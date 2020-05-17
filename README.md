@@ -1,11 +1,9 @@
 # dotfiles
 
-TODO: firefox using nixpkgs-mozilla
-
 ### Hostnames
 
 I'm a big fan of [Brandon Sanderson], so that's where all of my hostnames come
-from (see [`hostnames`]). They were manually copy-pasted from throughout the
+from (see [`hostnames`](./hostnames)). They were manually copy-pasted from throughout the
 [Coppermind] wiki and are [planets, shards], general terms, worldhoppers, and
 [locations] throughout his works. Any of these that had a space or apostrophe
 were discarded.
