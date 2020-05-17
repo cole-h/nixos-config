@@ -10,7 +10,7 @@
     activation = with lib; {
       weechatConfig = hm.dag.entryAfter [ "writeBoundary" ] ''
         # WeeChat still does not support the XDG spec :'(
-        $DRY_RUN_CMD ln -sf $VERBOSE_ARG \
+        $DRY_RUN_CMD ln -sfT $VERBOSE_ARG \
           ${toString ./weechat-conf} \
           ${config.xdg.configHome}/weechat
       '';

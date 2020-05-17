@@ -11,7 +11,7 @@ in
   home = {
     file.".gdbinit".source = gdbinit;
 
-    packages = with pkgs.gitAndTools; [
+    packages = with pkgs; [
       git-crypt # store secrets; [overlays]
     ];
   };

@@ -18,6 +18,7 @@ in
   foliate = callPackage ../drvs/foliate.nix { };
   gsfonts = callPackage ../drvs/gsfonts.nix { };
   iosevka-custom = callPackage ../drvs/iosevka/iosevka-custom.nix { };
+  git-crypt = callPackage ../drvs/git-crypt.nix { };
 
   alacritty = callPackage ../drvs/alacritty.nix {
     inherit (naersk) buildPackage;
