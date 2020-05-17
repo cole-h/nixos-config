@@ -6,6 +6,7 @@
     ./mpd.nix # mpd config
     ./mpv.nix # mpv config
     ./neovim.nix # neovim config
+    ./scripts.nix # drop scripts into $HOME
 
     ./emacs # doom + emacs setup
     ./git # git config

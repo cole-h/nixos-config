@@ -34,8 +34,8 @@ let
   screenie = "(a) area, (m) monitor, (w) window, (A) to clipboard, (M) to clipboard, (W) to clipboard";
 
   ## Executables
-  imgur = toString ./scripts/imgur.sh;
-  term = toString ./scripts/alacritty.sh;
+  imgur = toString ../../scripts/imgur.sh;
+  term = toString ../../scripts/alacritty.sh;
   alacritty = "${pkgs.alacritty}/bin/alacritty"; # [drvs]
   kitty = "${pkgs.kitty}/bin/kitty";
   menu = ''
@@ -166,8 +166,8 @@ in
         "${modifier}+e" = "exec ${pkgs.gnome3.nautilus}/bin/nautilus";
         # "${modifier}+e" = "exec nautilus";
         # open password menu
-        "${modifier}+p" = "exec ${toString ./scripts/passmenu}";
-        "${modifier}+Shift+p" = "exec ${toString ./scripts/otpmenu}";
+        "${modifier}+p" = "exec ${toString ../../scripts/passmenu}";
+        "${modifier}+Shift+p" = "exec ${toString ../../scripts/otpmenu}";
         # paste to paste.sr.ht
         # "${modifier}+c" = "exec ~/scripts/paste";
 
