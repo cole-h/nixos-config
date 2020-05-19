@@ -16,8 +16,6 @@ rec {
 
   # https://gist.github.com/WhittlesJr/a6de35b995e8c14b9093c55ba41b697c
 
-  boot.kernelParams = "intel_iommu=on iommu=pt intel_iommu=igfx_off kvm.ignore_msrs=1";
-
   virtualisation.libvirtd = {
     enable = true;
     qemuPackage = pkgs.qemu_kvm;
