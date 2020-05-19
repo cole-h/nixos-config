@@ -18,8 +18,10 @@
   };
 
   xdg.configFile = {
-    "nixpkgs/modules/weechat/config/freenode.pem".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/weechat/freenode.pem;
-    "nixpkgs/modules/weechat/config/irc.conf".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/weechat/irc.conf;
+    "nixpkgs/modules/weechat/config/freenode.pem".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.my.secrets.weechat}/freenode.pem";
+    "nixpkgs/modules/weechat/config/irc.conf".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.my.secrets.weechat}/irc.conf";
   };
 
   # NOTE: Only works well with lingering enabled -- otherwise systemd might kill
@@ -34,12 +36,11 @@
 
     Service = {
       Type = "forking";
-      Environment = [ "WEECHAT_HOME=${config.xdg.configHome}/weechat" ];
-      ExecStart =
-        "${pkgs.tmux}/bin/tmux -L weechat new -s weechat -d ${pkgs.weechat}/bin/weechat";
-      ExecStartPost =
-        "${pkgs.tmux}/bin/tmux -L weechat set status"; # turn off the status bar
-      ExecStop = "${pkgs.tmux}/bin/tmux -L weechat set status kill-session -t weechat";
+      Environment = "WEECHAT_HOME=${config.xdg.configHome}/weechat";
+      ExecStart = "${pkgs.tmux}/bin/tmux -L weechat new -s weechat -d ${pkgs.weechat}/bin/weechat";
+      # turn off the status bar
+      ExecStartPost = "${pkgs.tmux}/bin/tmux -L weechat set status";
+      ExecStop = "${pkgs.tmux}/bin/tmux kill-session -t weechat";
     };
 
     Install.WantedBy = [ "default.target" ];

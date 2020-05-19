@@ -13,6 +13,8 @@ let
 in
 {
   options.my = {
+    wallpaper = mkOptionStr (toString ./wallpaper.png);
+
     scripts =
       let
         stripExtension = s: removeSuffix ".sh" s;
@@ -24,6 +26,19 @@ in
         );
       in
       mkOptionAttr scripts;
-    wallpaper = mkOptionStr (toString ./wallpaper.png);
+
+    secrets =
+      let
+        filter = attrs: filterAttrs
+          (name: value: !((hasPrefix "." name) || (name == "README.md")))
+          attrs;
+
+        secrets = listToAttrs (
+          map
+            (file: nameValuePair file (toString ./secrets + "/${file}"))
+            (attrNames (builtins.readDir ./secrets))
+        );
+      in
+      mkOptionAttr (filter secrets);
   };
 }

@@ -78,7 +78,7 @@ let
 in
 {
   xdg.configFile = {
-    "imgur".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/imgur;
+    "imgur".source = config.lib.file.mkOutOfStoreSymlink config.my.secrets.imgur;
   };
 
   home.packages = with pkgs; [

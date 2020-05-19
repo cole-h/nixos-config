@@ -11,23 +11,23 @@ in
 {
   home = {
     packages = with pkgs; [
-      cargo-about
-      cargo-asm
-      cargo-audit
+      # cargo-about
+      # cargo-asm
+      # cargo-audit
       cargo-bloat
-      cargo-crev
+      # cargo-crev
       cargo-edit
       cargo-expand
-      cargo-flamegraph
-      cargo-geiger
-      cargo-license
+      # cargo-flamegraph
+      # flamegraph
+      # cargo-geiger
+      # cargo-license
       cargo-tree
-      flamegraph
       rust-analyzer
     ] ++ toolchains;
+  };
 
-    xdg.configFile = {
-      ".cargo/credentials".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/cargo-credentials;
-    };
+  xdg.configFile = {
+    ".cargo/credentials".source = config.lib.file.mkOutOfStoreSymlink config.my.secrets.cargo-credentials;
   };
 }

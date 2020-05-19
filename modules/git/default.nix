@@ -21,7 +21,7 @@ in
       .gdb_history
     '';
 
-    "git/gitauth.inc".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/gitauth.inc;
+    "git/gitauth.inc".source = config.lib.file.mkOutOfStoreSymlink config.my.secrets."gitauth.inc";
   };
 
   programs.git = {

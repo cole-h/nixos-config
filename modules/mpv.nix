@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     youtube-dl
+    streamlink
   ];
 
   programs.mpv = {
@@ -70,6 +71,8 @@
   };
 
   xdg.configFile = with pkgs; {
+    "streamlink/config".source = config.lib.file.mkOutOfStoreSymlink config.my.secrets.streamlink;
+
     "mpv/scripts" = {
       recursive = true;
 
