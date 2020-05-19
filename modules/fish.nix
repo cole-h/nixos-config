@@ -21,16 +21,6 @@ in
       enable = true;
 
       plugins = with pkgs; [
-        # {
-        #   # allows nix and home-manager to work properly on expatriate systems (kept as a backup)
-        #   name = "nix-env.fish";
-        #   src = fetchFromGitHub {
-        #     owner = "lilyball";
-        #     repo = "nix-env.fish";
-        #     rev = "cf99a2e6e8f4ba864e70cf286f609d2cd7645263";
-        #     sha256 = "0170c7yy6givwd0nylqkdj7kds828a79jkw77qwi4zzvbby4yf51";
-        #   };
-        # }
         {
           # simple prompt
           name = "pure";
@@ -44,13 +34,12 @@ in
       ];
 
       functions = {
-        __fish_command_not_found_handler = {
-          body = "__fish_default_command_not_found_handler $argv[1]";
-          onEvent = "fish_command_not_found";
-        };
+        # __fish_command_not_found_handler = {
+        #   body = "__fish_default_command_not_found_handler $argv[1]";
+        #   onEvent = "fish_command_not_found";
+        # };
 
         cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
-        # emacs = "env GDK_BACKEND=x11 emacs $argv";
         mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
         nix-locate = "command nix-locate --top-level $argv";
         ssh = "env TERM=xterm-256color ssh $argv";
@@ -86,29 +75,27 @@ in
 
           # Start sway
           if [ (tty) = "/dev/tty1" ]
-            if [ (systemctl --user is-active sway.service) != "active" ]
-              systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY \
-                        IN_NIX_SHELL __HM_SESS_VARS_SOURCED GPG_TTY
-              systemctl --user import-environment
-              exec systemctl --user --wait start sway.service
-            end
+              # systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY \
+              #           IN_NIX_SHELL __HM_SESS_VARS_SOURCED GPG_TTY
+              # systemctl --user import-environment
+              exec sway 2>/tmp/sway.log # TODO: log to syslog even without a unit pls
           end
 
           # Start windows VM
-          if [ (tty) = "/dev/tty5" ]
-            exec doas virsh start windows10
-          end
+          # if [ (tty) = "/dev/tty5" ]
+          #   exec doas virsh start windows10
+          # end
 
           set --global pure_symbol_prompt "\$"
           exit
         end
       '';
 
-      shellInit = ''
+      # shellInit = ''
 
-        # Set PATH without actually modifying PATH
-        set --global --append fish_user_paths $CARGO_HOME/bin $DEVKITPRO/tools/bin $HOME/.local/bin/ $GOPATH/bin
-      '';
+      #   # Set PATH without actually modifying PATH
+      #   set --global --append fish_user_paths $CARGO_HOME/bin $DEVKITPRO/tools/bin $HOME/.local/bin/ $GOPATH/bin
+      # '';
 
       promptInit = ''
 
@@ -131,7 +118,6 @@ in
           end
 
           echo '$'
-          # echo "λ"
         )
 
         set --global pure_symbol_prompt "$nix_shell_info"
@@ -142,11 +128,10 @@ in
         # GPG configuration
         set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
         set --global --export GPG_TTY (tty)
-        # ''${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye >/dev/null &
 
         # Rust stuff
         if command -q rustc
-          set --global --export --prepend LD_LIBRARY_PATH (rustc +nightly --print sysroot)"/lib"
+          set --global --export --prepend LD_LIBRARY_PATH (rustc --print sysroot)"/lib"
           set --global --export RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
         end
 

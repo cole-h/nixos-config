@@ -27,7 +27,7 @@ in
   # https://github.com/NixOS/nixpkgs/blob/ae94e8923240f7ff7e82abf4783ef4318b8c4464/nixos/modules/config/fonts/fontconfig.nix
   # https://functor.tokyo/blog/2018-10-01-japanese-on-nixos
   # https://nixos.wiki/wiki/Fonts
-  fonts.fontconfig.enable = true;
+  # fonts.fontconfig.enable = true;
 
   home = {
     packages = with pkgs; [

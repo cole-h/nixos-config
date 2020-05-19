@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 # TODO: patchShebangs scripts/*.sh?
+let
+  cursorTheme = "Adwaita";
+  cursorSize = 24;
+in
 {
   imports = [
     ./sway.nix # sway config
@@ -25,6 +29,24 @@
     # https://github.com/meatcar/dots/blob/6acc6d2075eb88b144a7fceb001044edbcac4d93/modules/ly.nix
     # ly
   ];
+
+  gtk = {
+    enable = true;
+
+    gtk2.extraConfig = ''
+      gtk-cursor-theme-name="${cursorTheme}"
+      gtk-cursor-theme-size=${toString cursorSize}
+    '';
+
+    gtk3.extraConfig = {
+      "gtk-cursor-theme-name" = cursorTheme;
+      "gtk-cursor-theme-size" = cursorSize;
+    };
+  };
+
+  qt = {
+    enable = false;
+  };
 
   xdg.configFile = {
     # ref: https://github.com/lovesegfault/nix-config/blob/03c4b9d9a01ca5439736c6f0f4b762b900aaddf7/users/bemeurer/sway/mako.nix

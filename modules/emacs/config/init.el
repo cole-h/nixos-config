@@ -8,8 +8,8 @@
 (setq doom-localleader-key ","
       doom-theme 'doom-dracula)
 
-(setq doom-font (font-spec :family "DejaVu Sans Mono" :size 10.5)
-;; (setq doom-font (font-spec :family "Iosevka Custom Book Extended" :size 10.5)
+; (setq doom-font (font-spec :family "DejaVu Sans Mono" :size 10.5)
+(setq doom-font (font-spec :family "Iosevka Custom Book Extended" :size 10.5)
       frame-title-format "%b")
 
 (setq +popup-defaults

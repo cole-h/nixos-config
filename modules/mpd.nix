@@ -6,7 +6,6 @@
     ncmpcpp # tui
   ];
 
-  # TODO: cantata settings maybe?
   services = {
     mpd = rec {
       enable = true;
@@ -27,13 +26,29 @@
         zeroconf_enabled "yes"
         zeroconf_name "MPD @ Scadrial"
 
+        input {
+                enabled "no"
+                plugin "qobuz"
+        }
+
+        input {
+                enabled "no"
+                plugin "tidal"
+        }
+
         # input {
         #     plugin "curl"
         # }
 
+        # audio_output {
+        #     type "pulse"
+        #     name "My Pulse Output"
+        #     mixer_type "software"
+        # }
+
         audio_output {
-            type "pulse"
-            name "My Pulse Output"
+            type "jack"
+            name "My Jack Output"
             mixer_type "software"
         }
 
@@ -62,7 +77,7 @@
       NoNewPrivileges = "yes";
       ProtectControlGroups = "yes";
       # AF_NETLINK is required by libsmbclient, or it will exit() .. *sigh*
-      RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX AF_NETLINK";
+      RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX";
       RestrictNamespaces = "yes";
     };
   };

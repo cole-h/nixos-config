@@ -6,7 +6,7 @@ let
   em = pkgs.writeShellScriptBin "em" ''
     case "$1" in
          -*)
-          exec emacsclient "$@"
+          exec ${emacsPkg}/bin/emacsclient "$@"
     esac
 
     # Checks if there's a frame open
@@ -34,6 +34,33 @@ in
       emacsPkg # [drvs]
       em
       emn
+      gnutls
+
+      ## Module dependencies
+      # :checkers spell
+      aspell
+      aspellDicts.en
+      aspellDicts.en-computers
+      aspellDicts.en-science
+      # :checkers grammar
+      languagetool
+      # :tools editorconfig
+      editorconfig-core-c # per-project style config
+      # :tools lookup & :lang org +roam
+      sqlite
+      # :lang cc
+      ccls
+      # :lang latex & :lang org (latex previews)
+      texlive.combined.scheme-medium
+      # :input japanese
+      # cmigemo
+      # :lang sh
+      shellcheck
+      # :lang python
+      python3
+      black
+      # :lang markdown
+      discount
     ];
 
     sessionVariables = {
@@ -62,7 +89,7 @@ in
         };
 
         Install = {
-          WantedBy = [ "default.target" ];
+          WantedBy = [ "graphical-session.target" ];
         };
       };
     };

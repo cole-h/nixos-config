@@ -8,10 +8,10 @@ let
 
   sources = import ../nix/sources.nix;
   emacs = import sources.emacs-overlay;
-  # wayland = import sources.nixpkgs-wayland;
+  wayland = import sources.nixpkgs-wayland;
   mozilla = import sources.nixpkgs-mozilla;
 
-  wayland = import ~/workspace/vcs/nixpkgs-wayland;
+  # wayland = import ~/workspace/vcs/nixpkgs-wayland;
 in
 composeExtensions3
   mozilla

@@ -5,16 +5,16 @@
 }:
 buildPackage {
   pname = "zoxide";
-  version = "0.3.1";
+  version = "0.4.0-git";
 
   root = lib.cleanSourceWith {
     src = toString ~/workspace/vcs/zoxide;
-    filter = name: type: let baseName = baseNameOf (toString name); in !(
-      # Filter out version control software files/directories
-      (type == "directory" && baseName == "target")
-      || # Filter out nix-build result symlinks
-      (type == "symlink" && lib.hasPrefix "result" baseName)
-    );
+    filter = name: type:
+      let
+        baseName = baseNameOf (toString name);
+      in
+        !((type == "directory" && baseName == "target")
+          || (type == "symlink" && lib.hasPrefix "result" baseName));
   };
 
   cargoOptions = (opts: opts ++ [ "--locked" ]);
@@ -26,9 +26,7 @@ buildPackage {
 
   buildInputs = [ fzf ];
 
-  override = (
-    old: {
-      nativeBuildInputs = old.nativeBuildInputs ++ [ git ];
-    }
-  );
+  override = ({ nativeBuildInputs ? [ ], ... }: {
+    nativeBuildInputs = nativeBuildInputs ++ [ git ];
+  });
 }

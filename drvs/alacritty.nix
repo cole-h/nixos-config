@@ -42,12 +42,14 @@ in
 (
   buildPackage {
     name = "alacritty";
-    version = "0.5.0";
+    version = "0.5.0-git";
 
     root = lib.cleanSourceWith {
       src = toString ~/workspace/vcs/alacritty;
       filter = name: type:
-        let baseName = baseNameOf (toString name); in
+        let
+          baseName = baseNameOf (toString name);
+        in
           !((type == "directory" && baseName == "target")
             || (type == "symlink" && lib.hasPrefix "result" baseName));
     };
@@ -64,39 +66,34 @@ in
     release = releaseBuild;
     doCheck = false;
 
-    override = (
-      { nativeBuildInputs ? [ ], ... }: {
-        nativeBuildInputs = nativeBuildInputs ++ [ git ];
-      }
-    );
+    override = ({ nativeBuildInputs ? [ ], ... }: {
+      nativeBuildInputs = nativeBuildInputs ++ [ git ];
+    });
   }
-).overrideAttrs
-  (
-    { ... }: {
-      postPatch = ''
-        substituteInPlace alacritty/src/config/mouse.rs \
-          --replace xdg-open ${xdg_utils}/bin/xdg-open
-      '';
+).overrideAttrs ({ ... }: {
+  postPatch = ''
+    substituteInPlace alacritty/src/config/mouse.rs \
+      --replace xdg-open ${xdg_utils}/bin/xdg-open
+  '';
 
-      installPhase = ''
-        runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-        install -D target/${ if releaseBuild then "release" else "debug"}/alacritty $out/bin/alacritty
+    install -D target/${if releaseBuild then "release" else "debug"}/alacritty $out/bin/alacritty
 
-        install -D extra/linux/Alacritty.desktop -t $out/share/applications/
-        install -D extra/logo/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
+    install -D extra/linux/Alacritty.desktop -t $out/share/applications/
+    install -D extra/logo/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
 
-        strip -S $out/bin/alacritty
-        patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/alacritty
+    strip -S $out/bin/alacritty
+    patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/alacritty
 
-        installShellCompletion --zsh extra/completions/_alacritty
-        installShellCompletion extra/completions/alacritty.{fish,bash}
-        installManPage extra/alacritty.man
+    installShellCompletion --zsh extra/completions/_alacritty
+    installShellCompletion extra/completions/alacritty.{fish,bash}
+    installManPage extra/alacritty.man
 
-        runHook postInstall
-      '';
+    runHook postInstall
+  '';
 
-      dontStrip = true;
-      dontPatchELF = true; # we already did it :)
-    }
-  )
+  dontStrip = true;
+  dontPatchELF = true; # we already did it :)
+})

@@ -8,8 +8,9 @@
 (setq user-full-name "Cole Helbling"
       user-mail-address "cole.e.helbling@outlook.com"
 
-      max-lisp-eval-depth 400
-      max-specpdl-size 650)
+      ; max-lisp-eval-depth 400
+      ; max-specpdl-size 650
+      )
 
 ;; modes and friends
 (menu-bar-mode -1)
