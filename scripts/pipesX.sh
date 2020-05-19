@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Animated pipes.sh terminal screensaver at an angle.
 # Copyright (c) 2013-2015 Yu-Jie Lin
 #

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 NETPERF="netperf"
 NETPERF_ARGS="-H localhost -t TCP_RR -l 1"

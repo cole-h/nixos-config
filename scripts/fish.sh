@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Courtesy of @chrisduerr
 
 fish_len=7

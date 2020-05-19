@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo -e "              \e[32m&&"
 echo -e "             \e[32m&&&&&"
 echo -e "           \e[32m&&&\/& &&&"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Extract for common file formats
 extract() {
     SAVEIFS=$IFS
