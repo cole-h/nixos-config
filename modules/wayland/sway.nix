@@ -34,15 +34,23 @@ let
   screenie = "(a) area, (m) monitor, (w) window, (A) to clipboard, (M) to clipboard, (W) to clipboard";
 
   ## Executables
-  imgur = toString ../../scripts/imgur.sh;
-  term = toString ../../scripts/alacritty.sh;
-  alacritty = "${pkgs.alacritty}/bin/alacritty"; # [drvs]
+  inherit (config.my.scripts)
+    alacritty
+    imgur
+    passmenu
+    otpmenu
+    ;
+
+  term = alacritty;
+  alacritty' = "${pkgs.alacritty}/bin/alacritty"; # [drvs]
   kitty = "${pkgs.kitty}/bin/kitty";
   menu = ''
     ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop \
         --usage-log=${config.xdg.cacheHome}/.j4_history \
         --dmenu="${pkgs.bemenu}/bin/bemenu --ignorecase --no-overlap" # [drvs]
   '';
+
+  inherit (config.my) wallpaper;
 
   ## Workspaces
   # output DP-2 (left)
@@ -73,6 +81,12 @@ in
     "imgur".source = config.lib.file.mkOutOfStoreSymlink ../../secrets/imgur;
   };
 
+  home.packages = with pkgs; [
+    swaybg
+    swayidle
+    swaylock
+  ];
+
   wayland.windowManager.sway = {
     enable = true;
 
@@ -96,7 +110,7 @@ in
     # TODO: swayidle+swaylock command
     config = {
       output = {
-        "*".bg = "${config.my.wallpaper} fit";
+        "*".bg = "${wallpaper} fit";
         "DP-2" = {
           resolution = "1920x1080";
           position = "0,0";
@@ -145,19 +159,18 @@ in
       floating.modifier = "${modifier}";
 
       keybindings = {
-        "Ctrl+Alt+l" = "exec swaylock -f -i ${config.my.wallpaper} --scaling fill";
+        "Ctrl+Alt+l" = "exec swaylock -f -i ${wallpaper} --scaling fill";
 
         ## Basics
         # start a terminal
         "${modifier}+Return" = "exec ${term}";
         "${modifier}+KP_Enter" = "exec ${term}";
-        "${modifier}+Shift+Return" = "exec ${alacritty}";
+        "${modifier}+Shift+Return" = "exec ${alacritty'}";
         "${modifier}+Ctrl+Shift+Return" = "exec ${kitty}";
         # kill focused window
         "${modifier}+Shift+q" = "kill";
         # start your launcher
         "${modifier}+d" = "exec ${menu}";
-        # TODO: package rofi-emoji plugin
         "${modifier}+m" = "exec rofi -show emoji -normal-window";
         # reload the configuration file
         "${modifier}+Shift+c" = "reload";
@@ -166,8 +179,8 @@ in
         "${modifier}+e" = "exec ${pkgs.gnome3.nautilus}/bin/nautilus";
         # "${modifier}+e" = "exec nautilus";
         # open password menu
-        "${modifier}+p" = "exec ${toString ../../scripts/passmenu}";
-        "${modifier}+Shift+p" = "exec ${toString ../../scripts/otpmenu}";
+        "${modifier}+p" = "exec ${passmenu}";
+        "${modifier}+Shift+p" = "exec ${otpmenu}";
         # paste to paste.sr.ht
         # "${modifier}+c" = "exec ~/scripts/paste";
 
@@ -340,8 +353,8 @@ in
 
         # set $system (l) lock, (e) logout, (s) suspend
         "${system}" = {
-          l = "exec swaylock -f -i ${config.my.wallpaper} --scaling fill, mode default";
-          e = "exec systemctl --user stop sway"; # "exit;
+          l = "exec swaylock -f -i ${wallpaper} --scaling fill, mode default";
+          e = ''exec "systemctl --user stop sway; swaymsg exit"''; # exit
           s = "exec --no-startup-id systemctl suspend, mode default";
           # return to default mode
           Return = "mode default";
@@ -516,10 +529,10 @@ in
         {
           command = ''
             swayidle -w \
-              timeout 900 'swaylock -f -i ${config.my.wallpaper} --scaling fill' \
+              timeout 900 'swaylock -f -i ${wallpaper} --scaling fill' \
               timeout 1200 'swaymsg "output * dpms off"' \
                 resume 'swaymsg "output * dpms on"' \
-              before-sleep 'swaylock -f -i ${config.my.wallpaper} --scaling fill'
+              before-sleep 'swaylock -f -i ${wallpaper} --scaling fill'
           '';
         }
       ];
@@ -570,7 +583,8 @@ in
       workspace ${wsF10} output HDMI-A-1
 
       seat * hide_cursor 5000
-      seat * xcursor_theme default 24
+      seat * keyboard_grouping none
+      # seat * xcursor_theme default 24
 
       # TODO: Japanese input stuff
       # set $mode_lang j: japanese; esc: english
