@@ -8,7 +8,7 @@
 , otfcc
 }:
 let
-  outputHash = "0jnr8j57nqzpl2zgkm2k5y9z9hg1vcg3dnc0zvgkamjibd47d80a";
+  outputHash = "1vskphw9gly96hxi1iwk37zhgpblpnn3nav2h7ff18dq3i3bd3gm";
 
   set = "custom";
 
@@ -118,13 +118,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "iosevka-${set}";
-  version = "3.0.0-rc.8";
+  version = "3.0.1";
 
   src = fetchFromGitHub {
     owner = "be5invis";
     repo = "Iosevka";
     rev = "v${version}";
-    sha256 = "0crazaz03arggfd2p023bvlbppkqg1zn93phkd9znsvcjxr8ri4m";
+    sha256 = "07w5k75v1zwnrxmp1fvp3mck99l6ch6ivaazddnhw4c408sb7zmm";
   };
 
   nativeBuildInputs = [
