@@ -1,17 +1,3 @@
-touch /tmp/win10.log
-chmod 777 /tmp/win10.log
-
-# Stop graphical session
-stop_session() {
-  while [ "$(pgrep -x sway)" ]
-  do
-    SWAYSOCK=/run/user/$(id -u vin)/sway-ipc.$(id -u vin).$(pgrep -x sway).sock swaymsg exit \
-      && echo "$(date) Stopping sway" >> /tmp/win10.log
-    sleep 1
-  done
-}
-stop_session
-
 sync && echo 3 /proc/sys/vm/drop_caches
 echo "$(date) Freed memory to speed up VM POST" >> /tmp/win10.log
 
