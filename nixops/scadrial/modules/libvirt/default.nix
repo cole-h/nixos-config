@@ -33,6 +33,16 @@ let
   '';
 in
 {
+  users.users.vin.extraGroups = [ "libvirtd" ];
+
+  boot.kernelModules = [ "vfio-pci" ];
+  boot.kernelParams = [
+    "intel_iommu=on"
+    "intel_iommu=igfx_off"
+    "iommu=pt"
+    "kvm.ignore_msrs=1"
+  ];
+
   virtualisation.libvirtd = {
     enable = true;
     qemuOvmf = true;

@@ -8,65 +8,15 @@
 # TODO: add tranmission, sonarr, radarr
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./libvirt
+    ./modules
   ];
-
-  nix.trustedUsers = [ "vin" ];
-  nix.autoOptimiseStore = true;
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.initrd.kernelModules = [ "nouveau" ];
-  boot.kernelModules = [ "vfio-pci" ];
-  # boot.tmpOnTmpfs = true;
-  # TODO: encrypt zfs dataset lol
-  # boot.zfs.requestEncryptionCredentials = true;
-
-  boot.kernel.sysctl = {
-    "kernel.sysrq" = 1;
-  };
-
-  boot.kernelParams = [
-    "intel_iommu=on"
-    "iommu=pt"
-    "intel_iommu=igfx_off"
-    "kvm.ignore_msrs=1"
-  ];
-
-  networking.hostName = "scadrial"; # Define your hostname.
-  networking.hostId = "1bb11552"; # Required for ZFS.
-  networking.useDHCP = false;
-  networking.nameservers = [ "192.168.1.212" "8.8.8.8" ];
-  networking.defaultGateway = "192.168.1.1";
-  networking.interfaces.enp3s0.ipv4 = {
-    addresses = [
-      {
-        address = "192.168.1.22";
-        # address = "192.168.1.23";
-        prefixLength = 24;
-      }
-    ];
-  };
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "us";
-  };
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   # TODO: some of these might be part of modules/services
   environment.systemPackages = with pkgs; [
-    # alsaUtils
     bc
     binutils
     borgbackup
@@ -97,58 +47,20 @@
     xdg_utils
   ];
 
-  # List services that you want to enable:
+  ## nix
+  nix.trustedUsers = [ "vin" ];
+  nix.autoOptimiseStore = true;
 
-  # services.zfs.trim.enable = true; # for zfs on ssd
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
+  ## programs
   programs.gnupg.agent = {
     enable = true;
     enableBrowserSocket = true;
     enableExtraSocket = true;
     enableSSHSupport = true;
-    pinentryFlavor = "gtk2";
+    pinentryFlavor = "gtk2"; # has TTY fallback
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Enable CUPS to print documents.
-  services.printing = {
-    enable = true;
-    drivers = with pkgs; [ gutenprint ];
-  };
-
-  # Necessary for discovering network printers.
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-  };
-
-  # Enable sound.
-  sound.enable = true;
-
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
-  };
-
-  # I use cadence to start jack, which wants to manage its own pulseaudio.
-  systemd.user = {
-    services.pulseaudio.enable = lib.mkForce false;
-    sockets.pulseaudio.enable = lib.mkForce false;
-  };
-
-  # Enable OpenGL.
-  hardware.opengl.enable = true;
-
-  # Update microcode to address "Firmware Bug" messages on startup.
-  hardware.cpu.intel.updateMicrocode = true;
+  programs.fish.enable = true;
 
   # Enable `doas`, a `sudo` replacement.
   security.doas = {
@@ -167,7 +79,7 @@
     isNormalUser = true;
     uid = 1000;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "audio" "input" "avahi" "realtime" "libvirtd" ];
+    extraGroups = [ "wheel" "audio" "input" "avahi" "realtime" ];
     # mkpasswd -m sha-512
     hashedPassword = "$6$FaEHrjGo$OaEd7FMHnY4UviCjWbuWS5vG4QNg0CPc5lcYCRjscDOxBA1ss43l8ZYzamCtmjCdxjVanElx45FtYzQ3abP/j0";
 
@@ -184,8 +96,6 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDD4tjx4CFZ6X1ap4oNB9oI/UVPO8cbJ/ypsbsVQN6x/LwFtHjzdtQiL3pTPyfAFI50bEI09/r0arar5D2eY6Ll+G24jJqY6yQ0qaVNVo77OTsyBaRf8fv+i6sGM0OWHTtIIND9lmb2cuTyEK3ar5pPyHXpLSSyRQSZ3z6/jU5PujjsC9RgFYk9afOqOm/7i6V+dNRC7j2j92c85yERdb9XSpgQYyKtrYi+AmohvaL4NKg2DjXQNTGPrmAPF/Ow5OY+PiBEewiTJ41if3KGZY+eVL48RWmrR5CzykGuhdoTMX1/0kFsRNdsFXhC4KNh/xrhFqkRT5l4udBGeLaH/mlW9TRO/sp8eif64cuS1N1zg5/PSzUM45mmG2OaxKRIEevQBoyCshZt+mc3oSEfdyg0G1mrMmlxmdcq/x+aE3N4nn/bjWcVNByjpXgEPAhV+cPWJM3XZASXcoEEA9Fp7I218zwKnFxNdORoLs9NlE75ScQs5KJz9e0bDlaQZ+VTgOpwGGUalF9GyMNCX7Fpqb7CGEJMJfxFNrFPx9EYaHqxDtxa0wfumWmedLhzfjmyrBA2B+8eaOEChAcGIeqVbZE0u+sY1iibdV7mzcRLfX4WhkFWff4KKjCTFVvJKcd/q5kx7cLTiFcwK4GSRPU6Qfu9N0p+0F/kMBVERO+6VLLQgw== openpgp:0x69277DD3"
     ];
   };
-
-  programs.fish.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -1,0 +1,33 @@
+https://grahamc.com/blog/nixos-on-zfs
+https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
+
+1. partition
+  - 512MiB /boot at the beginning
+  - 16GiB swap partition at the beginning
+  - rest "linux partition" (for ZFS) -- don't forget native encryption
+    ("encryption=on") and "compression=on"
+    - rpool (none)
+    - rpool/local (none) <-- local to the machine, shouldn't be backed up
+    - rpool/local/nix (legacy)
+    - rpool/local/root (legacy)
+    - rpool/safe (none) <--- safe to backup
+    - rpool/safe/home (legacy)
+    - rpool/safe/var (legacy)
+2. install
+  - mount things (maybe everything?)
+    - /mnt/ -> rpool/local/root
+    - /mnt/nix/ -> rpool/local/nix
+    - /mnt/home/ -> rpool/safe/home
+    - /mnt/var/ -> rpool/safe/var
+  - git clone https://github.com/cole-h/dotfiles /tmp/dotfiles
+  - nixos-generate-config --dir /tmp/dotfiles/nixops/scadrial
+  - nixos-rebuild switch -I nixos-config=/tmp/dotfiles/nixops/scadrial/configuration.nix
+  - set up gpg key -- probably also need to link in sshcontrol, probably
+  - git clone git@github.com:cole-h/nix-secrets /tmp/dotfiles/secrets
+  - rsync -a /tmp/dotfiles /home/vin/.config/nixpkgs
+  - nix run nixpkgs.nixops -c nixops ssh vin@scadrial '
+    git clone https://github.com/rycee/home-manager $HOME/workspace/vcs/home-manager
+    git clone https://github.com/alacritty/alacritty $HOME/workspace/vcs/alacritty
+    git clone https://github.com/ajeetdsouza/zoxide $HOME/workspace/vcs/zoxide
+    nix-shell $HOME/workspace/vcs/home-manager -A install'
+
