@@ -63,8 +63,8 @@
       tmate # "Instant Terminal Sharing" -- for debugging darwin issues via GH Actions
       libreoffice
 
-      # latest.firefox-beta-bin
-      latest.firefox-nightly-bin
+      latest.firefox-beta-bin
+      # latest.firefox-nightly-bin
       pass-otp
       passrs
       # android-studio # android apps

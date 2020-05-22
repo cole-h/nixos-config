@@ -17,9 +17,9 @@ mount_disk () {
         fi
     fi
 
-    mount /dev/mapper/backup /mnt/backup
+    mount /dev/mapper/backup /backup
 
-    if [ ! -f /mnt/backup/.mounted ]; then
+    if [ ! -f /backup/.mounted ]; then
         echo "Something went wrong while mounting"
         exit 1
     fi
@@ -29,15 +29,15 @@ backup () {
     # To view backed up files, first have disk mounted, then use
     #   `borg mount /path/to/repo /mnt/mountpoint'
     # To unmount, use `borg umount /mnt/mountpoint'
-	BORG_CACHE_DIR=/mnt/backup/cache borg create \
+	BORG_CACHE_DIR=/backup/cache borg create \
 		--debug \
 		--stats \
 		--progress \
 		--show-rc \
 		--compression zstd,10 \
 		--exclude-caches \
-		--exclude-from /mnt/backup/Scadrial/.bak-ignore \
-		/mnt/backup/Scadrial::{hostname}{now:%Y-%m-%dT%H%M%S} \
+		--exclude-from /backup/Scadrial/.bak-ignore \
+		/backup/Scadrial::{hostname}{now:%Y-%m-%dT%H%M%S} \
 		/
 
 	if [ $? -ne 0 ] ; then 
@@ -51,7 +51,7 @@ backup () {
 			--progress \
 			--show-rc \
 			--last 1 \
-			/mnt/backup/Scadrial
+			/backup/Scadrial
 
 		if [ $? -ne 0 ] ; then 
 			echo "Verification failed."
@@ -68,7 +68,7 @@ prune () {
          --keep-daily 7 \
          --keep-weekly 4 \
          --keep-monthly 6 \
-         /mnt/backup/Scadrial
+         /backup/Scadrial
 
 	if [ $? -ne 0 ] ; then 
 		echo "Pruning failed."
@@ -77,9 +77,9 @@ prune () {
 }
 
 unmount () {
-    umount /mnt/backup
+    umount /backup
 
-    while [ -f /mnt/backup/.mounted ]; do
+    while [ -f /backup/.mounted ]; do
         sleep 1
     done
 
@@ -87,7 +87,7 @@ unmount () {
 }
 
 export check=$CHECK
-if [ ! -f /mnt/backup/.mounted ]; then
+if [ ! -f /backup/.mounted ]; then
     mount_disk
     if [[ "$1" == "prune" ]]; then
         prune

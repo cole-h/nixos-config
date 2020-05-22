@@ -16,6 +16,8 @@
   };
 
   boot.kernelParams = [
+    "quiet"
+    "udev.log_priority=3"
     "elevator=none" # recommended for ZFS: https://grahamc.com/blog/nixos-on-zfs
   ];
 
