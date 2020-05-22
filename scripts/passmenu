@@ -11,4 +11,4 @@ password=$(printf '%s\n' "${password_files[@]}" | bemenu -ni "$@" -p '>')
 
 [[ -n $password ]] || exit
 
-passrs show -c "$password" 2>/dev/null
+passrs show "$password" -c 2>/dev/null
