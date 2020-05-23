@@ -5,7 +5,7 @@
     { ... }:
     {
       imports = [
-        ./scadrial/configuration.nix
+        ./hosts/scadrial/configuration.nix
       ];
 
       deployment.targetHost = "localhost";

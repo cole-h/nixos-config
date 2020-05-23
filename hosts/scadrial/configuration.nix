@@ -50,6 +50,8 @@
   ## nix
   nix.trustedUsers = [ "vin" ];
   nix.autoOptimiseStore = true;
+  nix.binaryCaches = [ "https://cole-h.cachix.org" ];
+  nix.binaryCachePublicKeys = [ "cole-h.cachix.org-1:qmEJ4uAe5tWwFxU/U5T/Nf2+wzXM3/rCP0SIGbK0dgU=" ];
 
   ## programs
   programs.gnupg.agent = {
