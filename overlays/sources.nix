@@ -13,9 +13,9 @@ let
 
   # wayland = import ~/workspace/vcs/nixpkgs-wayland;
 in
-composeExtensions3
+composeExtensions2
+  # wayland
   mozilla
   emacs
-  wayland
   final
   super

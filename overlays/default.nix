@@ -4,7 +4,10 @@ let
     callPackage
     libsForQt5
     runCommand
-    # pkgs
+    pkgs
+    lib
+
+    python3Packages geoclue2
     ;
 
   sources = import ../nix/sources.nix;
@@ -22,25 +25,34 @@ in
   doom-emacs = callPackage ../drvs/doom-emacs.nix { };
   fish = callPackage ../drvs/fish.nix { };
   foliate = callPackage ../drvs/foliate.nix { };
+  git-crypt = callPackage ../drvs/git-crypt.nix { };
   gsfonts = callPackage ../drvs/gsfonts.nix { };
   iosevka-custom = callPackage ../drvs/iosevka/iosevka-custom.nix { };
-  git-crypt = callPackage ../drvs/git-crypt.nix { };
   passrs = callPackage ~/workspace/langs/rust/passrs { };
 
   alacritty = callPackage ../drvs/alacritty.nix {
     inherit (naersk) buildPackage;
   };
 
-  # redshift-wayland = callPackage ../drvs/redshift-wayland {
-  #   inherit (pkgs.python3Packages) python pygobject3 pyxdg wrapPython;
-  #   geoclue = pkgs.geoclue2;
-  # };
+  redshift-wayland = callPackage ../drvs/redshift-wayland {
+    inherit (python3Packages) python pygobject3 pyxdg wrapPython;
+    geoclue = geoclue2;
+  };
 
   zoxide = callPackage ../drvs/zoxide.nix {
     inherit (naersk) buildPackage;
   };
 
+  nixops = (callPackage
+    (fetchTarball "https://github.com/NixOS/nixops/archive/master.tar.gz") { }
+  ).overrideAttrs ({ ... }: {
+    preBuild = ''substituteInPlace nixops/__main__.py --replace "@version@" "2.0-pre"'';
+  });
+
   # small-ish overrides
+  ripgrep = super.ripgrep.override { withPCRE2 = true; };
+  rofi = super.rofi.override { plugins = [ final.rofi-emoji ]; };
+
   discord =
     runCommand "discord"
       { buildInputs = [ final.makeWrapper ]; }
@@ -56,8 +68,6 @@ in
     '';
   });
 
-  ripgrep = super.ripgrep.override { withPCRE2 = true; };
-  rofi = super.rofi.override { plugins = [ final.rofi-emoji ]; };
   mpd = final.mpdWithFeatures {
     features = [
       # Storage plugins
@@ -67,7 +77,6 @@ in
       "curl"
       "mms"
       "nfs"
-      # "smbclient"
       # Archive support
       "bzip2"
       "zzip"

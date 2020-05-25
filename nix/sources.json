@@ -65,10 +65,10 @@
         "homepage": "",
         "owner": "colemickens",
         "repo": "nixpkgs-wayland",
-        "rev": "8ab6e313b9d64123f0573841ad255a2e64ee4557",
-        "sha256": "0ycy2i70gn756fgnx94ncyy5f8s3hh382zmsjfhqxbzcylzly0hn",
+        "rev": "34362f14d88526dff11af9ed5590f4a9fa0159af",
+        "sha256": "1fzcjiznk347x288mxhfj8p4d3xbwgyvn4hg7y6nf69285lc7rg4",
         "type": "tarball",
-        "url": "https://github.com/colemickens/nixpkgs-wayland/archive/8ab6e313b9d64123f0573841ad255a2e64ee4557.tar.gz",
+        "url": "https://github.com/colemickens/nixpkgs-wayland/archive/34362f14d88526dff11af9ed5590f4a9fa0159af.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

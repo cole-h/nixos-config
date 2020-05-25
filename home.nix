@@ -28,24 +28,19 @@
 
   home = {
     enableDebugInfo = true;
-
-    extraOutputsToInstall = [
-      "man"
-    ];
+    extraOutputsToInstall = [ "man" ];
 
     packages = with pkgs; [
       ## nix-related
-      # cachix
-      # cntr # used for breakpointHook
+      cachix
       direnv
       niv
-      nix # adds nix.sh to .nix-profile/etc/profile.d, which sets path stuff, which allows us to use binaries
       nix-index
+      nixops
       nixpkgs-fmt
-      nix-prefetch-scripts
       nix-prefetch
+      nix-prefetch-scripts
       nix-top
-      lorri
 
       ## tools
       bat # cat but better
@@ -59,8 +54,8 @@
       ytop # fancy top
       hexyl # hex viewer
       hyperfine # cli benchmarker
-      aerc # terminal email reader (why tf does it bring emacs into its closure????)
-      tmate # "Instant Terminal Sharing" -- for debugging darwin issues via GH Actions
+      aerc # terminal email reader; TODO: add config to secrets/
+      tmate # "Instant Terminal Sharing"
       libreoffice
 
       latest.firefox-beta-bin
@@ -74,43 +69,29 @@
       ## misc
       chatterino2 # Twitch chat client; [drvs]
       discord
-      todo-txt-cli # TODOs tracker
+      todo-txt-cli # todos tracker
 
       #### User Packages
       # go # maybe
       evince
       zathura
       pavucontrol
-      # gitAndTools.hub
-      # ncdu
-      # rust-analyzer # (ra_lsp_server
-      # lldb
+      gitAndTools.hub
+      ncdu
       gnome3.networkmanagerapplet
       gnome3.nautilus # GUI file manager
       gnome3.file-roller
       foliate
       filezilla
-      # texlive.combined.scheme-medium # texlive-core, texlive-most, texlive, auctex -- LaTeX stuff
       # ccls # C lsp server
       # binwalk
 
       #### System Packages
-      # borgbackup # (borg)
       # openconnect # for school VPN, if needed
       # wireguard # (wg, wg-quick
 
       ## haskell stuff
       ## Switch USB stuff
-      ## syncthing service
-      ## sonarr, radarr, rtorrent + rutorrent (infinisil recommends transmission)
-      ## udevmon or whatever for Caps -> Esc (or buy the Drop CTRL lol)
-
-      ## qemu + libvirt + ovmf + virt-manager (vfio) + libvirt hooks
-      ## VM shit
-      # bridge_utils # maybe unnecssary?
-      # cryptsetup
-      # ntfs3g
-      # libguestfs # (guestmount,
     ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
