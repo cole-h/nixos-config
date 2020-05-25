@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     jack2
-    cadence
+    qjackctl
   ];
 
   # <driver name="alsa">

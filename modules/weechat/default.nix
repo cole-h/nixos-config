@@ -1,23 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
-  home = {
-    packages = with pkgs; [
-      weechat
-      tmux
-    ];
-
-    activation = with lib; {
-      weechatConfig = hm.dag.entryAfter [ "writeBoundary" ] ''
-        # WeeChat still does not support the XDG spec :'(
-        $DRY_RUN_CMD ln -sfT $VERBOSE_ARG \
-          ${toString ./config} \
-          ${config.xdg.configHome}/weechat
-      '';
-    };
-  };
+  home.packages = with pkgs; [
+    weechat
+  ];
 
   xdg.configFile = {
+    "weechat".source = config.lib.file.mkOutOfStoreSymlink ./config;
+
     "nixpkgs/modules/weechat/config/freenode.pem".source =
       config.lib.file.mkOutOfStoreSymlink "${config.my.secrets.weechat}/freenode.pem";
     "nixpkgs/modules/weechat/config/irc.conf".source =

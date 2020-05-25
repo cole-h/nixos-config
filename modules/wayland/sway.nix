@@ -520,9 +520,9 @@ in
       };
 
       startup = [
-        {
-          command = "${pkgs.cadence}/bin/cadence-session-start --system-start";
-        }
+        # {
+        #   command = "${pkgs.cadence}/bin/cadence-session-start --system-start";
+        # }
         {
           command = "alacritty --class SCRATCHTERM -e tmux -L scratch";
         }

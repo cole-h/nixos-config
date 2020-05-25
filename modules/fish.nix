@@ -78,13 +78,13 @@ in
               # systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY \
               #           IN_NIX_SHELL __HM_SESS_VARS_SOURCED GPG_TTY
               # systemctl --user import-environment
-              exec sway 2>/tmp/sway.log # TODO: log to syslog even without a unit pls
+              exec sway >/dev/null 2>/tmp/sway.log # TODO: log to syslog even without a unit pls
           end
 
           # Start windows VM
-          # if [ (tty) = "/dev/tty5" ]
-          #   exec doas virsh start windows10
-          # end
+          if [ (tty) = "/dev/tty5" ]
+            exec doas virsh start windows10
+          end
 
           set --global pure_symbol_prompt "\$"
           exit

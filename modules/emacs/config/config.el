@@ -181,8 +181,8 @@ If PEEK is non-nil, keep focus in status buffer window."
 (add-hook! 'ediff-cleanup-hook #'vin/ediff-janitor)
 ;; (add-hook! 'emacs-lisp-mode-hook #'aggressive-indent-mode)
 (add-hook! 'text-mode-hook (visual-line-mode 1))
-(add-hook! 'rustic-mode-hook #'( ;(rainbow-delimiters-mode 1)
-                      (#'adjust-rust-company-backends)))
+;; (add-hook! 'rustic-mode-hook #'( ;(rainbow-delimiters-mode 1)
+;;                       (#'adjust-rust-company-backends)))
 (add-hook! 'focus-out-hook 'save-buffer)
 
 ;; advice-add and friends

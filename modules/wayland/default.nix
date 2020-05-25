@@ -8,6 +8,8 @@ in
 {
   imports = [
     ./sway.nix # sway config
+    ./mako.nix # mako config
+    ./alacritty.nix # alacritty config
     # ./waybar.nix # waybar config
     # ./japanese.nix # JP config
   ];
@@ -19,7 +21,6 @@ in
     wl-clipboard # clipboard
     alacritty # [drvs]
     kitty # alt terminal as backup
-    mako # notifications
     libnotify # notifications part 2: electric boogaloo
     redshift-wayland # blue-light filter; [overlays]
     bemenu # dmenu launcher; [overlays]
@@ -46,17 +47,6 @@ in
 
   qt = {
     enable = false;
-  };
-
-  xdg.configFile = {
-    # ref: https://github.com/lovesegfault/nix-config/blob/03c4b9d9a01ca5439736c6f0f4b762b900aaddf7/users/bemeurer/sway/mako.nix
-    # TODO: verify I don't need that icon stuff on NixOS when I switch
-    "mako/config".text = ''
-      layer=overlay
-      anchor=top-center
-      width=400
-      default-timeout=15000
-    '';
   };
 
   systemd.user = {
