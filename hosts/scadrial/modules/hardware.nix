@@ -8,6 +8,7 @@
     enable = true;
     package = pkgs.pulseaudioFull;
     extraConfig = ''
+      ## https://github.com/falkTX/Cadence/blob/f94b2d762a67802616e6367581fe6004ba44bc51/data/pulse2jack/play%2Brec.pa
       .fail
 
       ### Automatically restore the volume of streams and devices
@@ -41,8 +42,11 @@
     '';
   };
 
-  services.jack.jackd.enable = true;
   users.users.vin.extraGroups = [ "jackaudio" ];
+  services.jack.jackd = {
+    enable = true;
+    extraOptions = [ "-dalsa" "--period=2048" ];
+  };
 
   # Enable OpenGL.
   hardware.opengl.enable = true;

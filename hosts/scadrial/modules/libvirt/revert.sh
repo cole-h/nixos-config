@@ -16,7 +16,11 @@ echo "$(date) Rebound snd_hda_intel (front panel audio)" >> /tmp/win10.log
 virsh nodedev-reattach pci_0000_01_00_1
 echo "$(date) Rebound snd_hda_intel (HDMI audio)" >> /tmp/win10.log
 
-# Re-Bind GPU to Nvidia Driver
+systemctl restart jack
+echo "$(date) Restarted jackd" >> /tmp/win10.log
+doas -u vin systemctl restart --user pulseaudio.socket
+echo "$(date) Restarted user pulse" >> /tmp/win10.log
+
 virsh nodedev-reattach pci_0000_01_00_0
 echo "$(date) Rebound GPU" >> /tmp/win10.log
 
@@ -30,4 +34,5 @@ echo 1 > /sys/class/vtconsole/vtcon1/bind
 echo "$(date) Rebound vtcon1" >> /tmp/win10.log
 
 sleep 1
-echo -e "$(date) End\n\n" >> /tmp/win10.log
+echo "$(date) End" >> /tmp/win10.log
+echo >> /tmp/win10.log

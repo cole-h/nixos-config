@@ -1,4 +1,4 @@
-sync && echo 3 /proc/sys/vm/drop_caches
+sync && echo 3 > /proc/sys/vm/drop_caches
 echo "$(date) Freed memory to speed up VM POST" >> /tmp/win10.log
 
 # Unbind VTconsoles
@@ -11,8 +11,8 @@ echo "$(date) Unbound vtcon1" >> /tmp/win10.log
 virsh nodedev-detach pci_0000_01_00_0
 echo "$(date) Unbound GPU" >> /tmp/win10.log
 
-while pkill -9 jackdbus; do sleep 1; done
-echo "$(date) Killed jackdbus" >> /tmp/win10.log
+systemctl stop jack
+echo "$(date) Killed jackd" >> /tmp/win10.log
 
 virsh nodedev-detach pci_0000_01_00_1
 echo "$(date) Unbound snd_hda_intel (HDMI audio)" >> /tmp/win10.log

@@ -33,6 +33,11 @@ let
   '';
 in
 {
+  environment.systemPackages = [
+    # with-appliance or else `libguestfs: error: cannot find any suitable libguestfs supermin`
+    pkgs.libguestfs-with-appliance
+  ];
+
   users.users.vin.extraGroups = [ "libvirtd" ];
 
   boot.kernelModules = [ "vfio-pci" ];
@@ -52,12 +57,16 @@ in
 
   systemd.services.libvirtd = {
     # scripts use binaries from these packages
-    path = with pkgs; [ libvirt procps utillinux ];
+    # NOTE: All these hooks are run with root privileges... Be careful!
+    path = with pkgs; [ libvirt procps utillinux doas ];
     preStart = ''
+      mkdir -p /var/lib/libvirt/vbios
+      ln -sf ${./patched-bios.rom} /var/lib/libvirt/vbios/patched-bios.rom
+
       mkdir -p /var/lib/libvirt/hooks
-      mkdir -p /var/lib/libvirt/hooks/qemu.d/windows10/prepare/begin/
-      mkdir -p /var/lib/libvirt/hooks/qemu.d/windows10/release/end/
-      mkdir -p /var/lib/libvirt/hooks/qemu.d/windows10/started/begin/
+      mkdir -p /var/lib/libvirt/hooks/qemu.d/windows10/prepare/begin
+      mkdir -p /var/lib/libvirt/hooks/qemu.d/windows10/release/end
+      mkdir -p /var/lib/libvirt/hooks/qemu.d/windows10/started/begin
 
       ln -sf ${qemuHook} /var/lib/libvirt/hooks/qemu
       ln -sf ${./start.sh} /var/lib/libvirt/hooks/qemu.d/windows10/prepare/begin/start.sh

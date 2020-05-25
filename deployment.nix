@@ -9,5 +9,6 @@
       ];
 
       deployment.targetHost = "localhost";
+      deployment.privilegeEscalationCommand = [ "doas" ];
     };
 }

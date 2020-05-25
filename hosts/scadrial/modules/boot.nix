@@ -8,6 +8,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.initrd.kernelModules = [ "nouveau" ];
   boot.tmpOnTmpfs = true;
+  boot.plymouth.enable = true;
 
   boot.kernelPackages =
     let
@@ -31,11 +32,11 @@
 
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;
+    "kernel.printk" = "3 4 3 3";
   };
 
   boot.kernelParams = lib.mkBefore [
     "udev.log_priority=3"
-    "elevator=none" # recommended for ZFS: https://grahamc.com/blog/nixos-on-zfs
   ];
 
   # Select internationalisation properties.

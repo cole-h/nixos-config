@@ -5,7 +5,6 @@
 { config, pkgs, lib, ... }:
 
 # TODO: sort this file
-# TODO: add tranmission, sonarr, radarr
 {
   imports = [
     ./hardware-configuration.nix
@@ -15,13 +14,16 @@
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
+  documentation.dev.enable = true;
+
   # TODO: some of these might be part of modules/services
   environment.systemPackages = with pkgs; [
     bc
     binutils
     borgbackup
     # bridge_utils # maybe unnecessary
-    # cryptsetup + ntfs3g for external
+    cntr # used for breakpointHook
+    cryptsetup # for borg
     dnsutils
     e2fsprogs
     ffmpeg
@@ -35,13 +37,14 @@
     # iputils # maybe default?
     # kmod # maybe default?
     libarchive # maybe atool?
-    libguestfs
     # libreoffice
     lsof
+    manpages
     neovim
     netcat-openbsd
     openssl
     pciutils
+    posix_man_pages
     psmisc
     usbutils
     xdg_utils
@@ -50,8 +53,15 @@
   ## nix
   nix.trustedUsers = [ "vin" ];
   nix.autoOptimiseStore = true;
-  nix.binaryCaches = [ "https://cole-h.cachix.org" ];
-  nix.binaryCachePublicKeys = [ "cole-h.cachix.org-1:qmEJ4uAe5tWwFxU/U5T/Nf2+wzXM3/rCP0SIGbK0dgU=" ];
+  nix.binaryCaches = [
+    "https://cole-h.cachix.org"
+    "https://nixpkgs-wayland.cachix.org"
+  ];
+
+  nix.binaryCachePublicKeys = [
+    "cole-h.cachix.org-1:qmEJ4uAe5tWwFxU/U5T/Nf2+wzXM3/rCP0SIGbK0dgU="
+    "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+  ];
 
   ## programs
   programs.gnupg.agent = {
@@ -69,6 +79,7 @@
     enable = true;
     extraRules = [
       { groups = [ "wheel" ]; keepEnv = true; persist = true; }
+      { groups = [ "wheel" ]; noPass = true; cmd = "virsh"; }
     ];
   };
 

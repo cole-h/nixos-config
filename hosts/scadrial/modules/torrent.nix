@@ -36,31 +36,90 @@
   networking.firewall.allowedTCPPorts = [
     8989 # sonarr
     9091 # transmission
+    80 # allow
   ];
 
-  # services.nginx = {
-  #   enable = true;
-  #   virtualHosts =
-  #     let
-  #       all = ''
-  #         allow all;
-  #       '';
-  #       onlyLan = ''
-  #         allow 192.168.1.0/24;
-  #         deny all;
-  #       '';
-  #     in
-  #     {
-  #       "localhost".locations = {
-  #         "/sonarr/" = {
-  #           proxyPass = "http://127.0.0.1:8989";
-  #           # extraConfig = onlyLan;
-  #         };
-  #         "/torrents/" = {
-  #           proxyPass = "http://127.0.0.1:9091";
-  #           # extraConfig = onlyLan;
-  #         };
+  # NOTE: Should also add rules in pihole so others can connect
+  networking.extraHosts = ''
+    127.0.0.1 sonarr.lan
+    127.0.0.1 torrents.lan
+  '';
+
+  services.nginx = {
+    enable = true;
+    virtualHosts =
+      let
+        onlyLan = ''
+          allow 192.168.1.0/24;
+          allow 127.0.0.1;
+          deny all;
+        '';
+      in
+      {
+        "sonarr.lan".locations."/" = {
+          proxyPass = "http://127.0.0.1:8989/";
+          extraConfig = onlyLan;
+        };
+        "torrents.lan".locations."/" = {
+          proxyPass = "http://127.0.0.1:9091/";
+          extraConfig = onlyLan;
+        };
+      };
+  };
+
+  ## Seems to take up too many resources (I hear crackling when listening to
+  ## music). Maybe the music's fault, but meh. TODO: revisit once on SSD (maybe
+  ## because it was on an HDD?)
+  # containers.downloads = {
+  #   autoStart = true;
+
+  #   config = { config, pkgs, ... }: {
+  #     users.users.downloads = { group = "downloads"; uid = 947; };
+  #     users.groups.downloads.gid = 947;
+
+  #     services.sonarr = {
+  #       enable = true;
+  #       user = "downloads";
+  #       group = "downloads";
+  #     };
+
+  #     services.transmission = {
+  #       enable = true;
+  #       user = "downloads";
+  #       group = "downloads";
+  #       home = "/var/lib/torrent";
+  #       settings = {
+  #         download-dir = "/var/lib/torrent/current";
+  #         rpc-whitelist = "127.0.0.1,192.168.*.*";
+  #         ratio-limit = "0";
+  #         ratio-limit-enabled = "true";
+  #         idle-seeding-limit = "1";
+  #         idle-seeding-limit-enabled = "true";
   #       };
   #     };
+  #   };
+
+  #   forwardPorts = [
+  #     { containerPort = 8989; hostPort = 8989; protocol = "tcp"; } # Sonarr
+  #     { containerPort = 9091; hostPort = 9091; protocol = "tcp"; } # Transmission
+  #   ];
+
+  #   bindMounts = {
+  #     "sonarr" = {
+  #       mountPoint = "/var/lib/sonarr";
+  #       hostPath = "/var/lib/sonarr";
+  #       isReadOnly = false;
+  #     };
+  #     "torrent" = {
+  #       mountPoint = "/var/lib/torrent";
+  #       hostPath = "/var/lib/torrent";
+  #       isReadOnly = false;
+  #     };
+  #     "media" = {
+  #       mountPoint = "/media";
+  #       hostPath = "/media";
+  #       isReadOnly = false;
+  #     };
+  #   };
   # };
 }
