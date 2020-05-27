@@ -1,3 +1,7 @@
+let
+  sources = import ./nix/sources.nix;
+  pkgs = import sources.nixpkgs { };
+in
 {
   network.description = "Cosmere";
   network.enableRollback = true;
@@ -8,6 +12,8 @@
       imports = [
         ./hosts/scadrial/configuration.nix
       ];
+
+      nixpkgs.pkgs = pkgs;
 
       deployment.targetHost = "localhost";
       deployment.privilegeEscalationCommand = [ "doas" ];

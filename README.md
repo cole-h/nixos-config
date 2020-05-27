@@ -62,12 +62,12 @@ zpool create \
 # maybe don't need mountpoint=legacy except for /nix?
 zfs create -o canmount=off tank/system
 zfs create -o mountpoint=legacy tank/system/root
-zfs create -o mountpoint=legacy tank/system/var
-zfs create -o mountpoint=legacy tank/system/media
+zfs create -o mountpoint=legacy tank/system/var # maybe don't need legacy
+zfs create -o mountpoint=legacy tank/system/media # maybe don't need legacy
 zfs create -o canmount=off tank/local
 zfs create -o mountpoint=legacy tank/local/nix
 zfs create -o canmount=off tank/user
-zfs create -o mountpoint=legacy tank/user/home
+zfs create -o mountpoint=legacy tank/user/home # maybe don't need legacy
 
 # create snapshot of everything `@blank` -- easy to switch to tmpfs if I want
 zfs snapshot tank/system@blank
@@ -88,9 +88,9 @@ mount $DISK-part1 /mnt/boot
 ``` sh
 git clone https://github.com/cole-h/nixos-config /mnt/tmp/nixos-config
 
-nixos-generate-config --root /mnt --dir /tmp/nixos-config/nixops/scadrial
+nixos-generate-config --root /mnt --dir /tmp/nixos-config/hosts/scadrial
 
-export NIXOS_CONFIG=/mnt/tmp/nixos-config/nixops/scadrial/configuration.nix
+export NIXOS_CONFIG=/mnt/tmp/nixos-config/hosts/scadrial/configuration.nix
 
 nixos-install
 
@@ -113,11 +113,10 @@ git -C ~/.config/nixpkgs submodule update --init
 
 git clone https://github.com/rycee/home-manager ~/workspace/vcs/home-manager
 git clone https://github.com/alacritty/alacritty ~/workspace/vcs/alacritty
-git clone https://github.com/ajeetdsouza/zoxide ~/workspace/vcs/zoxide
 git clone https://github.com/cole-h/passrs ~/workspace/langs/rust/passrs
 nix-shell ~/workspace/vcs/home-manager -A install
 doom sync
 # copy FF profile
-# copy sonarr settings
-# copy ssh config and hosts
+# copy sonarr settings (watched shows, etc)
+# copy ssh config and hosts (probably should just manage this with h-m or smth)
 ```

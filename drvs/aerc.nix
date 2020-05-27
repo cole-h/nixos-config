@@ -11,7 +11,9 @@
 , w3m
 }:
 let
-  rev = "83e7c7661dfe42e75641d764d713d144c2d7c6ce";
+  rev = "6c4ed3cfe2fe66a1e5f26c404ea90e048142db72";
+  vendorSha256 = "0p6bm34qk1kmw47lk0k8gl8mz091bvm0lc51m2v28xih58mmp70b";
+  sha256 = "1bcvwnvk20qj3dm3ajkbfcsq6662ipq4n1gsbp10dn384xwxbw7j";
 
   libvterm = fetchFromGitHub {
     owner = "ddevault";
@@ -22,19 +24,20 @@ let
 in
 buildGoModule {
   pname = "aerc";
-  version = "unstable-2020-05-23";
+  version = "unstable-2020-05-26";
 
   src = fetchTarball {
     url = "https://git.sr.ht/~sircmpwn/aerc/archive/${rev}.tar.gz";
-    sha256 = "15ckz7rw39v6xydg9l473fd35cflm6pfh2xb0v5hi0m2p2wvi1ai";
+    inherit sha256;
   };
 
-  vendorSha256 = "1rqn36510m0yb7k4bvq2hgirr3z8a2h5xa7cq5mb84xsmhvf0g69";
+  inherit vendorSha256;
 
   overrideModAttrs = ({ ... }: {
     postBuild = ''
-      cp -r --reflink=auto ${libvterm}/libvterm vendor/github.com/ddevault/go-libvterm
-      cp -r --reflink=auto ${libvterm}/encoding vendor/github.com/ddevault/go-libvterm
+      # cp -r --reflink=auto ${libvterm}/libvterm vendor/github.com/ddevault/go-libvterm
+      # cp -r --reflink=auto ${libvterm}/encoding vendor/github.com/ddevault/go-libvterm
+      cp -r --reflink=auto ${libvterm}/* vendor/github.com/ddevault/go-libvterm
     '';
   });
 

@@ -11,12 +11,26 @@
     ./modules
   ];
 
+  # nixops deploy -I nixpkgs=https://github.com/NixOS/nixpkgs/tarball/70f8ca8da527b835f407ac0976786124f6ea0719
+  # ^ for working plymouth w/ zfs and stuff
+  nixpkgs.overlays = [
+    (final: super: {
+      doas = super.doas.overrideAttrs ({ ... }: {
+        patches = [
+          (final.fetchpatch {
+            url = "https://raw.githubusercontent.com/NixOS/nixpkgs/82f897333a1d2e10ae2d1661f8313c493836d334/pkgs/tools/security/doas/0001-add-NixOS-specific-dirs-to-safe-PATH.patch";
+            sha256 = "1glndm3410gsbc6c0pgyjisan7ysvwiahf1nva1aihlq6vq3qr7a";
+          })
+        ];
+      });
+    })
+  ];
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
   documentation.dev.enable = true;
 
-  # TODO: some of these might be part of modules/services
   environment.systemPackages = with pkgs; [
     bc
     binutils
