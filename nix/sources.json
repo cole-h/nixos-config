@@ -47,6 +47,30 @@
         "url": "https://github.com/nmattia/niv/archive/f73bf8d584148677b01859677a63191c31911eae.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nixops": {
+        "branch": "master",
+        "description": "NixOps is a tool for deploying to NixOS machines in a network or cloud.",
+        "homepage": "https://nixos.org/nixops",
+        "owner": "nixos",
+        "repo": "nixops",
+        "rev": "68aa76845573a8e6613286a730f0a2c9e394af97",
+        "sha256": "1w8km1rf8hghp2jfvlbwqa2zsf9xaxbn8rzjy1zar4n42lcnfspn",
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixops/archive/68aa76845573a8e6613286a730f0a2c9e394af97.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "master",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "70f8ca8da527b835f407ac0976786124f6ea0719",
+        "sha256": "0dzrlkc2bfncdvfy7j7yx8k08g0hdvzsd1q72d4j9dp8dcjj143b",
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs/archive/70f8ca8da527b835f407ac0976786124f6ea0719.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixpkgs-mozilla": {
         "branch": "master",
         "description": "mozilla related nixpkgs (extends nixos/nixpkgs repo)",

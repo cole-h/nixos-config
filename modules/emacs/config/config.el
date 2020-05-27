@@ -114,7 +114,8 @@
   ;;   (indent-according-to-mode))
   ;; (sp-local-pair 'rustic-mode "({" "})" :post-handlers '((smooth-curly-block "RET")))
   ;; (sp-local-pair 'rustic-mode "{" "}" :post-handlers '((curly-space "SPC") (smooth-curly-block "RET")))
-  (setq rustic-format-on-save t
+  (setq lsp-rust-analyzer-cargo-watch-enable nil
+        rustic-format-on-save t
         rustic-lsp-server 'rust-analyzer)
   (setq-local fill-column 100))
 

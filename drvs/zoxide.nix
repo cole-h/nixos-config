@@ -7,15 +7,7 @@ buildPackage {
   pname = "zoxide";
   version = "0.4.0-git";
 
-  root = lib.cleanSourceWith {
-    src = toString ~/workspace/vcs/zoxide;
-    filter = name: type:
-      let
-        baseName = baseNameOf (toString name);
-      in
-        !((type == "directory" && baseName == "target")
-          || (type == "symlink" && lib.hasPrefix "result" baseName));
-  };
+  root = lib.cleanSource ~/workspace/vcs/zoxide;
 
   cargoOptions = (opts: opts ++ [ "--locked" ]);
 

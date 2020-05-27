@@ -32,10 +32,10 @@
 
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;
-    "kernel.printk" = "3 4 3 3";
+    "kernel.printk" = "3 4 3 3"; # don't let logging bleed into TTY
   };
 
-  boot.kernelParams = lib.mkBefore [
+  boot.kernelParams = [
     "udev.log_priority=3"
   ];
 

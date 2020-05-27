@@ -44,15 +44,7 @@ in
     name = "alacritty";
     version = "0.5.0-git";
 
-    root = lib.cleanSourceWith {
-      src = toString ~/workspace/vcs/alacritty;
-      filter = name: type:
-        let
-          baseName = baseNameOf (toString name);
-        in
-          !((type == "directory" && baseName == "target")
-            || (type == "symlink" && lib.hasPrefix "result" baseName));
-    };
+    root = lib.cleanSource ~/workspace/vcs/alacritty;
 
     buildInputs = [
       makeWrapper

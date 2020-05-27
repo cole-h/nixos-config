@@ -7,7 +7,7 @@ let
     pkgs
     lib
 
-    python3Packages geoclue2
+    python3Packages
     ;
 
   sources = import ../nix/sources.nix;
@@ -19,7 +19,6 @@ in
   # sarasa-gothic = callPackage ../drvs/sarasa-gothic.nix {};
 
   # misc
-  aerc = callPackage ../drvs/aerc.nix { };
   bemenu = callPackage ../drvs/bemenu.nix { };
   chatterino2 = libsForQt5.callPackage ../drvs/chatterino2.nix { };
   doom-emacs = callPackage ../drvs/doom-emacs.nix { };
@@ -36,31 +35,24 @@ in
 
   redshift-wayland = callPackage ../drvs/redshift-wayland {
     inherit (python3Packages) python pygobject3 pyxdg wrapPython;
-    geoclue = geoclue2;
+    withGeoclue = false;
   };
 
-  zoxide = callPackage ../drvs/zoxide.nix {
-    inherit (naersk) buildPackage;
-  };
-
-  nixops = (callPackage
-    (fetchTarball "https://github.com/NixOS/nixops/archive/master.tar.gz") { }
-  ).overrideAttrs ({ ... }: {
-    preBuild = ''substituteInPlace nixops/__main__.py --replace "@version@" "2.0-pre"'';
+  nixops = (callPackage sources.nixops { }).overrideAttrs ({ ... }: {
+    preBuild = "substituteInPlace nixops/__main__.py --replace '@version@' '2.0-${sources.nixops.rev}'";
   });
 
   # small-ish overrides
   ripgrep = super.ripgrep.override { withPCRE2 = true; };
   rofi = super.rofi.override { plugins = [ final.rofi-emoji ]; };
+  aerc = super.aerc.override { notmuch = null; };
 
-  discord =
-    runCommand "discord"
-      { buildInputs = [ final.makeWrapper ]; }
-      ''
-        mkdir -p $out/bin
-        makeWrapper ${super.discord}/bin/Discord $out/bin/discord \
-          --set "GDK_BACKEND" "x11"
-      '';
+  discord = runCommand "discord"
+    { buildInputs = [ final.makeWrapper ]; }
+    ''
+      makeWrapper ${super.discord}/bin/Discord $out/bin/discord \
+        --set "GDK_BACKEND" "x11"
+    '';
 
   passff-host = super.passff-host.overrideAttrs ({ ... }: {
     patchPhase = ''

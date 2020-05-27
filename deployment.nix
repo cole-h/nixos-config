@@ -1,5 +1,6 @@
 {
   network.description = "Cosmere";
+  network.enableRollback = true;
 
   scadrial =
     { ... }:

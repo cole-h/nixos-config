@@ -21,21 +21,16 @@
     bc
     binutils
     borgbackup
-    # bridge_utils # maybe unnecessary
     cntr # used for breakpointHook
-    cryptsetup # for borg
+    cryptsetup # for borgbackup
     dnsutils
     e2fsprogs
     ffmpeg
     file
     gdb
     git
-    # glibc/musl # ldd
     htop
     imagemagick
-    # iproute # maybe default?
-    # iputils # maybe default?
-    # kmod # maybe default?
     libarchive # maybe atool?
     # libreoffice
     lsof
@@ -79,11 +74,17 @@
     enable = true;
     extraRules = [
       { groups = [ "wheel" ]; keepEnv = true; persist = true; }
-      { groups = [ "wheel" ]; noPass = true; cmd = "virsh"; }
+      { groups = [ "wheel" ]; keepEnv = true; noPass = true; cmd = "virsh"; }
     ];
   };
 
   security.pam.services.swaylock = { };
+
+  # TODO: only need to legacy mount important parts, like root, var, and home --
+  # everything else can automount, apparently (thanks LnL)
+  # TODO: apparently it has Before=local-fs.target; does this hurt?
+  # systemd.services.zfs-mount.requires = [ "zfs-import.target" ];
+  # systemd.services.zfs-mount.wantedBy = [ "local-fs.target" ];
 
   users.mutableUsers = false;
 

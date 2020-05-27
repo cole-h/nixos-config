@@ -34,11 +34,6 @@ in
       ];
 
       functions = {
-        # __fish_command_not_found_handler = {
-        #   body = "__fish_default_command_not_found_handler $argv[1]";
-        #   onEvent = "fish_command_not_found";
-        # };
-
         cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
         mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
         nix-locate = "command nix-locate --top-level $argv";
@@ -91,12 +86,6 @@ in
         end
       '';
 
-      # shellInit = ''
-
-      #   # Set PATH without actually modifying PATH
-      #   set --global --append fish_user_paths $CARGO_HOME/bin $DEVKITPRO/tools/bin $HOME/.local/bin/ $GOPATH/bin
-      # '';
-
       promptInit = ''
 
         # Deactivate the default virtualenv prompt so that we can add our own
@@ -111,6 +100,8 @@ in
         set --global pure_color_success (set_color green)
 
         set -l nix_shell_info (
+          # FIXME: next lorri release has this env var
+          # if test -n "$IN_LORRI_SHELL"
           if string match -q -- "lorri*" $name
             printf "lorri "
           else if test -n "$IN_NIX_SHELL"
