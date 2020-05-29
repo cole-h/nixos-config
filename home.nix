@@ -6,6 +6,9 @@
     ./options.nix
   ];
 
+  home.username = "${builtins.getEnv "USER"}";
+  home.homeDirectory = "${builtins.getEnv "HOME"}";
+
   programs.home-manager = {
     enable = true;
     path = "${config.home.homeDirectory}/workspace/vcs/home-manager";

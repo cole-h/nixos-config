@@ -14,27 +14,32 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "tank/system/root";
+    { device = "rpool/system/root";
       fsType = "zfs";
     };
 
   fileSystems."/var" =
-    { device = "tank/system/var";
+    { device = "rpool/system/var";
+      fsType = "zfs";
+    };
+
+  fileSystems."/media" =
+    { device = "rpool/system/media";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "tank/local/nix";
+    { device = "rpool/local/nix";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "tank/user/home";
+    { device = "rpool/user/home";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/55B1-B4E6";
+    { device = "/dev/disk/by-uuid/E073-D290";
       fsType = "vfat";
     };
 

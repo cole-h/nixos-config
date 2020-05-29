@@ -84,6 +84,7 @@ in
 
         Service = {
           Type = "simple";
+	  # ExecStartPre = "${doom-emacs}/bin/doom sync";
           ExecStart = "${emacsPkg}/bin/emacs --fg-daemon";
           Restart = "on-failure";
         };

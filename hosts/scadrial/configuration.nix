@@ -15,6 +15,7 @@
   # ^ for working plymouth w/ zfs and stuff
   nixpkgs.overlays = [
     (final: super: {
+      sonarr = final.callPackage ../../drvs/sonarr.nix { };
       doas = super.doas.overrideAttrs ({ ... }: {
         patches = [
           (final.fetchpatch {
@@ -63,11 +64,13 @@
   nix.trustedUsers = [ "vin" ];
   nix.autoOptimiseStore = true;
   nix.binaryCaches = [
+    "https://cache.qyliss.net"
     "https://cole-h.cachix.org"
     "https://nixpkgs-wayland.cachix.org"
   ];
 
   nix.binaryCachePublicKeys = [
+    "qyliss-x220:bZQtoCyr68idLFb8UQeDjnjitO/xAj52gOo9GoKZuog="
     "cole-h.cachix.org-1:qmEJ4uAe5tWwFxU/U5T/Nf2+wzXM3/rCP0SIGbK0dgU="
     "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
   ];

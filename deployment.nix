@@ -13,7 +13,7 @@ in
         ./hosts/scadrial/configuration.nix
       ];
 
-      nixpkgs.pkgs = pkgs;
+      # nixpkgs.pkgs = pkgs;
 
       deployment.targetHost = "localhost";
       deployment.privilegeEscalationCommand = [ "doas" ];

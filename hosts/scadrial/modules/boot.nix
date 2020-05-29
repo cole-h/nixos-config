@@ -5,30 +5,31 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 1;
-  boot.supportedFilesystems = [ "zfs" ];
+  boot.supportedFilesystems = [ "zfs" "ntfs" ];
   boot.initrd.kernelModules = [ "nouveau" ];
   boot.tmpOnTmpfs = true;
   boot.plymouth.enable = true;
 
-  boot.kernelPackages =
-    let
-      linux_zen_pkg = { fetchurl, buildLinux, ... }@args:
-        buildLinux (args // rec {
-          version = "5.6.14-zen1";
-          modDirVersion = version;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages =
+  #   let
+  #     linux_zen_pkg = { fetchurl, buildLinux, ... }@args:
+  #       buildLinux (args // rec {
+  #         version = "5.6.15-zen1";
+  #         modDirVersion = version;
 
-          # https://github.com/zen-kernel/zen-kernel/releases
-          src = fetchurl {
-            url = "https://github.com/zen-kernel/zen-kernel/archive/v${version}.tar.gz";
-            sha256 = "1c3vr0kg7wp4f9yscp6g0c4avjnahfjwlpam04q4sj60zb2zdgdc";
-          };
+  #         # https://github.com/zen-kernel/zen-kernel/releases
+  #         src = fetchurl {
+  #           url = "https://github.com/zen-kernel/zen-kernel/archive/v${version}.tar.gz";
+  #           sha256 = "0bjjrsblmgz00vrrnqgc52dyp4g81klsmvi87zv50yhmvlcd7h9n";
+  #         };
 
-          kernelPatches = [ ];
-          extraMeta.branch = "5.6";
-        } // (args.argsOverride or { }));
-      linux_zen = pkgs.callPackage linux_zen_pkg { };
-    in
-    pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_zen);
+  #         kernelPatches = [ ];
+  #         extraMeta.branch = "5.6";
+  #       } // (args.argsOverride or { }));
+  #     linux_zen = pkgs.callPackage linux_zen_pkg { };
+  #   in
+  #   pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_zen);
 
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;

@@ -36,6 +36,7 @@ in
   redshift-wayland = callPackage ../drvs/redshift-wayland {
     inherit (python3Packages) python pygobject3 pyxdg wrapPython;
     withGeoclue = false;
+    geoclue = null;
   };
 
   nixops = (callPackage sources.nixops { }).overrideAttrs ({ ... }: {

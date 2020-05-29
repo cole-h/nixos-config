@@ -17,18 +17,17 @@
 , desktop-file-utils
 , hicolor-icon-theme /* setup hook */
 , libarchive
-  # , hyphen
 }:
 
 stdenv.mkDerivation rec {
   pname = "foliate";
-  version = "2.1.1";
+  version = "2.2.0";
 
   src = fetchFromGitHub {
     owner = "johnfactotum";
     repo = pname;
     rev = version;
-    sha256 = "1n5h6vbjys44f42wgsdalzyv95pybrg1q4nzbgvx78c17crlivaw";
+    sha256 = "1k4l6ad68hck5v02r11ckxn87d9819cjpk5ii33rxlp7yi4f3z3q";
   };
 
   nativeBuildInputs = [
@@ -52,8 +51,6 @@ stdenv.mkDerivation rec {
     gtk3
     libarchive
     webkitgtk
-    # TODO: Add once packaged, unclear how language packages best handled
-    # hyphen
   ];
 
   postPatch = ''
@@ -64,16 +61,9 @@ stdenv.mkDerivation rec {
   # Improvements/alternatives welcome, but this seems to work for now :/.
   # See: https://github.com/NixOS/nixpkgs/issues/31168#issuecomment-341793501
   postInstall = ''
-    sed -e "2iimports.package._findEffectiveEntryPointName = () => 'com.github.johnfactotum.Foliate'" \
-      -i $out/bin/com.github.johnfactotum.Foliate
-
     mv "$out/bin/com.github.johnfactotum.Foliate" "$out/bin/foliate"
-  '';
 
-  meta = with stdenv.lib; {
-    description = "Simple and modern GTK eBook reader";
-    homepage = "https://johnfactotum.github.io/foliate/";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dtzWill ];
-  };
+    sed -e "2iimports.package._findEffectiveEntryPointName = () => 'com.github.johnfactotum.Foliate'" \
+      -i $out/bin/foliate
+  '';
 }

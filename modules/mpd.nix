@@ -40,11 +40,11 @@
         #     plugin "curl"
         # }
 
-        # audio_output {
-        #     type "pulse"
-        #     name "My Pulse Output"
-        #     mixer_type "software"
-        # }
+        audio_output {
+            type "pulse"
+            name "My Pulse Output"
+            mixer_type "software"
+        }
 
         audio_output {
             type "jack"
