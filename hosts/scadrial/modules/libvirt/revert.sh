@@ -16,8 +16,12 @@ echo "$(date) Rebound snd_hda_intel (front panel audio)" >> /tmp/win10.log
 virsh nodedev-reattach pci_0000_01_00_1
 echo "$(date) Rebound snd_hda_intel (HDMI audio)" >> /tmp/win10.log
 
-systemctl restart jack
-echo "$(date) Restarted jackd" >> /tmp/win10.log
+systemctl restart znapzend
+echo "$(date) Restarted snapshots" >> /tmp/win10.log
+
+systemctl restart sonarr transmission
+echo "$(date) Restarted torrents" >> /tmp/win10.log
+
 doas -u vin systemctl restart --user pulseaudio.socket
 echo "$(date) Restarted user pulse" >> /tmp/win10.log
 

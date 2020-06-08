@@ -8,7 +8,9 @@
 , otfcc
 }:
 let
-  outputHash = "1vskphw9gly96hxi1iwk37zhgpblpnn3nav2h7ff18dq3i3bd3gm";
+  outputHash = "08kl2pzcfmqlm479wlph0aq1jfb3q2b5aymjzr3wa07w4nni0qd2";
+  pname = "iosevka-${set}";
+  version = "3.1.1";
 
   set = "custom";
 
@@ -116,16 +118,10 @@ let
 
   buildDeps = (import ./. { }).package;
 in
-stdenv.mkDerivation rec {
-  pname = "iosevka-${set}";
-  version = "3.0.1";
+stdenv.mkDerivation {
+  inherit pname version;
 
-  src = fetchFromGitHub {
-    owner = "be5invis";
-    repo = "Iosevka";
-    rev = "v${version}";
-    sha256 = "07w5k75v1zwnrxmp1fvp3mck99l6ch6ivaazddnhw4c408sb7zmm";
-  };
+  src = fetchTarball "https://github.com/be5invis/Iosevka/archive/v${version}.tar.gz";
 
   nativeBuildInputs = [
     nodejs-12_x

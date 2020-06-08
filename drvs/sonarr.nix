@@ -23,7 +23,6 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp -r * $out/bin/
 
-    # makeWrapper "''${mono}/bin/mono" $out/bin/NzbDrone \
     makeWrapper "${mono}/bin/mono" $out/bin/NzbDrone \
       --add-flags "$out/bin/Sonarr.exe" \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ curl sqlite libmediainfo ]}

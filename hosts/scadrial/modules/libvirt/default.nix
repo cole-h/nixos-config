@@ -35,7 +35,7 @@ in
 {
   environment.systemPackages = [
     # with-appliance or else `libguestfs: error: cannot find any suitable libguestfs supermin`
-    pkgs.libguestfs-with-appliance
+    # pkgs.libguestfs-with-appliance
   ];
 
   users.users.vin.extraGroups = [ "libvirtd" ];
@@ -61,7 +61,7 @@ in
     path = with pkgs; [ libvirt procps utillinux doas ];
     preStart = ''
       mkdir -p /var/lib/libvirt/vbios
-      ln -sf ${./patched-bios.rom} /var/lib/libvirt/vbios/patched-bios.rom
+      ln -sf ${toString ./patched-bios.rom} /var/lib/libvirt/vbios/patched-bios.rom
 
       mkdir -p /var/lib/libvirt/hooks
       mkdir -p /var/lib/libvirt/hooks/qemu.d/windows10/prepare/begin

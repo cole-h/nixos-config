@@ -48,6 +48,15 @@ in
   rofi = super.rofi.override { plugins = [ final.rofi-emoji ]; };
   aerc = super.aerc.override { notmuch = null; };
 
+  kakoune = super.kakoune.override {
+    configure.plugins = with pkgs.kakounePlugins; [
+      kak-powerline
+      kak-auto-pairs
+      kak-vertical-selection
+      kak-buffers
+    ];
+  };
+
   discord = runCommand "discord"
     { buildInputs = [ final.makeWrapper ]; }
     ''

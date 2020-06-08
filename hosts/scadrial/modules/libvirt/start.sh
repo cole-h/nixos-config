@@ -11,8 +11,11 @@ echo "$(date) Unbound vtcon1" >> /tmp/win10.log
 virsh nodedev-detach pci_0000_01_00_0
 echo "$(date) Unbound GPU" >> /tmp/win10.log
 
-systemctl stop jack
-echo "$(date) Killed jackd" >> /tmp/win10.log
+systemctl stop znapzend
+echo "$(date) Stopped snapshots while VM is live" >> /tmp/win10.log
+
+systemctl stop sonarr transmission
+echo "$(date) Stopped torrents" >> /tmp/win10.log
 
 virsh nodedev-detach pci_0000_01_00_1
 echo "$(date) Unbound snd_hda_intel (HDMI audio)" >> /tmp/win10.log

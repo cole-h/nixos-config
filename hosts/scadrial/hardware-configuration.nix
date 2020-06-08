@@ -24,7 +24,7 @@
     };
 
   fileSystems."/media" =
-    { device = "rpool/system/media";
+    { device = "tank/system/media";
       fsType = "zfs";
     };
 
@@ -43,7 +43,9 @@
       fsType = "vfat";
     };
 
-  swapDevices = [ ];
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/f6fe5b36-b804-4678-8ccb-79655b9b1e58"; }
+    ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

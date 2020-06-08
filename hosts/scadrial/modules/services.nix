@@ -3,12 +3,28 @@ let
   caps2esc = pkgs.callPackage ../../../drvs/caps2esc { };
 in
 {
-  # For ZFS on SSD.
-  # services.zfs.trim.enable = true;
+  services.znapzend = {
+    enable = true;
+    pure = true;
+    zetup = {
+      "rpool/system" = {
+        timestampFormat = "%Y-%m-%dT%H%M%S";
+        plan = "15min=>5min,4h=>15min,4d=>1h,1w=>1d,1m=>1w";
+        recursive = true;
+      };
+      "rpool/user" = {
+        timestampFormat = "%Y-%m-%dT%H%M%S";
+        plan = "15min=>5min,4h=>15min,4d=>1h,1w=>1d,1m=>1w";
+        recursive = true;
+      };
+    };
+  };
+
   services.mingetty.helpLine = lib.mkForce ""; # don't wanna see the "help" message
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.openssh.passwordAuthentication = false;
 
   # Enable CUPS to print documents.
   services.printing = {

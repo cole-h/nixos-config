@@ -20,19 +20,6 @@ in
     fish = {
       enable = true;
 
-      plugins = with pkgs; [
-        {
-          # simple prompt
-          name = "pure";
-          src = fetchFromGitHub {
-            owner = "rafaelrinaldi";
-            repo = "pure";
-            rev = "d66aa7f0fec5555144d29faec34a4e7eff7af32b";
-            sha256 = "0klcwlgsn6nr711syshrdqgjy8yd3m9kxakfzv94jvcnayl0h62w";
-          };
-        }
-      ];
-
       functions = {
         cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
         mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
@@ -41,10 +28,6 @@ in
         std = "rustup doc --std";
         t = "todo.sh $argv";
         win10 = "doas virsh start windows10";
-        "..." = "cd ../..";
-        "...." = "cd ../../..";
-        "....." = "cd ../../../..";
-        "......" = "cd ../../../../..";
       };
 
       shellAbbrs = {
@@ -56,6 +39,11 @@ in
         vim = "nvim";
         vi = "nvim";
         "cd.." = "cd ..";
+        "..." = "../..";
+        "...." = "../../..";
+        "....." = "../../../..";
+        "......" = "../../../../..";
+        "......." = "../../../../../..";
         weechat = "tmux -L weechat attach";
       } // cgitcAbbrs;
 
@@ -70,8 +58,8 @@ in
 
           # Start sway
           if [ (tty) = "/dev/tty1" ]
-              # systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY \
-              #           IN_NIX_SHELL __HM_SESS_VARS_SOURCED GPG_TTY
+              systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY \
+                        IN_NIX_SHELL __HM_SESS_VARS_SOURCED GPG_TTY
               # systemctl --user import-environment
               exec sway >/dev/null 2>/tmp/sway.log # TODO: log to syslog even without a unit pls
           end
@@ -96,22 +84,6 @@ in
 
         # Register `_pure_prompt_new_line` as an event handler for `fish_prompt`
         functions -q _pure_prompt_new_line
-
-        set --global pure_color_success (set_color green)
-
-        set -l nix_shell_info (
-          # FIXME: next lorri release has this env var
-          # if test -n "$IN_LORRI_SHELL"
-          if string match -q -- "lorri*" $name
-            printf "lorri "
-          else if test -n "$IN_NIX_SHELL"
-            printf "nix-shell "
-          end
-
-          echo '$'
-        )
-
-        set --global pure_symbol_prompt "$nix_shell_info"
       '';
 
       interactiveShellInit = ''
@@ -121,18 +93,19 @@ in
         set --global --export GPG_TTY (tty)
 
         # Rust stuff
-        if command -q rustc
-          set --global --export --prepend LD_LIBRARY_PATH (rustc --print sysroot)"/lib"
-          set --global --export RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
-        end
+        # if command -q rustc
+        #   set --global --export --prepend LD_LIBRARY_PATH (rustc --print sysroot)"/lib"
+        #   set --global --export RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
+        # end
 
         # Miscellaneous exports
-        set --global --export SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
-        set --global --export SKIM_DEFAULT_OPTIONS '--height 20%'
+        # set --global --export SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
+        # set --global --export SKIM_DEFAULT_OPTIONS '--height 20%'
         set --global --export LS_COLORS 'ow=36:di=1;34;40:fi=32:ex=31:ln=35:'
 
         eval (${pkgs.direnv}/bin/direnv hook fish)
         ${pkgs.zoxide}/bin/zoxide init fish --hook pwd | source
+        ${pkgs.any-nix-shell}/bin/any-nix-shell fish | source
 
         t ls
         printf '\n'

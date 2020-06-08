@@ -14,13 +14,13 @@
 
 mkDerivation rec {
   pname = "chatterino2";
-  version = "unstable-2020-04-25";
+  version = "unstable-2020-05-30";
 
   src = fetchFromGitHub {
     owner = "Chatterino";
     repo = pname;
-    rev = "08678628d561c2bc7054b0ae7fcb308243d34e56";
-    sha256 = "13dkvcny2m7b6sgqb98kp8yia8yjx8n6gjjjzcvzhhly2p56gm4b";
+    rev = "50d669a1af44471f12d3d9cb9b4c91926c3d8b12";
+    sha256 = "02pnl7215i83907b54sx19qhyvp9ppqvrlxccn36kbwa39bfhkv9";
     fetchSubmodules = true;
   };
 
@@ -36,11 +36,6 @@ mkDerivation rec {
     qtbase
     qtmultimedia
     qtsvg
-  ];
-
-  qtWrapperArgs = [
-    "--set QT_XCB_FORCE_SOFTWARE_OPENGL 1"
-    # "--set QT_QPA_PLATFORM xcb"
   ];
 
   meta = with lib; {

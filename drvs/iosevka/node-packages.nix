@@ -157,13 +157,13 @@ let
         sha1 = "b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8";
       };
     };
-    "aws4-1.9.1" = {
+    "aws4-1.10.0" = {
       name = "aws4";
       packageName = "aws4";
-      version = "1.9.1";
+      version = "1.10.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws4/-/aws4-1.9.1.tgz";
-        sha512 = "wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==";
+        url = "https://registry.npmjs.org/aws4/-/aws4-1.10.0.tgz";
+        sha512 = "3YDiu347mtVtjpyV3u5kVqQLP242c06zwDOgpeRnybmXlYYsLbtTrUBUm8i8srONt+FWobl5aibnU1030PeeuA==";
       };
     };
     "balanced-match-1.0.0" = {
@@ -499,13 +499,13 @@ let
         sha512 = "nV5aVWW1K0wEiUIEdZ4erkGGH8mDxGyxSeqPzRNtWP7ataw+/olFObw7hujFWlVjNsaDFw5VZ5NzVSIqRgfTiw==";
       };
     };
-    "escodegen-1.14.1" = {
+    "escodegen-1.14.2" = {
       name = "escodegen";
       packageName = "escodegen";
-      version = "1.14.1";
+      version = "1.14.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/escodegen/-/escodegen-1.14.1.tgz";
-        sha512 = "Bmt7NcRySdIfNPfU2ZoXDrrXsG9ZjvDxcAlMfDUgRBjLOWTuIACXPBFJH7Z+cLb40JeQco5toikyc9t9P8E9SQ==";
+        url = "https://registry.npmjs.org/escodegen/-/escodegen-1.14.2.tgz";
+        sha512 = "InuOIiKk8wwuOFg6x9BQXbzjrQhtyXh46K9bqVTPzSo2FnyMBaYGBMC6PhQy7yxxil9vIedFBweQBMK74/7o8A==";
       };
     };
     "escodegen-1.3.3" = {
@@ -634,13 +634,13 @@ let
         sha1 = "96918440e3041a7a414f8c52e3c574eb3c3e1e05";
       };
     };
-    "fast-deep-equal-3.1.1" = {
+    "fast-deep-equal-3.1.3" = {
       name = "fast-deep-equal";
       packageName = "fast-deep-equal";
-      version = "3.1.1";
+      version = "3.1.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz";
-        sha512 = "8UEa58QDLauDNfpbrX55Q9jrGHThw2ZMdOky5Gl1CDtVeJDPVrG4Jxx1N8jw2gkWaff5UUuX1KJd+9zGe2B+ZA==";
+        url = "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz";
+        sha512 = "f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==";
       };
     };
     "fast-json-stable-stringify-2.1.0" = {
@@ -733,13 +733,13 @@ let
         sha512 = "8Z1K0VTG4hzYY7kA/1sj4/r1/RWLBD3xwReT/RCrUCbzPszjNQCCsy3ktkU/eaEqX3MYa4pY37a52eiBlPMlhA==";
       };
     };
-    "fs-extra-9.0.0" = {
+    "fs-extra-9.0.1" = {
       name = "fs-extra";
       packageName = "fs-extra";
-      version = "9.0.0";
+      version = "9.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fs-extra/-/fs-extra-9.0.0.tgz";
-        sha512 = "pmEYSk3vYsG/bF651KPUXZ+hvjpgWYw/Gc7W9NFUe3ZVLczKKWIij3IKpOrQcdw4TILtibFslZ0UmR8Vvzig4g==";
+        url = "https://registry.npmjs.org/fs-extra/-/fs-extra-9.0.1.tgz";
+        sha512 = "h2iAoN838FqAFJY2/qVpzFXy+EBxfVE220PalAqQLDVsFOHLJrZvut5puAbCdNv6WJk+B8ihI+k0c7JK5erwqQ==";
       };
     };
     "fs-minipass-1.2.7" = {
@@ -1345,13 +1345,13 @@ let
         sha512 = "0CWcCECdMVc2Rw3U5w9ZjqX6ga6ubk1xDVKxtBQPK7wis/0F2r9T6k4ydGYhecl7YUBxBVxhL5oisPsNxAPe2g==";
       };
     };
-    "otfcc-ttcize-0.10.0" = {
+    "otfcc-ttcize-0.10.1" = {
       name = "otfcc-ttcize";
       packageName = "otfcc-ttcize";
-      version = "0.10.0";
+      version = "0.10.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/otfcc-ttcize/-/otfcc-ttcize-0.10.0.tgz";
-        sha512 = "R5297PpoTx4whwGDirdWKO8yNY+8X8SrpHZ7ugxoJNkvlfP6i27nCPNOBXP/pjELlDspRNJkXadgNNbXpM5+JQ==";
+        url = "https://registry.npmjs.org/otfcc-ttcize/-/otfcc-ttcize-0.10.1.tgz";
+        sha512 = "h9Ymjc2oGx1X8SzAX4g9tzxaRl+Phjexs8qPkyS6r+bk/6oRMMkGzGzSvU1cY+XOPD3Nd0pqZnuaq+YVNoDkXw==";
       };
     };
     "p-limit-2.3.0" = {
@@ -1750,13 +1750,13 @@ let
         sha512 = "UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==";
       };
     };
-    "spdx-correct-3.1.0" = {
+    "spdx-correct-3.1.1" = {
       name = "spdx-correct";
       packageName = "spdx-correct";
-      version = "3.1.0";
+      version = "3.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/spdx-correct/-/spdx-correct-3.1.0.tgz";
-        sha512 = "lr2EZCctC2BNR7j7WzJ2FpDznxky1sjfxvvYEyzxNyb6lZXHODmEoJeFu4JupYlkfha1KZpJyoqiJ7pgA1qq8Q==";
+        url = "https://registry.npmjs.org/spdx-correct/-/spdx-correct-3.1.1.tgz";
+        sha512 = "cOYcUWwhCuHCXi49RhFRCyJEK3iPj1Ziz9DpViV3tbZOwXD49QzIN3MpOLJNxh2qwq2lJJZaKMVw9qNi4jTC0w==";
       };
     };
     "spdx-exceptions-2.3.0" = {
@@ -2020,13 +2020,13 @@ let
         sha512 = "4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==";
       };
     };
-    "ttf2woff-2.0.1" = {
+    "ttf2woff-2.0.2" = {
       name = "ttf2woff";
       packageName = "ttf2woff";
-      version = "2.0.1";
+      version = "2.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ttf2woff/-/ttf2woff-2.0.1.tgz";
-        sha1 = "871832240024b09db9570904c7c1928b8057c969";
+        url = "https://registry.npmjs.org/ttf2woff/-/ttf2woff-2.0.2.tgz";
+        sha512 = "X68badwBjAy/+itU49scLjXUL094up+rHuYk+YAOTTBYSUMOmLZ7VyhZJuqQESj1gnyLAC2/5V8Euv+mExmyPA==";
       };
     };
     "ttf2woff2-3.0.0" = {
@@ -2137,13 +2137,13 @@ let
         sha512 = "DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==";
       };
     };
-    "verda-1.0.1" = {
+    "verda-1.0.4" = {
       name = "verda";
       packageName = "verda";
-      version = "1.0.1";
+      version = "1.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/verda/-/verda-1.0.1.tgz";
-        sha512 = "nScasxF9diGZS3udb/KkHMPqn+8lENPk1cK7GNWsxmhHqH0Bm4Pd7KnjoBWL68j1G0niaI13wWJluqQIex6fmA==";
+        url = "https://registry.npmjs.org/verda/-/verda-1.0.4.tgz";
+        sha512 = "tiM4qEEhTnPJCdPw6z6bMqPfGQXYjyc8744j0/Qu5ItankFFUN5VRKuY8oweoKsR0ADMQwOdGUTzaPbEYMHAFg==";
       };
     };
     "verror-1.10.0" = {
@@ -2321,7 +2321,7 @@ let
   args = {
     name = "iosevka";
     packageName = "iosevka";
-    version = "3.0.1";
+    version = "3.1.1";
     src = ./.;
     dependencies = [
       sources."@types/color-name-1.1.1"
@@ -2339,7 +2339,7 @@ let
       sources."asynckit-0.4.0"
       sources."at-least-node-1.0.0"
       sources."aws-sign2-0.7.0"
-      sources."aws4-1.9.1"
+      sources."aws4-1.10.0"
       sources."balanced-match-1.0.0"
       sources."bcrypt-pbkdf-1.0.2"
       sources."bezier-js-2.6.1"
@@ -2379,7 +2379,7 @@ let
       sources."emoji-regex-8.0.0"
       sources."error-ex-1.3.2"
       sources."escape-latex-1.2.0"
-      sources."escodegen-1.14.1"
+      sources."escodegen-1.14.2"
       (sources."escope-1.0.3" // {
         dependencies = [
           sources."estraverse-2.0.0"
@@ -2407,7 +2407,7 @@ let
       sources."esutils-2.0.3"
       sources."extend-3.0.2"
       sources."extsprintf-1.3.0"
-      sources."fast-deep-equal-3.1.1"
+      sources."fast-deep-equal-3.1.3"
       sources."fast-json-stable-stringify-2.1.0"
       sources."fast-levenshtein-2.0.6"
       sources."file-uri-to-path-1.0.0"
@@ -2416,7 +2416,7 @@ let
       sources."forever-agent-0.6.1"
       sources."form-data-2.3.3"
       sources."fraction.js-4.0.12"
-      sources."fs-extra-9.0.0"
+      sources."fs-extra-9.0.1"
       sources."fs-minipass-1.2.7"
       sources."fs.realpath-1.0.0"
       (sources."gauge-2.7.4" // {
@@ -2494,7 +2494,7 @@ let
       sources."os-locale-1.4.0"
       sources."os-tmpdir-1.0.2"
       sources."osenv-0.1.5"
-      sources."otfcc-ttcize-0.10.0"
+      sources."otfcc-ttcize-0.10.1"
       sources."p-limit-2.3.0"
       sources."p-locate-4.1.0"
       sources."p-try-2.2.0"
@@ -2557,7 +2557,7 @@ let
       sources."set-blocking-2.0.0"
       sources."signal-exit-3.0.3"
       sources."source-map-0.6.1"
-      sources."spdx-correct-3.1.0"
+      sources."spdx-correct-3.1.1"
       sources."spdx-exceptions-2.3.0"
       sources."spdx-expression-parse-3.0.1"
       sources."spdx-license-ids-3.0.5"
@@ -2586,7 +2586,7 @@ let
       sources."tough-cookie-2.5.0"
       sources."ts-process-promises-1.0.2"
       sources."tslib-1.9.3"
-      sources."ttf2woff-2.0.1"
+      sources."ttf2woff-2.0.2"
       sources."ttf2woff2-3.0.0"
       sources."tunnel-agent-0.6.0"
       sources."tweetnacl-0.14.5"
@@ -2599,7 +2599,7 @@ let
       sources."util-deprecate-1.0.2"
       sources."uuid-3.4.0"
       sources."validate-npm-package-license-3.0.4"
-      (sources."verda-1.0.1" // {
+      (sources."verda-1.0.4" // {
         dependencies = [
           sources."tslib-1.13.0"
         ];

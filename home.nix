@@ -6,8 +6,10 @@
     ./options.nix
   ];
 
-  home.username = "${builtins.getEnv "USER"}";
-  home.homeDirectory = "${builtins.getEnv "HOME"}";
+  # Since b95ad632010bf1d135f7585c590f51f6c3dc2896, home-manager no longer uses
+  # getEnv to autodetect the username and homeDirectory of a user.
+  home.username = builtins.getEnv "USER";
+  home.homeDirectory = builtins.getEnv "HOME";
 
   programs.home-manager = {
     enable = true;

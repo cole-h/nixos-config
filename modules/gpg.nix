@@ -12,10 +12,8 @@
     ".gnupg/sshcontrol".source = config.lib.file.mkOutOfStoreSymlink config.my.secrets.sshcontrol;
 
     ".gnupg/gpg-agent.conf".text = ''
-      default-cache-ttl 600
-      default-cache-ttl-ssh 86400
-      max-cache-ttl 7200
-      max-cache-ttl-ssh 86400
+      default-cache-ttl 86400
+      max-cache-ttl 43200
     '';
   };
 

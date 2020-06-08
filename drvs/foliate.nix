@@ -21,13 +21,13 @@
 
 stdenv.mkDerivation rec {
   pname = "foliate";
-  version = "2.2.0";
+  version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "johnfactotum";
     repo = pname;
     rev = version;
-    sha256 = "1k4l6ad68hck5v02r11ckxn87d9819cjpk5ii33rxlp7yi4f3z3q";
+    sha256 = "0n9hwd4z99qvgyq664s76bgghswi6rspsdmzpnl78gdbyxflmkrk";
   };
 
   nativeBuildInputs = [
@@ -58,10 +58,10 @@ stdenv.mkDerivation rec {
   '';
 
   # Kludge so gjs can find resources by using the unwrapped name
-  # Improvements/alternatives welcome, but this seems to work for now :/.
+  # Improvements/alternatives welcome, but this seems to work for now :/
   # See: https://github.com/NixOS/nixpkgs/issues/31168#issuecomment-341793501
   postInstall = ''
-    mv "$out/bin/com.github.johnfactotum.Foliate" "$out/bin/foliate"
+    ln -s "$out/bin/com.github.johnfactotum.Foliate" "$out/bin/foliate"
 
     sed -e "2iimports.package._findEffectiveEntryPointName = () => 'com.github.johnfactotum.Foliate'" \
       -i $out/bin/foliate

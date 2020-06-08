@@ -15,16 +15,16 @@ if [[ "$1" == "mount" ]] || [ -z "$1" ] ; then
 		exit 1
 	fi
 
-	mount /dev/mapper/backup /mnt/backup
+	mount /dev/mapper/backup /backup
 
-	if [ ! -f /mnt/backup/.mounted ]; then
+	if [ ! -f /backup/.mounted ]; then
 		echo "Something went wrong while mounting"
 		exit 1
 	fi
 elif [[ "$1" == "unmount" || "$1" == "umount" ]]; then
-	umount /mnt/backup
+	umount /backup
 
-	while [ -f /mnt/backup/.mounted ]; do
+	while [ -f /backup/.mounted ]; do
 		sleep 1
 	done
 

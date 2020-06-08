@@ -46,6 +46,7 @@ in
       pull.rebase = true;
       push.default = "current";
       rebase.autoStash = true;
+      sendemail.annotate = true;
 
       diff."nodiff".command = "${pkgs.coreutils}/bin/true";
 
