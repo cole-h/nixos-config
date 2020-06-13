@@ -23,7 +23,7 @@
       screenshot-format = "png";
       slang = "en,eng";
       vo = "gpu";
-      # volume = 75;
+      volume = 75;
       watch-later-directory = "${config.xdg.cacheHome}/mpv-watch-later/";
     };
 

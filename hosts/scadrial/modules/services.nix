@@ -20,7 +20,15 @@ in
     };
   };
 
-  services.mingetty.helpLine = lib.mkForce ""; # don't wanna see the "help" message
+  # Scrub the disk regularly to ensure integrity
+  services.zfs.autoScrub.enable = true;
+  services.zfs.autoScrub.interval = "weekly";
+
+  # Automount USB
+  services.gvfs.enable = true;
+
+  # Hide the "help" message
+  services.mingetty.helpLine = lib.mkForce "";
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

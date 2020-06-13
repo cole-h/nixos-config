@@ -1,10 +1,12 @@
 let
   sources = import ./nix/sources.nix;
-  pkgs = import sources.nixpkgs { };
+  nixpkgs = import sources.nixpkgs { };
 in
 {
   network.description = "Cosmere";
   network.enableRollback = true;
+  # TODO: make sure this also allows stuff to work without a NIX_PATH
+  network.nixpkgs = nixpkgs;
 
   scadrial =
     { ... }:
@@ -12,8 +14,6 @@ in
       imports = [
         ./hosts/scadrial/configuration.nix
       ];
-
-      # nixpkgs.pkgs = pkgs;
 
       deployment.targetHost = "localhost";
       deployment.privilegeEscalationCommand = [ "doas" ];

@@ -5,22 +5,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "92618c5d37480241744a56cd5e6653757169e77b",
-        "sha256": "1pyhcyi425wcwvlb6a6qhrqfqlbmkzax4qy9jm67bvsfp6824jaw",
+        "rev": "926734cfd1884ca15425eb9f7a17578dc6abe3f0",
+        "sha256": "1y584s0gkblpppkdm8d7h16dfcrv1bjcn5j0wyzjwzs23ahqp9j2",
         "type": "tarball",
-        "url": "https://github.com/nix-community/emacs-overlay/archive/92618c5d37480241744a56cd5e6653757169e77b.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "gitignore": {
-        "branch": "master",
-        "description": "Nix function for filtering local git sources",
-        "homepage": "",
-        "owner": "hercules-ci",
-        "repo": "gitignore",
-        "rev": "00b237fb1813c48e20ee2021deb6f3f03843e9e4",
-        "sha256": "186pvp1y5fid8mm8c7ycjzwzhv7i6s3hh33rbi05ggrs7r3as3yy",
-        "type": "tarball",
-        "url": "https://github.com/hercules-ci/gitignore/archive/00b237fb1813c48e20ee2021deb6f3f03843e9e4.tar.gz",
+        "url": "https://github.com/nix-community/emacs-overlay/archive/926734cfd1884ca15425eb9f7a17578dc6abe3f0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "naersk": {
@@ -48,27 +36,27 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixops": {
-        "branch": "master",
+        "branch": "nixpkgs-network",
         "description": "NixOps is a tool for deploying to NixOS machines in a network or cloud.",
         "homepage": "https://nixos.org/nixops",
-        "owner": "nixos",
+        "owner": "adisbladis",
         "repo": "nixops",
-        "rev": "68aa76845573a8e6613286a730f0a2c9e394af97",
-        "sha256": "1w8km1rf8hghp2jfvlbwqa2zsf9xaxbn8rzjy1zar4n42lcnfspn",
+        "rev": "ecbe11bf844d4a2d538cf1eeeeb2afd21686a019",
+        "sha256": "1kay0ks23ssw216k5j6xrsj25x48cqxc8chgjhmhvpdlkq9pgjnf",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixops/archive/68aa76845573a8e6613286a730f0a2c9e394af97.tar.gz",
+        "url": "https://github.com/adisbladis/nixops/archive/ecbe11bf844d4a2d538cf1eeeeb2afd21686a019.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "branch": "master",
+        "branch": "nixos-unstable",
         "description": "Nix Packages collection",
         "homepage": null,
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "70f8ca8da527b835f407ac0976786124f6ea0719",
-        "sha256": "0dzrlkc2bfncdvfy7j7yx8k08g0hdvzsd1q72d4j9dp8dcjj143b",
+        "rev": "029a5de08390bb03c3f44230b064fd1850c6658a",
+        "sha256": "03fjkzhrs2avcvdabgm7a65rnyjaqbqdnv4q86qyjkkwg64g5m8x",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/70f8ca8da527b835f407ac0976786124f6ea0719.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/029a5de08390bb03c3f44230b064fd1850c6658a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-mozilla": {
@@ -89,10 +77,10 @@
         "homepage": "",
         "owner": "colemickens",
         "repo": "nixpkgs-wayland",
-        "rev": "34362f14d88526dff11af9ed5590f4a9fa0159af",
-        "sha256": "1fzcjiznk347x288mxhfj8p4d3xbwgyvn4hg7y6nf69285lc7rg4",
+        "rev": "34589b71d1ef9e7b69ad4812aa68618621011f92",
+        "sha256": "02i47bfs5za1vi3kznf2wlsmdgw1gx7anln5jq71gac4ahm4786i",
         "type": "tarball",
-        "url": "https://github.com/colemickens/nixpkgs-wayland/archive/34362f14d88526dff11af9ed5590f4a9fa0159af.tar.gz",
+        "url": "https://github.com/colemickens/nixpkgs-wayland/archive/34589b71d1ef9e7b69ad4812aa68618621011f92.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

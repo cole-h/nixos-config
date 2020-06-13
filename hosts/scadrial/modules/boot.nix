@@ -45,6 +45,9 @@ in
     "udev.log_priority=3"
   ];
 
+  # Allow emulated cross compilation for aarch64
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {

@@ -12,12 +12,10 @@ let
 
   sources = import ../nix/sources.nix;
   naersk = callPackage sources.naersk { };
+  # nixops = (import sources.nixops).defaultPackage.${builtins.currentSystem};
+  nixops = (import ~/workspace/vcs/nixops).defaultPackage.${builtins.currentSystem};
 in
 {
-  # fonts
-  # san-francisco = callPackage ../drvs/san-francisco.nix {};
-  # sarasa-gothic = callPackage ../drvs/sarasa-gothic.nix {};
-
   # misc
   bemenu = callPackage ../drvs/bemenu.nix { };
   chatterino2 = libsForQt5.callPackage ../drvs/chatterino2.nix { };
@@ -39,7 +37,8 @@ in
     geoclue = null;
   };
 
-  nixops = (callPackage sources.nixops { }).overrideAttrs ({ ... }: {
+  # FIXME: pinning is broken because default.nix uses `builtins.fetchGit ./.`
+  nixops = nixops.overrideAttrs ({ ... }: {
     preBuild = "substituteInPlace nixops/__main__.py --replace '@version@' '2.0-${sources.nixops.rev}'";
   });
 

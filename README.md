@@ -51,7 +51,7 @@ swapon $DISK-part2 # otherwise, nixos-install won't generate hardware config for
 zpool create \
     -O atime=off \
     -O compression=on \
-    -O encryption=on -O keyformat=passphrase \
+    -O encryption=aes-256-gcm -O keyformat=passphrase \
     -O xattr=sa \
     -O acltype=posixacl \
     -O mountpoint=none \
