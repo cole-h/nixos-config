@@ -21,13 +21,13 @@
 
 stdenv.mkDerivation rec {
   pname = "foliate";
-  version = "2.2.1";
+  version = "2.3.0";
 
   src = fetchFromGitHub {
     owner = "johnfactotum";
     repo = pname;
     rev = version;
-    sha256 = "0n9hwd4z99qvgyq664s76bgghswi6rspsdmzpnl78gdbyxflmkrk";
+    sha256 = "1dhhy2fh1rc11qp8vgypxrr1dflh9vpjn4v3ci4fzrhwamzllpmx";
   };
 
   nativeBuildInputs = [

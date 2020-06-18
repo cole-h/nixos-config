@@ -1,12 +1,12 @@
 let
   sources = import ./nix/sources.nix;
-  nixpkgs = import sources.nixpkgs { };
+  pinnedPkgs = import sources.nixpkgs { };
 in
 {
   network.description = "Cosmere";
   network.enableRollback = true;
   # TODO: make sure this also allows stuff to work without a NIX_PATH
-  network.nixpkgs = nixpkgs;
+  network.nixpkgs = pinnedPkgs;
 
   scadrial =
     { ... }:

@@ -84,7 +84,8 @@ in
 
         Service = {
           Type = "simple";
-          # ExecStartPre = "${doom-emacs}/bin/doom sync";
+          Environment = [ "DOOMLOCALDIR=${config.xdg.dataHome}/doom-local" "DOOMDIR=${toString ./config}" ];
+          # ExecStartPre = "${pkgs.doom-emacs.bin}/bin/doom sync";
           ExecStart = "${emacsPkg}/bin/emacs --fg-daemon";
           Restart = "on-failure";
         };

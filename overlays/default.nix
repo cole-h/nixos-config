@@ -6,6 +6,7 @@ let
     runCommand
     pkgs
     lib
+    enableDebugging
 
     python3Packages
     ;
@@ -14,12 +15,11 @@ let
   naersk = callPackage sources.naersk { };
   # nixops = (import sources.nixops).defaultPackage.${builtins.currentSystem};
   nixops = (import ~/workspace/vcs/nixops).defaultPackage.${builtins.currentSystem};
+
+  mozilla = import sources.nixpkgs-mozilla final super;
 in
 {
-  imports = [
-    ./emacs.nix
-    ./sources.nix
-  ];
+  inherit (mozilla) latest;
 
   # misc
   bemenu = callPackage ../drvs/bemenu.nix { };
@@ -75,54 +75,27 @@ in
     '';
   });
 
-  mpd = final.mpdWithFeatures {
-    features = [
-      # Storage plugins
-      "udisks"
-      "webdav"
-      # Input plugins
-      "curl"
-      "mms"
-      "nfs"
-      # Archive support
-      "bzip2"
-      "zzip"
-      # Decoder plugins
-      "audiofile"
-      "faad"
-      "ffmpeg"
-      "flac"
-      "fluidsynth"
-      "gme"
-      "mad"
-      "mikmod"
-      "mpg123"
-      "opus"
-      "vorbis"
-      # Encoder plugins
-      "vorbisenc"
-      "lame"
-      # Filter plugins
-      "libsamplerate"
-      # Output plugins
-      "alsa"
-      "jack"
-      "pulse"
-      "shout"
-      # Client support
-      "libmpdclient"
-      # Tag support
-      "id3tag"
-      # Misc
-      "dbus"
-      "expat"
-      "icu"
-      "pcre"
-      "sqlite"
-      "syslog"
-      "systemd"
-      "yajl"
-      "zeroconf"
-    ];
-  };
+  # https://gsc.io/content-addressed/73a9d19d65beca359dbf7f3f8f11f87f6bb227c364f8e36d7915ededde275bf4.nix
+  # Thanks Graham
+  emacsWayland =
+    enableDebugging (
+      final.emacs26.overrideAttrs (
+        { buildInputs, nativeBuildInputs ? [ ], configureFlags ? [ ], ... }:
+        let
+          pname = "emacs-pgtk";
+          version = "28.0.50";
+        in
+        {
+          name = "${pname}-${version}";
+
+          src = lib.cleanSource ../drvs/pgtk-emacs;
+
+          patches = [ ];
+          buildInputs = buildInputs ++ [ final.wayland final.wayland-protocols ];
+          nativeBuildInputs = nativeBuildInputs ++ [ final.autoreconfHook final.texinfo ];
+
+          configureFlags = configureFlags ++ [ "--without-x" "--with-cairo" "--with-modules" ];
+        }
+      )
+    );
 }
