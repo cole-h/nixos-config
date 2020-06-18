@@ -1,0 +1,50 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://127.0.0.1:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: journal
+  journal:
+    json: false
+    max_age: 12h
+    path: /var/log/journal
+    labels:
+      job: systemd-journal
+  relabel_configs:
+    - source_labels: ['__journal__systemd_unit']
+      target_label: 'unit'
+    - source_labels:
+      - __journal__hostname
+      target_label: nodename
+  pipeline_stages:
+  - match:
+      selector: '{unit=~"ofborg.*.service"}'
+      stages:
+      - json:
+          expressions:
+            level:
+            timestamp:
+            target:
+            fields:
+            span:
+      - json:
+          expressions:
+            message:
+          source: fields
+      - json:
+          expressions:
+            name:
+            pr:
+          source: span
+      - labels:
+          level:
+          target:
+          pr:
+      - output:
+          source: message

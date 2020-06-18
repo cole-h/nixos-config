@@ -1,15 +1,14 @@
 { stdenv
-, callPackage
+, lib
 }:
 let
   sources = import ../nix/sources.nix;
-  gitignoreSource = (callPackage sources.gitignore {}).gitignoreSource;
 in
 stdenv.mkDerivation {
   pname = "doom-emacs";
   version = "git";
 
-  src = gitignoreSource ./doom-emacs; # git submodule :)
+  src = lib.cleanSource ./doom-emacs; # git submodule :)
 
   outputs = [ "out" "bin" ];
   phases = [ "installPhase" ];

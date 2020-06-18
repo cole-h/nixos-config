@@ -1,19 +1,19 @@
 { config, lib, pkgs, ... }:
 let
-  status = with pkgs; writeShellScriptBin "status" ''
+  status = pkgs.writeShellScriptBin "status" ''
     LEN=35
-    artist="$(${mpc_cli}/bin/mpc current --format "%artist%")"
+    artist="$(${pkgs.mpc_cli}/bin/mpc current --format "%artist%")"
     a="''${artist:$LEN:1}"
 
-    title="$(${mpc_cli}/bin/mpc current --format "%title%")"
+    title="$(${pkgs.mpc_cli}/bin/mpc current --format "%title%")"
     t="''${title:$LEN:1}"
 
     if [[ -n "$artist" && -n "$artist" ]]; then
       music="''${artist::$LEN}''${a:+…} – ''${title::$LEN}''${t:+…}"
     fi
 
-    volume="$(${pamixer}/bin/pamixer --get-volume)%"
-    time="$(${coreutils}/bin/date +'%d %B %G %T')"
+    volume="$(${pkgs.pamixer}/bin/pamixer --get-volume)%"
+    time="$(${pkgs.coreutils}/bin/date +'%d %B %G %T')"
 
     printf "%s  %s  %s\n" "$music" "$volume" "$time"
   '';

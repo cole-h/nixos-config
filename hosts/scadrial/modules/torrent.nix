@@ -41,8 +41,8 @@
 
   # NOTE: Should also add rules in pihole so others can connect
   networking.extraHosts = ''
-    127.0.0.1 sonarr.lan
-    127.0.0.1 torrents.lan
+    127.0.0.1 sonarr.local
+    127.0.0.1 torrents.local
   '';
 
   services.nginx = {
@@ -56,11 +56,11 @@
         '';
       in
       {
-        "sonarr.lan".locations."/" = {
+        "sonarr.local".locations."/" = {
           proxyPass = "http://127.0.0.1:8989/";
           extraConfig = onlyLan;
         };
-        "torrents.lan".locations."/" = {
+        "torrents.local".locations."/" = {
           proxyPass = "http://127.0.0.1:9091/";
           extraConfig = onlyLan;
         };

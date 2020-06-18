@@ -167,3 +167,20 @@ an error."
   (setq-local company-backends
               '((company-dabbrev-code company-gtags company-etags company-lsp)
                 company-files)))
+
+(defun =notmuch ()
+  "Activate (or switch to) `notmuch' in its workspace."
+  (interactive)
+  (unless (featurep! :ui workspaces)
+    (user-error ":ui workspaces is required, but disabled"))
+  (condition-case-unless-debug e
+      (progn
+        (+workspace-switch "*MAIL*" t)
+        (if-let* ((buf (cl-find-if (lambda (it) (string-match-p "^\\*notmuch" (buffer-name (window-buffer it))))
+                                   (doom-visible-windows))))
+            (select-window (get-buffer-window buf))
+          (notmuch-search "folder:outlook/Inbox"))
+        (+workspace/display))
+    ('error
+     (+notmuch/quit)
+     (signal (car e) (cdr e)))))

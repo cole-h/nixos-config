@@ -116,7 +116,7 @@ let
     ];
   };
 
-  buildDeps = (import ./. { }).package;
+  buildDeps = (import ./. { inherit pkgs; }).package;
 in
 stdenv.mkDerivation {
   inherit pname version;

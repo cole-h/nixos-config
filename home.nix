@@ -32,7 +32,7 @@
   };
 
   home = {
-    enableDebugInfo = true;
+    enableDebugInfo = true; # produces inf recursion when useUserPackages is enabled
     extraOutputsToInstall = [ "man" ];
 
     packages = with pkgs; [
@@ -83,11 +83,11 @@
       pavucontrol
       gitAndTools.hub
       ncdu
-      gnome3.networkmanagerapplet
+      # gnome3.networkmanagerapplet
       gnome3.nautilus # GUI file manager
       gnome3.file-roller
       foliate
-      filezilla
+      # filezilla
       # ccls # C lsp server
       # binwalk
 

@@ -16,6 +16,11 @@ let
   nixops = (import ~/workspace/vcs/nixops).defaultPackage.${builtins.currentSystem};
 in
 {
+  imports = [
+    ./emacs.nix
+    ./sources.nix
+  ];
+
   # misc
   bemenu = callPackage ../drvs/bemenu.nix { };
   chatterino2 = libsForQt5.callPackage ../drvs/chatterino2.nix { };
@@ -26,6 +31,7 @@ in
   gsfonts = callPackage ../drvs/gsfonts.nix { };
   iosevka-custom = callPackage ../drvs/iosevka/iosevka-custom.nix { };
   passrs = callPackage ~/workspace/langs/rust/passrs { };
+  sonarr = callPackage ../drvs/sonarr.nix { };
 
   alacritty = callPackage ../drvs/alacritty.nix {
     inherit (naersk) buildPackage;

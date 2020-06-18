@@ -35,6 +35,7 @@ in
 {
   environment.systemPackages = [
     # with-appliance or else `libguestfs: error: cannot find any suitable libguestfs supermin`
+    # commented out because it's too big to cache on hydra so we have to build it ourself...
     # pkgs.libguestfs-with-appliance
   ];
 

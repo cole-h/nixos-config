@@ -51,34 +51,38 @@ swapon $DISK-part2 # otherwise, nixos-install won't generate hardware config for
 zpool create \
     -O atime=off \
     -O compression=on \
+    # apparently gcm is faster than ccm
     -O encryption=aes-256-gcm -O keyformat=passphrase \
     -O xattr=sa \
     -O acltype=posixacl \
     -O mountpoint=none \
+    # my SSD (ADATA SU800) may or may not lie that it uses a 512B physical block
+    # size; ashift of 13 (8k) shouldn't really hurt, according to various people
+    -O ashift=13 \
     -R /mnt \
-    tank $DISK-part3
+    rpool $DISK-part3
 
 # https://gist.github.com/LnL7/5701d70f46ea23276840a6b1c404597f
 # maybe don't need mountpoint=legacy except for /nix?
-zfs create -o canmount=off tank/system
-zfs create -o mountpoint=legacy tank/system/root
-zfs create -o mountpoint=legacy tank/system/var # maybe don't need legacy
-zfs create -o mountpoint=legacy tank/system/media # maybe don't need legacy
-zfs create -o canmount=off tank/local
-zfs create -o mountpoint=legacy tank/local/nix
-zfs create -o canmount=off tank/user
-zfs create -o mountpoint=legacy tank/user/home # maybe don't need legacy
+zfs create -o canmount=off rpool/system
+zfs create -o mountpoint=legacy rpool/system/root
+zfs create -o mountpoint=legacy rpool/system/var # maybe don't need legacy
+zfs create -o mountpoint=legacy rpool/system/media # maybe don't need legacy
+zfs create -o canmount=off rpool/local
+zfs create -o mountpoint=legacy rpool/local/nix
+zfs create -o canmount=off rpool/user
+zfs create -o mountpoint=legacy rpool/user/home # maybe don't need legacy
 
 # create snapshot of everything `@blank` -- easy to switch to tmpfs if I want
-zfs snapshot tank/system@blank
+zfs snapshot rpool/system@blank
 # roll back with `zfs rollback -r rpool/local/root@blank`
 
-mount -t zfs tank/system/root /mnt
+mount -t zfs rpool/system/root /mnt
 mkdir -p /mnt/boot /mnt/var /mnt/media /mnt/nix /mnt/home
-mount -t zfs tank/system/var /mnt/var
-mount -t zfs tank/system/media /mnt/media
-mount -t zfs tank/local/nix /mnt/nix
-mount -t zfs tank/user/home /mnt/home
+mount -t zfs rpool/system/var /mnt/var
+mount -t zfs rpool/system/media /mnt/media
+mount -t zfs rpool/local/nix /mnt/nix
+mount -t zfs rpool/user/home /mnt/home
 mount $DISK-part1 /mnt/boot
 ```
 

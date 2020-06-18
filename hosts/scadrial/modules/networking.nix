@@ -9,8 +9,7 @@
   networking.interfaces.enp3s0.ipv4 = {
     addresses = [
       {
-        address = "192.168.1.22";
-        # address = "192.168.1.23";
+        address = "192.168.1.23";
         prefixLength = 24;
       }
     ];
@@ -23,6 +22,11 @@
   # networking.firewall.trustedInterfaces = [ "virbr0" ]
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [
+    22000 # syncthing
+  ];
+
+  networking.firewall.allowedUDPPorts = [
+    21027 # syncthing
+  ];
 }

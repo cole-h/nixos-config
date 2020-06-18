@@ -36,6 +36,11 @@
       ccls-args '("-v=2" "-log-file=/tmp/ccls.log")
       +workspaces-on-switch-project-behavior t
 
+      +notmuch-sync-backend 'mbsync
+
+      projectile-project-search-path '("~/workspace" "~/workspace/vcs")
+      projectile-ignored-projects '("~/" "/tmp" "~/.cargo")
+
       magit-repository-directories '(("~/workspace/vcs" . 1)
                                      ("~/workspace/langs" . 1))
       magit-save-repository-buffers nil
@@ -184,7 +189,7 @@ If PEEK is non-nil, keep focus in status buffer window."
 (add-hook! 'text-mode-hook (visual-line-mode 1))
 ;; (add-hook! 'rustic-mode-hook #'( ;(rainbow-delimiters-mode 1)
 ;;                       (#'adjust-rust-company-backends)))
-(add-hook! 'focus-out-hook 'save-buffer)
+;; (add-hook! 'focus-out-hook 'save-buffer)
 
 ;; advice-add and friends
 (advice-add 'evil-ex-search-next :after #'vin/center-on-search)

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   # emacsGit # from emacs-overlay; [overlays]
-  emacsPkg = pkgs.emacs26;
+  emacsPkg = pkgs.emacsWayland;
 
   em = pkgs.writeShellScriptBin "em" ''
     case "$1" in
@@ -84,7 +84,7 @@ in
 
         Service = {
           Type = "simple";
-	  # ExecStartPre = "${doom-emacs}/bin/doom sync";
+          # ExecStartPre = "${doom-emacs}/bin/doom sync";
           ExecStart = "${emacsPkg}/bin/emacs --fg-daemon";
           Restart = "on-failure";
         };

@@ -11,6 +11,18 @@
         "url": "https://github.com/nix-community/emacs-overlay/archive/926734cfd1884ca15425eb9f7a17578dc6abe3f0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "home-manager": {
+        "branch": "master",
+        "description": "Manage a user environment using Nix",
+        "homepage": "https://rycee.gitlab.io/home-manager/",
+        "owner": "rycee",
+        "repo": "home-manager",
+        "rev": "bf7297d55cb0edc1917cbb2c46be27dcd230db43",
+        "sha256": "13wb7q9c7v2zz5cz3x09ixmlzj8zimmn4qm64npr1vgszi2zlal4",
+        "type": "tarball",
+        "url": "https://github.com/rycee/home-manager/archive/bf7297d55cb0edc1917cbb2c46be27dcd230db43.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "naersk": {
         "branch": "master",
         "description": "Build rust crates in Nix. No configuration, no code generation, no IFD. Sandbox friendly.",
@@ -48,15 +60,15 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "branch": "nixos-unstable",
+        "branch": "nixos-unstable-small",
         "description": "Nix Packages collection",
         "homepage": null,
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "029a5de08390bb03c3f44230b064fd1850c6658a",
-        "sha256": "03fjkzhrs2avcvdabgm7a65rnyjaqbqdnv4q86qyjkkwg64g5m8x",
+        "rev": "a59af90880e47ead87e3854fcd71e4357dfa5665",
+        "sha256": "1pf39c1sjv6xjj8r5bcq9djcldlrdv5bp0l8dxva1z9rakk3yz79",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/029a5de08390bb03c3f44230b064fd1850c6658a.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/a59af90880e47ead87e3854fcd71e4357dfa5665.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-mozilla": {

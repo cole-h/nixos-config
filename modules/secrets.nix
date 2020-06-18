@@ -12,5 +12,6 @@ with config;
 
   home.file = {
     ".todo".source = lib.file.mkOutOfStoreSymlink my.secrets.todo;
+    ".ssh/config".source = lib.file.mkOutOfStoreSymlink my.secrets.sshconfig;
   };
 }
