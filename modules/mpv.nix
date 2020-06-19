@@ -25,6 +25,7 @@
       vo = "gpu";
       volume = 75;
       watch-later-directory = "${config.xdg.cacheHome}/mpv-watch-later/";
+      ytdl-format = "bestvideo[height<=?1080][vcodec!=?vp9]+bestaudio/best";
     };
 
     bindings = {

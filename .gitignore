@@ -19,3 +19,4 @@ modules/weechat/config/urlserver_list.txt
 modules/weechat/config/irc.conf
 modules/weechat/config/sec.conf
 modules/weechat/config/relay.conf
+hosts/scadrial/modules/borg/config.json

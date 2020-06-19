@@ -8,8 +8,8 @@ let
 in
 {
   imports = [
-    # "${sources.home-manager}/nixos"
-    ~/workspace/vcs/home-manager/nixos
+    "${sources.home-manager}/nixos"
+    # ~/workspace/vcs/home-manager/nixos
     ./hardware-configuration.nix
     ./modules
   ];

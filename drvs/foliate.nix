@@ -66,4 +66,8 @@ stdenv.mkDerivation rec {
     sed -e "2iimports.package._findEffectiveEntryPointName = () => 'com.github.johnfactotum.Foliate'" \
       -i $out/bin/foliate
   '';
+
+  postFixup = ''
+    sed '2iexport WEBKIT_DISABLE_COMPOSITING_MODE=1' -i "$out/bin/foliate"
+  '';
 }

@@ -32,7 +32,7 @@
   };
 
   home = {
-    enableDebugInfo = true; # produces inf recursion when useUserPackages is enabled
+    # enableDebugInfo = true; # produces inf recursion when useUserPackages is enabled
     extraOutputsToInstall = [ "man" ];
 
     packages = with pkgs; [
