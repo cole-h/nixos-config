@@ -32,7 +32,7 @@
   };
 
   home = {
-    # enableDebugInfo = true; # produces inf recursion when useUserPackages is enabled
+    enableDebugInfo = true;
     extraOutputsToInstall = [ "man" ];
 
     packages = with pkgs; [
@@ -46,30 +46,30 @@
       nix-prefetch
       nix-prefetch-scripts
       nix-top
+      hm-news
 
       ## tools
+      aerc # terminal email reader; TODO: add config to secrets/
       bat # cat but better
       exa # ls but better
       fd # find files
       ffsend # send files to Firefox Send from the terminal
+      hexyl # hex viewer
+      hydrus # booru-like image tagger
+      hyperfine # cli benchmarker
+      libreoffice # Office but worse
+      newsboat # rss/atom feed reader
       qimgv # image viewer
       ripgrep # grep but better; [overlays]
       skim # fzf-rs
+      tmate # "Instant Terminal Sharing"
       tokei # code metrics
       ytop # fancy top
-      hexyl # hex viewer
-      hyperfine # cli benchmarker
-      aerc # terminal email reader; TODO: add config to secrets/
-      tmate # "Instant Terminal Sharing"
-      libreoffice
 
-      latest.firefox-beta-bin
-      # latest.firefox-nightly-bin
+      latest.firefox-nightly-bin
       pass-otp
       passrs
       # android-studio # android apps
-
-      newsboat # rss/atom feed reader
 
       ## misc
       chatterino2 # Twitch chat client; [drvs]
@@ -101,9 +101,9 @@
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
     # otherwise sessionVariables won't be sourced in new shells
-    sessionVariables = rec {
+    sessionVariables = {
       EDITOR = "nvim";
-      VISUAL = EDITOR;
+      VISUAL = "nvim";
 
       # Path-related exports
       # GOPATH = "${config.home.homeDirectory}/.go";

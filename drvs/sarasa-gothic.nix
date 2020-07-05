@@ -3,10 +3,12 @@
 , p7zip
 , mkfontscale
 }:
-
-stdenv.mkDerivation rec {
-  pname = "sarasa-gothic";
+let
   version = "0.10.2";
+in
+stdenv.mkDerivation {
+  pname = "sarasa-gothic";
+  inherit version;
 
   src = fetchurl {
     url =

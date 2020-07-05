@@ -18,6 +18,7 @@
     git
     htop
     imagemagick
+    iotop
     libarchive # maybe atool?
     # libreoffice
     lsof

@@ -31,8 +31,7 @@ in
         extraConfig = { auth = "login"; };
       };
 
-      # inherit address;
-      address = "${name} <${address}>";
+      inherit address;
       userName = address;
       realName = name;
       passwordCommand = "${pkgs.pass}/bin/pass Internet/outlook.com/cole.e.helbling@outlook.com/aerc";

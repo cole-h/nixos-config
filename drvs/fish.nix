@@ -93,13 +93,14 @@ let
     end
   '';
 
-  rev = "ad020e84ddf41a9d26545bc961df2204ea107a63";
+  version = "3.1.2-git";
 
+  rev = "ad020e84ddf41a9d26545bc961df2204ea107a63";
   sha256 = "130n7lqwjvfq0hx69jd2mh4sayj194pqrxbmwfpkbrfdp0zg0rd7";
 
-  fish = stdenv.mkDerivation rec {
+  fish = stdenv.mkDerivation {
     pname = "fish";
-    version = "3.1.2-git";
+    inherit version;
 
     src = fetchFromGitHub {
       owner = "fish-shell";
@@ -201,7 +202,8 @@ let
             # cannot test the http server because it needs a localhost port
           '';
           in
-          runCommand "test-web-config" { } ''
+          runCommand "test-web-config"
+            { } ''
             HOME=$(mktemp -d)
             ${fish}/bin/fish ${fishScript} && touch $out
           '';

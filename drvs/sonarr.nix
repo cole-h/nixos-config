@@ -7,10 +7,12 @@
 , curl
 , makeWrapper
 }:
-
-stdenv.mkDerivation rec {
-  pname = "sonarr";
+let
   version = "3.0.3.834";
+in
+stdenv.mkDerivation {
+  pname = "sonarr";
+  inherit version;
 
   src = fetchurl {
     url = "https://download.sonarr.tv/v3/phantom-develop/${version}/Sonarr.phantom-develop.${version}.linux.tar.gz";

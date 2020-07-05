@@ -1,15 +1,37 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, gettext, intltool
-, libtool, pkgconfig, wrapGAppsHook, wrapPython, gobjectIntrospection
-, gtk3, python, pygobject3, hicolor-icon-theme, pyxdg
+{ stdenv
+, fetchFromGitHub
+, autoconf
+, automake
+, gettext
+, intltool
+, libtool
+, pkgconfig
+, wrapGAppsHook
+, wrapPython
+, gobjectIntrospection
+, gtk3
+, python
+, pygobject3
+, hicolor-icon-theme
+, pyxdg
 
-, withRandr ? stdenv.isLinux, libxcb
-, withDrm ? stdenv.isLinux, libdrm
-, withWayland ? stdenv.isLinux, wayland, wayland-protocols, wlroots
-, withGeoclue ? stdenv.isLinux, geoclue }:
-
-stdenv.mkDerivation rec {
-  pname = "redshift";
+, withRandr ? stdenv.isLinux
+, libxcb
+, withDrm ? stdenv.isLinux
+, libdrm
+, withWayland ? stdenv.isLinux
+, wayland
+, wayland-protocols
+, wlroots
+, withGeoclue ? stdenv.isLinux
+, geoclue
+}:
+let
   version = "7da875d34854a6a34612d5ce4bd8718c32bec804";
+in
+stdenv.mkDerivation {
+  pname = "redshift";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "minus7";
@@ -46,11 +68,11 @@ stdenv.mkDerivation rec {
     gtk3
     python
     hicolor-icon-theme
-  ] ++ stdenv.lib.optional  withRandr        libxcb
-    ++ stdenv.lib.optional  withGeoclue      geoclue
-    ++ stdenv.lib.optional  withDrm          libdrm
-    ++ stdenv.lib.optionals withWayland      [ wayland wayland-protocols wlroots ]
-    ;
+  ] ++ stdenv.lib.optional withRandr libxcb
+  ++ stdenv.lib.optional withGeoclue geoclue
+  ++ stdenv.lib.optional withDrm libdrm
+  ++ stdenv.lib.optionals withWayland [ wayland wayland-protocols wlroots ]
+  ;
 
   pythonPath = [ pygobject3 pyxdg ];
 

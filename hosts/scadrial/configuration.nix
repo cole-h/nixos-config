@@ -8,8 +8,8 @@ let
 in
 {
   imports = [
-    "${sources.home-manager}/nixos"
-    # ~/workspace/vcs/home-manager/nixos
+    # "${sources.home-manager}/nixos"
+    ~/workspace/vcs/home-manager/nixos
     ./hardware-configuration.nix
     ./modules
   ];
@@ -27,7 +27,7 @@ in
   home-manager = {
     users.vin = import ../../home.nix;
     useGlobalPkgs = true;
-    useUserPackages = true; # produces inf recursion when enableDebugInfo is enabled
+    useUserPackages = true;
     verbose = true;
   };
 

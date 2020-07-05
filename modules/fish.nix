@@ -103,9 +103,8 @@ in
         # set --global --export SKIM_DEFAULT_OPTIONS '--height 20%'
         set --global --export LS_COLORS 'ow=36:di=1;34;40:fi=32:ex=31:ln=35:'
 
-        eval (${pkgs.direnv}/bin/direnv hook fish)
+        ${pkgs.direnv}/bin/direnv hook fish | source
         ${pkgs.zoxide}/bin/zoxide init fish --hook pwd | source
-        ${pkgs.any-nix-shell}/bin/any-nix-shell fish | source
 
         t ls
         printf '\n'

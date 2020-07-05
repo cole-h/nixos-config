@@ -21,6 +21,8 @@ in
 {
   inherit (mozilla) latest;
 
+  passrs = callPackage ~/workspace/langs/rust/passrs { };
+
   # misc
   bemenu = callPackage ../drvs/bemenu.nix { };
   chatterino2 = libsForQt5.callPackage ../drvs/chatterino2.nix { };
@@ -30,11 +32,14 @@ in
   git-crypt = callPackage ../drvs/git-crypt.nix { };
   gsfonts = callPackage ../drvs/gsfonts.nix { };
   iosevka-custom = callPackage ../drvs/iosevka/iosevka-custom.nix { };
-  passrs = callPackage ~/workspace/langs/rust/passrs { };
   sonarr = callPackage ../drvs/sonarr.nix { };
 
   alacritty = callPackage ../drvs/alacritty.nix {
     inherit (naersk) buildPackage;
+  };
+
+  hydrus = callPackage ../drvs/hydrus.nix {
+    qtbase = final.qt5.qtbase;
   };
 
   redshift-wayland = callPackage ../drvs/redshift-wayland {
@@ -45,7 +50,8 @@ in
 
   # FIXME: pinning is broken because default.nix uses `builtins.fetchGit ./.`
   nixops = nixops.overrideAttrs ({ ... }: {
-    preBuild = "substituteInPlace nixops/__main__.py --replace '@version@' '2.0-${sources.nixops.rev}'";
+    preBuild = "substituteInPlace nixops/__main__.py --replace '@version@' '2.0-local'";
+    # preBuild = "substituteInPlace nixops/__main__.py --replace '@version@' '2.0-${sources.nixops.rev}'";
   });
 
   # small-ish overrides
@@ -98,4 +104,31 @@ in
         }
       )
     );
+
+  hm-news = pkgs.writeShellScriptBin "hm-news" ''
+    doNews() {
+      local newsReadIdsFile="$HOME/.local/share/home-manager/news-read-ids"
+
+      touch "$newsReadIdsFile"
+
+      . $(nix-build --no-out-link \
+                    '${sources.home-manager}/home-manager/home-manager.nix' \
+                    -A newsInfo \
+                    --arg check false \
+                    --argstr confPath "${pkgs.writeText "home.nix" "{}"}" \
+                    --argstr newsReadIdsFile "$newsReadIdsFile" 2>/dev/null)
+
+      if [[ $newsNumUnread != 0 ]]; then
+        $PAGER "$newsFileAll"
+
+        if [[ -s "$newsUnreadIdsFile" ]]; then
+            cat "$newsUnreadIdsFile" >> "$newsReadIdsFile"
+        fi
+      else
+        echo No news
+      fi
+    }
+
+    doNews
+  '';
 }

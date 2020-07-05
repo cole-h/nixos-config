@@ -1,9 +1,11 @@
 { stdenv
 , fetchFromGitHub
 }:
-
-stdenv.mkDerivation rec {
+let
   pname = "gsfonts";
+in
+stdenv.mkDerivation {
+  inherit pname;
   version = "20180327";
 
   src = fetchFromGitHub {

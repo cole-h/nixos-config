@@ -1,16 +1,16 @@
 { config, lib, pkgs, ... }:
 let
   status = pkgs.writeShellScriptBin "status" ''
-    LEN=35
-    artist="$(${pkgs.mpc_cli}/bin/mpc current --format "%artist%")"
-    a="''${artist:$LEN:1}"
+    # LEN=35
+    # artist="$(${pkgs.mpc_cli}/bin/mpc current --format "%artist%")"
+    # a="''${artist:$LEN:1}"
 
-    title="$(${pkgs.mpc_cli}/bin/mpc current --format "%title%")"
-    t="''${title:$LEN:1}"
+    # title="$(${pkgs.mpc_cli}/bin/mpc current --format "%title%")"
+    # t="''${title:$LEN:1}"
 
-    if [[ -n "$artist" && -n "$artist" ]]; then
-      music="''${artist::$LEN}''${a:+…} – ''${title::$LEN}''${t:+…}"
-    fi
+    # if [[ -n "$artist" && -n "$artist" ]]; then
+    #   music="''${artist::$LEN}''${a:+…} – ''${title::$LEN}''${t:+…}"
+    # fi
 
     volume="$(${pkgs.pamixer}/bin/pamixer --get-volume)%"
     time="$(${pkgs.coreutils}/bin/date +'%d %B %G %T')"

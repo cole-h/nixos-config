@@ -22,13 +22,13 @@ assert ncursesSupport -> ncurses != null;
 assert waylandSupport -> wayland != null && wayland-protocols != null;
 assert x11Support -> xlibs != null && xorg != null;
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "bemenu";
   version = "2020-03-19";
 
   src = fetchFromGitHub {
     owner = "Cloudef";
-    repo = pname;
+    repo = "bemenu";
     rev = "cd53b7bb555cf1c5afaae3779a88e126571faf8c";
     sha256 = "0hkv9w5zka5sjby3qhkjip5h9xhah4ay5sf2bzwmiffyldcg2gml";
   };

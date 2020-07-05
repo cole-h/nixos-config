@@ -8,9 +8,9 @@
 , otfcc
 }:
 let
-  outputHash = "08kl2pzcfmqlm479wlph0aq1jfb3q2b5aymjzr3wa07w4nni0qd2";
+  outputHash = "0vjy8395n1aiqwkqgyjppxnm48yhbcv48v5376ssd40m62rgnmd0";
   pname = "iosevka-${set}";
-  version = "3.1.1";
+  version = "3.2.1";
 
   set = "custom";
 

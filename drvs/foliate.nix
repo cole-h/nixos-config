@@ -18,16 +18,18 @@
 , hicolor-icon-theme /* setup hook */
 , libarchive
 }:
-
-stdenv.mkDerivation rec {
+let
+  version = "2.4.0";
   pname = "foliate";
-  version = "2.3.0";
+in
+stdenv.mkDerivation {
+  inherit pname version;
 
   src = fetchFromGitHub {
     owner = "johnfactotum";
     repo = pname;
     rev = version;
-    sha256 = "1dhhy2fh1rc11qp8vgypxrr1dflh9vpjn4v3ci4fzrhwamzllpmx";
+    sha256 = "1b9b1sn37wimr0qib853jsi7avyxx78gkajd8528x7bddacnzdhc";
   };
 
   nativeBuildInputs = [

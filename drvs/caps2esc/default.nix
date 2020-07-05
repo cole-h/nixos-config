@@ -2,10 +2,12 @@
 , fetchurl
 , cmake
 }:
-
-stdenv.mkDerivation rec {
-  pname = "caps2esc";
+let
   version = "0.1.3";
+in
+stdenv.mkDerivation {
+  pname = "caps2esc";
+  inherit version;
 
   src = fetchurl {
     url = "https://gitlab.com/interception/linux/plugins/caps2esc/repository/v${version}/archive.tar.gz";

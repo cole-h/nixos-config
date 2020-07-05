@@ -8,7 +8,7 @@
 , docbook_xsl
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "git-crypt";
   version = "unstable-2020-04-28";
 

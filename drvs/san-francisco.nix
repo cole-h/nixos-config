@@ -4,9 +4,11 @@
 , unzip
 , libarchive
 }:
-
-stdenv.mkDerivation rec {
+let
   pname = "san-francisco";
+in
+stdenv.mkDerivation {
+  inherit pname;
   version = "1.0.0.0.1.1497983075";
 
   src = fetchurl {
