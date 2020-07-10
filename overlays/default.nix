@@ -100,7 +100,7 @@ in
           buildInputs = buildInputs ++ [ final.wayland final.wayland-protocols ];
           nativeBuildInputs = nativeBuildInputs ++ [ final.autoreconfHook final.texinfo ];
 
-          configureFlags = configureFlags ++ [ "--without-x" "--with-cairo" "--with-modules" ];
+          configureFlags = configureFlags ++ [ "--without-x" "--with-cairo" "--with-modules" "--with-pgtk" ];
         }
       )
     );

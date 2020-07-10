@@ -1,26 +1,14 @@
 {
-    "emacs-overlay": {
-        "branch": "master",
-        "description": "Bleeding edge emacs overlay [maintainer=@adisbladis] ",
-        "homepage": "",
-        "owner": "nix-community",
-        "repo": "emacs-overlay",
-        "rev": "926734cfd1884ca15425eb9f7a17578dc6abe3f0",
-        "sha256": "1y584s0gkblpppkdm8d7h16dfcrv1bjcn5j0wyzjwzs23ahqp9j2",
-        "type": "tarball",
-        "url": "https://github.com/nix-community/emacs-overlay/archive/926734cfd1884ca15425eb9f7a17578dc6abe3f0.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "home-manager": {
         "branch": "master",
         "description": "Manage a user environment using Nix",
         "homepage": "https://rycee.gitlab.io/home-manager/",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "bf7297d55cb0edc1917cbb2c46be27dcd230db43",
-        "sha256": "13wb7q9c7v2zz5cz3x09ixmlzj8zimmn4qm64npr1vgszi2zlal4",
+        "rev": "5f189acce44dc39ea4055bfd8064adaf90d7fb5a",
+        "sha256": "0ibmvg3k9m9yzh8ln3jlh47nrvgg81iy8gpl112wjimlp6gagxw6",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/bf7297d55cb0edc1917cbb2c46be27dcd230db43.tar.gz",
+        "url": "https://github.com/rycee/home-manager/archive/5f189acce44dc39ea4055bfd8064adaf90d7fb5a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "naersk": {
@@ -29,34 +17,22 @@
         "homepage": "",
         "owner": "nmattia",
         "repo": "naersk",
-        "rev": "a82fd7dc31a58c462b6dfa9d9d886fa2cc75dfd4",
-        "sha256": "00bjwir52y6jbf0b22qy9qxramw35k5fc7kp9hymr1zgpmw9kbwg",
+        "rev": "d5a23213d561893cebdf0d251502430334673036",
+        "sha256": "0ifvqv3vjg80hhgxr7b22i22gh2gxw0gm5iijd9r7y4qd7n2yrcp",
         "type": "tarball",
-        "url": "https://github.com/nmattia/naersk/archive/a82fd7dc31a58c462b6dfa9d9d886fa2cc75dfd4.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "niv": {
-        "branch": "master",
-        "description": "Easy dependency management for Nix projects",
-        "homepage": "https://github.com/nmattia/niv",
-        "owner": "nmattia",
-        "repo": "niv",
-        "rev": "f73bf8d584148677b01859677a63191c31911eae",
-        "sha256": "0jlmrx633jvqrqlyhlzpvdrnim128gc81q5psz2lpp2af8p8q9qs",
-        "type": "tarball",
-        "url": "https://github.com/nmattia/niv/archive/f73bf8d584148677b01859677a63191c31911eae.tar.gz",
+        "url": "https://github.com/nmattia/naersk/archive/d5a23213d561893cebdf0d251502430334673036.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixops": {
-        "branch": "nixpkgs-network",
+        "branch": "master",
         "description": "NixOps is a tool for deploying to NixOS machines in a network or cloud.",
         "homepage": "https://nixos.org/nixops",
         "owner": "adisbladis",
         "repo": "nixops",
-        "rev": "ecbe11bf844d4a2d538cf1eeeeb2afd21686a019",
-        "sha256": "1kay0ks23ssw216k5j6xrsj25x48cqxc8chgjhmhvpdlkq9pgjnf",
+        "rev": "de84da948ffc95d04153e13676986829ea49a798",
+        "sha256": "16xxp5dllnkgrzbz4y4w0hw0blv1x4fdf6l4qi634bing5wax6va",
         "type": "tarball",
-        "url": "https://github.com/adisbladis/nixops/archive/ecbe11bf844d4a2d538cf1eeeeb2afd21686a019.tar.gz",
+        "url": "https://github.com/adisbladis/nixops/archive/de84da948ffc95d04153e13676986829ea49a798.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
@@ -65,10 +41,10 @@
         "homepage": null,
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a59af90880e47ead87e3854fcd71e4357dfa5665",
-        "sha256": "1pf39c1sjv6xjj8r5bcq9djcldlrdv5bp0l8dxva1z9rakk3yz79",
+        "rev": "43b58960cf0b8b5f891cc3e045ca7cf7cf79c91c",
+        "sha256": "1ragsbf2nxkvykagv8fh2cka5bl0zi86263814nbh1aysx9vff2g",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/a59af90880e47ead87e3854fcd71e4357dfa5665.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/43b58960cf0b8b5f891cc3e045ca7cf7cf79c91c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-mozilla": {
@@ -77,10 +53,10 @@
         "homepage": null,
         "owner": "mozilla",
         "repo": "nixpkgs-mozilla",
-        "rev": "e912ed483e980dfb4666ae0ed17845c4220e5e7c",
-        "sha256": "08fvzb8w80bkkabc1iyhzd15f4sm7ra10jn32kfch5klgl0gj3j3",
+        "rev": "18cd4300e9bf61c7b8b372f07af827f6ddc835bb",
+        "sha256": "1s0d1l5y7a3kygjbibssjnj7fcc87qaa5s9k4kda0j13j9h4zwgr",
         "type": "tarball",
-        "url": "https://github.com/mozilla/nixpkgs-mozilla/archive/e912ed483e980dfb4666ae0ed17845c4220e5e7c.tar.gz",
+        "url": "https://github.com/mozilla/nixpkgs-mozilla/archive/18cd4300e9bf61c7b8b372f07af827f6ddc835bb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-wayland": {
@@ -89,10 +65,10 @@
         "homepage": "",
         "owner": "colemickens",
         "repo": "nixpkgs-wayland",
-        "rev": "34589b71d1ef9e7b69ad4812aa68618621011f92",
-        "sha256": "02i47bfs5za1vi3kznf2wlsmdgw1gx7anln5jq71gac4ahm4786i",
+        "rev": "81c6c3601b80cfdd5b9af24db3065023c77a2e36",
+        "sha256": "1f0r182zj92nbxphn0xrc5lqw374cdfpgv4f670hh9hmc1cfllaj",
         "type": "tarball",
-        "url": "https://github.com/colemickens/nixpkgs-wayland/archive/34589b71d1ef9e7b69ad4812aa68618621011f92.tar.gz",
+        "url": "https://github.com/colemickens/nixpkgs-wayland/archive/81c6c3601b80cfdd5b9af24db3065023c77a2e36.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

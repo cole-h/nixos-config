@@ -8,7 +8,7 @@
 , makeWrapper
 }:
 let
-  version = "3.0.3.834";
+  version = "3.0.3.896";
 in
 stdenv.mkDerivation {
   pname = "sonarr";
@@ -16,7 +16,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://download.sonarr.tv/v3/phantom-develop/${version}/Sonarr.phantom-develop.${version}.linux.tar.gz";
-    sha256 = "1f9ka21ni0085anb9c9bz6jlk09ip92phqpgiml9310ws5k0m85x";
+    sha256 = "0swn46dw0wrjknfa9yskx91384ri2hq2rkfzqw198q1pj5f8h5d0";
   };
 
   nativeBuildInputs = [ makeWrapper ];

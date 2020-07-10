@@ -14,8 +14,8 @@ in
     hooks = {
       preNew = "mbsync --all || true"; # idk why but Inbox fails
       postNew = ''
-        # notmuch tag +inbox -- tag:new and folder:outlook/Inbox
         notmuch tag +archive -inbox -- tag:inbox and folder:outlook/Archive
+        notmuch tag +deleted -inbox -- tag:inbox and folder:outlook/Deleted
       '';
     };
   };

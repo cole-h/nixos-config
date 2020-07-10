@@ -4,6 +4,15 @@
 
 let
   sources = {
+    "@babel/runtime-corejs3-7.10.4" = {
+      name = "_at_babel_slash_runtime-corejs3";
+      packageName = "@babel/runtime-corejs3";
+      version = "7.10.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@babel/runtime-corejs3/-/runtime-corejs3-7.10.4.tgz";
+        sha512 = "BFlgP2SoLO9HJX9WBwN67gHWMBhDX/eDz64Jajd6mR/UAUzqrNMm99d4qHnVaKscAElZoFiPv+JpR/Siud5lXw==";
+      };
+    };
     "@iarna/toml-2.2.5" = {
       name = "_at_iarna_slash_toml";
       packageName = "@iarna/toml";
@@ -49,13 +58,13 @@ let
         sha512 = "nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==";
       };
     };
-    "ajv-6.12.2" = {
+    "ajv-6.12.3" = {
       name = "ajv";
       packageName = "ajv";
-      version = "6.12.2";
+      version = "6.12.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ajv/-/ajv-6.12.2.tgz";
-        sha512 = "k+V+hzjm5q/Mr8ef/1Y9goCmlsK4I6Sm74teeyGvFk1XrOsbsKLjEdrvny42CZ+a8sXbk8KWpY/bDwS+FLL2UQ==";
+        url = "https://registry.npmjs.org/ajv/-/ajv-6.12.3.tgz";
+        sha512 = "4K0cK3L1hsqk9xIb2z9vs/XU+PGJZ9PNpJRDS9YLzmNdX6jmVPfamLvTJr0aDAusnHyCHO6MjzlkAsgtqp9teA==";
       };
     };
     "amdefine-1.0.1" = {
@@ -454,6 +463,15 @@ let
         sha1 = "3d7cf4464db6446ea644bf4b39507f9851008e8e";
       };
     };
+    "core-js-pure-3.6.5" = {
+      name = "core-js-pure";
+      packageName = "core-js-pure";
+      version = "3.6.5";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/core-js-pure/-/core-js-pure-3.6.5.tgz";
+        sha512 = "lacdXOimsiD0QyNf9BC/mxivNJ/ybBGJXQFKzRekp1WTHoVUWsUHEn+2T8GJAzzIhyOuXA+gOxCVN3l+5PLPUA==";
+      };
+    };
     "core-util-is-1.0.2" = {
       name = "core-util-is";
       packageName = "core-util-is";
@@ -515,6 +533,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/decamelize/-/decamelize-1.2.0.tgz";
         sha1 = "f6534d15148269b20352e7bee26f501f9a191290";
+      };
+    };
+    "decamelize-3.2.0" = {
+      name = "decamelize";
+      packageName = "decamelize";
+      version = "3.2.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/decamelize/-/decamelize-3.2.0.tgz";
+        sha512 = "4TgkVUsmmu7oCSyGBm5FvfMoACuoh9EOidm7V5/J2X2djAwwt57qb3F2KMP2ITqODTCSwb+YRV+0Zqrv18k/hw==";
       };
     };
     "decode-uri-component-0.2.0" = {
@@ -598,13 +625,13 @@ let
         sha1 = "1b61c0562190a8dff6ae3bb2cf0200ca130b86d4";
       };
     };
-    "escodegen-1.14.2" = {
+    "escodegen-1.14.3" = {
       name = "escodegen";
       packageName = "escodegen";
-      version = "1.14.2";
+      version = "1.14.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/escodegen/-/escodegen-1.14.2.tgz";
-        sha512 = "InuOIiKk8wwuOFg6x9BQXbzjrQhtyXh46K9bqVTPzSo2FnyMBaYGBMC6PhQy7yxxil9vIedFBweQBMK74/7o8A==";
+        url = "https://registry.npmjs.org/escodegen/-/escodegen-1.14.3.tgz";
+        sha512 = "qFcX0XJkdg+PB3xjZZG/wKSuT1PnQWx57+TVSjIMmILd2yC/6ByYElPwJnslDsuWuSAp4AwJGumarAAmJch5Kw==";
       };
     };
     "escodegen-1.3.3" = {
@@ -1750,6 +1777,15 @@ let
         sha512 = "Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==";
       };
     };
+    "regenerator-runtime-0.13.5" = {
+      name = "regenerator-runtime";
+      packageName = "regenerator-runtime";
+      version = "0.13.5";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz";
+        sha512 = "ZS5w8CpKFinUzOwW3c83oPeVXoNsrLsaCoLtJvAClH135j/R77RuymhiSErhm2lKcwSCIpmvIWSbDkIfAqKQlA==";
+      };
+    };
     "request-2.88.2" = {
       name = "request";
       packageName = "request";
@@ -2290,13 +2326,13 @@ let
         sha1 = "5884cab512cf1d355e3fb784f30804b2b520db72";
       };
     };
-    "typo-geom-0.8.2" = {
+    "typo-geom-0.8.4" = {
       name = "typo-geom";
       packageName = "typo-geom";
-      version = "0.8.2";
+      version = "0.8.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/typo-geom/-/typo-geom-0.8.2.tgz";
-        sha512 = "IaKDO/1kD0ELPpiWCaDYRhtS1j4n6RTEeJXDYdGfVGQpI5IL6esjvKQNJnKlMZcVmrmTdboL4qtjuEvoCPR+Wg==";
+        url = "https://registry.npmjs.org/typo-geom/-/typo-geom-0.8.4.tgz";
+        sha512 = "n0P1RQidLnjLI2iSUDENiugkABaR+tr/kSIpl040XLKmrfsBZ/weS1OvQ9Mq98CsJlcJDemKdPqldoyYSsVgmQ==";
       };
     };
     "unicode-13.0.0-0.8.0" = {
@@ -2506,6 +2542,15 @@ let
         sha512 = "fg03WRxtkCV6ohClePNAECYsmpKKTv5L8y/X3Dn1hQrec3POx2jHZ/0P2qQ6HvsrU1BmeqXcof3NGGueG6LxwQ==";
       };
     };
+    "xregexp-4.3.0" = {
+      name = "xregexp";
+      packageName = "xregexp";
+      version = "4.3.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/xregexp/-/xregexp-4.3.0.tgz";
+        sha512 = "7jXDIFXh5yJ/orPn4SXjuVrWWoi4Cr8jfV1eHv9CixKSbU+jY4mxfrBwAuDvupPNKpMUY+FeIqsVw/JLT9+B8g==";
+      };
+    };
     "y18n-3.2.1" = {
       name = "y18n";
       packageName = "y18n";
@@ -2542,13 +2587,13 @@ let
         sha512 = "a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==";
       };
     };
-    "yargs-15.3.1" = {
+    "yargs-15.4.0" = {
       name = "yargs";
       packageName = "yargs";
-      version = "15.3.1";
+      version = "15.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/yargs/-/yargs-15.3.1.tgz";
-        sha512 = "92O1HWEjw27sBfgmXiixJWT5hRBp2eobqXicLtPBIDBhYB+1HpwZlXmbW2luivBJHBzki+7VyCLRtAkScbTBQA==";
+        url = "https://registry.npmjs.org/yargs/-/yargs-15.4.0.tgz";
+        sha512 = "D3fRFnZwLWp8jVAAhPZBsmeIHY8tTsb8ItV9KaAaopmC6wde2u6Yw29JBIZHXw14kgkRnYmDgmQU4FVMDlIsWw==";
       };
     };
     "yargs-6.6.0" = {
@@ -2582,15 +2627,16 @@ let
   args = {
     name = "iosevka";
     packageName = "iosevka";
-    version = "3.2.1";
+    version = "3.2.2";
     src = ./.;
     dependencies = [
+      sources."@babel/runtime-corejs3-7.10.4"
       sources."@iarna/toml-2.2.5"
       sources."@josh-brown/vector-3.4.0"
       sources."@types/color-name-1.1.1"
       sources."JSONStream-1.3.5"
       sources."abbrev-1.1.1"
-      sources."ajv-6.12.2"
+      sources."ajv-6.12.3"
       sources."amdefine-1.0.1"
       sources."ansi-regex-5.0.0"
       sources."ansi-styles-3.2.1"
@@ -2627,6 +2673,7 @@ let
       sources."combined-stream-1.0.8"
       sources."concat-map-0.0.1"
       sources."console-control-strings-1.1.0"
+      sources."core-js-pure-3.6.5"
       sources."core-util-is-1.0.2"
       (sources."cross-spawn-4.0.2" // {
         dependencies = [
@@ -2638,7 +2685,7 @@ let
       sources."css-parse-2.0.0"
       sources."dashdash-1.14.1"
       sources."debug-3.1.0"
-      sources."decamelize-1.2.0"
+      sources."decamelize-3.2.0"
       sources."decode-uri-component-0.2.0"
       sources."deep-is-0.1.3"
       sources."delayed-stream-1.0.0"
@@ -2648,7 +2695,7 @@ let
       sources."emoji-regex-8.0.0"
       sources."error-ex-1.3.2"
       sources."escape-string-regexp-1.0.5"
-      sources."escodegen-1.14.2"
+      sources."escodegen-1.14.3"
       (sources."escope-1.0.3" // {
         dependencies = [
           sources."estraverse-2.0.0"
@@ -2782,6 +2829,7 @@ let
           sources."ansi-regex-2.1.1"
           sources."camelcase-3.0.0"
           sources."cliui-3.2.0"
+          sources."decamelize-1.2.0"
           sources."get-caller-file-1.0.3"
           sources."is-fullwidth-code-point-1.0.0"
           sources."require-main-filename-1.0.1"
@@ -2820,6 +2868,7 @@ let
         ];
       })
       sources."readable-stream-2.3.7"
+      sources."regenerator-runtime-0.13.5"
       sources."request-2.88.2"
       sources."require-directory-2.1.1"
       sources."require-main-filename-2.0.0"
@@ -2878,7 +2927,7 @@ let
       sources."tunnel-agent-0.6.0"
       sources."tweetnacl-0.14.5"
       sources."type-check-0.3.2"
-      sources."typo-geom-0.8.2"
+      sources."typo-geom-0.8.4"
       sources."unicode-13.0.0-0.8.0"
       sources."unicoderegexp-0.4.1"
       sources."universalify-1.0.0"
@@ -2921,10 +2970,15 @@ let
       sources."wrappy-1.0.2"
       sources."xmldom-0.3.0"
       sources."xpath-0.0.27"
+      sources."xregexp-4.3.0"
       sources."y18n-4.0.0"
       sources."yallist-2.1.2"
-      sources."yargs-15.3.1"
-      sources."yargs-parser-18.1.3"
+      sources."yargs-15.4.0"
+      (sources."yargs-parser-18.1.3" // {
+        dependencies = [
+          sources."decamelize-1.2.0"
+        ];
+      })
     ];
     buildInputs = globalBuildInputs;
     meta = {

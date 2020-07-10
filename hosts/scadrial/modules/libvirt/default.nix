@@ -43,6 +43,7 @@ in
 
   boot.kernelModules = [ "vfio-pci" ];
   boot.kernelParams = [
+    # "amd_iommu=on" # TODO when I upgrade to AMD
     "intel_iommu=on"
     "intel_iommu=igfx_off"
     "iommu=pt"

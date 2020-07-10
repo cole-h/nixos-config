@@ -95,8 +95,8 @@ let
 
   version = "3.1.2-git";
 
-  rev = "ad020e84ddf41a9d26545bc961df2204ea107a63";
-  sha256 = "130n7lqwjvfq0hx69jd2mh4sayj194pqrxbmwfpkbrfdp0zg0rd7";
+  rev = "4a352484659b1b513190a5c288653b982c6ad43a";
+  sha256 = "0f0xh6jgl57cmkq2ljgi6n2b16c8jd1frj9gcy936837pyx8jrz6";
 
   fish = stdenv.mkDerivation {
     pname = "fish";

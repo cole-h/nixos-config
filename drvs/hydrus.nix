@@ -45,7 +45,7 @@ stdenv.mkDerivation {
   dontWrapQtApps = true;
 
   postPatch = ''
-    sed "s@FFMPEG_PATH = os.path.join( HC.BIN_DIR, 'ffmpeg' )@FFMPEG_PATH = '${ffmpeg}/bin/ffmpeg'@" \
+    sed "s@os.path.join( HC.BIN_DIR, 'ffmpeg' )@'${ffmpeg}/bin/ffmpeg'@" \
       -i hydrus/core/HydrusVideoHandling.py
   '';
 
