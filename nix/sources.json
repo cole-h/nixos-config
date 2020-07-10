@@ -27,12 +27,12 @@
         "branch": "master",
         "description": "NixOps is a tool for deploying to NixOS machines in a network or cloud.",
         "homepage": "https://nixos.org/nixops",
-        "owner": "adisbladis",
+        "owner": "nixos",
         "repo": "nixops",
-        "rev": "de84da948ffc95d04153e13676986829ea49a798",
-        "sha256": "16xxp5dllnkgrzbz4y4w0hw0blv1x4fdf6l4qi634bing5wax6va",
+        "rev": "62875f5e0a054e396e5a8fe7c95545a628408fd1",
+        "sha256": "1iizvjcc8dasbrfnqc5il44mvwxkhlx7i0wlhb1mclrkrv28497n",
         "type": "tarball",
-        "url": "https://github.com/adisbladis/nixops/archive/de84da948ffc95d04153e13676986829ea49a798.tar.gz",
+        "url": "https://github.com/nixos/nixops/archive/62875f5e0a054e396e5a8fe7c95545a628408fd1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {

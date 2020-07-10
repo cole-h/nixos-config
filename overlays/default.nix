@@ -13,8 +13,7 @@ let
 
   sources = import ../nix/sources.nix;
   naersk = callPackage sources.naersk { };
-  # nixops = (import sources.nixops).defaultPackage.${builtins.currentSystem};
-  nixops = (import ~/workspace/vcs/nixops).defaultPackage.${builtins.currentSystem};
+  nixops = import sources.nixops;
 
   mozilla = import sources.nixpkgs-mozilla final super;
 in
@@ -39,7 +38,7 @@ in
   };
 
   hydrus = callPackage ../drvs/hydrus.nix {
-    qtbase = final.qt5.qtbase;
+    inherit (final.qt5) qtbase;
   };
 
   redshift-wayland = callPackage ../drvs/redshift-wayland {
@@ -48,10 +47,8 @@ in
     geoclue = null;
   };
 
-  # FIXME: pinning is broken because default.nix uses `builtins.fetchGit ./.`
   nixops = nixops.overrideAttrs ({ ... }: {
-    preBuild = "substituteInPlace nixops/__main__.py --replace '@version@' '2.0-local'";
-    # preBuild = "substituteInPlace nixops/__main__.py --replace '@version@' '2.0-${sources.nixops.rev}'";
+    preBuild = "substituteInPlace nixops/__main__.py --replace '@version@' '2.0-${sources.nixops.rev}'";
   });
 
   # small-ish overrides

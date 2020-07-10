@@ -5,7 +5,6 @@ in
 {
   network.description = "Cosmere";
   network.enableRollback = true;
-  # TODO: make sure this also allows stuff to work without a NIX_PATH
   network.nixpkgs = pinnedPkgs;
 
   scadrial =

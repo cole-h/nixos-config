@@ -57,9 +57,8 @@ in
     '';
   };
 
-  # FIXME: uncomment second line once I switch to SSD
+  # services.udev.packages for packages with udev rules
   # services.udev.extraRules = ''
-  #   ACTION=="add|change", KERNEL=="sd[a-z]", SUBSYSTEM=="block", \
-  #       ENV{ID_FS_TYPE}=="zfs_member", ATTR{queue/scheduler}="none"
+  #   SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="eed2", TAG+="uaccess", RUN{builtin}+="uaccess"
   # '';
 }
