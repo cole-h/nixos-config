@@ -46,16 +46,18 @@ in
     nssmdns = true;
   };
 
-  services.interception-tools = {
-    enable = true;
-    plugins = [ caps2esc ];
-    udevmonConfig = ''
-      - JOB: "intercept -g $DEVNODE | caps2esc -n | uinput -d $DEVNODE"
-        DEVICE:
-          EVENTS:
-            EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
-    '';
-  };
+  # No longer necessary, now that I have a CTRL. However, keep it around since I
+  # might want it for other devices.
+  # services.interception-tools = {
+  #   enable = false;
+  #   plugins = [ caps2esc ];
+  #   udevmonConfig = ''
+  #     - JOB: "intercept -g $DEVNODE | caps2esc -n | uinput -d $DEVNODE"
+  #       DEVICE:
+  #         EVENTS:
+  #           EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+  #   '';
+  # };
 
   # services.udev.packages for packages with udev rules
   # services.udev.extraRules = ''

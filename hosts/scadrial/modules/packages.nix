@@ -23,6 +23,7 @@
     # libreoffice
     lsof
     manpages
+    mosh
     neovim
     netcat-openbsd
     openssl
@@ -30,6 +31,7 @@
     posix_man_pages
     psmisc
     usbutils
+    wireguard
     xdg_utils
   ];
 }

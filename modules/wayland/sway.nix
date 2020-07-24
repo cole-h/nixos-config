@@ -21,6 +21,7 @@ let
   ## Variables for bindings
   # Logo key
   modifier = "Mod4";
+  huh = "Ctrl+Alt+${modifier}";
   # Alt key
   meta = "Mod1";
   # Home row direction keys, like vim
@@ -228,6 +229,16 @@ in
         "${modifier}+F8" = "workspace ${wsF8}";
         "${modifier}+F9" = "workspace ${wsF9}";
         "${modifier}+F10" = "workspace ${wsF10}";
+        "${huh}+1" = "workspace ${wsF1}";
+        "${huh}+2" = "workspace ${wsF2}";
+        "${huh}+3" = "workspace ${wsF3}";
+        "${huh}+4" = "workspace ${wsF4}";
+        "${huh}+5" = "workspace ${wsF5}";
+        "${huh}+6" = "workspace ${wsF6}";
+        "${huh}+7" = "workspace ${wsF7}";
+        "${huh}+8" = "workspace ${wsF8}";
+        "${huh}+9" = "workspace ${wsF9}";
+        "${huh}+0" = "workspace ${wsF10}";
         "${modifier}+KP_1" = "workspace ${wsF1}";
         "${modifier}+KP_2" = "workspace ${wsF2}";
         "${modifier}+KP_3" = "workspace ${wsF3}";
@@ -259,6 +270,16 @@ in
         "${modifier}+Shift+F8" = "move container to workspace ${wsF8}";
         "${modifier}+Shift+F9" = "move container to workspace ${wsF9}";
         "${modifier}+Shift+F10" = "move container to workspace ${wsF10}";
+        "${huh}+Shift+1" = "move container to workspace ${wsF1}";
+        "${huh}+Shift+2" = "move container to workspace ${wsF2}";
+        "${huh}+Shift+3" = "move container to workspace ${wsF3}";
+        "${huh}+Shift+4" = "move container to workspace ${wsF4}";
+        "${huh}+Shift+5" = "move container to workspace ${wsF5}";
+        "${huh}+Shift+6" = "move container to workspace ${wsF6}";
+        "${huh}+Shift+7" = "move container to workspace ${wsF7}";
+        "${huh}+Shift+8" = "move container to workspace ${wsF8}";
+        "${huh}+Shift+9" = "move container to workspace ${wsF9}";
+        "${huh}+Shift+0" = "move container to workspace ${wsF10}";
         "${modifier}+Shift+KP_End" = "move container to workspace ${wsF1}";
         "${modifier}+Shift+KP_Down" = "move container to workspace ${wsF2}";
         "${modifier}+Shift+KP_Next" = "move container to workspace ${wsF3}";

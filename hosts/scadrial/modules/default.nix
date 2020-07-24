@@ -2,18 +2,19 @@
 
 {
   imports = [
-    # ./borg
+    # ./borg # configuration related to running an ofborg instance
 
-    ./boot.nix
-    ./hardware.nix
-    ./networking.nix
-    ./packages.nix
+    ./boot.nix # configuration related to boot
+    ./hardware.nix # configuration related to hardware
+    ./networking.nix # configuration related to networking
+    ./packages.nix # configuration related to packages
     ./programs.nix # misc, short program settings
-    ./security.nix
+    ./security.nix # configuration related to general security
     ./services.nix # misc, short service settings
-    ./torrent.nix
-    ./users.nix
+    ./torrent.nix # configuration related to torrenting
+    ./users.nix # configuration related to users
+    ./wireguard.nix # configuration related to wireguard
 
-    ./libvirt
+    ./libvirt # configuration related to libvirt and vfio + pci passthrough
   ];
 }

@@ -12,6 +12,13 @@ in
     {
       imports = [
         ./hosts/scadrial/configuration.nix
+        ./options.nix
+      ];
+
+      nix.nixPath = [
+        "nixpkgs=${pinnedPkgs.path}"
+        "nixos-config=/etc/nixos/configuration.nix"
+        "/nix/var/nix/profiles/per-user/root/channels"
       ];
 
       deployment.targetHost = "localhost";

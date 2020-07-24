@@ -65,8 +65,10 @@
       tmate # "Instant Terminal Sharing"
       tokei # code metrics
       ytop # fancy top
+      mdloader
 
-      latest.firefox-nightly-bin
+      # latest.firefox-nightly-bin
+      latest.firefox-beta-bin
       pass-otp
       passrs
       # android-studio # android apps
@@ -88,7 +90,6 @@
       gnome3.file-roller
       foliate
       # filezilla
-      # ccls # C lsp server
       # binwalk
 
       #### System Packages

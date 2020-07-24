@@ -15,7 +15,9 @@ let
   naersk = callPackage sources.naersk { };
   nixops = import sources.nixops;
 
-  mozilla = import sources.nixpkgs-mozilla final super;
+  # https://github.com/mozilla/nixpkgs-mozilla/issues/231
+  mozilla = import ~/workspace/vcs/nixpkgs-mozilla final super;
+  # mozilla = import sources.nixpkgs-mozilla final super;
 in
 {
   inherit (mozilla) latest;
@@ -31,6 +33,7 @@ in
   git-crypt = callPackage ../drvs/git-crypt.nix { };
   gsfonts = callPackage ../drvs/gsfonts.nix { };
   iosevka-custom = callPackage ../drvs/iosevka/iosevka-custom.nix { };
+  mdloader = callPackage ../drvs/mdloader { };
   sonarr = callPackage ../drvs/sonarr.nix { };
 
   alacritty = callPackage ../drvs/alacritty.nix {
@@ -41,7 +44,7 @@ in
     inherit (final.qt5) qtbase;
   };
 
-  redshift-wayland = callPackage ../drvs/redshift-wayland {
+  redshift = callPackage ../drvs/redshift-wayland {
     inherit (python3Packages) python pygobject3 pyxdg wrapPython;
     withGeoclue = false;
     geoclue = null;
@@ -52,17 +55,45 @@ in
   });
 
   # small-ish overrides
+  aerc = super.aerc.override { notmuch = null; };
   ripgrep = super.ripgrep.override { withPCRE2 = true; };
   rofi = super.rofi.override { plugins = [ final.rofi-emoji ]; };
-  aerc = super.aerc.override { notmuch = null; };
+
+  wlroots = super.wlroots.overrideAttrs ({ ... }: {
+    src = final.fetchFromGitHub {
+      owner = "swaywm";
+      repo = "wlroots";
+      rev = "0.10.1";
+      sha256 = "0j2lh9vc92zhn44rjbia5aw3y1rpgfng1x1h17lcvj5m4i6vj0pc";
+    };
+  });
+
+  sway-unwrapped = super.sway-unwrapped.overrideAttrs ({ ... }: {
+    src = final.fetchFromGitHub {
+      owner = "swaywm";
+      repo = "sway";
+      rev = "1.4";
+      sha256 = "11qf89y3q92g696a6f4d23qb44gqixg6qxq740vwv2jw59ms34ja";
+    };
+  });
+
+  # sway-unwrapped = super.sway-unwrapped.overrideAttrs ({ patches ? [ ], ... }: {
+  #   patches = patches ++ [
+  #     (final.fetchpatch {
+  #       url = "https://patch-diff.githubusercontent.com/raw/swaywm/sway/pull/4932.patch";
+  #       sha256 = "0qpzy11xm03zbfqzrm5mh9x9nlwry80mxr5f4kl8c3g681xc8r3a";
+  #     })
+  #   ];
+  # });
 
   kakoune = super.kakoune.override {
-    configure.plugins = with pkgs.kakounePlugins; [
-      kak-powerline
-      kak-auto-pairs
-      kak-vertical-selection
-      kak-buffers
-    ];
+    configure.plugins = with pkgs.kakounePlugins;
+      [
+        kak-powerline
+        kak-auto-pairs
+        kak-vertical-selection
+        kak-buffers
+      ];
   };
 
   discord = runCommand "discord"
@@ -128,4 +159,55 @@ in
 
     doNews
   '';
+
+  mpd = final.mpdWithFeatures {
+    features = [
+      # Storage plugins
+      "udisks"
+      "webdav"
+      # Input plugins
+      "curl"
+      "mms"
+      "nfs"
+      # Archive support
+      "bzip2"
+      "zzip"
+      # Decoder plugins
+      "audiofile"
+      "faad"
+      "ffmpeg"
+      "flac"
+      "fluidsynth"
+      "gme"
+      "mad"
+      "mikmod"
+      "mpg123"
+      "opus"
+      "vorbis"
+      # Encoder plugins
+      "vorbisenc"
+      "lame"
+      # Filter plugins
+      "libsamplerate"
+      # Output plugins
+      "alsa"
+      "jack"
+      "pulse"
+      "shout"
+      # Client support
+      "libmpdclient"
+      # Tag support
+      "id3tag"
+      # Misc
+      "dbus"
+      "expat"
+      "icu"
+      "pcre"
+      "sqlite"
+      "syslog"
+      "systemd"
+      "yajl"
+      "zeroconf"
+    ];
+  };
 }

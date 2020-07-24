@@ -10,7 +10,7 @@
         isNormalUser = true;
         uid = 1000;
         shell = pkgs.fish;
-        extraGroups = [ "wheel" "audio" "input" "avahi" "realtime" ];
+        extraGroups = [ "wheel" "audio" "input" "avahi" "realtime" "dialout" /* for mdloader */ ];
         # mkpasswd -m sha-512
         hashedPassword = "$6$FaEHrjGo$OaEd7FMHnY4UviCjWbuWS5vG4QNg0CPc5lcYCRjscDOxBA1ss43l8ZYzamCtmjCdxjVanElx45FtYzQ3abP/j0";
 

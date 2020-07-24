@@ -8,8 +8,7 @@ let
 in
 {
   imports = [
-    # "${sources.home-manager}/nixos"
-    ~/workspace/vcs/home-manager/nixos
+    "${sources.home-manager}/nixos"
     ./hardware-configuration.nix
     ./modules
   ];
@@ -30,6 +29,8 @@ in
     useUserPackages = true;
     verbose = true;
   };
+
+  # TODO: JP fonts and IME
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";

@@ -1,14 +1,14 @@
 {
     "home-manager": {
-        "branch": "master",
+        "branch": "sd-switch",
         "description": "Manage a user environment using Nix",
         "homepage": "https://rycee.gitlab.io/home-manager/",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "5f189acce44dc39ea4055bfd8064adaf90d7fb5a",
-        "sha256": "0ibmvg3k9m9yzh8ln3jlh47nrvgg81iy8gpl112wjimlp6gagxw6",
+        "rev": "b70002dbc1e477e5b6abbddb1ecbec703a3c6eef",
+        "sha256": "1ldix8x7ja2k4ckd5dzvsz29zgphycga2j9c8dp50fkgxvv04ry9",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/5f189acce44dc39ea4055bfd8064adaf90d7fb5a.tar.gz",
+        "url": "https://github.com/rycee/home-manager/archive/b70002dbc1e477e5b6abbddb1ecbec703a3c6eef.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "naersk": {
@@ -36,15 +36,15 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "branch": "nixos-unstable-small",
+        "branch": "nixos-unstable",
         "description": "Nix Packages collection",
         "homepage": null,
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "43b58960cf0b8b5f891cc3e045ca7cf7cf79c91c",
-        "sha256": "1ragsbf2nxkvykagv8fh2cka5bl0zi86263814nbh1aysx9vff2g",
+        "rev": "5717d9d2f7ca0662291910c52f1d7b95b568fec2",
+        "sha256": "17gxd2f622pyss3r6cjngdav6wzdbr31d7bqx9z2lawxg47mmk1l",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/43b58960cf0b8b5f891cc3e045ca7cf7cf79c91c.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/5717d9d2f7ca0662291910c52f1d7b95b568fec2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-mozilla": {

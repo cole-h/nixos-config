@@ -6,7 +6,7 @@ let
     noto-fonts-cjk
     ttf_bitstream_vera
     # dejavu_fonts
-    # jetbrains-mono # code font
+    jetbrains-mono # code font
     iosevka-custom # code font [overlays]
     cantarell-fonts # REALLY nice UI font
     # liberation_ttf # like Microsoft fonts, but not
@@ -29,22 +29,10 @@ in
   # https://nixos.wiki/wiki/Fonts
   # fonts.fontconfig.enable = true;
 
-  home = {
-    packages = with pkgs; [
-      fontconfig # needed for fc-{match,cache,list} binaries
-    ] ++ fonts;
+  home.packages = with pkgs; [
+    fontconfig # needed for fc-{match,cache,list} binaries
+  ] ++ fonts;
 
-    sessionVariables = {
-      # FONTCONFIG_FILE = pkgs.makeFontsConf {
-      #   fontDirectories = [
-      #     #
-      #   ] ++ fonts;
-      # };
-      # FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
-    };
-  };
-
-  # TODO: look at all of my font.d files from Arch
   # TODO: make fallback work nicely (JP fallback, etc)
   xdg.configFile."fontconfig/fonts.conf".text = ''
     <?xml version='1.0'?>
@@ -102,10 +90,10 @@ in
 
       <match target="font">
         <test name="family" compare="eq">
-            <string>DejaVu Sans Mono</string>
+            <string>JetBrains Mono NL</string>
         </test>
         <edit name="family" mode="assign_replace">
-          <string>DejaVu Sans Mono</string>
+          <string>JetBrains Mono NL</string>
         </edit>
         <edit name="family" mode="append_last">
           <string>monospace</string>
@@ -117,7 +105,7 @@ in
             <string>monospace</string>
         </test>
         <edit name="family" mode="prepend_first">
-          <string>DejaVu Sans Mono</string>
+          <string>JetBrains Mono NL</string>
         </edit>
         <edit name="family" mode="prepend_first">
           <string>Noto Color Emoji</string>

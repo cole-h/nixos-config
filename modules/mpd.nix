@@ -46,12 +46,6 @@
             mixer_type "software"
         }
 
-        audio_output {
-            type "jack"
-            name "My Jack Output"
-            mixer_type "software"
-        }
-
         replaygain "auto"
         replaygain_limit "yes"
         volume_normalization "yes"

@@ -22,7 +22,7 @@ in
     alacritty # [drvs]
     kitty # alt terminal as backup
     libnotify # notifications part 2: electric boogaloo
-    redshift-wayland # blue-light filter; [overlays]
+    redshift # blue-light filter; [overlays]
     bemenu # dmenu launcher; [overlays]
     j4-dmenu-desktop # desktop files
     rofi # has rofi-emoji as a plugin; [overlays]
@@ -98,7 +98,7 @@ in
 
         Service = {
           Type = "simple";
-          ExecStart = "${pkgs.redshift-wayland}/bin/redshift -t 6500:3000 -l 38.68:-121.14";
+          ExecStart = "${pkgs.redshift}/bin/redshift -t 6500:3000 -l 38.68:-121.14";
           RestartSec = 3;
           Restart = "always";
         };

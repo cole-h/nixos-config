@@ -33,7 +33,7 @@
       which-key-idle-delay 0.4
 
       ;; lsp-ui-doc-enable nil
-      ccls-args '("-v=2" "-log-file=/tmp/ccls.log")
+      ;; ccls-args '("-v=2" "-log-file=/tmp/ccls.log")
       +workspaces-on-switch-project-behavior t
 
       +notmuch-sync-backend 'mbsync
@@ -173,6 +173,8 @@ If PEEK is non-nil, keep focus in status buffer window."
         "<right>" #'ivy-alt-done))
 (map! :leader :desc "Kill Emacs" :n "qQ" #'save-buffers-kill-emacs)
 (map! :leader :desc "Switch to alternate buffer" :n "," #'vin/alternate-buffer)
+(map! :g "C-<right>" #'evil-forward-word-begin)
+(map! :g "C-<left>" #'evil-backward-word-begin)
 
 ;; SPC f p c -> config, SPC f p i -> init, SPC f p p -> packages, SPC f p f -> funcs
 (map! :leader "fp" nil

@@ -42,9 +42,9 @@ in
 (
   buildPackage {
     name = "alacritty";
-    version = "0.5.0-git";
+    version = "0.6.0-git";
 
-    root = lib.cleanSource ~/workspace/vcs/alacritty;
+    root = builtins.fetchGit ~/workspace/vcs/alacritty;
 
     buildInputs = [
       makeWrapper

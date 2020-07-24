@@ -26,6 +26,7 @@
       # volume = 75;
       watch-later-directory = "${config.xdg.cacheHome}/mpv-watch-later/";
       ytdl-format = "bestvideo[height<=?1080][vcodec!=?vp9]+bestaudio/best";
+      save-position-on-quit = true;
     };
 
     bindings = {
@@ -35,7 +36,7 @@
       "Alt+x" = "quit-watch-later";
       "1" = "cycle border";
       "Ctrl+a" = "cycle ontop";
-      n = "show-text \${file-name}";
+      n = ''show-text ''${media-title}'';
       MBTN_LEFT = "cycle pause";
       MBTN_LEFT_DBL = "cycle fullscreen";
       MBTN_RIGHT = "ignore";

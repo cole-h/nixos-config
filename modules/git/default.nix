@@ -53,10 +53,8 @@ in
       url = {
         "https://github.com/".insteadOf = "gh:";
         "ssh://git@github.com".pushInsteadOf = "gh:";
-        # TODO: remove me after switching to NixOS
-        "https://aur.archlinux.org/".insteadOf = "aur:";
-        "ssh://aur@aur.archlinux.org/".pushInsteadOf = "aur:";
-
+        "https://gitlab.com/".insteadOf = "gl:";
+        "ssh://git@gitlab.com".pushInsteadOf = "gl:";
       };
     };
   };

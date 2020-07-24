@@ -2,7 +2,7 @@
 let
   linux_zen_pkg = { fetchurl, buildLinux, ... }@args:
     buildLinux (args // (
-      let version = "5.7.7-zen1"; in
+      let version = "5.7.9-zen1"; in
       {
         inherit version;
         modDirVersion = version;
@@ -10,7 +10,7 @@ let
         # https://github.com/zen-kernel/zen-kernel/releases
         src = fetchurl {
           url = "https://github.com/zen-kernel/zen-kernel/archive/v${version}.tar.gz";
-          sha256 = "011a62vxzdz7ma36l91ln7rclvpk8m6102caxqn5avysf747np8m";
+          sha256 = "0mib7x09ahfvka8d6l9p4axwvs1rpnv9zvg41faj65y2zb9jd67z";
         };
 
         kernelPatches = with pkgs; [
