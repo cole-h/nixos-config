@@ -91,6 +91,7 @@
       foliate
       # filezilla
       # binwalk
+      (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
 
       #### System Packages
       # openconnect # for school VPN, if needed
@@ -123,6 +124,9 @@
       # (see: https://github.com/nrdxp/nixflk/)
 
       MPD_HOST = "127.0.0.1";
+
+      # For zoxide's fzf window
+      _ZO_FZF_OPTS = "--no-sort --reverse --border --height 40%";
     };
 
     # This value determines the Home Manager release that your

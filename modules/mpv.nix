@@ -27,6 +27,7 @@
       watch-later-directory = "${config.xdg.cacheHome}/mpv-watch-later/";
       ytdl-format = "bestvideo[height<=?1080][vcodec!=?vp9]+bestaudio/best";
       save-position-on-quit = true;
+      osd-font = "Bitstream Vera Sans";
     };
 
     bindings = {

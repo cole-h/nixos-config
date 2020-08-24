@@ -17,6 +17,10 @@ in
         plan = "15min=>5min,4h=>15min,4d=>1h,1w=>1d,1m=>1w";
         recursive = true;
       };
+      "rpool/win10" = {
+        timestampFormat = "%Y-%m-%dT%H%M%S";
+        plan = "15min=>5min,4h=>15min,4d=>1h,1w=>1d,1m=>1w";
+      };
     };
   };
 

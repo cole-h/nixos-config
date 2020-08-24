@@ -16,8 +16,9 @@ let
   nixops = import sources.nixops;
 
   # https://github.com/mozilla/nixpkgs-mozilla/issues/231
-  mozilla = import ~/workspace/vcs/nixpkgs-mozilla final super;
-  # mozilla = import sources.nixpkgs-mozilla final super;
+  # mozilla = import ~/workspace/vcs/nixpkgs-mozilla final super;
+  mozilla = import sources.nixpkgs-mozilla final super;
+  wayland = import sources.nixpkgs-wayland final super;
 in
 {
   inherit (mozilla) latest;
@@ -35,6 +36,7 @@ in
   iosevka-custom = callPackage ../drvs/iosevka/iosevka-custom.nix { };
   mdloader = callPackage ../drvs/mdloader { };
   sonarr = callPackage ../drvs/sonarr.nix { };
+  aerc = callPackage ../drvs/aerc { };
 
   alacritty = callPackage ../drvs/alacritty.nix {
     inherit (naersk) buildPackage;
@@ -55,10 +57,10 @@ in
   });
 
   # small-ish overrides
-  aerc = super.aerc.override { notmuch = null; };
   ripgrep = super.ripgrep.override { withPCRE2 = true; };
   rofi = super.rofi.override { plugins = [ final.rofi-emoji ]; };
 
+  # inherit (wayland) sway-unwrapped wlroots;
   wlroots = super.wlroots.overrideAttrs ({ ... }: {
     src = final.fetchFromGitHub {
       owner = "swaywm";
@@ -76,15 +78,6 @@ in
       sha256 = "11qf89y3q92g696a6f4d23qb44gqixg6qxq740vwv2jw59ms34ja";
     };
   });
-
-  # sway-unwrapped = super.sway-unwrapped.overrideAttrs ({ patches ? [ ], ... }: {
-  #   patches = patches ++ [
-  #     (final.fetchpatch {
-  #       url = "https://patch-diff.githubusercontent.com/raw/swaywm/sway/pull/4932.patch";
-  #       sha256 = "0qpzy11xm03zbfqzrm5mh9x9nlwry80mxr5f4kl8c3g681xc8r3a";
-  #     })
-  #   ];
-  # });
 
   kakoune = super.kakoune.override {
     configure.plugins = with pkgs.kakounePlugins;

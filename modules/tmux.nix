@@ -18,6 +18,7 @@
       set -sg repeat-time 600
       set -s focus-events on
       set -g mode-keys vi
+      set-option -g history-limit 50000
 
       set -g prefix2 C-a
       bind C-a send-prefix -2

@@ -48,6 +48,7 @@ in
     "intel_iommu=igfx_off"
     "iommu=pt"
     "kvm.ignore_msrs=1"
+    "kvm.report_ignored_msrs=0"
   ];
 
   virtualisation.libvirtd = {

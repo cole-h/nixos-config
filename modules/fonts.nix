@@ -11,7 +11,7 @@ let
     cantarell-fonts # REALLY nice UI font
     # liberation_ttf # like Microsoft fonts, but not
     # emojione
-    # joypixels # emoji font
+    joypixels # emoji font
     # gsfonts # [drvs]
     kochi-substitute # JP font
     # source-han-sans-japanese # JP font
@@ -32,106 +32,4 @@ in
   home.packages = with pkgs; [
     fontconfig # needed for fc-{match,cache,list} binaries
   ] ++ fonts;
-
-  # TODO: make fallback work nicely (JP fallback, etc)
-  xdg.configFile."fontconfig/fonts.conf".text = ''
-    <?xml version='1.0'?>
-    <!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
-    <fontconfig>
-
-     <match target="font">
-        <test name="family" compare="eq">
-            <string>Roboto</string>
-        </test>
-        <edit name="family" mode="assign_replace">
-          <string>Roboto</string>
-        </edit>
-        <edit name="family" mode="append_last">
-          <string>serif</string>
-        </edit>
-      </match>
-
-      <!-- TODO: replace Roboto with my UI fonts -->
-      <match>
-        <test qual="any" name="family">
-            <string>serif</string>
-        </test>
-        <edit name="family" mode="prepend_first">
-          <string>Roboto</string>
-        </edit>
-        <edit name="family" mode="prepend_first">
-          <string>Noto Color Emoji</string>
-        </edit>
-      </match>
-
-      <match target="font">
-        <test name="family" compare="eq">
-            <string>Roboto</string>
-        </test>
-        <edit name="family" mode="assign_replace">
-          <string>Roboto</string>
-        </edit>
-        <edit name="family" mode="append_last">
-          <string>sans-serif</string>
-        </edit>
-      </match>
-
-      <match target="pattern">
-        <test qual="any" name="family">
-            <string>sans-serif</string>
-        </test>
-        <edit name="family" mode="prepend_first">
-          <string>Roboto</string>
-        </edit>
-        <edit name="family" mode="prepend_first">
-          <string>Noto Color Emoji</string>
-        </edit>
-      </match>
-
-      <match target="font">
-        <test name="family" compare="eq">
-            <string>JetBrains Mono NL</string>
-        </test>
-        <edit name="family" mode="assign_replace">
-          <string>JetBrains Mono NL</string>
-        </edit>
-        <edit name="family" mode="append_last">
-          <string>monospace</string>
-        </edit>
-      </match>
-
-      <match target="pattern">
-        <test qual="any" name="family">
-            <string>monospace</string>
-        </test>
-        <edit name="family" mode="prepend_first">
-          <string>JetBrains Mono NL</string>
-        </edit>
-        <edit name="family" mode="prepend_first">
-          <string>Noto Color Emoji</string>
-        </edit>
-      </match>
-
-      <alias binding="strong">
-        <family>emoji</family>
-        <default><family>Noto Color Emoji</family></default>
-      </alias>
-
-      <alias binding="strong">
-        <family>Apple Color Emoji</family>
-        <prefer><family>Noto Color Emoji</family></prefer>
-        <default><family>sans-serif</family></default>
-      </alias>
-      <alias binding="strong">
-        <family>Segoe UI Emoji</family>
-        <prefer><family>Noto Color Emoji</family></prefer>
-        <default><family>sans-serif</family></default>
-      </alias>
-      <alias binding="strong">
-        <family>Twitter Color Emoji</family>
-        <prefer><family>Noto Color Emoji</family></prefer>
-        <default><family>sans-serif</family></default>
-    </alias>
-    </fontconfig>
-  '';
 }
