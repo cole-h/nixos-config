@@ -22,7 +22,6 @@ in
       # flamegraph
       # cargo-geiger
       # cargo-license
-      cargo-tree
       rust-analyzer
     ] ++ toolchains;
   };

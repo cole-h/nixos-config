@@ -23,8 +23,8 @@
       set -g prefix2 C-a
       bind C-a send-prefix -2
 
-      # bind -n End send-key C-e
-      # bind -n Home send-key C-a
+      bind -n End send-key C-e
+      bind -n Home send-key C-a
 
       # clear both screen and history
       bind -n C-l send-keys C-l \; run 'sleep 0.1' \; clear-history

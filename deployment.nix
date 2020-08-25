@@ -1,6 +1,6 @@
 let
   sources = import ./nix/sources.nix;
-  pinnedPkgs = import sources.nixpkgs { };
+  pinnedPkgs = import sources.nixpkgs { overlays = [ (import ./overlays) ]; };
 in
 {
   network.description = "Cosmere";

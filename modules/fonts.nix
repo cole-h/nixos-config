@@ -11,7 +11,7 @@ let
     cantarell-fonts # REALLY nice UI font
     # liberation_ttf # like Microsoft fonts, but not
     # emojione
-    joypixels # emoji font
+    # joypixels # emoji font
     # gsfonts # [drvs]
     kochi-substitute # JP font
     # source-han-sans-japanese # JP font

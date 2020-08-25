@@ -14,13 +14,13 @@
 
 mkDerivation {
   pname = "chatterino2";
-  version = "unstable-2020-07-19";
+  version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "Chatterino";
     repo = "chatterino2";
-    rev = "caa11dda3edd717a54f037fda6f2a7dbc9e25dfa";
-    sha256 = "167gq0yng3pb6ssczysjb19bhhyp03gm5rlg7nqhrf94rxawd4zq";
+    rev = "63c167f1db085299d35e88c17e761d1c5b5c526c"; # the owners are too 3Head to properly tag releases lmao
+    sha256 = "0llz8jpn50dg4ipzv41y5hzx7r2gch2hzypdpkhv516vyx8wmfis";
     fetchSubmodules = true;
   };
 
