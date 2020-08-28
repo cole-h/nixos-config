@@ -1,14 +1,12 @@
 { stdenv
 , lib
+, src
 }:
-let
-  sources = import ../nix/sources.nix;
-in
 stdenv.mkDerivation {
   pname = "doom-emacs";
   version = "git";
 
-  src = lib.cleanSource ./doom-emacs; # git submodule :)
+  inherit src;
 
   outputs = [ "out" "bin" ];
   phases = [ "installPhase" ];

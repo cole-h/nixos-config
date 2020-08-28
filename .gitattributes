@@ -1,0 +1,17 @@
+# ensure gitattributes doesn't accidentally get encrypted
+.gitattributes !filter !diff
+
+secrets/gitauth.inc filter=git-crypt diff=git-crypt
+secrets/cargo-credentials filter=git-crypt diff=git-crypt
+secrets/weechat/* filter=git-crypt diff=git-crypt
+secrets/imgur filter=git-crypt diff=git-crypt
+secrets/streamlink filter=git-crypt diff=git-crypt
+secrets/sshcontrol filter=git-crypt diff=git-crypt
+secrets/cosmere.json filter=git-crypt diff=git-crypt
+secrets/cachix.dhall filter=git-crypt diff=git-crypt
+secrets/todo/* filter=git-crypt diff=git-crypt
+secrets/chatterino/* filter=git-crypt diff=git-crypt
+secrets/patched-bios.rom filter=git-crypt diff=git-crypt
+secrets/sshconfig filter=git-crypt diff=git-crypt
+secrets/wireguard/* filter=git-crypt diff=git-crypt
+secrets/duckdns filter=git-crypt diff=git-crypt

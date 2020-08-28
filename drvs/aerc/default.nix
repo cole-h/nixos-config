@@ -1,6 +1,13 @@
-{ lib, buildGoModule, fetchurl
-, go, ncurses, notmuch, scdoc
-, python3, perl, w3m, dante
+{ lib
+, buildGoModule
+, go
+, ncurses
+, notmuch
+, scdoc
+, python3
+, perl
+, w3m
+, dante
 , fetchFromGitHub
 }:
 
@@ -23,11 +30,11 @@ buildGoModule rec {
   vendorSha256 = "1yjrg8pr8l367dx3rgp3q8qgsphcbwf73cc13hz20yg8dir0jc7j";
 
   overrideModAttrs = (_: {
-      postBuild = ''
+    postBuild = ''
       cp -r --reflink=auto ${libvterm}/libvterm vendor/github.com/ddevault/go-libvterm
       cp -r --reflink=auto ${libvterm}/encoding vendor/github.com/ddevault/go-libvterm
-      '';
-    });
+    '';
+  });
 
   nativeBuildInputs = [
     scdoc

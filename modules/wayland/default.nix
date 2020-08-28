@@ -147,10 +147,10 @@ in
       #     Type = "simple";
       #     ExecStart = ''
       #       ${pkgs.swayidle}/bin/swayidle -w \
-      #         timeout 1200 '${pkgs.swaylock}/bin/swaylock -f -i ${config.my.wallpaper} --scaling fill' \
+      #         timeout 1200 '${pkgs.swaylock}/bin/swaylock -f -i ${my.wallpaper} --scaling fill' \
       #         timeout 1500 'swaymsg "output * dpms off"' \
       #           resume 'swaymsg "output * dpms on"' \
-      #         before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${config.my.wallpaper} --scaling fill'
+      #         before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${my.wallpaper} --scaling fill'
       #     '';
       #     RestartSec = 3;
       #     Restart = "always";

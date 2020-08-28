@@ -6,12 +6,8 @@
   ];
 
   xdg.configFile = {
-    "weechat".source = config.lib.file.mkOutOfStoreSymlink ./config;
-
-    "nixpkgs/modules/weechat/config/freenode.pem".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.my.secrets.weechat}/freenode.pem";
-    "nixpkgs/modules/weechat/config/irc.conf".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.my.secrets.weechat}/irc.conf";
+    "weechat".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nixpkgs/modules/weechat/config";
   };
 
   # NOTE: Only works well with lingering enabled -- otherwise systemd might kill

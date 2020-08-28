@@ -1,8 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, my, ... }:
 let
   stableChannel = true;
   betaChannel = false;
   nightlyChannel = false;
+
   toolchains = with pkgs.latest.rustChannels;
     lib.optional stableChannel stable.rust
     ++ lib.optional betaChannel beta.rust
@@ -14,19 +15,20 @@ in
       # cargo-about
       # cargo-asm
       # cargo-audit
-      cargo-bloat
+      # cargo-bloat
       # cargo-crev
       cargo-edit
-      cargo-expand
+      # cargo-expand
       # cargo-flamegraph
       # flamegraph
       # cargo-geiger
       # cargo-license
-      rust-analyzer
+      # rust-analyzer
     ] ++ toolchains;
-  };
 
-  xdg.configFile = {
-    ".cargo/credentials".source = config.lib.file.mkOutOfStoreSymlink config.my.secrets.cargo-credentials;
+    file = {
+      ".cargo/credentials".source =
+        config.lib.file.mkOutOfStoreSymlink my.secrets.cargo-credentials;
+    };
   };
 }

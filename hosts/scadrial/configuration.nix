@@ -3,12 +3,8 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, lib, ... }:
-let
-  sources = import ../../nix/sources.nix;
-in
 {
   imports = [
-    "${sources.home-manager}/nixos"
     ./hardware-configuration.nix
     ./modules
   ];
@@ -31,7 +27,9 @@ in
   };
 
   nix.package = pkgs.nixUnstable;
-  nix.extraOptions = ''experimental-features = nix-command flakes'';
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
 
   # TODO: JP fonts and IME
   # omg color emoji finally <-- fucking JK, after updating nixpkgs again, it all came undone.

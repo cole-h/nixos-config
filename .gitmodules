@@ -1,12 +1,3 @@
-[submodule "drvs/doom-emacs"]
-    path = drvs/doom-emacs
-    url = https://github.com/hlissner/doom-emacs.git
-    branch = develop
 [submodule "secrets"]
-    path = secrets
-    url = git@github.com:cole-h/nix-secrets.git
-    branch = master
-[submodule "drvs/pgtk-emacs"]
-    path = drvs/pgtk-emacs
-    url = https://github.com/masm11/emacs.git
-    branch = pgtk
+	path = secrets
+	url = git@github.com:cole-h/nix-secrets.git

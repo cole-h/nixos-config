@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, my, ... }:
 
 {
   home.file = {
@@ -9,7 +9,7 @@
       keyserver hkps://keys.openpgp.org
     '';
 
-    ".gnupg/sshcontrol".source = config.lib.file.mkOutOfStoreSymlink config.my.secrets.sshcontrol;
+    ".gnupg/sshcontrol".source = config.lib.file.mkOutOfStoreSymlink my.secrets.sshcontrol;
 
     ".gnupg/gpg-agent.conf".text = ''
       default-cache-ttl 86400

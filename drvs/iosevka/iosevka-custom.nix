@@ -121,7 +121,10 @@ in
 stdenv.mkDerivation {
   inherit pname version;
 
-  src = fetchTarball "https://github.com/be5invis/Iosevka/archive/v${version}.tar.gz";
+  src = fetchTarball {
+    url = "https://github.com/be5invis/Iosevka/archive/v${version}.tar.gz";
+    sha256 = "1wbnp6gr3ywvspwk6i0jn68zwjmsd38arn4n2dkh7mdkrmvah81k";
+  };
 
   nativeBuildInputs = [
     nodejs-12_x

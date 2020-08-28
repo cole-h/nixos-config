@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, my, ... }:
 let
   status = pkgs.writeShellScriptBin "status" ''
     # LEN=35
@@ -35,7 +35,7 @@ let
   screenie = "(a) area, (m) monitor, (w) window, (A) to clipboard, (M) to clipboard, (W) to clipboard";
 
   ## Executables
-  inherit (config.my.scripts)
+  inherit (my.scripts)
     alacritty
     imgur
     passmenu
@@ -51,7 +51,7 @@ let
         --dmenu="${pkgs.bemenu}/bin/bemenu --ignorecase --no-overlap" # [drvs]
   '';
 
-  inherit (config.my) wallpaper;
+  inherit (my) wallpaper;
 
   ## Workspaces
   # output DP-2 (left)
@@ -79,7 +79,7 @@ let
 in
 {
   xdg.configFile = {
-    "imgur".source = config.lib.file.mkOutOfStoreSymlink config.my.secrets.imgur;
+    "imgur".source = config.lib.file.mkOutOfStoreSymlink my.secrets.imgur;
   };
 
   home.packages = with pkgs; [

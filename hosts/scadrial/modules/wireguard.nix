@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, my, ... }:
 
 {
   # enable NAT
@@ -13,7 +13,7 @@
     wg0 = {
       ips = [ "10.0.0.1/24" ];
       listenPort = 1194;
-      privateKeyFile = "${config.my.secrets.wireguard}/private";
+      privateKeyFile = "${my.secrets.wireguard}/private";
 
       postSetup = ''
         ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -o enp3s0 -j MASQUERADE
@@ -27,7 +27,7 @@
         {
           # Hathsin
           publicKey = "Nx3B53tK74nc909S0gM0sozUMZOVpAmkqsvyEo6VWSE=";
-          presharedKeyFile = "${config.my.secrets.wireguard}/psk";
+          presharedKeyFile = "${my.secrets.wireguard}/psk";
           allowedIPs = [ "10.0.0.2/32" ];
         }
       ];
@@ -49,7 +49,7 @@
     # somebody has local access to my system, them being able to update my
     # DuckDNS IP will be the least of my worries.
     script = ''
-      echo url="https://www.duckdns.org/update?domains=scadrial&token=${builtins.readFile config.my.secrets.duckdns}" \
+      echo url="https://www.duckdns.org/update?domains=scadrial&token=${builtins.readFile my.secrets.duckdns}" \
         | ${pkgs.curl}/bin/curl -K - 2>/dev/null
     '';
   };

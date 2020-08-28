@@ -7,7 +7,6 @@ result*
 *.~undo-tree
 
 *.gz
-*.pem
 *.log
 
 ### Misc ###
@@ -16,7 +15,5 @@ pkgs/doom-emacs
 modules/weechat/config/xfer
 modules/weechat/config/logs
 modules/weechat/config/urlserver_list.txt
-modules/weechat/config/irc.conf
-modules/weechat/config/sec.conf
 modules/weechat/config/relay.conf
 hosts/scadrial/modules/borg/config.json

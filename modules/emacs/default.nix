@@ -25,7 +25,7 @@ let
 in
 {
   # Emacs 27+ supports the XDG Base Directory specification, so drop doom into
-  # $XDG_CONFIG_HOME/emacs
+  # $XDG_CONFIG_HOME/emacs (but only if ~/.emacs.d doesn't exist)
   xdg.configFile."emacs".source = "${pkgs.doom-emacs}/share/doom-emacs";
 
   home = {
@@ -70,7 +70,7 @@ in
 
       # Don't want to have to `home-manager switch` every time I change something,
       # so don't add it to the store.
-      DOOMDIR = toString ./config;
+      DOOMDIR = "${config.xdg.configHome}/nixpkgs/modules/emacs/config";
     };
   };
 
@@ -84,7 +84,7 @@ in
 
         Service = {
           Type = "simple";
-          Environment = [ "DOOMLOCALDIR=${config.xdg.dataHome}/doom-local" "DOOMDIR=${toString ./config}" ];
+          Environment = [ "DOOMLOCALDIR=${config.xdg.dataHome}/doom-local" "DOOMDIR=${config.xdg.configHome}/nixpkgs/modules/emacs/config" ];
           # ExecStartPre = "${pkgs.doom-emacs.bin}/bin/doom sync";
           ExecStart = "${emacsPkg}/bin/emacs --fg-daemon";
           Restart = "on-failure";

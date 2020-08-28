@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, my, ... }:
 
 {
   home.packages = with pkgs; [
@@ -74,24 +74,26 @@
   };
 
   xdg.configFile = with pkgs; {
-    "streamlink/config".source = config.lib.file.mkOutOfStoreSymlink config.my.secrets.streamlink;
+    "streamlink/config".source = config.lib.file.mkOutOfStoreSymlink my.secrets.streamlink;
 
     "mpv/scripts" = {
       recursive = true;
 
-      source = fetchFromGitHub {
-        owner = "VideoPlayerCode";
-        repo = "mpv-tools";
-        rev = "39e49a4e17d522bb9f4b8e0f95b2c5ac5a1270c6";
-        sha256 = "14pj50w8yznjp2ac77lb6sfvxw5rkx3vw2pz7w1avfj0xqyhyxax";
-      } + "/scripts";
+      source = fetchFromGitHub
+        {
+          owner = "VideoPlayerCode";
+          repo = "mpv-tools";
+          rev = "39e49a4e17d522bb9f4b8e0f95b2c5ac5a1270c6";
+          sha256 = "14pj50w8yznjp2ac77lb6sfvxw5rkx3vw2pz7w1avfj0xqyhyxax";
+        } + "/scripts";
     };
 
-    "mpv/scripts/navigator.lua".source = fetchFromGitHub {
-      owner = "jonniek";
-      repo = "mpv-filenavigator";
-      rev = "a734966820e1b9e1b79de60c6f6f57d42f2231e1";
-      sha256 = "0kvj36nwxz5izps0qm6qw6yrcd5fkkh1kb9zgb2z32hfbmvq22sy";
-    } + "/navigator.lua";
+    "mpv/scripts/navigator.lua".source = fetchFromGitHub
+      {
+        owner = "jonniek";
+        repo = "mpv-filenavigator";
+        rev = "a734966820e1b9e1b79de60c6f6f57d42f2231e1";
+        sha256 = "0kvj36nwxz5izps0qm6qw6yrcd5fkkh1kb9zgb2z32hfbmvq22sy";
+      } + "/navigator.lua";
   };
 }

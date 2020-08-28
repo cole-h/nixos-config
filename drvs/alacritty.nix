@@ -2,6 +2,7 @@
 , buildPackage
 , makeWrapper
 , installShellFiles
+, src
 
 , expat
 , fontconfig
@@ -44,7 +45,7 @@ in
     name = "alacritty";
     version = "0.6.0-git";
 
-    root = builtins.fetchGit ~/workspace/vcs/alacritty;
+    inherit src;
 
     buildInputs = [
       makeWrapper

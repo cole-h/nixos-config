@@ -3,13 +3,12 @@
 {
   imports = [
     ./modules
-    ./options.nix
   ];
 
   # Since b95ad632010bf1d135f7585c590f51f6c3dc2896, home-manager no longer uses
   # getEnv to autodetect the username and homeDirectory of a user.
-  home.username = builtins.getEnv "USER";
-  home.homeDirectory = builtins.getEnv "HOME";
+  home.username = "vin";
+  home.homeDirectory = "/home/vin";
 
   programs.home-manager = {
     enable = true;
@@ -46,7 +45,6 @@
       nix-prefetch
       nix-prefetch-scripts
       nix-top
-      hm-news
 
       ## tools
       aerc # terminal email reader; TODO: add config to secrets/
