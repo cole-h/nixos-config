@@ -45,7 +45,7 @@
           inherit system config;
           overlays = [
             (import inputs.mozilla) # FIXME: impure
-            (import ./overlays {
+            (import ./overlay.nix {
               inherit (inputs) doom naersk pgtk;
 
               passrsSrc = inputs.passrs;
@@ -128,7 +128,6 @@
               scadrial = { ... }: {
                 # TODO: make deploy user with passwordless doas for cat, mkdir, rsync, and self
                 host = "root@localhost";
-                # TODO: maybe try exec cuz this is already running from root via ssh
                 privilegeEscalationCommand = [ "doas" ]; # needs cat, mkdir, rsync, and self?
 
                 configuration = {

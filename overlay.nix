@@ -21,22 +21,22 @@ let
 in
 {
   # misc
-  aerc = callPackage ../drvs/aerc { };
-  bemenu = callPackage ../drvs/bemenu.nix { };
-  chatterino2 = libsForQt5.callPackage ../drvs/chatterino2.nix { };
-  fish = callPackage ../drvs/fish.nix { };
-  foliate = callPackage ../drvs/foliate.nix { };
-  git-crypt = callPackage ../drvs/git-crypt.nix { };
-  gsfonts = callPackage ../drvs/gsfonts.nix { };
-  iosevka-custom = callPackage ../drvs/iosevka/iosevka-custom.nix { };
-  mdloader = callPackage ../drvs/mdloader { };
-  sonarr = callPackage ../drvs/sonarr.nix { };
+  aerc = callPackage ./drvs/aerc { };
+  bemenu = callPackage ./drvs/bemenu.nix { };
+  chatterino2 = libsForQt5.callPackage ./drvs/chatterino2.nix { };
+  fish = callPackage ./drvs/fish.nix { };
+  foliate = callPackage ./drvs/foliate.nix { };
+  git-crypt = callPackage ./drvs/git-crypt.nix { };
+  gsfonts = callPackage ./drvs/gsfonts.nix { };
+  iosevka-custom = callPackage ./drvs/iosevka/iosevka-custom.nix { };
+  mdloader = callPackage ./drvs/mdloader { };
+  sonarr = callPackage ./drvs/sonarr.nix { };
 
-  hydrus = callPackage ../drvs/hydrus.nix {
+  hydrus = callPackage ./drvs/hydrus.nix {
     inherit (final.qt5) qtbase;
   };
 
-  redshift = callPackage ../drvs/redshift-wayland {
+  redshift = callPackage ./drvs/redshift-wayland {
     inherit (python3Packages) python pygobject3 pyxdg wrapPython;
     withGeoclue = false;
     geoclue = null;
@@ -144,9 +144,9 @@ in
   # TODO: make passrs a flake
   # passrs = inputs.passrs.defaultPackage.${system};
 
-  doom-emacs = callPackage ../drvs/doom-emacs.nix { src = doom; };
+  doom-emacs = callPackage ./drvs/doom-emacs.nix { src = doom; };
 
-  alacritty = callPackage ../drvs/alacritty.nix {
+  alacritty = callPackage ./drvs/alacritty.nix {
     inherit (naerskLib) buildPackage;
     src = alacrittySrc;
   };
