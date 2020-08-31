@@ -1,4 +1,6 @@
-lib:
+{ lib
+, secretDir
+}:
 
 {
   wallpaper = toString ./wallpaper.png;
@@ -11,8 +13,10 @@ lib:
         map
           # FIXME: see below message for secrets
           # (file: lib.nameValuePair (stripExtension file) (toString ./scripts + "/${file}"))
+          # (builtins.attrNames (builtins.readDir ./scripts))
 
           (file: lib.nameValuePair (stripExtension file) ("/home/vin/.config/nixpkgs/scripts/${file}"))
+          # (builtins.attrNames (builtins.readDir "/home/vin/.config/nixpkgs/scripts"))
           (builtins.attrNames (builtins.readDir ./scripts))
       );
     in
@@ -26,15 +30,16 @@ lib:
 
       secrets = builtins.listToAttrs (
         map
-          # FIXME: refers to store path because repo is imported before the
-          # Nix is parsed -- modifying secrets necessitates a redeploy
-          # (file: lib.nameValuePair file (toString ./secrets + "/${file}"))
-          # (builtins.attrNames (builtins.readDir ./secrets))
+          # FIXME: find a good solution to keeping secrets out of store
+          # - using a `secrets` input adds it to the store
+          # - using "/home/vin/.config/nixpkgs/secrets" makes it impure
+          # (file: lib.nameValuePair file ("${secretDir}/${file}"))
+          # (builtins.attrNames (builtins.readDir secretDir))
 
-          # FIXME: Replace /home/vin/.config with a variable that's always right
-          # maybe get config.xdg.configHome into scope (from h-m)
+          # FIXME: impure
           (file: lib.nameValuePair file ("/home/vin/.config/nixpkgs/secrets/${file}"))
-          (builtins.attrNames (builtins.readDir "/home/vin/.config/nixpkgs/secrets"))
+          # (builtins.attrNames (builtins.readDir "/home/vin/.config/nixpkgs/secrets"))
+          (builtins.attrNames (builtins.readDir secretDir))
       );
     in
     (filter secrets);

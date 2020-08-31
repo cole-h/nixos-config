@@ -35,7 +35,7 @@
     "home": {
       "inputs": {
         "nixpkgs": [
-          "large"
+          "small"
         ]
       },
       "locked": {
@@ -103,7 +103,27 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
-          "large"
+          "small"
+        ]
+      },
+      "locked": {
+        "lastModified": 1597138680,
+        "narHash": "sha256-3pDN/W17wjVDbrkgo60xQSb24+QAPQ7ulsUq5atNni0=",
+        "owner": "nmattia",
+        "repo": "naersk",
+        "rev": "529e910a3f423a8211f8739290014b754b2555b6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nmattia",
+        "repo": "naersk",
+        "type": "github"
+      }
+    },
+    "naersk_2": {
+      "inputs": {
+        "nixpkgs": [
+          "small"
         ]
       },
       "locked": {
@@ -123,7 +143,7 @@
     "nixops": {
       "inputs": {
         "nixpkgs": [
-          "large"
+          "small"
         ],
         "utils": "utils"
       },
@@ -158,13 +178,18 @@
       }
     },
     "passrs": {
-      "flake": false,
+      "inputs": {
+        "naersk": "naersk_2",
+        "nixpkgs": [
+          "small"
+        ]
+      },
       "locked": {
-        "lastModified": 1594412396,
-        "narHash": "sha256-zKEf6NNvalEWyJ5wTQdaJ8kZcCcerG3/bnZdIjOtccM=",
+        "lastModified": 1598730868,
+        "narHash": "sha256-zDRfbgXK00/Oq1eGYXFZHo3fX5d8VtLgS8mpTG1pDQY=",
         "owner": "cole-h",
         "repo": "passrs",
-        "rev": "a026bbc7088085dead2c21c73f7ebc5732a4a5fe",
+        "rev": "860f43dcfe064ab9e7990712b5e932a5a2e57fc2",
         "type": "github"
       },
       "original": {
@@ -202,8 +227,21 @@
         "nixus": "nixus",
         "passrs": "passrs",
         "pgtk": "pgtk",
+        "secrets": "secrets",
         "small": "small",
         "stable": "stable"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-UP6zTls90k7u4ZHqZexZXKHtDpCh4ZxfMEUTGL9axUA=",
+        "path": "/home/vin/.config/nixpkgs/secrets",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/vin/.config/nixpkgs/secrets",
+        "type": "path"
       }
     },
     "small": {

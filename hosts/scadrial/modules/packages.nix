@@ -30,6 +30,7 @@
     pciutils
     posix_man_pages
     psmisc
+    strace
     usbutils
     wireguard
     xdg_utils

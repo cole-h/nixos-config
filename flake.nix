@@ -4,23 +4,25 @@
 
   inputs = {
     # Flakes
-    master.url = "github:nixos/nixpkgs/master";
-    stable.url = "github:nixos/nixpkgs/nixos-20.03";
-    small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     large.url = "github:nixos/nixpkgs/nixos-unstable";
-    naersk = { url = "github:nmattia/naersk"; inputs.nixpkgs.follows = "large"; };
-    home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "large"; };
-    nixops = { url = "github:nixos/nixops"; inputs.nixpkgs.follows = "large"; };
+    master.url = "github:nixos/nixpkgs/master";
+    small.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    stable.url = "github:nixos/nixpkgs/nixos-20.03";
+
+    home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "small"; };
+    naersk = { url = "github:nmattia/naersk"; inputs.nixpkgs.follows = "small"; };
+    nixops = { url = "github:nixos/nixops"; inputs.nixpkgs.follows = "small"; };
+    passrs = { url = "github:cole-h/passrs"; inputs.nixpkgs.follows = "small"; };
     # utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "large"; };
 
     # Not flakes
-    nixus = { url = "github:infinisil/nixus"; flake = false; };
-    mozilla = { url = "github:mozilla/nixpkgs-mozilla"; flake = false; };
+    secrets = { url = "/home/vin/.config/nixpkgs/secrets"; flake = false; };
+    alacritty = { url = "github:alacritty/alacritty"; flake = false; };
     # baduk = { url = "github:dustinlacewell/baduk.nix"; flake = false; };
     doom = { url = "github:hlissner/doom-emacs"; flake = false; };
+    mozilla = { url = "github:mozilla/nixpkgs-mozilla"; flake = false; };
+    nixus = { url = "github:infinisil/nixus"; flake = false; };
     pgtk = { url = "github:masm11/emacs"; flake = false; };
-    passrs = { url = "github:cole-h/passrs"; flake = false; };
-    alacritty = { url = "github:alacritty/alacritty"; flake = false; };
   };
 
   outputs = inputs:
@@ -48,7 +50,7 @@
             (import ./overlay.nix {
               inherit (inputs) doom naersk pgtk;
 
-              passrsSrc = inputs.passrs;
+              passrs = inputs.passrs.defaultPackage.${system};
               alacrittySrc = inputs.alacritty;
             })
           ];
@@ -91,7 +93,10 @@
           ];
 
           specialArgs = {
-            my = import ./my.nix pkgs.lib;
+            my = import ./my.nix {
+              inherit (pkgs) lib;
+              secretDir = inputs.secrets;
+            };
 
             inherit inputs;
           };

@@ -64,7 +64,7 @@ in
     path = with pkgs; [ libvirt procps utillinux doas ];
     preStart = ''
       mkdir -p /var/lib/libvirt/vbios
-      ln -sf ${toString ./patched-bios.rom} /var/lib/libvirt/vbios/patched-bios.rom
+      ln -sf ${./patched-bios.rom} /var/lib/libvirt/vbios/patched-bios.rom
 
       mkdir -p /var/lib/libvirt/hooks
       mkdir -p /var/lib/libvirt/hooks/qemu.d/windows10/prepare/begin

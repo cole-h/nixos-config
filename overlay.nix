@@ -1,4 +1,4 @@
-{ passrsSrc
+{ passrs
 , doom
 , alacrittySrc
 , naersk
@@ -140,9 +140,7 @@ in
   };
 
   # Flakes-based
-  passrs = callPackage passrsSrc { };
-  # TODO: make passrs a flake
-  # passrs = inputs.passrs.defaultPackage.${system};
+  inherit passrs;
 
   doom-emacs = callPackage ./drvs/doom-emacs.nix { src = doom; };
 

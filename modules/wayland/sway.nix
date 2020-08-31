@@ -519,16 +519,16 @@ in
             command = "floating enable, border pixel, opacity 0";
           }
           {
-            criteria = { title = "QEMU.*"; };
-            command = "floating enable";
-          }
-          {
             criteria = { class = "jetbrains-studio"; };
             command = "floating enable";
           }
           {
             criteria = { app_id = "org.pwmt.zathura"; };
             command = "border pixel";
+          }
+          {
+            criteria = { instance = "pinentry"; };
+            command = "sticky enable";
           }
         ];
       };

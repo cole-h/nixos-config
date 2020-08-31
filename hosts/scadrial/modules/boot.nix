@@ -75,6 +75,8 @@ in
     # kernelPackages = pkgs.linuxPackages_latest;
     kernelPackages = linuxPackages_zen;
     extraModulePackages = [ linuxPackages_zen.v4l2loopback ];
+    # FIXME: doesn't seem to work? only a manual `modprobe ...` makes
+    # v4l2loopback show up in lsmod
     extraModprobeConfig = ''
       options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"
       # options snd-hda-intel vid=8086 pid=8ca0 snoop=0
