@@ -13,8 +13,8 @@
     ./services.nix # misc, short service settings
     ./torrent.nix # configuration related to torrenting
     ./users.nix # configuration related to users
+    ./wireguard.nix # configuration related to wireguard
 
-    ./wireguard # configuration related to wireguard
     ./libvirt # configuration related to libvirt and vfio + pci passthrough
   ];
 }

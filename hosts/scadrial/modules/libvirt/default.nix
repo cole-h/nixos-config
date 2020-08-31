@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, my, ... }:
 let
   # https://github.com/PassthroughPOST/VFIO-Tools/blob/7a2d576afa3b2d2b4b4fb8d992cb8b8cb6620829/libvirt_hooks/qemu
   qemuHook = pkgs.writeShellScript "qemu" ''
@@ -64,7 +64,7 @@ in
     path = with pkgs; [ libvirt procps utillinux doas ];
     preStart = ''
       mkdir -p /var/lib/libvirt/vbios
-      ln -sf ${./patched-bios.rom} /var/lib/libvirt/vbios/patched-bios.rom
+      ln -sf ${my.secrets."patched-bios.rom"} /var/lib/libvirt/vbios/patched-bios.rom
 
       mkdir -p /var/lib/libvirt/hooks
       mkdir -p /var/lib/libvirt/hooks/qemu.d/windows10/prepare/begin
