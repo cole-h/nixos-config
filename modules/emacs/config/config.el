@@ -36,7 +36,8 @@
       ;; ccls-args '("-v=2" "-log-file=/tmp/ccls.log")
       +workspaces-on-switch-project-behavior t
 
-      +notmuch-sync-backend 'mbsync
+      +notmuch-sync-backend 'custom
+      +notmuch-sync-command "notmuch new"
 
       projectile-project-search-path '("~/workspace" "~/workspace/vcs")
       projectile-ignored-projects '("~/" "/tmp" "~/.cargo")

@@ -8,7 +8,19 @@
  '(auth-source-save-behavior t)
  '(custom-safe-themes
    '("e1ef2d5b8091f4953fe17b4ca3dd143d476c106e221d92ded38614266cea3c8b" default))
- '(package-selected-packages '(adoc-mode)))
+ '(package-selected-packages '(adoc-mode))
+ '(safe-local-variable-values
+   '((eval c-set-offset 'inlambda 0)
+     (eval c-set-offset 'access-label '-)
+     (eval c-set-offset 'substatement-open 0)
+     (eval c-set-offset 'arglist-cont-nonempty '+)
+     (eval c-set-offset 'arglist-cont 0)
+     (eval c-set-offset 'arglist-intro '+)
+     (eval c-set-offset 'inline-open 0)
+     (eval c-set-offset 'defun-open 0)
+     (eval c-set-offset 'innamespace 0)
+     (indicate-empty-lines . t)
+     (c-block-comment-prefix . "  "))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

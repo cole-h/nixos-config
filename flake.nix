@@ -7,11 +7,10 @@
     large.url = "github:nixos/nixpkgs/nixos-unstable";
     master.url = "github:nixos/nixpkgs/master";
     small.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    stable.url = "github:nixos/nixpkgs/nixos-20.03";
+    # stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
     home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "small"; };
     naersk = { url = "github:nmattia/naersk"; inputs.nixpkgs.follows = "small"; };
-    nixops = { url = "github:nixos/nixops"; inputs.nixpkgs.follows = "small"; };
     passrs = { url = "github:cole-h/passrs"; inputs.nixpkgs.follows = "small"; };
     # utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "large"; };
 

@@ -40,7 +40,7 @@
       direnv
       niv
       nix-index
-      nixops
+      # nixops
       nixpkgs-fmt
       nix-prefetch
       nix-prefetch-scripts
