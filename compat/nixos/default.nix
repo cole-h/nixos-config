@@ -1,8 +1,8 @@
 { ... }:
 let
   flake = import (fetchTarball https://github.com/edolstra/flake-compat/archive/master.tar.gz) {
-    src = ./.;
+    src = ../../.;
   };
   hostname = with builtins; head (split "\n" (readFile /etc/hostname));
 in
-flake.defaultNix.nixosConfigurations.${hostname}.config
+flake.defaultNix.nixosConfigurations.${hostname}

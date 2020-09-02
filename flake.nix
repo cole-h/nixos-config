@@ -142,7 +142,7 @@
                         (channels.pkgs.lastModifiedDate or channels.pkgs.lastModified);
                       rev = channels.pkgs.shortRev or "dirty";
                     in
-                    "${release}.${date}.${rev}";
+                    "${release}pre${date}.${rev}";
                 };
               };
 
@@ -153,9 +153,8 @@
 
                 configuration = {
                   nix.nixPath = [
-                    "nixpkgs=${inputs.self}/nixpkgs.nix"
-                    "nixos=${inputs.self}/configuration.nix"
-                    "nixos-config=${inputs.self}/configuration.nix"
+                    "nixpkgs=${inputs.self}/compat"
+                    "nixos-config=${inputs.self}/compat/nixos"
                   ];
                 };
               };
