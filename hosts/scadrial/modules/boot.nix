@@ -67,12 +67,11 @@ in
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     loader.timeout = 1;
-    supportedFilesystems = [ "zfs" "ntfs" ];
-    initrd.kernelModules = [ "nouveau" ];
+    supportedFilesystems = [ "zfs" "ntfs" ]; # allows r/w ntfs
+    initrd.kernelModules = [ "nouveau" ]; # load nouveau early for native res tty
     tmpOnTmpfs = true;
     # plymouth.enable = true; # requires https://github.com/NixOS/nixpkgs/pull/88789
 
-    # kernelPackages = pkgs.linuxPackages_latest;
     kernelPackages = linuxPackages_zen;
     extraModulePackages = [ linuxPackages_zen.v4l2loopback ];
     # FIXME: doesn't seem to work? only a manual `modprobe ...` makes
@@ -93,7 +92,7 @@ in
     ];
 
     # Allow emulated cross compilation for aarch64
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
+    # binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
   # Select internationalisation properties.

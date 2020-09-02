@@ -50,7 +50,7 @@ swapon $DISK-part2 # otherwise, nixos-install won't generate hardware config for
 
 zpool create \
     -O atime=off \
-    -O compression=on \
+    -O compression=zstd \
     # apparently gcm is faster than ccm
     -O encryption=aes-256-gcm -O keyformat=passphrase \
     -O xattr=sa \
@@ -72,6 +72,7 @@ zfs create -o canmount=off rpool/local
 zfs create -o mountpoint=legacy rpool/local/nix
 zfs create -o canmount=off rpool/user
 zfs create -o mountpoint=legacy rpool/user/home # maybe don't need legacy
+zfs create -V 302G rpool/windows10
 
 # create snapshot of everything `@blank` -- easy to switch to tmpfs if I want
 zfs snapshot rpool/system@blank

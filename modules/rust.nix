@@ -1,6 +1,6 @@
 { config, lib, pkgs, my, ... }:
 let
-  stableChannel = true;
+  stableChannel = false;
   betaChannel = false;
   nightlyChannel = false;
 
@@ -8,6 +8,14 @@ let
     lib.optional stableChannel stable.rust
     ++ lib.optional betaChannel beta.rust
     ++ lib.optional nightlyChannel nightly.rust;
+
+  rustpkgs = with pkgs.rust.packages.stable; [
+    cargo
+    clippy
+    rustc
+    rustfmt
+  ];
+
 in
 {
   home = {
@@ -23,8 +31,9 @@ in
       # flamegraph
       # cargo-geiger
       # cargo-license
-      # rust-analyzer
-    ] ++ toolchains;
+
+      rust-analyzer
+    ] ++ toolchains ++ rustpkgs;
 
     file = {
       ".cargo/credentials".source =

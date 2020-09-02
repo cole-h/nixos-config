@@ -47,8 +47,8 @@
        (popup              ; tame sudden yet inevitable temporary windows
         +all               ; catch all popups that start with an asterix
         +defaults)         ; default popup rules
-       ;; pretty-code         ; replace bits of code with pretty symbols
-       ;;tabs                ; an tab bar for Emacs
+       ;;pretty-code       ; replace bits of code with pretty symbols
+       ;;tabs              ; an tab bar for Emacs
        ;;treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter           ; vcs diff in the fringe
@@ -81,7 +81,7 @@
        eshell              ; a consistent, cross-platform shell (WIP)
        ;;shell             ; a terminal REPL for Emacs
        ;;term              ; terminals in Emacs
-       ;;vterm             ; another terminals in Emacs
+       vterm               ; another terminals in Emacs
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
@@ -90,7 +90,7 @@
 
        :tools
        ;;ansible
-       ;; (debugger           ; FIXME stepping through code, to help you add bugs
+       ;; (debugger        ; FIXME stepping through code, to help you add bugs
        ;;  +lsp)
        direnv
        ;;docker
@@ -134,10 +134,10 @@
        (haskell
         ;; +lsp
         +dante
-        )            ; a language that's lazier than I am
+        )                  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       (java             ; the poster child for carpal tunnel syndrome
+       (java               ; the poster child for carpal tunnel syndrome
         +lsp
         +meghanada
        )

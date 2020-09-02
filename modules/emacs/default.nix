@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   # emacsGit # from emacs-overlay; [overlays]
   emacsPkg = pkgs.emacsWayland;
@@ -27,6 +27,11 @@ in
   # Emacs 27+ supports the XDG Base Directory specification, so drop doom into
   # $XDG_CONFIG_HOME/emacs (but only if ~/.emacs.d doesn't exist)
   xdg.configFile."emacs".source = "${pkgs.doom-emacs}/share/doom-emacs";
+  xdg.dataFile."doom-local/straight/build/vterm/vterm-module.so".source =
+    let
+      vterm = (pkgs.emacsPackagesGen emacsPkg).melpaPackages.vterm;
+    in
+    "${vterm}/share/emacs/site-lisp/elpa/vterm-${vterm.version}/vterm-module.so";
 
   home = {
     packages = with pkgs; [
@@ -85,7 +90,7 @@ in
         Service = {
           Type = "simple";
           Environment = [ "DOOMLOCALDIR=${config.xdg.dataHome}/doom-local" "DOOMDIR=${config.xdg.configHome}/nixpkgs/modules/emacs/config" ];
-          # ExecStartPre = "${pkgs.doom-emacs.bin}/bin/doom sync";
+          ExecStartPre = "${lib.getBin pkgs.doom-emacs}/bin/doom sync";
           ExecStart = "${emacsPkg}/bin/emacs --fg-daemon";
           Restart = "on-failure";
         };

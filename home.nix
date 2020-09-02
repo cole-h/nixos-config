@@ -66,7 +66,7 @@
       mdloader
 
       # latest.firefox-nightly-bin
-      latest.firefox-beta-bin
+      firefox-beta-bin
       pass-otp
       passrs
       # android-studio # android apps

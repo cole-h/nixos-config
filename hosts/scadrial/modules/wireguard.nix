@@ -52,7 +52,7 @@
     # DuckDNS IP will be the least of my worries.
     # TODO: nixus secrets for this
     script = ''
-      echo url="https://www.duckdns.org/update?domains=scadrial&token=${builtins.readFile my.secrets.duckdns}" \
+      echo url="https://www.duckdns.org/update?domains=scadrial&token=$(cat ${my.secrets.duckdns})" \
         | ${pkgs.curl}/bin/curl -K - 2>/dev/null
     '';
   };

@@ -15,11 +15,12 @@
     # utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "large"; };
 
     # Not flakes
+    # TODO: flake-compat does not support file-type inputs
     secrets = { url = "/home/vin/.config/nixpkgs/secrets"; flake = false; };
     alacritty = { url = "github:alacritty/alacritty"; flake = false; };
     # baduk = { url = "github:dustinlacewell/baduk.nix"; flake = false; };
     doom = { url = "github:hlissner/doom-emacs"; flake = false; };
-    mozilla = { url = "github:mozilla/nixpkgs-mozilla"; flake = false; };
+    # mozilla = { url = "github:mozilla/nixpkgs-mozilla"; flake = false; };
     nixus = { url = "github:infinisil/nixus"; flake = false; };
     pgtk = { url = "github:masm11/emacs"; flake = false; };
   };
@@ -45,7 +46,6 @@
         import pkgs {
           inherit system config;
           overlays = [
-            (import inputs.mozilla) # FIXME: impure
             (import ./overlay.nix {
               inherit (inputs) doom naersk pgtk;
 
@@ -92,23 +92,30 @@
           ];
 
           specialArgs = {
+            inherit inputs;
+
             my = import ./my.nix {
               inherit (pkgs) lib;
               secretDir = inputs.secrets;
             };
-
-            inherit inputs;
           };
         in
-        pkgs.lib.nixosSystem
+        channels.pkgs.lib.nixosSystem
           {
             inherit system modules specialArgs;
           } // { inherit specialArgs modules; }; # let Nixus have access to this stuff
     in
     {
       nixosConfigurations = {
-        scadrial = mkSystem "x86_64-linux" channels.pkgs "scadrial";
+        scadrial =
+          let
+            system = "x86_64-linux";
+            pkgs = pkgsFor channels.pkgs system;
+          in
+          mkSystem system pkgs "scadrial";
       };
+
+      legacyPackages = forAllSystems ({ pkgs, ... }: pkgs);
 
       # TODO: nixus = system: f: ....
       defaultPackage = {
@@ -125,20 +132,30 @@
                   _module.args = nixos.specialArgs;
                   imports = nixos.modules;
                   nixpkgs = { inherit pkgs; };
+
+                  # For whatever reason, my label is always 20.09pre-git, so I
+                  # hardcode it for the A E S T H E T I C S.
+                  system.nixos.label =
+                    let
+                      release = channels.pkgs.lib.trivial.release;
+                      date = builtins.substring 0 8
+                        (channels.pkgs.lastModifiedDate or channels.pkgs.lastModified);
+                      rev = channels.pkgs.shortRev or "dirty";
+                    in
+                    "${release}.${date}.${rev}";
                 };
               };
 
             nodes = {
               scadrial = { ... }: {
-                # TODO: make deploy user with passwordless doas for cat, mkdir, rsync, and self
                 host = "root@localhost";
-                privilegeEscalationCommand = [ "doas" ]; # needs cat, mkdir, rsync, and self?
+                privilegeEscalationCommand = [ "exec" ];
 
                 configuration = {
                   nix.nixPath = [
-                    "nixpkgs=${pkgs.path}"
-                    "nixos-config=/etc/nixos/configuration.nix"
-                    "/nix/var/nix/profiles/per-user/root/channels"
+                    "nixpkgs=${inputs.self}/nixpkgs.nix"
+                    "nixos=${inputs.self}/configuration.nix"
+                    "nixos-config=${inputs.self}/configuration.nix"
                   ];
                 };
               };
