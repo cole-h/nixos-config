@@ -133,16 +133,14 @@
                   imports = nixos.modules;
                   nixpkgs = { inherit pkgs; };
 
-                  # For whatever reason, my label is always 20.09pre-git, so I
-                  # hardcode it for the A E S T H E T I C S.
-                  system.nixos.label =
+                  system.configurationRevision = inputs.self.rev or "dirty";
+                  system.nixos.versionSuffix =
                     let
-                      release = channels.pkgs.lib.trivial.release;
-                      date = builtins.substring 0 8
-                        (channels.pkgs.lastModifiedDate or channels.pkgs.lastModified);
-                      rev = channels.pkgs.shortRev or "dirty";
+                      inherit (inputs) self;
+                      date = builtins.substring 0 8 (self.lastModifiedDate or self.lastModified);
+                      rev = self.shortRev or "dirty";
                     in
-                    "${release}pre${date}.${rev}";
+                    ".${date}.${rev}-cosmere";
                 };
               };
 
