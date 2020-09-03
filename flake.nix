@@ -4,8 +4,8 @@
 
   inputs = {
     # Flakes
-    large.url = "github:nixos/nixpkgs/nixos-unstable";
-    master.url = "github:nixos/nixpkgs/master";
+    # large.url = "github:nixos/nixpkgs/nixos-unstable";
+    # master.url = "github:nixos/nixpkgs/master";
     small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # stable.url = "github:nixos/nixpkgs/nixos-20.09";
 

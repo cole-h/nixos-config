@@ -3,11 +3,11 @@
     "alacritty": {
       "flake": false,
       "locked": {
-        "lastModified": 1598379856,
-        "narHash": "sha256-+nUWAZ9rP8JvC2AgPjvBPu/5p2Hk15LHQl3XkEhStRA=",
+        "lastModified": 1598913045,
+        "narHash": "sha256-N0CrwKTwU2eCxkdUbNqEA/hdqAuROgUwYeKvVBJwkWI=",
         "owner": "alacritty",
         "repo": "alacritty",
-        "rev": "ee2c5a6cdd6a07f18b99a50b9d2737bd8ea391c4",
+        "rev": "5ee7ae8a274fcc58754aa5a91a14b1dedbb87583",
         "type": "github"
       },
       "original": {
@@ -19,11 +19,11 @@
     "doom": {
       "flake": false,
       "locked": {
-        "lastModified": 1598846494,
-        "narHash": "sha256-3il9Ce+oHm0WRMJY5EvKvAaX19V1fY3uWrLTXphdA/w=",
+        "lastModified": 1599070991,
+        "narHash": "sha256-B6VGUBXeVpnYE0/rsJ45Ygfw9pShKE7T6gxjEFz6e7g=",
         "owner": "hlissner",
         "repo": "doom-emacs",
-        "rev": "8f64a0eb31a85952950f5065ecdd493e038ca5cd",
+        "rev": "ae3a2fa8c27d8e392294904ec6986f860a57f38e",
         "type": "github"
       },
       "original": {
@@ -49,38 +49,6 @@
       "original": {
         "owner": "rycee",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "large": {
-      "locked": {
-        "lastModified": 1597943282,
-        "narHash": "sha256-G/VQBlqO7YeFOSvn29RqdvABZxmQBtiRYVA6kjqWZ6o=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "c59ea8b8a0e7f927e7291c14ea6cd1bd3a16ff38",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "master": {
-      "locked": {
-        "lastModified": 1598976592,
-        "narHash": "sha256-Qx3f2qJfYFIwunSrtRAf2QN0p0h9Qi97zaIo7jwbXjk=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "2cd9dd502c23d59ce2e9c9ca3885950108e6e6e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "master",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -182,8 +150,6 @@
         "alacritty": "alacritty",
         "doom": "doom",
         "home": "home",
-        "large": "large",
-        "master": "master",
         "naersk": "naersk",
         "nixus": "nixus",
         "passrs": "passrs",
