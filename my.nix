@@ -1,5 +1,5 @@
 { lib
-, secretDir
+, secrets
 }:
 
 {
@@ -16,7 +16,6 @@
           # (builtins.attrNames (builtins.readDir ./scripts))
 
           (file: lib.nameValuePair (stripExtension file) ("/home/vin/.config/nixpkgs/scripts/${file}"))
-          # (builtins.attrNames (builtins.readDir "/home/vin/.config/nixpkgs/scripts"))
           (builtins.attrNames (builtins.readDir ./scripts))
       );
     in
@@ -28,7 +27,7 @@
         (name: value: !((lib.hasPrefix "." name) || (name == "README.md")))
         attrs;
 
-      secrets = builtins.listToAttrs (
+      secrets' = builtins.listToAttrs (
         map
           # FIXME: find a good solution to keeping secrets out of store
           # - using a `secrets` input adds it to the store
@@ -36,11 +35,9 @@
           # (file: lib.nameValuePair file ("${secretDir}/${file}"))
           # (builtins.attrNames (builtins.readDir secretDir))
 
-          # FIXME: impure
           (file: lib.nameValuePair file ("/home/vin/.config/nixpkgs/secrets/${file}"))
-          # (builtins.attrNames (builtins.readDir "/home/vin/.config/nixpkgs/secrets"))
-          (builtins.attrNames (builtins.readDir secretDir))
+          (builtins.attrNames (builtins.readDir secrets))
       );
     in
-    (filter secrets);
+    (filter secrets');
 }

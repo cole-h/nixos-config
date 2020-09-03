@@ -96,7 +96,7 @@
 
             my = import ./my.nix {
               inherit (pkgs) lib;
-              secretDir = inputs.secrets;
+              inherit (inputs) secrets;
             };
           };
         in
@@ -151,7 +151,7 @@
 
                 configuration = {
                   nix.nixPath = [
-                    "nixpkgs=${inputs.self}/compat"
+                    "pkgs=${inputs.self}/compat"
                     "nixos-config=${inputs.self}/compat/nixos"
                   ];
                 };

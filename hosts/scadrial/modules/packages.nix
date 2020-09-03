@@ -30,6 +30,7 @@
     pciutils
     posix_man_pages
     psmisc
+    rsync
     strace
     usbutils
     wireguard
