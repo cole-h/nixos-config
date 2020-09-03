@@ -19,12 +19,12 @@
   #   "/jkl"
   # ];
 
-  home-manager = {
-    users.vin = import ../../home.nix;
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    verbose = true;
-  };
+  # home-manager = {
+  #   users.vin = import ../../home.nix;
+  #   useGlobalPkgs = true;
+  #   useUserPackages = true;
+  #   verbose = true;
+  # };
 
   nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''

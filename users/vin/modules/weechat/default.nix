@@ -6,8 +6,8 @@
   ];
 
   xdg.configFile = {
-    "weechat".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nixpkgs/modules/weechat/config";
+    "weechat".source = config.lib.file.mkOutOfStoreSymlink
+      "${config.xdg.configHome}/nixpkgs/users/${config.home.username}/modules/weechat/config";
   };
 
   # NOTE: Only works well with lingering enabled -- otherwise systemd might kill

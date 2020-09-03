@@ -75,7 +75,7 @@ in
 
       # Don't want to have to `home-manager switch` every time I change something,
       # so don't add it to the store.
-      DOOMDIR = "${config.xdg.configHome}/nixpkgs/modules/emacs/config";
+      DOOMDIR = "${config.xdg.configHome}/nixpkgs/users/${config.home.username}/modules/emacs/config";
     };
   };
 
@@ -89,7 +89,7 @@ in
 
         Service = {
           Type = "simple";
-          Environment = [ "DOOMLOCALDIR=${config.xdg.dataHome}/doom-local" "DOOMDIR=${config.xdg.configHome}/nixpkgs/modules/emacs/config" ];
+          Environment = [ "DOOMLOCALDIR=${config.home.sessionVariables.DOOMLOCALDIR}" "DOOMDIR=${config.home.sessionVariables.DOOMDIR}" ];
           ExecStartPre = "${lib.getBin pkgs.doom-emacs}/bin/doom sync";
           ExecStart = "${emacsPkg}/bin/emacs --fg-daemon";
           Restart = "on-failure";

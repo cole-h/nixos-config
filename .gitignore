@@ -10,10 +10,8 @@ result*
 *.log
 
 ### Misc ###
-# removes doom-emacs TODOs from my todo list in emacs :)
-pkgs/doom-emacs
-modules/weechat/config/xfer
-modules/weechat/config/logs
-modules/weechat/config/urlserver_list.txt
-modules/weechat/config/relay.conf
+users/*/modules/weechat/config/xfer
+users/*/modules/weechat/config/logs
+users/*/modules/weechat/config/urlserver_list.txt
+users/*/modules/weechat/config/relay.conf
 hosts/scadrial/modules/borg/config.json

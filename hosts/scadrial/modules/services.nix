@@ -1,6 +1,6 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, my, ... }:
 let
-  caps2esc = pkgs.callPackage ../../../drvs/caps2esc { };
+  caps2esc = pkgs.callPackage my.drvs.caps2esc { };
 in
 {
   services.znapzend = {

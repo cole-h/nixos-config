@@ -40,4 +40,16 @@
       );
     in
     (filter secrets');
+
+  drvs =
+    let
+      stripExtension = s: lib.removeSuffix ".nix" s;
+
+      drvs = builtins.listToAttrs (
+        map
+          (file: lib.nameValuePair (stripExtension file) (./drvs + "/${file}"))
+          (builtins.attrNames (builtins.readDir ./drvs))
+      );
+    in
+    drvs;
 }

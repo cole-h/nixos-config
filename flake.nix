@@ -83,11 +83,20 @@
                 };
               });
             };
+
+            config = {
+              home-manager = {
+                users = import ./users;
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                verbose = true;
+              };
+            };
           };
 
           modules = [
-            (./hosts + "/${hostname}/configuration.nix")
             inputs.home.nixosModules.home-manager
+            (./hosts + "/${hostname}/configuration.nix")
             home
           ];
 

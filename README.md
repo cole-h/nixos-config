@@ -72,7 +72,7 @@ zfs create -o canmount=off rpool/local
 zfs create -o mountpoint=legacy rpool/local/nix
 zfs create -o canmount=off rpool/user
 zfs create -o mountpoint=legacy rpool/user/home # maybe don't need legacy
-zfs create -V 302G rpool/windows10
+zfs create -V 302G rpool/win10
 
 # create snapshot of everything `@blank` -- easy to switch to tmpfs if I want
 zfs snapshot rpool/system@blank
