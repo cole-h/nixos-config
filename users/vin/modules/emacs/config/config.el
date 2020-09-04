@@ -152,10 +152,12 @@ If PEEK is non-nil, keep focus in status buffer window."
 
 (after! nix-mode
   (setq nix-nixfmt-bin "nixpkgs-fmt")
-  (set-formatter! 'nixpkgs-fmt "nixpkgs-fmt" :modes '(nix-mode)))
-
-(after! centaur-tabs
-  (setq centaur-tabs-cycle-scope 'tabs))
+  (set-formatter! 'nixpkgs-fmt "nixpkgs-fmt" :modes '(nix-mode))
+  ;; Remove nixos-option completions, because it doesn't work with flakes (yet?)
+  (setq +company-backend-alist
+        (delq
+         (assoc 'nix-mode +company-backend-alist)
+         +company-backend-alist)))
 
 ;; map! and friends
 (map! :g "M-<up>" #'drag-stuff-up)
