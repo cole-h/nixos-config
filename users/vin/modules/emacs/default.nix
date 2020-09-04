@@ -27,16 +27,24 @@ in
   # Emacs 27+ supports the XDG Base Directory specification, so drop doom into
   # $XDG_CONFIG_HOME/emacs (but only if ~/.emacs.d doesn't exist)
   xdg.configFile."emacs".source = "${pkgs.doom-emacs}/share/doom-emacs";
-  xdg.dataFile."doom-local/straight/build/vterm/vterm-module.so".source =
+  xdg.dataFile =
     let
-      vterm = (pkgs.emacsPackagesGen emacsPkg).melpaPackages.vterm;
+      emacsPkgs = (pkgs.emacsPackagesGen emacsPkg).melpaPackages;
+      inherit (emacsPkgs) vterm emacsql-sqlite;
     in
-    "${vterm}/share/emacs/site-lisp/elpa/vterm-${vterm.version}/vterm-module.so";
+    {
+      "doom-local/straight/build/vterm/vterm-module.so".source =
+        "${vterm}/share/emacs/site-lisp/elpa/vterm-${vterm.version}/vterm-module.so";
+      "doom-local/straight/build/emacsql-sqlite/sqlite/emacsql-sqlite".source =
+        "${emacsql-sqlite}/share/emacs/site-lisp/elpa/emacsql-sqlite-${emacsql-sqlite.version}/sqlite/emacsql-sqlite";
+    };
 
   home = {
     packages = with pkgs; [
       doom-emacs # for `doom sync` and `doom update`; [drvs]
       emacsPkg # [drvs]
+      # ((pkgs.emacsPackagesGen emacsPkg).emacsWithPackages
+      #   (epkgs: with epkgs.melpaPackages; [ emacsql emacsql-sqlite ]))
       em
       emn
       gnutls

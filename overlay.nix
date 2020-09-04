@@ -153,14 +153,14 @@ in
   # Thanks Graham
   emacsWayland =
     enableDebugging (
-      final.emacs26.overrideAttrs (
+      final.emacs27.overrideAttrs (
         { buildInputs ? [ ], nativeBuildInputs ? [ ], configureFlags ? [ ], ... }:
         {
           name = "emacs-pgtk-28.0.50";
 
           src = pgtk;
 
-          patches = [ ];
+          # patches = [ ];
           buildInputs = buildInputs ++ [
             final.wayland
             final.wayland-protocols

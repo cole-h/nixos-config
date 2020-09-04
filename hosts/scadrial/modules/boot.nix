@@ -65,6 +65,7 @@ in
   boot = {
     # Use the systemd-boot EFI boot loader.
     loader.systemd-boot.enable = true;
+    loader.systemd-boot.configurationLimit = 128;
     loader.efi.canTouchEfiVariables = true;
     loader.timeout = 1;
     supportedFilesystems = [ "zfs" "ntfs" ]; # allows r/w ntfs
