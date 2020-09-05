@@ -26,7 +26,7 @@
   #   verbose = true;
   # };
 
-  nix.package = pkgs.nixUnstable;
+  nix.package = lib.mkDefault pkgs.nixUnstable;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';

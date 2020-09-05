@@ -9,6 +9,7 @@
     small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
+    nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "small"; };
     home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "small"; };
     naersk = { url = "github:nmattia/naersk"; inputs.nixpkgs.follows = "small"; };
     passrs = { url = "github:cole-h/passrs"; inputs.nixpkgs.follows = "small"; };
@@ -94,10 +95,15 @@
             };
           };
 
+          nix = { config, ... }: {
+            config.nix.package = inputs.nix.defaultPackage.${system};
+          };
+
           modules = [
             inputs.home.nixosModules.home-manager
             (./hosts + "/${hostname}/configuration.nix")
             home
+            nix
           ];
 
           specialArgs = {
