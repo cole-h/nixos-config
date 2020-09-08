@@ -4,7 +4,7 @@
 
   inputs = {
     # Flakes
-    # large.url = "github:nixos/nixpkgs/nixos-unstable";
+    large.url = "github:nixos/nixpkgs/nixos-unstable";
     # master.url = "github:nixos/nixpkgs/master";
     small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # stable.url = "github:nixos/nixpkgs/nixos-20.09";
@@ -13,6 +13,7 @@
     home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "small"; };
     naersk = { url = "github:nmattia/naersk"; inputs.nixpkgs.follows = "small"; };
     passrs = { url = "github:cole-h/passrs"; inputs.nixpkgs.follows = "small"; };
+    wayland = { url = "github:colemickens/nixpkgs-wayland"; };
     # utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "large"; };
 
     # Not flakes
@@ -29,7 +30,7 @@
   outputs = inputs:
     let
       channels = {
-        pkgs = inputs.small;
+        pkgs = inputs.large;
         # modules = inputs.small;
         # lib = inputs.master;
       };
@@ -48,7 +49,7 @@
           inherit system config;
           overlays = [
             (import ./overlay.nix {
-              inherit (inputs) doom naersk pgtk;
+              inherit (inputs) doom naersk;
 
               passrs = inputs.passrs.defaultPackage.${system};
               alacrittySrc = inputs.alacritty;
@@ -121,7 +122,7 @@
           ];
 
           specialArgs = {
-            inherit inputs;
+            inherit inputs system;
 
             my = import ./my.nix {
               inherit (pkgs) lib;

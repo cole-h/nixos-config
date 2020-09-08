@@ -49,7 +49,7 @@
       bat # cat but better
       exa # ls but better
       fd # find files
-      ffsend # send files to Firefox Send from the terminal
+      # ffsend # send files to Firefox Send from the terminal
       hexyl # hex viewer
       hydrus # booru-like image tagger
       hyperfine # cli benchmarker

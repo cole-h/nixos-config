@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, system, ... }:
 let
   # emacsGit # from emacs-overlay; [overlays]
-  emacsPkg = pkgs.emacsWayland;
+  emacsPkg = inputs.wayland.packages.${system}.emacs-pgtk;
 
   em = pkgs.writeShellScriptBin "em" ''
     case "$1" in

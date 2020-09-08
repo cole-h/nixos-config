@@ -1,66 +1,4 @@
 { pkgs, lib, ... }:
-let
-  linux_zen_pkg = { fetchurl, buildLinux, ... }@args:
-    buildLinux (args // (
-      let version = "5.7.9-zen1"; in
-      {
-        inherit version;
-        modDirVersion = version;
-
-        # https://github.com/zen-kernel/zen-kernel/releases
-        src = fetchurl {
-          url = "https://github.com/zen-kernel/zen-kernel/archive/v${version}.tar.gz";
-          sha256 = "0mib7x09ahfvka8d6l9p4axwvs1rpnv9zvg41faj65y2zb9jd67z";
-        };
-
-        kernelPatches = with pkgs; [
-          kernelPatches.bridge_stp_helper
-          kernelPatches.request_key_helper
-          kernelPatches.export_kernel_fpu_functions."5.3"
-        ];
-
-        structuredExtraConfig = with lib.kernel; {
-          PREEMPT_VOLUNTARY = lib.mkForce {
-            optional = true;
-            tristate = null;
-          };
-
-          PREEMPT = yes;
-          PREEMPT_COUNT = yes;
-          PREEMPTION = yes;
-        };
-
-        # HARDIRQS_SW_RESEND y
-        #
-        # IRQ_TIME_ACCOUNTING y
-        # HAVE_SCHED_AVG_IRQ y
-        #
-        # PREEMPT_RCU y
-        # RCU_EXPERT y
-        # TASKS_RCU y
-        # RCU_FANOUT 64
-        # RCU_FANOUT_LEAF 16
-        # RCU_FAST_NO_HZ y
-        # RCU_BOOST y
-        # RCU_BOOST_DELAY 500
-        #
-        # UCLAMP_TASK y
-        # UCLAMP_BUCKETS_COUNT 5
-        #
-        # NUMA_BALANCING y
-        # NUMA_BALANCING_DEFAULT_ENABLED y
-        #
-        # UCLAMP_TASK_GROUP y
-        #
-        # CHECKPOINT_RESTORE y
-
-        extraMeta.branch = lib.versions.majorMinor version;
-      }
-    ) // (args.argsOverride or { }));
-
-  linux_zen = pkgs.callPackage linux_zen_pkg { };
-  linuxPackages_zen = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_zen);
-in
 {
   boot = {
     # Use the systemd-boot EFI boot loader.
@@ -73,8 +11,8 @@ in
     tmpOnTmpfs = true;
     # plymouth.enable = true; # requires https://github.com/NixOS/nixpkgs/pull/88789
 
-    kernelPackages = linuxPackages_zen;
-    extraModulePackages = [ linuxPackages_zen.v4l2loopback ];
+    kernelPackages = pkgs.linuxPackages_zen;
+    extraModulePackages = [ pkgs.linuxPackages_zen.v4l2loopback ];
     # FIXME: doesn't seem to work? only a manual `modprobe ...` makes
     # v4l2loopback show up in lsmod
     extraModprobeConfig = ''
