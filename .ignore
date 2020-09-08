@@ -1,6 +1,5 @@
 secrets/
-modules/weechat/config/
-modules/emacs/config/
+users/vin/modules/weechat/config/
+users/vin/modules/emacs/config/
 *.xml
-drvs/pgtk-emacs/
-drvs/doom-emacs/
+hosts/scadrial/modules/borg/src/
