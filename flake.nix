@@ -81,6 +81,10 @@
                 # Makes specialArgs available to home-manager modules as well
                 specialArgs = specialArgs // {
                   super = config; # access NixOS configuration from h-m
+                  # TODO: make sure that if/when
+                  # https://github.com/nix-community/home-manager/pull/1382 gets
+                  # merged, nixosConfig doesn't show up here. It's too long of a
+                  # name -- super sounds cooler.
                 };
               });
             };
