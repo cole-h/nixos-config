@@ -1,6 +1,4 @@
 { config, pkgs, ... }:
-
-# TODO: patchShebangs scripts/*.sh?
 let
   cursorTheme = "Adwaita";
   cursorSize = 24;

@@ -82,7 +82,6 @@ let
   };
 in
 {
-  # TODO: just use default swaybar, but need to get mpd and volume widgets
   home.packages = with pkgs; [
     waybar # [overlays]
   ];

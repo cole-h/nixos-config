@@ -176,7 +176,6 @@ in
         # reload the configuration file
         "${modifier}+Shift+c" = "reload";
         # open file browser
-        # TODO: check gsettings I have set
         "${modifier}+e" = "exec ${pkgs.gnome3.nautilus}/bin/nautilus";
         # "${modifier}+e" = "exec nautilus";
         # open password menu
@@ -559,7 +558,6 @@ in
       ];
 
       # use systemd-controlled waybar unit (see ./default.nix)
-      # TODO: look at ddevault's bar
       bars = [
         {
           statusCommand = "while ${status}/bin/status; do sleep 0.1; done";

@@ -1,0 +1,239 @@
+From fa311d187070441c9142a0b083ead6370d51114c Mon Sep 17 00:00:00 2001
+From: Tony Olagbaiye <me@fron.io>
+Date: Wed, 26 Aug 2020 04:53:33 +0100
+Subject: [PATCH] Add a settings option for log-format
+
+---
+ src/libmain/common-args.cc |  8 -------
+ src/libmain/loggers.cc     | 25 +++-----------------
+ src/libmain/loggers.hh     |  9 --------
+ src/libstore/globals.cc    | 47 ++++++++++++++++++++++++++++++++++++++
+ src/libstore/globals.hh    |  3 +++
+ src/libstore/local.mk      |  4 +++-
+ src/libutil/types.hh       |  8 +++++++
+ src/nix/main.cc            |  2 +-
+ 8 files changed, 65 insertions(+), 41 deletions(-)
+
+diff --git a/src/libmain/common-args.cc b/src/libmain/common-args.cc
+index 3411e2d7a..95b1fdb01 100644
+--- a/src/libmain/common-args.cc
++++ b/src/libmain/common-args.cc
+@@ -49,14 +49,6 @@ MixCommonArgs::MixCommonArgs(const string & programName)
+         }
+     });
+ 
+-    addFlag({
+-        .longName = "log-format",
+-        .description = "format of log output; `raw`, `internal-json`, `bar` "
+-                        "or `bar-with-logs`",
+-        .labels = {"format"},
+-        .handler = {[](std::string format) { setLogFormat(format); }},
+-    });
+-
+     addFlag({
+         .longName = "max-jobs",
+         .shortName = 'j',
+diff --git a/src/libmain/loggers.cc b/src/libmain/loggers.cc
+index 0a7291780..61f71f627 100644
+--- a/src/libmain/loggers.cc
++++ b/src/libmain/loggers.cc
+@@ -1,27 +1,12 @@
+ #include "loggers.hh"
+ #include "progress-bar.hh"
+ #include "util.hh"
++#include "globals.hh"
+ 
+ namespace nix {
+ 
+-LogFormat defaultLogFormat = LogFormat::raw;
+-
+-LogFormat parseLogFormat(const std::string & logFormatStr) {
+-    if (logFormatStr == "raw" || getEnv("NIX_GET_COMPLETIONS"))
+-        return LogFormat::raw;
+-    else if (logFormatStr == "raw-with-logs")
+-        return LogFormat::rawWithLogs;
+-    else if (logFormatStr == "internal-json")
+-        return LogFormat::internalJson;
+-    else if (logFormatStr == "bar")
+-        return LogFormat::bar;
+-    else if (logFormatStr == "bar-with-logs")
+-        return LogFormat::barWithLogs;
+-    throw Error("option 'log-format' has an invalid value '%s'", logFormatStr);
+-}
+-
+ Logger * makeDefaultLogger() {
+-    switch (defaultLogFormat) {
++    switch (settings.logFormat) {
+     case LogFormat::raw:
+         return makeSimpleLogger(false);
+     case LogFormat::rawWithLogs:
+@@ -37,12 +22,8 @@ Logger * makeDefaultLogger() {
+     }
+ }
+ 
+-void setLogFormat(const std::string & logFormatStr) {
+-    setLogFormat(parseLogFormat(logFormatStr));
+-}
+-
+ void setLogFormat(const LogFormat & logFormat) {
+-    defaultLogFormat = logFormat;
++    settings.logFormat = logFormat;
+     createDefaultLogger();
+ }
+ 
+diff --git a/src/libmain/loggers.hh b/src/libmain/loggers.hh
+index cada03110..405c2321d 100644
+--- a/src/libmain/loggers.hh
++++ b/src/libmain/loggers.hh
+@@ -4,15 +4,6 @@
+ 
+ namespace nix {
+ 
+-enum class LogFormat {
+-  raw,
+-  rawWithLogs,
+-  internalJson,
+-  bar,
+-  barWithLogs,
+-};
+-
+-void setLogFormat(const std::string & logFormatStr);
+ void setLogFormat(const LogFormat & logFormat);
+ 
+ void createDefaultLogger();
+diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
+index 4a5971c3f..ecaf7f1ce 100644
+--- a/src/libstore/globals.cc
++++ b/src/libstore/globals.cc
+@@ -2,6 +2,7 @@
+ #include "util.hh"
+ #include "archive.hh"
+ #include "args.hh"
++#include "loggers.hh"
+ 
+ #include <algorithm>
+ #include <map>
+@@ -189,6 +190,52 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
+     });
+ }
+ 
++template<> void BaseSetting<LogFormat>::set(const std::string & str)
++{
++    if (str == "raw")
++        value = LogFormat::raw;
++    else if (str == "raw-with-logs")
++        value = LogFormat::rawWithLogs;
++    else if (str == "internal-json")
++        value = LogFormat::internalJson;
++    else if (str == "bar")
++        value = LogFormat::bar;
++    else if (str == "bar-with-logs")
++        value = LogFormat::barWithLogs;
++    else throw UsageError("option '%s' has an invalid value '%s'", name, str);
++
++    createDefaultLogger();
++}
++
++template<> std::string BaseSetting<LogFormat>::to_string() const
++{
++    if (value == LogFormat::raw) return "raw";
++    else if (value == LogFormat::rawWithLogs) return "raw-with-logs";
++    else if (value == LogFormat::internalJson) return "internal-json";
++    else if (value == LogFormat::bar) return "bar";
++    else if (value == LogFormat::barWithLogs) return "bar-with-logs";
++    else abort();
++}
++
++template<> nlohmann::json BaseSetting<LogFormat>::toJSON()
++{
++    return AbstractSetting::toJSON();
++}
++
++template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::string & category)
++{
++    args.addFlag({
++        .longName = name,
++        .description = "format of log output; `raw`, `raw-with-logs`, `internal-json`, `bar`, "
++                        "or `bar-with-logs`",
++        .category = category,
++        .labels = {"format"},
++        .handler = {[&](std::string format) {
++            settings.logFormat.set(format);
++        }}
++    });
++}
++
+ void MaxBuildJobsSetting::set(const std::string & str)
+ {
+     if (str == "auto") value = std::max(1U, std::thread::hardware_concurrency());
+diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
+index 8a2d3ff75..e6cb53a2c 100644
+--- a/src/libstore/globals.hh
++++ b/src/libstore/globals.hh
+@@ -865,6 +865,9 @@ public:
+     Setting<Strings> experimentalFeatures{this, {}, "experimental-features",
+         "Experimental Nix features to enable."};
+ 
++    Setting<LogFormat> logFormat{this, LogFormat::bar, "log-format",
++        "Default build output logging format; \"raw\", \"raw-with-logs\", \"internal-json\", \"bar\" or \"bar-with-logs\"."};
++
+     bool isExperimentalFeatureEnabled(const std::string & name);
+ 
+     void requireExperimentalFeature(const std::string & name);
+diff --git a/src/libstore/local.mk b/src/libstore/local.mk
+index d266c8efe..6d5495f99 100644
+--- a/src/libstore/local.mk
++++ b/src/libstore/local.mk
+@@ -8,6 +8,8 @@ libstore_SOURCES := $(wildcard $(d)/*.cc $(d)/builtins/*.cc)
+ 
+ libstore_LIBS = libutil
+ 
++libstore_ALLOW_UNDEFINED = 1
++
+ libstore_LDFLAGS = $(SQLITE3_LIBS) -lbz2 $(LIBCURL_LIBS) $(SODIUM_LIBS) -pthread
+ ifneq ($(OS), FreeBSD)
+  libstore_LDFLAGS += -ldl
+@@ -32,7 +34,7 @@ ifeq ($(HAVE_SECCOMP), 1)
+ endif
+ 
+ libstore_CXXFLAGS += \
+- -I src/libutil -I src/libstore \
++ -I src/libmain -I src/libutil -I src/libstore \
+  -DNIX_PREFIX=\"$(prefix)\" \
+  -DNIX_STORE_DIR=\"$(storedir)\" \
+  -DNIX_DATA_DIR=\"$(datadir)\" \
+diff --git a/src/libutil/types.hh b/src/libutil/types.hh
+index 3af485fa0..c64440903 100644
+--- a/src/libutil/types.hh
++++ b/src/libutil/types.hh
+@@ -18,6 +18,14 @@ typedef list<string> Strings;
+ typedef set<string> StringSet;
+ typedef std::map<string, string> StringMap;
+ 
++enum class LogFormat {
++  raw,
++  rawWithLogs,
++  internalJson,
++  bar,
++  barWithLogs,
++};
++
+ /* Paths are just strings. */
+ 
+ typedef string Path;
+diff --git a/src/nix/main.cc b/src/nix/main.cc
+index e9479f564..428ac8149 100644
+--- a/src/nix/main.cc
++++ b/src/nix/main.cc
+@@ -173,7 +173,7 @@ void mainWrapped(int argc, char * * argv)
+     settings.verboseBuild = false;
+     evalSettings.pureEval = true;
+ 
+-    setLogFormat("bar");
++    createDefaultLogger();
+ 
+     Finally f([] { logger->stop(); });
+ 
+-- 
+2.28.0
+

@@ -200,13 +200,17 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-lwniZgVLW0gz9+qSIKo7FcQb9Zc3vMmmJghbNk+qX+0=",
-        "path": "/home/vin/.config/nixpkgs/secrets",
-        "type": "path"
+        "lastModified": 1599528030,
+        "narHash": "sha256-7X3AbupIHdtGTpiGrrYOC7pV6dSq7vKGZKMi8jz6Y58=",
+        "ref": "master",
+        "rev": "cc280da4a169510a44993cb076557ec4f141bcc6",
+        "revCount": 50,
+        "type": "git",
+        "url": "ssh://git@github.com/cole-h/nix-secrets.git"
       },
       "original": {
-        "path": "/home/vin/.config/nixpkgs/secrets",
-        "type": "path"
+        "type": "git",
+        "url": "ssh://git@github.com/cole-h/nix-secrets.git"
       }
     },
     "small": {

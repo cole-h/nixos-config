@@ -114,11 +114,6 @@
       # Use all processors :)
       MAKEFLAGS = "\${MAKEFLAGS:+$MAKEFLAGS }-j$(nproc)";
 
-      # TODO: make config reproducible by cutting out NIX_PATH
-      # (see: https://github.com/lovesegfault/nix-config/)
-      # maybe investigate flakes
-      # (see: https://github.com/nrdxp/nixflk/)
-
       MPD_HOST = "127.0.0.1";
 
       # For zoxide's fzf window

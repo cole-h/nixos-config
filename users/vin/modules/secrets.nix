@@ -10,7 +10,6 @@
   };
 
   home.file = {
-    # TODO: why does this not work tho
     ".todo".source = config.lib.file.mkOutOfStoreSymlink my.secrets.todo;
     ".ssh/config".source = config.lib.file.mkOutOfStoreSymlink my.secrets.sshconfig;
   };
