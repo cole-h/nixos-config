@@ -64,6 +64,7 @@
       mdloader
 
       # latest.firefox-nightly-bin
+      chromium # GH is busted on Firefox and I don't know why... gotta backup settings and refresh eventually.
       firefox-beta-bin
       pass-otp
       passrs

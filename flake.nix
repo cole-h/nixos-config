@@ -1,4 +1,11 @@
 {
+
+  # TODO:
+  # vm = (import ./lib/eval-config.nix {
+  #   inherit system;
+  #   modules = modules ++ [ (pkgs.path + "/modules/virtualisation/qemu-vm.nix") ];
+  # }).config.system.build.vm;
+
   # https://github.com/bqv/nixrc, https://github.com/colemickens/nixcfg
   description = "cole-h's NixOS configuration";
 
