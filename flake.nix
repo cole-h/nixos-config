@@ -1,11 +1,5 @@
 {
 
-  # TODO:
-  # vm = (import ./lib/eval-config.nix {
-  #   inherit system;
-  #   modules = modules ++ [ (pkgs.path + "/modules/virtualisation/qemu-vm.nix") ];
-  # }).config.system.build.vm;
-
   # https://github.com/bqv/nixrc, https://github.com/colemickens/nixcfg
   description = "cole-h's NixOS configuration";
 
@@ -80,6 +74,7 @@
         let
           inherit (pkgs.lib) mkOption;
           inherit (pkgs.lib.types) attrsOf submoduleWith;
+          inherit (inputs.home.nixosModules) home-manager;
 
           home = { config, ... }: {
             # "submodule types have merging semantics" -- bqv
@@ -122,9 +117,9 @@
           };
 
           modules = [
-            inputs.home.nixosModules.home-manager
-            (./hosts + "/${hostname}/configuration.nix")
+            home-manager
             home
+            (./hosts + "/${hostname}/configuration.nix")
             nix
           ];
 
@@ -139,7 +134,7 @@
         in
         channels.pkgs.lib.nixosSystem
           {
-            inherit system modules specialArgs;
+            inherit system modules specialArgs pkgs;
           } // { inherit specialArgs modules; }; # let Nixus have access to this stuff
     in
     {

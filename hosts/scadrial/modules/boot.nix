@@ -28,6 +28,7 @@
 
     kernelParams = [
       "udev.log_priority=3"
+      "intel_pstate=active" # powersave of intel_pstate is better than powersave of intel_cpufreq, maybe
     ];
 
     # Allow emulated cross compilation for aarch64
