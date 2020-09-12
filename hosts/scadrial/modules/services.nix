@@ -9,17 +9,17 @@ in
     zetup = {
       "rpool/system" = {
         timestampFormat = "%Y-%m-%dT%H%M%S";
-        plan = "15min=>5min,4h=>15min,4d=>1h,1w=>1d,1m=>1w";
+        plan = "15min=>5min,4h=>15min,1d=>4h,1w=>1d,1m=>1w,1y=>1m";
         recursive = true;
       };
       "rpool/user" = {
         timestampFormat = "%Y-%m-%dT%H%M%S";
-        plan = "15min=>5min,4h=>15min,4d=>1h,1w=>1d,1m=>1w";
+        plan = "15min=>5min,4h=>15min,1d=>4h,1w=>1d,1m=>1w,1y=>1m";
         recursive = true;
       };
       "rpool/win10" = {
         timestampFormat = "%Y-%m-%dT%H%M%S";
-        plan = "15min=>5min,4h=>15min,4d=>1h,1w=>1d,1m=>1w";
+        plan = "15min=>5min,4h=>15min,4d=>4h";
       };
     };
   };

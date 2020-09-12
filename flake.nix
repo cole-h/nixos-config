@@ -5,6 +5,7 @@
 
   inputs = {
     # Flakes
+    # large.url = "git+file:///home/vin/workspace/vcs/nixpkgs/master";
     large.url = "github:nixos/nixpkgs/nixos-unstable";
     # master.url = "github:nixos/nixpkgs/master";
     small.url = "github:nixos/nixpkgs/nixos-unstable-small";
