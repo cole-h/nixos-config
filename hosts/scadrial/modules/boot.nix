@@ -4,6 +4,7 @@
     # Use the systemd-boot EFI boot loader.
     loader.systemd-boot.enable = true;
     loader.systemd-boot.configurationLimit = 128;
+    loader.systemd-boot.consoleMode = "max"; # 1920x1080? poggers
     loader.efi.canTouchEfiVariables = true;
     loader.timeout = 1;
     supportedFilesystems = [ "zfs" "ntfs" ]; # allows r/w ntfs
