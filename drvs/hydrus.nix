@@ -5,7 +5,8 @@
 , ffmpeg
 }:
 let
-  version = "402";
+  version = "411";
+  hash = "sha256-H5x57EcZukh0DmAqYjSNtk7eRWtIWwW6MVqf0C4co60=";
 in
 stdenv.mkDerivation {
   pname = "hydrus";
@@ -15,7 +16,7 @@ stdenv.mkDerivation {
     owner = "hydrusnetwork";
     repo = "hydrus";
     rev = "v${version}";
-    sha256 = "00v16g2vsjag256fs0bgsg7qrg88g3f8vvfhc8xbadjxr04fizda";
+    inherit hash;
   };
 
   nativeBuildInputs = [

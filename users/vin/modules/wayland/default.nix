@@ -4,13 +4,14 @@ let
   cursorSize = 24;
 in
 {
-  imports = [
-    ./sway.nix # sway config
-    ./mako.nix # mako config
-    ./alacritty.nix # alacritty config
-    # ./waybar.nix # waybar config
-    # ./japanese.nix # JP config
-  ];
+  imports =
+    [
+      ./sway.nix # sway config
+      ./mako.nix # mako config
+      ./alacritty.nix # alacritty config
+      # ./waybar.nix # waybar config
+      # ./japanese.nix # JP config
+    ];
 
   home.packages = with pkgs; [
     jq # json fiddling

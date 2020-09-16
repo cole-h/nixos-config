@@ -1,8 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ./prometheus.nix
-    ./ofborg.nix
-  ];
+  imports =
+    [
+      ./prometheus.nix
+      ./ofborg.nix
+    ];
 }

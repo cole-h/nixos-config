@@ -14,6 +14,7 @@
   # http://localhost:9091/
   services.transmission = {
     enable = true;
+    port = 9091;
     user = "downloads";
     group = "downloads";
     home = "/var/lib/torrent";

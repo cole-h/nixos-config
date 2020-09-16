@@ -4,10 +4,11 @@
 
 { config, pkgs, lib, ... }:
 {
-  imports = [
-    ./hardware-configuration.nix
-    ./modules
-  ];
+  imports =
+    [
+      ./hardware-configuration.nix
+      ./modules
+    ];
 
   nix.package = lib.mkDefault pkgs.nixUnstable;
   nix.extraOptions = ''

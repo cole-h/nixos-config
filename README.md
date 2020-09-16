@@ -19,7 +19,15 @@ were discarded.
 # Setup stuff
 
 https://grahamc.com/blog/nixos-on-zfs
+
 https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
+
+## 0. preparations
+  - make iso with `nix build -f ~/workspace/vcs/nixpkgs/nixos-unstable/nixos config.system.build.isoImage -I nixos-config=iso.nix`
+  - backup stateful stuff
+    - FF profile
+    - sonarr settings (watched shows, etc)
+    - fish shell history
 
 ## 1. partition
   - 512MiB /boot at the beginning
@@ -38,10 +46,10 @@ https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
 export DISK=/dev/disk/by-id/.....
 gdisk $DISK
   # o (delete all partitions + protective mbr)
-  # n, 1, +1M, +512M, ef00  (EFI boot)
+  # n, 1, +1M,   +1G, ef00  (EFI boot)
   # n, 2, ...,  +16G, 8200  (swap)
-  # n, 3, ...,   ...,  ...  (Linux)
-  # c, 3, "tank" -- set part label
+  # n, 3, ...,  ....,  ...  (Linux)
+  # c, 3, "[a-z]pool" -- set part label
   # w
 
 mkfs.fat -F 32 -n boot $DISK-part1
@@ -91,37 +99,37 @@ mount $DISK-part1 /mnt/boot
 ## 2. install
 
 ``` sh
-git clone https://github.com/cole-h/nixos-config /mnt/tmp/nixos-config
+gpg --import # import secret key for live ISO to be able to clone secrets
+gpg -K --with-keygrip | tail -2 | sed 's/.*Keygrip = //' >> ~/.gnupg/sshcontrol # add auth subkey to sshcontrol
+git clone --recurse-submodules https://github.com/cole-h/nixos-config /mnt/tmp/nixos-config
+git -C /mnt/tmp/nixos-config/secrets crypt unlock
 
 nixos-generate-config --root /mnt --dir /tmp/nixos-config/hosts/scadrial
 
-export NIXOS_CONFIG=/mnt/tmp/nixos-config/hosts/scadrial/configuration.nix
-
-nixos-install
+nixos-install --flake /mnt/tmp/nixos-config#scadrial
 
 nixos-enter
-ln -s /{home/vin/.config/nixpkgs/hosts/scadrial,etc/nixos}/configuration.nix
-ln -s /{home/vin/.config/nixpkgs/hosts/scadrial,etc/nixos}/hardware-configuration.nix
-doas -u vin bash && \
-  rsync -a /tmp/nixos-config/ ~/.config/nixpkgs && \
-  chown -R vin ~/.config # maybe unnecessary
+  doas -u vin bash
+    gpg --import # import secret key again, for user
+    mv /tmp/nixos-config ~/flake
+    chown vin:users ~/flake
 
 systemctl reboot
 
-# set up gpg and get secrets
-gpg --import # ...
-gpg -K --with-keygrip | tail -2 | sed 's/.*Keygrip = //' >> ~/.gnupg/sshcontrol # add auth subkey to sshcontrol
-git clone git@github.com:cole-h/nix-secrets /mnt/tmp/dotfiles/secrets
-nix-shell -p git-crypt --run 'git crypt unlock'
-rm ~/.gnupg/sshcontrol
-git -C ~/.config/nixpkgs submodule update --init
-
-git clone https://github.com/rycee/home-manager ~/workspace/vcs/home-manager
-git clone https://github.com/alacritty/alacritty ~/workspace/vcs/alacritty
 git clone https://github.com/cole-h/passrs ~/workspace/langs/rust/passrs
-nix-shell ~/workspace/vcs/home-manager -A install
-doom sync
-# copy FF profile
-# copy sonarr settings (watched shows, etc)
-# copy ssh config and hosts (probably should just manage this with h-m or smth)
-```
+mkdir -p ~/workspace/vcs && cd ~/workspace/vcs
+git clone https://github.com/nixos/ofborg
+git clone https://github.com/nix-community/home-manager
+git clone https://github.com/alacritty/alacritty
+git clone https://github.com/nixos/nixpkgs nixpkgs/master # and the other branches
+git clone https://github.com/nixos/nix
+git clone https://github.com/fish-shell/fish-shell
+git clone https://github.com/ofborg/infrastructure
+
+git clone --reference nixpkgs/master https://spectrum-os.org/git/nixpkgs spectrum/nixpkgs # and the other stuff
+# chroumiumos/platform/crosvm
+
+# copy FF profile from backup
+# copy sonarr settings (watched shows, etc) from backup
+# copy fish shell history from backup
+  ```

@@ -1,17 +1,15 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ./modules
-  ];
+  imports =
+    [
+      ./modules
+    ];
 
   home.username = "vin";
   home.homeDirectory = "/home/vin";
 
-  programs.home-manager = {
-    enable = true;
-    # path = "${config.home.homeDirectory}/workspace/vcs/home-manager";
-  };
+  programs.home-manager.enable = true;
 
   services = {
     syncthing.enable = true;
@@ -32,71 +30,72 @@
     enableDebugInfo = true;
     extraOutputsToInstall = [ "man" ];
 
-    packages = with pkgs; [
-      ## nix-related
-      cachix
-      direnv
-      niv
-      nix-index
-      # nixops
-      nixpkgs-fmt
-      nix-prefetch
-      nix-prefetch-scripts
-      nix-top
+    packages = with pkgs;
+      [
+        ## nix-related
+        cachix
+        direnv
+        niv
+        nix-index
+        # nixops
+        nixpkgs-fmt
+        nix-prefetch
+        nix-prefetch-scripts
+        nix-top
 
-      ## tools
-      aerc # terminal email reader; TODO: add config to secrets/
-      bat # cat but better
-      exa # ls but better
-      fd # find files
-      # ffsend # send files to Firefox Send from the terminal
-      hexyl # hex viewer
-      hydrus # booru-like image tagger
-      hyperfine # cli benchmarker
-      libreoffice # Office but worse
-      newsboat # rss/atom feed reader
-      qimgv # image viewer
-      ripgrep # grep but better; [overlays]
-      skim # fzf-rs
-      tmate # "Instant Terminal Sharing"
-      tokei # code metrics
-      ytop # fancy top
-      mdloader
+        ## tools
+        aerc # terminal email reader; TODO: add config to secrets/
+        bat # cat but better
+        exa # ls but better
+        fd # find files
+        # ffsend # send files to Firefox Send from the terminal
+        hexyl # hex viewer
+        hydrus # booru-like image tagger
+        hyperfine # cli benchmarker
+        libreoffice # Office but worse
+        newsboat # rss/atom feed reader
+        qimgv # image viewer
+        ripgrep # grep but better; [overlays]
+        skim # fzf-rs
+        tmate # "Instant Terminal Sharing"
+        tokei # code metrics
+        ytop # fancy top
+        mdloader
 
-      # latest.firefox-nightly-bin
-      chromium # GH is busted on Firefox and I don't know why... gotta backup settings and refresh eventually.
-      firefox-beta-bin
-      pass-otp
-      passrs
-      # android-studio # android apps
+        # latest.firefox-nightly-bin
+        chromium # GH is busted on Firefox and I don't know why... gotta backup settings and refresh eventually.
+        firefox-beta-bin
+        pass-otp
+        passrs
+        # android-studio # android apps
 
-      ## misc
-      chatterino2 # Twitch chat client; [drvs]
-      discord
-      todo-txt-cli # todos tracker
+        ## misc
+        chatterino2 # Twitch chat client; [drvs]
+        discord
+        todo-txt-cli # todos tracker
 
-      #### User Packages
-      # go # maybe
-      evince
-      zathura
-      pavucontrol
-      gitAndTools.hub
-      ncdu
-      # gnome3.networkmanagerapplet
-      gnome3.nautilus # GUI file manager
-      gnome3.file-roller
-      foliate
-      # filezilla
-      # binwalk
-      (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
+        #### User Packages
+        # go # maybe
+        evince
+        zathura
+        pavucontrol
+        gitAndTools.hub
+        ncdu
+        # gnome3.networkmanagerapplet
+        gnome3.nautilus # GUI file manager
+        gnome3.file-roller
+        foliate
+        # filezilla
+        # binwalk
+        (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
 
-      #### System Packages
-      # openconnect # for school VPN, if needed
-      # wireguard # (wg, wg-quick
+        #### System Packages
+        # openconnect # for school VPN, if needed
+        # wireguard # (wg, wg-quick
 
-      ## haskell stuff
-      ## Switch USB stuff
-    ];
+        ## haskell stuff
+        ## Switch USB stuff
+      ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
     # otherwise sessionVariables won't be sourced in new shells

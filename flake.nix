@@ -77,7 +77,7 @@
           inherit (pkgs.lib.types) attrsOf submoduleWith;
           inherit (inputs.home.nixosModules) home-manager;
 
-          home = { config, ... }: {
+          home = { ... }: {
             # "submodule types have merging semantics" -- bqv
             options.home-manager.users = mkOption {
               type = attrsOf (submoduleWith {
@@ -93,28 +93,32 @@
               });
             };
 
-            config = {
-              home-manager = {
-                users = import ./users;
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                verbose = true;
-              };
+            config.home-manager = {
+              users = import ./users;
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              verbose = true;
             };
           };
 
-          nix = { config, ... }: {
-            config = {
-              nix.package = inputs.nix.defaultPackage.${system}.overrideAttrs ({ patches ? [ ], ... }: {
-                patches = patches ++ [
-                  ./log-format-option.patch
-                ];
-              });
+          nix = { ... }: {
+            nix.package = inputs.nix.defaultPackage.${system}.overrideAttrs ({ patches ? [ ], ... }: {
+              patches = patches ++ [
+                ./log-format-option.patch
+              ];
+            });
 
-              nix.extraOptions = ''
-                log-format = bar-with-logs
-              '';
-            };
+            nix.extraOptions = ''
+              log-format = bar-with-logs
+            '';
+          };
+
+          iso = { ... }: {
+            system.build.isoImage =
+              let
+                iso = import "${channels.pkgs}/nixos" { configuration = ./iso.nix; };
+              in
+              iso.config.system.build.isoImage;
           };
 
           modules = [
@@ -122,6 +126,7 @@
             home
             (./hosts + "/${hostname}/configuration.nix")
             nix
+            iso
           ];
 
           specialArgs = {
