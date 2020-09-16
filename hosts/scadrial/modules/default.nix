@@ -6,6 +6,7 @@
       # ./borg # configuration related to running an ofborg instance
 
       ./boot.nix # configuration related to boot
+      # ./gnome.nix # configuration related to GNOME
       ./hardware.nix # configuration related to hardware
       ./networking.nix # configuration related to networking
       ./packages.nix # configuration related to packages

@@ -102,7 +102,7 @@ in
       # export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
       # export QT_WAYLAND_FORCE_DPI=physical
       # export SDL_VIDEODRIVER=wayland
-      export GDK_BACKEND=wayland
+      # export GDK_BACKEND=wayland
       export _JAVA_AWT_WM_NONREPARENTING=1
       export XDG_CURRENT_DESKTOP=sway
       export PINENTRY_USER_DATA=gtk

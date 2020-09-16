@@ -111,6 +111,11 @@
             nix.extraOptions = ''
               log-format = bar-with-logs
             '';
+
+            nix.nixPath = [
+              "pkgs=${inputs.self}/compat"
+              "nixos-config=${inputs.self}/compat/nixos"
+            ];
           };
 
           iso = { ... }: {
@@ -121,12 +126,28 @@
               iso.config.system.build.isoImage;
           };
 
+          misc = { ... }: {
+            _module.args = specialArgs;
+            nixpkgs.pkgs = pkgs;
+
+            system.configurationRevision = inputs.self.rev or "dirty";
+            system.nixos.versionSuffix =
+              let
+                inherit (inputs) self;
+                inherit (pkgs) lib;
+                date = builtins.substring 0 8 (self.lastModifiedDate or self.lastModified);
+                rev = self.shortRev or "dirty";
+              in
+              lib.mkForce ".${date}.${rev}-cosmere";
+          };
+
           modules = [
             home-manager
             home
             (./hosts + "/${hostname}/configuration.nix")
             nix
             iso
+            misc
           ];
 
           specialArgs = {
@@ -141,7 +162,7 @@
         channels.pkgs.lib.nixosSystem
           {
             inherit system modules specialArgs pkgs;
-          } // { inherit specialArgs modules; }; # let Nixus have access to this stuff
+          } // { inherit modules; }; # let Nixus have access to this stuff
     in
     {
       nixosConfigurations = {
@@ -167,18 +188,7 @@
                 nixpkgs = pkgs.path;
 
                 configuration = {
-                  _module.args = nixos.specialArgs;
                   imports = nixos.modules;
-                  nixpkgs = { inherit pkgs; };
-
-                  system.configurationRevision = inputs.self.rev or "dirty";
-                  system.nixos.versionSuffix =
-                    let
-                      inherit (inputs) self;
-                      date = builtins.substring 0 8 (self.lastModifiedDate or self.lastModified);
-                      rev = self.shortRev or "dirty";
-                    in
-                    ".${date}.${rev}-cosmere";
                 };
               };
 
@@ -186,13 +196,6 @@
               scadrial = { ... }: {
                 host = "root@localhost";
                 privilegeEscalationCommand = [ "exec" ];
-
-                configuration = {
-                  nix.nixPath = [
-                    "pkgs=${inputs.self}/compat"
-                    "nixos-config=${inputs.self}/compat/nixos"
-                  ];
-                };
               };
             };
           }));

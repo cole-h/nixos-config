@@ -76,14 +76,9 @@ in
       interactiveShellInit = ''
 
         # GPG configuration
+        ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye &>/dev/null
         set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
         set --global --export GPG_TTY (tty)
-
-        # Rust stuff
-        # if command -q rustc
-        #   set --global --export --prepend LD_LIBRARY_PATH (rustc --print sysroot)"/lib"
-        #   set --global --export RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
-        # end
 
         # Miscellaneous exports
         # set --global --export SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
