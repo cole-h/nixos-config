@@ -1,6 +1,5 @@
 { config, pkgs, lib, inputs, system, ... }:
 let
-  # emacsGit # from emacs-overlay; [overlays]
   emacsPkg = inputs.wayland.packages.${system}.emacs-pgtk;
 
   em = pkgs.writeShellScriptBin "em" ''
@@ -62,7 +61,8 @@ in
       # :tools lookup & :lang org +roam
       sqlite
       # :lang cc
-      ccls # for lsp
+      # ccls # for lsp
+      clang-tools # for lsp
       # :lang latex & :lang org (latex previews)
       texlive.combined.scheme-medium
       # :input japanese

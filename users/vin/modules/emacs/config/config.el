@@ -178,6 +178,7 @@ If PEEK is non-nil, keep focus in status buffer window."
 (map! :leader :desc "Switch to alternate buffer" :n "," #'vin/alternate-buffer)
 (map! :g "C-<right>" #'evil-forward-word-begin)
 (map! :g "C-<left>" #'evil-backward-word-begin)
+(map! :g "<mouse-movement>" nil)
 
 ;; SPC f p c -> config, SPC f p i -> init, SPC f p p -> packages, SPC f p f -> funcs
 (map! :leader "fp" nil

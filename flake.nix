@@ -26,7 +26,6 @@
     doom = { url = "github:hlissner/doom-emacs"; flake = false; };
     # mozilla = { url = "github:mozilla/nixpkgs-mozilla"; flake = false; };
     nixus = { url = "github:infinisil/nixus"; flake = false; };
-    pgtk = { url = "github:masm11/emacs"; flake = false; };
   };
 
   outputs = inputs:
