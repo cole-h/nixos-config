@@ -101,26 +101,31 @@
           };
 
           nix = { ... }: {
-            nix.package = inputs.nix.defaultPackage.${system}.overrideAttrs ({ patches ? [ ], ... }: {
-              patches = patches ++ [
-                ./log-format-option.patch
+            nix = {
+              package = inputs.nix.defaultPackage.${system}.overrideAttrs ({ patches ? [ ], ... }: {
+                patches = patches ++ [
+                  ./log-format-option.patch
+                ];
+              });
+
+              extraOptions = ''
+                log-format = bar-with-logs
+              '';
+
+              nixPath = [
+                "pkgs=${inputs.self}/compat"
+                "nixos-config=${inputs.self}/compat/nixos"
               ];
-            });
-
-            nix.extraOptions = ''
-              log-format = bar-with-logs
-            '';
-
-            nix.nixPath = [
-              "pkgs=${inputs.self}/compat"
-              "nixos-config=${inputs.self}/compat/nixos"
-            ];
+            };
           };
 
           iso = { ... }: {
             system.build.isoImage =
               let
-                iso = import "${channels.pkgs}/nixos" { configuration = ./iso.nix; };
+                iso = import "${channels.pkgs}/nixos" {
+                  configuration = ./iso.nix;
+                  inherit system;
+                };
               in
               iso.config.system.build.isoImage;
           };
