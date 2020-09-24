@@ -25,7 +25,7 @@ in
         mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
         nix-locate = "command nix-locate --top-level $argv";
         ssh = "env TERM=xterm-256color ssh $argv";
-        std = "rustup doc --std";
+        # std = "rustup doc --std";
         t = "todo.sh $argv";
         win10 = "doas virsh start windows10";
       };
@@ -60,7 +60,6 @@ in
           if [ (tty) = "/dev/tty1" ]
               systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY \
                         IN_NIX_SHELL __HM_SESS_VARS_SOURCED GPG_TTY NIX_PATH
-              # systemctl --user import-environment
               exec sway >/dev/null 2>/tmp/sway.log # TODO: log to syslog even without a unit pls
           end
 

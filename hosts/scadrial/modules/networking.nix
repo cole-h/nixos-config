@@ -28,6 +28,5 @@
 
   networking.firewall.allowedUDPPorts = [
     21027 # syncthing
-    60001 # mosh
   ];
 }

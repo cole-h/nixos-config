@@ -1,5 +1,4 @@
 {
-
   # https://github.com/bqv/nixrc, https://github.com/colemickens/nixcfg
   description = "cole-h's NixOS configuration";
 
@@ -14,9 +13,8 @@
     nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "small"; };
     home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "small"; };
     naersk = { url = "github:nmattia/naersk"; inputs.nixpkgs.follows = "small"; };
-    passrs = { url = "github:cole-h/passrs"; inputs.nixpkgs.follows = "small"; };
+    passrs = { url = "github:cole-h/passrs"; };
     wayland = { url = "github:colemickens/nixpkgs-wayland"; };
-    # utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "large"; };
 
     # Not flakes
     secrets = { url = "git+ssh://git@github.com/cole-h/nix-secrets.git"; flake = false; };
@@ -119,17 +117,6 @@
             };
           };
 
-          iso = { ... }: {
-            system.build.isoImage =
-              let
-                iso = import "${channels.pkgs}/nixos" {
-                  configuration = ./iso.nix;
-                  inherit system;
-                };
-              in
-              iso.config.system.build.isoImage;
-          };
-
           misc = { ... }: {
             _module.args = specialArgs;
             nixpkgs.pkgs = pkgs;
@@ -150,7 +137,6 @@
             home
             (./hosts + "/${hostname}/configuration.nix")
             nix
-            iso
             misc
           ];
 
@@ -177,6 +163,17 @@
           in
           mkSystem system pkgs "scadrial";
       };
+
+      iso =
+        let
+          system = "x86_64-linux";
+          # FIXME: inputs.large makes this segfault???
+          iso = import "${inputs.small}/nixos" {
+            configuration = ./iso.nix;
+            inherit system;
+          };
+        in
+        iso.config.system.build.isoImage;
 
       legacyPackages = forAllSystems ({ pkgs, ... }: pkgs);
 
@@ -213,6 +210,17 @@
       });
 
       defaultApp = forAllSystems ({ system, ... }: inputs.self.apps.${system}.nixus);
-    };
 
+      devShell = forAllSystems ({ system, pkgs, ... }:
+        with pkgs;
+        stdenv.mkDerivation {
+          name = "shell";
+
+          buildInputs =
+            [
+              git
+              git-crypt
+            ];
+        });
+    };
 }

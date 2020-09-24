@@ -36,10 +36,6 @@
                 plugin "tidal"
         }
 
-        # input {
-        #     plugin "curl"
-        # }
-
         audio_output {
             type "pulse"
             name "My Pulse Output"
@@ -55,7 +51,6 @@
     mpdris2 = {
       enable = true;
       notifications = true;
-      # multimediaKeys = true;
     };
   };
 

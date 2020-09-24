@@ -9,7 +9,7 @@
       { groups = [ "wheel" ]; keepEnv = true; noPass = true; cmd = "virsh"; }
     ];
   };
-  #
+
   # To allow home-manager's provided swaylock actually unlock.
   security.pam.services.swaylock = { };
 }

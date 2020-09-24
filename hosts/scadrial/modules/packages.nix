@@ -24,7 +24,6 @@
       # libreoffice
       lsof
       manpages
-      mosh
       neovim
       netcat-openbsd
       openssl

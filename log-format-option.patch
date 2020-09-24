@@ -1,4 +1,4 @@
-From 381c0adc8cd337a7a26ea3d90fad9e8da09def58 Mon Sep 17 00:00:00 2001
+From 3c24b3791058d2b9f474d9172548a95ff1b23aed Mon Sep 17 00:00:00 2001
 From: Tony Olagbaiye <me@fron.io>
 Date: Wed, 26 Aug 2020 04:53:33 +0100
 Subject: [PATCH 1/4] Add a settings option for log-format
@@ -103,18 +103,18 @@ index cada0311049..405c2321d14 100644
  
  void createDefaultLogger();
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index 491c664dbd1..0f2cc09bf57 100644
+index c5734852dbf..0356b704cd9 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
-@@ -2,6 +2,7 @@
- #include "util.hh"
+@@ -3,6 +3,7 @@
  #include "archive.hh"
  #include "args.hh"
+ #include "abstract-setting-to-json.hh"
 +#include "loggers.hh"
  
  #include <algorithm>
  #include <map>
-@@ -184,6 +185,52 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
+@@ -192,6 +193,52 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
      });
  }
  
@@ -168,10 +168,10 @@ index 491c664dbd1..0f2cc09bf57 100644
  {
      if (str == "auto") value = std::max(1U, std::thread::hardware_concurrency());
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index 02721285ae3..d6da8c649d7 100644
+index ebcfa9d8019..692aca2ba61 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
-@@ -866,6 +866,9 @@ public:
+@@ -865,6 +865,9 @@ public:
      Setting<Strings> experimentalFeatures{this, {}, "experimental-features",
          "Experimental Nix features to enable."};
  
@@ -236,7 +236,7 @@ index 1e9e07bc058..2c3d83df556 100644
      Finally f([] { logger->stop(); });
  
 
-From e5f8fb6e8aa824cd9b5c6099ea091cf55e424034 Mon Sep 17 00:00:00 2001
+From 519dd27f4b2901f9c22183834be3e0f6380b0dd6 Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Thu, 17 Sep 2020 17:22:32 -0700
 Subject: [PATCH 2/4] Make loggers pluggable
@@ -360,18 +360,18 @@ index be3c06a38c0..21c503b22bc 100644
  {
      assert(n < fields.size());
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index 0f2cc09bf57..788c4efc5f5 100644
+index 0356b704cd9..99a81fe2c4c 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
-@@ -2,7 +2,6 @@
- #include "util.hh"
+@@ -3,7 +3,6 @@
  #include "archive.hh"
  #include "args.hh"
+ #include "abstract-setting-to-json.hh"
 -#include "loggers.hh"
  
  #include <algorithm>
  #include <map>
-@@ -185,18 +184,35 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
+@@ -193,18 +192,35 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
      });
  }
  
@@ -417,7 +417,7 @@ index 0f2cc09bf57..788c4efc5f5 100644
      else throw UsageError("option '%s' has an invalid value '%s'", name, str);
  
      createDefaultLogger();
-@@ -212,25 +228,42 @@ template<> std::string BaseSetting<LogFormat>::to_string() const
+@@ -220,25 +236,42 @@ template<> std::string BaseSetting<LogFormat>::to_string() const
      else abort();
  }
  
@@ -469,18 +469,18 @@ index 0f2cc09bf57..788c4efc5f5 100644
  {
      if (str == "auto") value = std::max(1U, std::thread::hardware_concurrency());
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index d6da8c649d7..50bc496b002 100644
+index 692aca2ba61..5852a35bfaf 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
-@@ -4,6 +4,7 @@
+@@ -3,6 +3,7 @@
+ #include "types.hh"
  #include "config.hh"
- #include "abstractsettingtojson.hh"
  #include "util.hh"
 +#include "loggers.hh"
  
  #include <map>
  #include <limits>
-@@ -12,6 +13,8 @@
+@@ -11,6 +12,8 @@
  
  namespace nix {
  
@@ -489,7 +489,7 @@ index d6da8c649d7..50bc496b002 100644
  typedef enum { smEnabled, smRelaxed, smDisabled } SandboxMode;
  
  struct MaxBuildJobsSetting : public BaseSetting<unsigned int>
-@@ -866,9 +869,6 @@ public:
+@@ -865,9 +868,6 @@ public:
      Setting<Strings> experimentalFeatures{this, {}, "experimental-features",
          "Experimental Nix features to enable."};
  
@@ -499,10 +499,10 @@ index d6da8c649d7..50bc496b002 100644
      bool isExperimentalFeatureEnabled(const std::string & name);
  
      void requireExperimentalFeature(const std::string & name);
-@@ -884,8 +884,18 @@ public:
- 
-     Setting<std::string> flakeRegistry{this, "https://github.com/NixOS/flake-registry/raw/master/flake-registry.json", "flake-registry",
-         "Path or URI of the global flake registry."};
+@@ -896,8 +896,18 @@ public:
+           resolves to a different location from that of the build machine. You
+           can enable this setting if you are sure you're not going to do that.
+         )"};
 +
 +    // FIXME: default shows as "3", but should show as "bar", due to the default
 +    // being an enum variant
@@ -569,7 +569,7 @@ index 00000000000..34bc0341864
 +}
 diff --git a/src/libutil/loggers.hh b/src/libutil/loggers.hh
 new file mode 100644
-index 00000000000..d111519adf0
+index 00000000000..6b89f9037ba
 --- /dev/null
 +++ b/src/libutil/loggers.hh
 @@ -0,0 +1,26 @@
@@ -579,7 +579,7 @@ index 00000000000..d111519adf0
 +
 +namespace nix {
 +
-+enum class LogFormat {
++enum struct LogFormat {
 +    raw,
 +    rawWithLogs,
 +    internalJson,
@@ -648,7 +648,7 @@ index c644409038d..3af485fa0fe 100644
  
  typedef string Path;
 
-From b5b177dd069861dbd3613e1e4fdf8dc8f4c5e6e0 Mon Sep 17 00:00:00 2001
+From f47680e725f85dac9118a8dcc3f4eba022f3e9a9 Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Sat, 19 Sep 2020 00:58:16 -0700
 Subject: [PATCH 3/4] Make loggers more pluggable
@@ -664,15 +664,15 @@ Co-authored-by: Daiderd Jordan <daiderd@gmail.com>
 ---
  src/libstore/globals.cc | 36 ++++++++++++++++++++++++------------
  src/libstore/globals.hh | 18 ++++++++++++------
- src/libutil/loggers.cc  | 22 +++++++++++++---------
- src/libutil/loggers.hh  | 18 ++++++++++++++----
+ src/libutil/loggers.cc  | 34 +++++++++++++++++++++++++---------
+ src/libutil/loggers.hh  |  6 ++----
  4 files changed, 63 insertions(+), 31 deletions(-)
 
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index 788c4efc5f5..f9cada575ae 100644
+index 99a81fe2c4c..621da8e4d81 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
-@@ -184,28 +184,33 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
+@@ -192,28 +192,33 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
      });
  }
  
@@ -716,7 +716,7 @@ index 788c4efc5f5..f9cada575ae 100644
  template<> void BaseSetting<LogFormat>::set(const std::string & str)
  {
      if (str == "raw") value = LogFormat::raw;
-@@ -228,6 +233,13 @@ template<> std::string BaseSetting<LogFormat>::to_string() const
+@@ -236,6 +241,13 @@ template<> std::string BaseSetting<LogFormat>::to_string() const
      else abort();
  }
  
@@ -730,7 +730,7 @@ index 788c4efc5f5..f9cada575ae 100644
  template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::string & category)
  {
      args.addFlag({
-@@ -244,13 +256,13 @@ template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::str
+@@ -252,13 +264,13 @@ template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::str
  
  void setLogFormat(const LogFormat & logFormat)
  {
@@ -747,10 +747,10 @@ index 788c4efc5f5..f9cada575ae 100644
              return builder->builder();
          }
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index 50bc496b002..1a6a5aab2ed 100644
+index 5852a35bfaf..43e56999fdd 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
-@@ -13,10 +13,17 @@
+@@ -12,10 +12,17 @@
  
  namespace nix {
  
@@ -770,9 +770,9 @@ index 50bc496b002..1a6a5aab2ed 100644
  struct MaxBuildJobsSetting : public BaseSetting<unsigned int>
  {
      MaxBuildJobsSetting(Config * options,
-@@ -885,10 +892,9 @@ public:
-     Setting<std::string> flakeRegistry{this, "https://github.com/NixOS/flake-registry/raw/master/flake-registry.json", "flake-registry",
-         "Path or URI of the global flake registry."};
+@@ -897,10 +904,9 @@ public:
+           can enable this setting if you are sure you're not going to do that.
+         )"};
  
 -    // FIXME: default shows as "3", but should show as "bar", due to the default
 -    // being an enum variant
@@ -785,11 +785,14 @@ index 50bc496b002..1a6a5aab2ed 100644
      Logger* makeDefaultLogger();
  };
 diff --git a/src/libutil/loggers.cc b/src/libutil/loggers.cc
-index 34bc0341864..b350d6261a7 100644
+index 34bc0341864..e068984a6e8 100644
 --- a/src/libutil/loggers.cc
 +++ b/src/libutil/loggers.cc
-@@ -2,20 +2,24 @@
+@@ -1,21 +1,37 @@
+ #include "loggers.hh"
  
++#include <nlohmann/json.hpp>
++
  namespace nix {
  
 -std::set<std::string> logFormats = {
@@ -799,6 +802,16 @@ index 34bc0341864..b350d6261a7 100644
 -    "bar",
 -    "bar-with-logs"
 -};
++// This is necessary in order to show the log format's name, rather than an
++// integer, in JSON output.
++NLOHMANN_JSON_SERIALIZE_ENUM(LogFormat, {
++    {LogFormat::raw, "raw"},
++    {LogFormat::rawWithLogs, "raw-with-logs"},
++    {LogFormat::internalJson, "internal-json"},
++    {LogFormat::bar, "bar"},
++    {LogFormat::barWithLogs, "bar-with-logs"},
++});
++
 +static std::vector<std::shared_ptr<LoggerBuilder>>* registeredLoggers;
  
 -std::vector<std::shared_ptr<LoggerBuilder>> registeredLoggers;
@@ -823,34 +836,10 @@ index 34bc0341864..b350d6261a7 100644
  
  }
 diff --git a/src/libutil/loggers.hh b/src/libutil/loggers.hh
-index d111519adf0..0126b2667b8 100644
+index 6b89f9037ba..a7539603e62 100644
 --- a/src/libutil/loggers.hh
 +++ b/src/libutil/loggers.hh
-@@ -2,6 +2,8 @@
- 
- #include "logging.hh"
- 
-+#include <nlohmann/json.hpp>
-+
- namespace nix {
- 
- enum class LogFormat {
-@@ -12,15 +14,23 @@ enum class LogFormat {
-     barWithLogs,
- };
- 
-+// This is necessary in order to show the log format's name, rather than an
-+// integer, in JSON output.
-+NLOHMANN_JSON_SERIALIZE_ENUM(LogFormat, {
-+    {LogFormat::raw, "raw"},
-+    {LogFormat::rawWithLogs, "raw-with-logs"},
-+    {LogFormat::internalJson, "internal-json"},
-+    {LogFormat::bar, "bar"},
-+    {LogFormat::barWithLogs, "bar-with-logs"},
-+});
-+
- struct LoggerBuilder {
-     std::string name;
+@@ -17,10 +17,8 @@ struct LoggerBuilder {
      std::function<Logger *()> builder;
  };
  
@@ -864,7 +853,7 @@ index d111519adf0..0126b2667b8 100644
 +
  }
 
-From bfba368da4451458d76afb8af62b36ac6a2bd230 Mon Sep 17 00:00:00 2001
+From cbc9f1d71f1d2b567cbe97fba4baa3b9e7a98f10 Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Sat, 19 Sep 2020 01:03:02 -0700
 Subject: [PATCH 4/4] Move progress-bar to libutil
@@ -891,12 +880,12 @@ This also removes the unused store-api.hh include in progress-bar.cc.
  rename src/{libmain => libutil}/progress-bar.hh (100%)
 
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index 1a6a5aab2ed..7c4bf8f48a7 100644
+index 43e56999fdd..48ba1d7558c 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
-@@ -892,8 +892,6 @@ public:
-     Setting<std::string> flakeRegistry{this, "https://github.com/NixOS/flake-registry/raw/master/flake-registry.json", "flake-registry",
-         "Path or URI of the global flake registry."};
+@@ -904,8 +904,6 @@ public:
+           can enable this setting if you are sure you're not going to do that.
+         )"};
  
 -    // FIXME: generated manpage is missing "bar" and "bar-with-logs" because
 -    // they're registered outside libutil

@@ -18,6 +18,9 @@
 
   xdg.enable = true;
 
+  home.file."scripts".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nixpkgs/scripts";
+
   # Finally, a cursor theme that displays hands on clickable objects
   home.file.".icons/default".source = "${pkgs.gnome3.adwaita-icon-theme}/share/icons/Adwaita";
   xsession.pointerCursor = {

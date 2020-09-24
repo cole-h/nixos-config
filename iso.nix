@@ -10,12 +10,6 @@
 
   nix.package = pkgs.nixUnstable;
 
-  environment.systemPackages = with pkgs;
-    [
-      git
-      git-crypt
-    ];
-
   programs.gnupg.agent = {
     enable = true;
     enableBrowserSocket = true;
@@ -23,4 +17,6 @@
     enableSSHSupport = true;
     pinentryFlavor = "curses";
   };
+
+  security.doas.enable = true;
 }
