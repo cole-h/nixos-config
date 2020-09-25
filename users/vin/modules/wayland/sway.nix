@@ -536,6 +536,7 @@ in
         "${ws2}" = [
           { app_id = "mpv"; }
           { class = "chatterino"; }
+          { app_id = "chatterino"; }
         ];
       };
 

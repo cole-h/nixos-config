@@ -80,12 +80,8 @@
               type = attrsOf (submoduleWith {
                 modules = [ ];
                 # Makes specialArgs available to home-manager modules as well
-                specialArgs = specialArgs // {
+                specialArgs = builtins.removeAttrs specialArgs [ "nixosConfig" ] // {
                   super = config; # access NixOS configuration from h-m
-                  # TODO: make sure that if/when
-                  # https://github.com/nix-community/home-manager/pull/1382 gets
-                  # merged, nixosConfig doesn't show up here. It's too long of a
-                  # name -- super sounds cooler.
                 };
               });
             };
@@ -155,6 +151,8 @@
           } // { inherit modules; }; # let Nixus have access to this stuff
     in
     {
+      inherit inputs;
+
       nixosConfigurations = {
         scadrial =
           let
@@ -164,16 +162,16 @@
           mkSystem system pkgs "scadrial";
       };
 
-      iso =
-        let
-          system = "x86_64-linux";
-          # FIXME: inputs.large makes this segfault???
-          iso = import "${inputs.small}/nixos" {
-            configuration = ./iso.nix;
-            inherit system;
-          };
-        in
-        iso.config.system.build.isoImage;
+      packages = forAllSystems ({ system, ... }: {
+        iso =
+          let
+            iso = import "${channels.pkgs}/nixos" {
+              configuration = ./iso.nix;
+              inherit system;
+            };
+          in
+          iso.config.system.build.isoImage;
+      });
 
       legacyPackages = forAllSystems ({ pkgs, ... }: pkgs);
 
@@ -213,6 +211,7 @@
 
       devShell = forAllSystems ({ system, pkgs, ... }:
         with pkgs;
+
         stdenv.mkDerivation {
           name = "shell";
 

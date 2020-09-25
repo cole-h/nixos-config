@@ -1,6 +1,6 @@
 { pkgs, my, ... }:
 let
-  # https://github.com/PassthroughPOST/VFIO-Tools/blob/7a2d576afa3b2d2b4b4fb8d992cb8b8cb6620829/libvirt_hooks/qemu
+  # https://github.com/PassthroughPOST/VFIO-Tools/blob/0bdc0aa462c0acd8db344c44e8692ad3a281449a/libvirt_hooks/qemu
   qemuHook = pkgs.writeShellScript "qemu" ''
     #
     # Author: Sebastiaan Meijer (sebastiaan@passthroughpo.st)
@@ -23,11 +23,15 @@ let
 
     set -e # If a script exits with an error, we should as well.
 
-    if [ -f "$HOOKPATH" ]; then
-        eval \""$HOOKPATH"\" "$@"
+    # check if it's a non-empty executable file
+    if [ -f "$HOOKPATH" ] && [ -s "$HOOKPATH"] && [ -x "$HOOKPATH" ]; then
+        eval \"$HOOKPATH\" "$@"
     elif [ -d "$HOOKPATH" ]; then
         while read file; do
-            eval \""$file"\" "$@"
+            # check for null string
+            if [ ! -z "$file" ]; then
+              eval \"$file\" "$@"
+            fi
         done <<< "$(find -L "$HOOKPATH" -maxdepth 1 -type f -executable -print;)"
     fi
   '';

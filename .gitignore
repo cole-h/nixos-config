@@ -1,5 +1,6 @@
 ### Nix ###
 result*
+*.qcow2
 
 ### Elisp ###
 *.elc
