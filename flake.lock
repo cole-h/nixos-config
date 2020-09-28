@@ -3,11 +3,11 @@
     "alacritty": {
       "flake": false,
       "locked": {
-        "lastModified": 1600231457,
-        "narHash": "sha256-yzOG1Xq0YS0VJU+XJmV5qmwHYWD03O6yfgsBgp6NTw8=",
+        "lastModified": 1601246168,
+        "narHash": "sha256-KNuwTwF+BQQUxmS1N0K2jf5HolXy5EZsXx6Rwy/YJIY=",
         "owner": "alacritty",
         "repo": "alacritty",
-        "rev": "56cff184868f3bb3bb45082cac79fec296e4a48b",
+        "rev": "a754d06b44139b85e8b34a71ece4477cb1caa85e",
         "type": "github"
       },
       "original": {
@@ -212,11 +212,11 @@
     "nixus": {
       "flake": false,
       "locked": {
-        "lastModified": 1598401071,
-        "narHash": "sha256-QB0LJ5zncEFE8TzQ1Xxubj7J7i0sVGgTZgS3jFapEN0=",
+        "lastModified": 1601222289,
+        "narHash": "sha256-Y/C4NoE6ERHtlu3V/f6/W9eZ2RRzRZD1PG7XAYtO4Pg=",
         "owner": "infinisil",
         "repo": "nixus",
-        "rev": "491becc8c6a2b42bc02672163b8f3a326a126fc9",
+        "rev": "2127516f68ce6f900b38289985377559e69aab88",
         "type": "github"
       },
       "original": {
@@ -262,11 +262,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1599546883,
-        "narHash": "sha256-Ya7N0zdPIQ3d27K629hXmXk+FJh9SVAB70EqR2keaHA=",
+        "lastModified": 1600294942,
+        "narHash": "sha256-F9SGNLVLnjlZy65h69CRWchO6momXaNuNwexMwY1Spg=",
         "ref": "master",
-        "rev": "a03b63073eb368038621a470d9e43684f9ec87cc",
-        "revCount": 51,
+        "rev": "c29738ddc0ff5a3a9c965983f35a01b1d8b62737",
+        "revCount": 63,
         "type": "git",
         "url": "ssh://git@github.com/cole-h/nix-secrets.git"
       },
