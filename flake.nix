@@ -1,4 +1,5 @@
 {
+  # TODO: https://github.com/Infinisil/system/commit/054d68f0660a608999fccf2f63e3f33dc7c6e0e9
   # https://github.com/bqv/nixrc, https://github.com/colemickens/nixcfg
   description = "cole-h's NixOS configuration";
 
@@ -149,6 +150,8 @@
           {
             inherit system modules specialArgs pkgs;
           } // { inherit modules; }; # let Nixus have access to this stuff
+
+      nixus = sys: import inputs.nixus { deploySystem = sys; };
     in
     {
       inherit inputs;
@@ -175,10 +178,9 @@
 
       legacyPackages = forAllSystems ({ pkgs, ... }: pkgs);
 
-      # TODO: nixus = system: f: ....
       defaultPackage = {
         x86_64-linux = forOneSystem "x86_64-linux" ({ system, pkgs, ... }:
-          import inputs.nixus { deploySystem = system; } ({ ... }: {
+          nixus system ({ ... }: {
             defaults = { name, ... }:
               let
                 nixos = inputs.self.nixosConfigurations.${name};

@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  documentation.dev.enable = true;
-
   environment.enableDebugInfo = true;
   environment.systemPackages = with pkgs;
     [
@@ -11,6 +9,7 @@
       borgbackup
       cntr # used for breakpointHook
       cryptsetup # for borgbackup
+      direnv
       dnsutils
       e2fsprogs
       ffmpeg
@@ -26,6 +25,7 @@
       manpages
       neovim
       netcat-openbsd
+      nix-direnv
       openssl
       pciutils
       posix_man_pages
@@ -36,6 +36,16 @@
       wireguard
       xdg_utils
     ];
+
+  environment.pathsToLink = [
+    "/share/nix-direnv"
+  ];
+
+  # For nix-direnv (https://github.com/nix-community/nix-direnv)
+  nix.extraOptions = ''
+    keep-outputs = true
+    keep-derivations = true
+  '';
 
   # TODO: drop after next fish update
   environment.etc."fish/generated_completions".source =

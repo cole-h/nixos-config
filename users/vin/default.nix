@@ -37,7 +37,6 @@
       [
         ## nix-related
         cachix
-        direnv
         niv
         nix-index
         # nixops
