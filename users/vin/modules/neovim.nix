@@ -11,6 +11,8 @@ let
   };
 in
 {
+  home.file."${config.xdg.configHome}/nvim/parser/rust.so".source = "${pkgs.tree-sitter.builtGrammars.rust}/parser";
+
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-unwrapped.overrideAttrs ({ ... }: {
@@ -29,7 +31,6 @@ in
     withRuby = false;
 
     plugins = with pkgs.vimPlugins; [
-      # Actual plugins
       vim-fugitive
       ctrlp-vim
       vim-surround
@@ -38,26 +39,29 @@ in
       traces-vim
       vim-commentary
       vim-sensible
-      indentLine
       nvim-lspconfig
       lsp_extensions
       completion-nvim
       diagnostic-nvim
       direnv-vim
+      fzf-vim
+      nvim-treesitter
 
-      # Syntax highlighting
+      # Appearance
       vim-fish
       vim-markdown
       vim-toml
       rust-vim
       vim-nix
-
-      # Themes
       dracula-vim
+      lightline-vim
+      lightline-bufferline
     ];
 
     extraConfig = ''
       filetype plugin indent on
+      syntax enable
+
       set laststatus=2
       set t_Co=256
       set termguicolors
@@ -77,6 +81,8 @@ in
       set scrolloff=3
       set sidescroll=3
       set cursorline
+      set noshowmode
+      set conceallevel=2
       " set noesckeys
 
       set ruler
@@ -110,8 +116,6 @@ in
       set nofoldenable
       set lazyredraw
 
-      set tags=./tags
-
       set printheader=\
 
       syntax on
@@ -125,6 +129,8 @@ in
       inoremap <C-c> <ESC>
       " Ex mode is fucking dumb
       nnoremap Q <Nop>
+      " all my homies hate command history
+      nnoremap q: <Nop>
       " change the directory only for the current window
       nnoremap <silent> <leader>. :lcd %:p:h<cr>
       nnoremap <silent> <leader><tab><tab> :CtrlPBuffer<cr>
@@ -174,23 +180,8 @@ in
       nmap <leader>l :set list!<CR>
       set listchars=tab:▸\ ,eol:¬,space:.
 
-      syntax enable
-      highlight Search ctermbg=12
-      highlight NonText ctermfg=darkgrey
-      highlight SpecialKey ctermfg=darkgrey
-      highlight clear SignColumn
-      highlight CursorLineNr ctermfg=13
-      highlight clear CursorLine
-      highlight Comment cterm=italic ctermfg=darkgrey
-      highlight StatusLine cterm=none ctermbg=none ctermfg=darkgrey
-      highlight StatusLineNC cterm=none ctermbg=none ctermfg=darkgrey
-      highlight Title cterm=none ctermfg=darkgrey
-      highlight TabLineFill cterm=none
-      highlight TabLine cterm=none ctermfg=darkgrey ctermbg=none
-      highlight ColorColumn ctermbg=darkgrey guibg=lightgrey
-
       augroup encrypted
-        au!
+        autocmd!
         autocmd BufReadPre,FileReadPre *.gpg
           \ setlocal noswapfile noundofile nobackup bin
         autocmd BufReadPre,FileReadPre *.gpg
@@ -211,20 +202,22 @@ in
       " Persist cursor position between sessions
       augroup vimrc-remember-cursor-position
         autocmd!
-        autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
-              \| exe "normal! g`\""
-              \| endif
+        autocmd BufReadPost *
+          \ if line("'\"") > 1 && line("'\"") <= line("$") |
+          \ exe "normal! g`\"" |
+          \ endif
       augroup END
     '' +
+    # Plugin-related config
     ''
-      " Plugin-related
-      let g:indentLine_char_list = ['|', '¦', '┆', '┊', '▏']
-      let g:indentLine_setColors = 0
-
-      au VimEnter * colorscheme dracula
+      autocmd VimEnter * colorscheme dracula
 
       let g:vim_markdown_folding_disabled=1
       let g:vim_markdown_frontmatter=1
+
+      let g:lightline = {
+        \ 'colorscheme': 'dracula'
+        \ }
     '' +
     # LSP config
     ''
@@ -250,8 +243,8 @@ in
           require'diagnostic'.on_attach(client)
       end
 
-      -- Enable rust_analyzer
       nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+      nvim_lsp.rnix.setup({ on_attach=on_attach })
 
       EOF
 

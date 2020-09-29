@@ -14,6 +14,7 @@
       e2fsprogs
       ffmpeg
       file
+      gcc
       gdb
       git
       htop

@@ -44,6 +44,7 @@
         nix-prefetch
         nix-prefetch-scripts
         nix-top
+        rnix-lsp
 
         ## tools
         aerc # terminal email reader; TODO: add config to secrets/

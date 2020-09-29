@@ -200,7 +200,7 @@
               };
             };
           }));
-      };
+        };
 
       apps = forAllSystems ({ system, ... }: {
         nixus = {
