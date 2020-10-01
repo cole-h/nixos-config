@@ -25,8 +25,7 @@
 ;; functions and friends
 
 ;; setq and friends
-(setq display-line-numbers-type 'relative
-      doom-modeline-lsp nil
+(setq doom-modeline-lsp nil
       inhibit-read-only t
       mouse-wheel-progressive-speed nil
       tab-always-indent 'complete

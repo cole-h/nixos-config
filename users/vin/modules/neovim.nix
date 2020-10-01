@@ -46,6 +46,7 @@ in
       direnv-vim
       fzf-vim
       nvim-treesitter
+      neoformat
 
       # Appearance
       vim-fish
@@ -210,7 +211,12 @@ in
     '' +
     # Plugin-related config
     ''
-      autocmd VimEnter * colorscheme dracula
+      let g:dracula_colorterm = 0
+
+      augroup dracula
+        autocmd!
+        autocmd VimEnter * colorscheme dracula
+      augroup END
 
       let g:vim_markdown_folding_disabled=1
       let g:vim_markdown_frontmatter=1
@@ -218,6 +224,11 @@ in
       let g:lightline = {
         \ 'colorscheme': 'dracula'
         \ }
+
+      augroup fmt
+        autocmd!
+        autocmd BufWritePre * undojoin | Neoformat
+      augroup END
     '' +
     # LSP config
     ''
@@ -244,7 +255,6 @@ in
       end
 
       nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
-      nvim_lsp.rnix.setup({ on_attach=on_attach })
 
       EOF
 
