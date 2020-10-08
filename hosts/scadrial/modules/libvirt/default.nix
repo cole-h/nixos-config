@@ -43,13 +43,20 @@ in
     # pkgs.libguestfs-with-appliance
   ];
 
-  users.users.vin.extraGroups = [ "libvirtd" ];
+  users.users.vin.extraGroups = [
+    "libvirtd"
+    "kvm"
+  ];
 
   boot.kernelModules = [ "vfio-pci" ];
   boot.kernelParams = [
+    # XXX: update for AMD (also update scripts and hardware configuration with
+    # `nixos-generate-config --show-hardware-config`)
+
     # "amd_iommu=on" # TODO when I upgrade to AMD
-    "intel_iommu=on"
-    "intel_iommu=igfx_off"
+    # "amd_iommu=pt" # TODO when I upgrade to AMD
+    "intel_iommu=on" # TODO: remove
+    "intel_iommu=igfx_off" # TODO: remove
     "iommu=pt"
     "kvm.ignore_msrs=1"
     "kvm.report_ignored_msrs=0"

@@ -1,0 +1,17 @@
+Bus 1 --> 0000:00:14.0 (IOMMU group 2)
+Bus 001 Device 003: ID 046d:c539 Logitech, Inc. USB Receiver
+Bus 001 Device 004: ID 04d8:eed2 Microchip Technology, Inc. Massdrop Hub
+Bus 001 Device 002: ID 04d8:eec5 Microchip Technology, Inc. Massdrop Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+Bus 2 --> 0000:00:14.0 (IOMMU group 2)
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
+Bus 3 --> 0000:00:1a.0 (IOMMU group 4)
+Bus 003 Device 002: ID 8087:8009 Intel Corp. 
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+Bus 4 --> 0000:00:1d.0 (IOMMU group 8)
+Bus 004 Device 002: ID 8087:8001 Intel Corp. Integrated Hub
+Bus 004 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+

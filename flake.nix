@@ -8,13 +8,13 @@
     # large.url = "git+file:///home/vin/workspace/vcs/nixpkgs/master";
     large.url = "github:nixos/nixpkgs/nixos-unstable";
     # master.url = "github:nixos/nixpkgs/master";
-    small.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    # small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
-    nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "small"; };
-    home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "small"; };
-    naersk = { url = "github:nmattia/naersk"; inputs.nixpkgs.follows = "small"; };
-    passrs = { url = "github:cole-h/passrs"; };
+    nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "large"; };
+    home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "large"; };
+    naersk = { url = "github:nmattia/naersk"; inputs.nixpkgs.follows = "large"; };
+    passrs = { url = "github:cole-h/passrs"; inputs.nixpkgs.follows = "large"; };
     wayland = { url = "github:colemickens/nixpkgs-wayland"; };
 
     # Not flakes
@@ -200,7 +200,7 @@
               };
             };
           }));
-        };
+      };
 
       apps = forAllSystems ({ system, ... }: {
         nixus = {

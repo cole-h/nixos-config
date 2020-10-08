@@ -67,7 +67,7 @@
     "home": {
       "inputs": {
         "nixpkgs": [
-          "small"
+          "large"
         ]
       },
       "locked": {
@@ -86,11 +86,11 @@
     },
     "large": {
       "locked": {
-        "lastModified": 1601009131,
-        "narHash": "sha256-XyIURii5iWzOrEsvtbiP7b0diJV3Dn7bUwXdHyHl6hU=",
+        "lastModified": 1602066138,
+        "narHash": "sha256-aV0PWKhVYQNLQuFW2qfBXa3JWmPPKSHFJ65ac83JMzE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5aba0fe9766a7201a336249fd6cb76e0d7ba2faf",
+        "rev": "420f89ceb267b461eed5d025b6c3c0e57703cc5c",
         "type": "github"
       },
       "original": {
@@ -119,15 +119,15 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
-          "small"
+          "large"
         ]
       },
       "locked": {
-        "lastModified": 1597138680,
-        "narHash": "sha256-3pDN/W17wjVDbrkgo60xQSb24+QAPQ7ulsUq5atNni0=",
+        "lastModified": 1602173141,
+        "narHash": "sha256-m6wU6lP0wf2OMw3KtJqn27ITtg29+ftciGHicLiVSGE=",
         "owner": "nmattia",
         "repo": "naersk",
-        "rev": "529e910a3f423a8211f8739290014b754b2555b6",
+        "rev": "22b96210b2433228d42bce460f3befbdcfde7520",
         "type": "github"
       },
       "original": {
@@ -139,15 +139,15 @@
     "naersk_2": {
       "inputs": {
         "nixpkgs": [
-          "small"
+          "large"
         ]
       },
       "locked": {
-        "lastModified": 1597138680,
-        "narHash": "sha256-3pDN/W17wjVDbrkgo60xQSb24+QAPQ7ulsUq5atNni0=",
+        "lastModified": 1602173141,
+        "narHash": "sha256-m6wU6lP0wf2OMw3KtJqn27ITtg29+ftciGHicLiVSGE=",
         "owner": "nmattia",
         "repo": "naersk",
-        "rev": "529e910a3f423a8211f8739290014b754b2555b6",
+        "rev": "22b96210b2433228d42bce460f3befbdcfde7520",
         "type": "github"
       },
       "original": {
@@ -160,7 +160,7 @@
       "inputs": {
         "lowdown-src": "lowdown-src",
         "nixpkgs": [
-          "small"
+          "large"
         ]
       },
       "locked": {
@@ -178,22 +178,6 @@
       }
     },
     "nixpkgs": {
-      "locked": {
-        "lastModified": 1598686861,
-        "narHash": "sha256-3oiA42/x2Aoc168Q/Y4+ddapF0w8dU58p2LTFrrmj48=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "d1020bcb2e49eecbe8a36d13ef414e00bdb07151",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
       "locked": {
         "lastModified": 1600573085,
         "narHash": "sha256-w5SGosyuTbFCBoUzgy2gyVcxYxRUvZ6SgHsRIPkZXgI=",
@@ -228,14 +212,16 @@
     "passrs": {
       "inputs": {
         "naersk": "naersk_2",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "large"
+        ]
       },
       "locked": {
-        "lastModified": 1598857041,
-        "narHash": "sha256-EJp6zmCApOKdKYx1REJCfiqvmKFfp66V6oasi+CvYxw=",
+        "lastModified": 1602175546,
+        "narHash": "sha256-Mv0xBBokinO6Wuwj6DByUhmOZgwt4B4SMp2brotI8Lg=",
         "owner": "cole-h",
         "repo": "passrs",
-        "rev": "5254dbad5efa52aaad0b09cb9bea1c4fcdbc385f",
+        "rev": "3800bdf593f7f4fd08268f0dd7df924c43fd5cd1",
         "type": "github"
       },
       "original": {
@@ -255,7 +241,6 @@
         "nixus": "nixus",
         "passrs": "passrs",
         "secrets": "secrets",
-        "small": "small",
         "wayland": "wayland"
       }
     },
@@ -275,27 +260,11 @@
         "url": "ssh://git@github.com/cole-h/nix-secrets.git"
       }
     },
-    "small": {
-      "locked": {
-        "lastModified": 1600896935,
-        "narHash": "sha256-i5nlUYl/ndBw+FOU4ZLWY3mTfTSITtaDphofu8BoTL4=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "eac4389021de537a9e881bcf8a4ed3e8ffacf582",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "wayland": {
       "inputs": {
         "cachix": "cachix",
         "cmpkgs": "cmpkgs",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1600866307,

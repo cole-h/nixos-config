@@ -17,5 +17,6 @@
   hardware.opengl.enable = true;
 
   # Update microcode to address "Firmware Bug" messages on startup.
+  # XXX: update for AMD
   hardware.cpu.intel.updateMicrocode = true;
 }
