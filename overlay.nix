@@ -87,56 +87,56 @@ in
     '';
   });
 
-  mpd = final.mpdWithFeatures {
-    features = [
-      # Storage plugins
-      "udisks"
-      "webdav"
-      # Input plugins
-      "curl"
-      "mms"
-      "nfs"
-      # Archive support
-      "bzip2"
-      "zzip"
-      # Decoder plugins
-      "audiofile"
-      "faad"
-      "ffmpeg"
-      "flac"
-      "fluidsynth"
-      "gme"
-      "mad"
-      "mikmod"
-      "mpg123"
-      "opus"
-      "vorbis"
-      # Encoder plugins
-      "vorbisenc"
-      "lame"
-      # Filter plugins
-      "libsamplerate"
-      # Output plugins
-      "alsa"
-      "jack"
-      "pulse"
-      "shout"
-      # Client support
-      "libmpdclient"
-      # Tag support
-      "id3tag"
-      # Misc
-      "dbus"
-      "expat"
-      "icu"
-      "pcre"
-      "sqlite"
-      "syslog"
-      "systemd"
-      "yajl"
-      "zeroconf"
-    ];
-  };
+  # mpd = final.mpdWithFeatures {
+  #   features = [
+  #     # Storage plugins
+  #     "udisks"
+  #     "webdav"
+  #     # Input plugins
+  #     "curl"
+  #     "mms"
+  #     "nfs"
+  #     # Archive support
+  #     "bzip2"
+  #     "zzip"
+  #     # Decoder plugins
+  #     "audiofile"
+  #     "faad"
+  #     "ffmpeg"
+  #     "flac"
+  #     "fluidsynth"
+  #     "gme"
+  #     "mad"
+  #     "mikmod"
+  #     "mpg123"
+  #     "opus"
+  #     "vorbis"
+  #     # Encoder plugins
+  #     "vorbisenc"
+  #     "lame"
+  #     # Filter plugins
+  #     "libsamplerate"
+  #     # Output plugins
+  #     "alsa"
+  #     "jack"
+  #     "pulse"
+  #     "shout"
+  #     # Client support
+  #     "libmpdclient"
+  #     # Tag support
+  #     "id3tag"
+  #     # Misc
+  #     "dbus"
+  #     "expat"
+  #     "icu"
+  #     "pcre"
+  #     "sqlite"
+  #     "syslog"
+  #     "systemd"
+  #     "yajl"
+  #     "zeroconf"
+  #   ];
+  # };
 
   # Flakes-based
   inherit passrs;

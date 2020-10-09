@@ -11,10 +11,10 @@
     # small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
-    nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "large"; };
+    nix = { url = "github:nixos/nix"; };
     home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "large"; };
     naersk = { url = "github:nmattia/naersk"; inputs.nixpkgs.follows = "large"; };
-    passrs = { url = "github:cole-h/passrs"; inputs.nixpkgs.follows = "large"; };
+    passrs = { url = "github:cole-h/passrs"; };
     wayland = { url = "github:colemickens/nixpkgs-wayland"; };
 
     # Not flakes

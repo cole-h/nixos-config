@@ -6,6 +6,7 @@
     extraOptions = ''
       experimental-features = nix-command flakes
       builders-use-substitutes = true
+      keep-going = true
     '';
 
     trustedUsers = [ "vin" ];

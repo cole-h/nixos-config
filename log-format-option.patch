@@ -1,4 +1,4 @@
-From 3c24b3791058d2b9f474d9172548a95ff1b23aed Mon Sep 17 00:00:00 2001
+From fe10125cf962aaeae92fa8f3c361a580e25be35d Mon Sep 17 00:00:00 2001
 From: Tony Olagbaiye <me@fron.io>
 Date: Wed, 26 Aug 2020 04:53:33 +0100
 Subject: [PATCH 1/4] Add a settings option for log-format
@@ -16,7 +16,7 @@ Co-authored-by: Cole Helbling <cole.e.helbling@outlook.com>
  8 files changed, 65 insertions(+), 41 deletions(-)
 
 diff --git a/src/libmain/common-args.cc b/src/libmain/common-args.cc
-index 3411e2d7adb..95b1fdb01d7 100644
+index 3411e2d7a..95b1fdb01 100644
 --- a/src/libmain/common-args.cc
 +++ b/src/libmain/common-args.cc
 @@ -49,14 +49,6 @@ MixCommonArgs::MixCommonArgs(const string & programName)
@@ -35,7 +35,7 @@ index 3411e2d7adb..95b1fdb01d7 100644
          .longName = "max-jobs",
          .shortName = 'j',
 diff --git a/src/libmain/loggers.cc b/src/libmain/loggers.cc
-index 0a7291780ea..61f71f62720 100644
+index 0a7291780..61f71f627 100644
 --- a/src/libmain/loggers.cc
 +++ b/src/libmain/loggers.cc
 @@ -1,27 +1,12 @@
@@ -83,7 +83,7 @@ index 0a7291780ea..61f71f62720 100644
  }
  
 diff --git a/src/libmain/loggers.hh b/src/libmain/loggers.hh
-index cada0311049..405c2321d14 100644
+index cada03110..405c2321d 100644
 --- a/src/libmain/loggers.hh
 +++ b/src/libmain/loggers.hh
 @@ -4,15 +4,6 @@
@@ -103,7 +103,7 @@ index cada0311049..405c2321d14 100644
  
  void createDefaultLogger();
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index c5734852dbf..0356b704cd9 100644
+index 1238dc530..dee9ca3d0 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
 @@ -3,6 +3,7 @@
@@ -168,10 +168,10 @@ index c5734852dbf..0356b704cd9 100644
  {
      if (str == "auto") value = std::max(1U, std::thread::hardware_concurrency());
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index ebcfa9d8019..692aca2ba61 100644
+index 8c63c5b34..c9b969537 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
-@@ -865,6 +865,9 @@ public:
+@@ -911,6 +911,9 @@ public:
      Setting<Strings> experimentalFeatures{this, {}, "experimental-features",
          "Experimental Nix features to enable."};
  
@@ -182,7 +182,7 @@ index ebcfa9d8019..692aca2ba61 100644
  
      void requireExperimentalFeature(const std::string & name);
 diff --git a/src/libstore/local.mk b/src/libstore/local.mk
-index d266c8efea0..6d5495f99b6 100644
+index d266c8efe..6d5495f99 100644
 --- a/src/libstore/local.mk
 +++ b/src/libstore/local.mk
 @@ -8,6 +8,8 @@ libstore_SOURCES := $(wildcard $(d)/*.cc $(d)/builtins/*.cc)
@@ -204,7 +204,7 @@ index d266c8efea0..6d5495f99b6 100644
   -DNIX_STORE_DIR=\"$(storedir)\" \
   -DNIX_DATA_DIR=\"$(datadir)\" \
 diff --git a/src/libutil/types.hh b/src/libutil/types.hh
-index 3af485fa0fe..c644409038d 100644
+index 55d02bcf9..e4c802210 100644
 --- a/src/libutil/types.hh
 +++ b/src/libutil/types.hh
 @@ -18,6 +18,14 @@ typedef list<string> Strings;
@@ -223,7 +223,7 @@ index 3af485fa0fe..c644409038d 100644
  
  typedef string Path;
 diff --git a/src/nix/main.cc b/src/nix/main.cc
-index 1e9e07bc058..2c3d83df556 100644
+index 1e9e07bc0..2c3d83df5 100644
 --- a/src/nix/main.cc
 +++ b/src/nix/main.cc
 @@ -173,7 +173,7 @@ void mainWrapped(int argc, char * * argv)
@@ -235,8 +235,11 @@ index 1e9e07bc058..2c3d83df556 100644
  
      Finally f([] { logger->stop(); });
  
+-- 
+2.28.0
 
-From 519dd27f4b2901f9c22183834be3e0f6380b0dd6 Mon Sep 17 00:00:00 2001
+
+From bb1e86e36a69576f7f4213fc08f89b9ba2c35643 Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Thu, 17 Sep 2020 17:22:32 -0700
 Subject: [PATCH 2/4] Make loggers pluggable
@@ -278,7 +281,7 @@ Co-authored-by: regnat <rg@regnat.ovh>
 
 diff --git a/src/libmain/loggers.cc b/src/libmain/loggers.cc
 deleted file mode 100644
-index 61f71f62720..00000000000
+index 61f71f627..000000000
 --- a/src/libmain/loggers.cc
 +++ /dev/null
 @@ -1,34 +0,0 @@
@@ -318,7 +321,7 @@ index 61f71f62720..00000000000
 -}
 diff --git a/src/libmain/loggers.hh b/src/libmain/loggers.hh
 deleted file mode 100644
-index 405c2321d14..00000000000
+index 405c2321d..000000000
 --- a/src/libmain/loggers.hh
 +++ /dev/null
 @@ -1,11 +0,0 @@
@@ -334,7 +337,7 @@ index 405c2321d14..00000000000
 -
 -}
 diff --git a/src/libmain/progress-bar.cc b/src/libmain/progress-bar.cc
-index be3c06a38c0..21c503b22bc 100644
+index 07b45b3b5..1d818f069 100644
 --- a/src/libmain/progress-bar.cc
 +++ b/src/libmain/progress-bar.cc
 @@ -3,6 +3,7 @@
@@ -349,10 +352,10 @@ index be3c06a38c0..21c503b22bc 100644
  
  namespace nix {
  
-+static auto l1 = OnStartup([] {
++static auto rLoggerBar = OnStartup([] {
 +    registerLogger("bar", []() -> Logger* { return makeProgressBar(false); });
 +});
-+static auto l2 = OnStartup([] {
++static auto rLoggerBarWithLogs = OnStartup([] {
 +    registerLogger("bar-with-logs", []() -> Logger* { return makeProgressBar(true); });
 +});
 +
@@ -360,7 +363,7 @@ index be3c06a38c0..21c503b22bc 100644
  {
      assert(n < fields.size());
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index 0356b704cd9..99a81fe2c4c 100644
+index dee9ca3d0..0939d7371 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
 @@ -3,7 +3,6 @@
@@ -469,7 +472,7 @@ index 0356b704cd9..99a81fe2c4c 100644
  {
      if (str == "auto") value = std::max(1U, std::thread::hardware_concurrency());
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index 692aca2ba61..5852a35bfaf 100644
+index c9b969537..ae1814a44 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
 @@ -3,6 +3,7 @@
@@ -489,7 +492,7 @@ index 692aca2ba61..5852a35bfaf 100644
  typedef enum { smEnabled, smRelaxed, smDisabled } SandboxMode;
  
  struct MaxBuildJobsSetting : public BaseSetting<unsigned int>
-@@ -865,9 +868,6 @@ public:
+@@ -911,9 +914,6 @@ public:
      Setting<Strings> experimentalFeatures{this, {}, "experimental-features",
          "Experimental Nix features to enable."};
  
@@ -499,7 +502,7 @@ index 692aca2ba61..5852a35bfaf 100644
      bool isExperimentalFeatureEnabled(const std::string & name);
  
      void requireExperimentalFeature(const std::string & name);
-@@ -896,8 +896,18 @@ public:
+@@ -942,8 +942,18 @@ public:
            resolves to a different location from that of the build machine. You
            can enable this setting if you are sure you're not going to do that.
          )"};
@@ -519,7 +522,7 @@ index 692aca2ba61..5852a35bfaf 100644
  // FIXME: don't use a global variable.
  extern Settings settings;
 diff --git a/src/libstore/local.mk b/src/libstore/local.mk
-index 6d5495f99b6..d266c8efea0 100644
+index 6d5495f99..d266c8efe 100644
 --- a/src/libstore/local.mk
 +++ b/src/libstore/local.mk
 @@ -8,8 +8,6 @@ libstore_SOURCES := $(wildcard $(d)/*.cc $(d)/builtins/*.cc)
@@ -542,7 +545,7 @@ index 6d5495f99b6..d266c8efea0 100644
   -DNIX_DATA_DIR=\"$(datadir)\" \
 diff --git a/src/libutil/loggers.cc b/src/libutil/loggers.cc
 new file mode 100644
-index 00000000000..34bc0341864
+index 000000000..34bc03418
 --- /dev/null
 +++ b/src/libutil/loggers.cc
 @@ -0,0 +1,21 @@
@@ -569,7 +572,7 @@ index 00000000000..34bc0341864
 +}
 diff --git a/src/libutil/loggers.hh b/src/libutil/loggers.hh
 new file mode 100644
-index 00000000000..6b89f9037ba
+index 000000000..6b89f9037
 --- /dev/null
 +++ b/src/libutil/loggers.hh
 @@ -0,0 +1,26 @@
@@ -600,7 +603,7 @@ index 00000000000..6b89f9037ba
 +
 +}
 diff --git a/src/libutil/logging.cc b/src/libutil/logging.cc
-index cbbf64395dc..fbf451b3cbb 100644
+index 8a6752e22..49a0c1893 100644
 --- a/src/libutil/logging.cc
 +++ b/src/libutil/logging.cc
 @@ -1,6 +1,7 @@
@@ -611,25 +614,25 @@ index cbbf64395dc..fbf451b3cbb 100644
  
  #include <atomic>
  #include <nlohmann/json.hpp>
-@@ -10,6 +11,16 @@ namespace nix {
+@@ -12,6 +13,16 @@ LoggerSettings loggerSettings;
  
- LoggerSettings loggerSettings;
+ static GlobalConfig::Register rLoggerSettings(&loggerSettings);
  
-+static auto l1 = OnStartup([] {
++static auto rLoggerJSON = OnStartup([] {
 +    registerLogger("internal-json", []() -> Logger* { return makeJSONLogger(*makeSimpleLogger(true)); });
 +});
-+static auto l2 = OnStartup([] {
++static auto rLoggerRaw = OnStartup([] {
 +    registerLogger("raw", []() -> Logger* { return makeSimpleLogger(false); });
 +});
-+static auto l3 = OnStartup([] {
++static auto rLoggerRawWithLogs = OnStartup([] {
 +    registerLogger("raw-with-logs", []() -> Logger* { return makeSimpleLogger(true); });
 +});
 +
- static GlobalConfig::Register r1(&loggerSettings);
- 
  static thread_local ActivityId curActivity = 0;
+ 
+ ActivityId getCurActivity()
 diff --git a/src/libutil/types.hh b/src/libutil/types.hh
-index c644409038d..3af485fa0fe 100644
+index e4c802210..55d02bcf9 100644
 --- a/src/libutil/types.hh
 +++ b/src/libutil/types.hh
 @@ -18,14 +18,6 @@ typedef list<string> Strings;
@@ -647,8 +650,11 @@ index c644409038d..3af485fa0fe 100644
  /* Paths are just strings. */
  
  typedef string Path;
+-- 
+2.28.0
 
-From f47680e725f85dac9118a8dcc3f4eba022f3e9a9 Mon Sep 17 00:00:00 2001
+
+From 0e3bd416c16dffa00eb482a5d8ebf0691d3e01ec Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Sat, 19 Sep 2020 00:58:16 -0700
 Subject: [PATCH 3/4] Make loggers more pluggable
@@ -669,7 +675,7 @@ Co-authored-by: Daiderd Jordan <daiderd@gmail.com>
  4 files changed, 63 insertions(+), 31 deletions(-)
 
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index 99a81fe2c4c..621da8e4d81 100644
+index 0939d7371..5e3c50510 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
 @@ -192,28 +192,33 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
@@ -747,7 +753,7 @@ index 99a81fe2c4c..621da8e4d81 100644
              return builder->builder();
          }
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index 5852a35bfaf..43e56999fdd 100644
+index ae1814a44..6a28e5230 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
 @@ -12,10 +12,17 @@
@@ -770,7 +776,7 @@ index 5852a35bfaf..43e56999fdd 100644
  struct MaxBuildJobsSetting : public BaseSetting<unsigned int>
  {
      MaxBuildJobsSetting(Config * options,
-@@ -897,10 +904,9 @@ public:
+@@ -943,10 +950,9 @@ public:
            can enable this setting if you are sure you're not going to do that.
          )"};
  
@@ -785,7 +791,7 @@ index 5852a35bfaf..43e56999fdd 100644
      Logger* makeDefaultLogger();
  };
 diff --git a/src/libutil/loggers.cc b/src/libutil/loggers.cc
-index 34bc0341864..e068984a6e8 100644
+index 34bc03418..e068984a6 100644
 --- a/src/libutil/loggers.cc
 +++ b/src/libutil/loggers.cc
 @@ -1,21 +1,37 @@
@@ -836,7 +842,7 @@ index 34bc0341864..e068984a6e8 100644
  
  }
 diff --git a/src/libutil/loggers.hh b/src/libutil/loggers.hh
-index 6b89f9037ba..a7539603e62 100644
+index 6b89f9037..a7539603e 100644
 --- a/src/libutil/loggers.hh
 +++ b/src/libutil/loggers.hh
 @@ -17,10 +17,8 @@ struct LoggerBuilder {
@@ -852,8 +858,11 @@ index 6b89f9037ba..a7539603e62 100644
 +std::vector<std::shared_ptr<LoggerBuilder>> getRegisteredLoggers();
 +
  }
+-- 
+2.28.0
 
-From cbc9f1d71f1d2b567cbe97fba4baa3b9e7a98f10 Mon Sep 17 00:00:00 2001
+
+From 746b4bded8c24db5b36c0dba95f2d45882cd2949 Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Sat, 19 Sep 2020 01:03:02 -0700
 Subject: [PATCH 4/4] Move progress-bar to libutil
@@ -880,10 +889,10 @@ This also removes the unused store-api.hh include in progress-bar.cc.
  rename src/{libmain => libutil}/progress-bar.hh (100%)
 
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index 43e56999fdd..48ba1d7558c 100644
+index 6a28e5230..59adb2998 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
-@@ -904,8 +904,6 @@ public:
+@@ -950,8 +950,6 @@ public:
            can enable this setting if you are sure you're not going to do that.
          )"};
  
@@ -904,7 +913,7 @@ diff --git a/src/libmain/progress-bar.cc b/src/libutil/progress-bar.cc
 similarity index 99%
 rename from src/libmain/progress-bar.cc
 rename to src/libutil/progress-bar.cc
-index 21c503b22bc..cc612c37775 100644
+index 1d818f069..e4dba430f 100644
 --- a/src/libmain/progress-bar.cc
 +++ b/src/libutil/progress-bar.cc
 @@ -1,7 +1,6 @@
@@ -919,3 +928,6 @@ diff --git a/src/libmain/progress-bar.hh b/src/libutil/progress-bar.hh
 similarity index 100%
 rename from src/libmain/progress-bar.hh
 rename to src/libutil/progress-bar.hh
+-- 
+2.28.0
+
