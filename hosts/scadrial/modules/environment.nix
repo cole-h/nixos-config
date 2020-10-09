@@ -7,16 +7,22 @@
       bc
       binutils
       borgbackup
+      cachix
       cntr # used for breakpointHook
       cryptsetup # for borgbackup
       direnv
       dnsutils
       e2fsprogs
+      evince
       ffmpeg
       file
+      filezilla
       gcc
       gdb
       git
+      gitAndTools.hub
+      gnome3.file-roller
+      gnome3.nautilus # GUI file manager
       htop
       imagemagick
       iotop
@@ -24,10 +30,17 @@
       # libreoffice
       lsof
       manpages
+      ncdu
       neovim
       netcat-openbsd
       nix-direnv
+      nix-index
+      nixpkgs-fmt
+      nix-prefetch
+      nix-prefetch-scripts
+      nix-top
       openssl
+      pavucontrol
       pciutils
       posix_man_pages
       psmisc
@@ -36,6 +49,17 @@
       usbutils
       wireguard
       xdg_utils
+      zathura
+
+      bat # cat but better
+      exa # ls but better
+      fd # find files
+      hexyl # hex viewer
+      libreoffice # Office but worse
+      ripgrep # grep but better; [overlays]
+      tmate # "Instant Terminal Sharing"
+      tokei # code metrics
+      ytop # fancy top
     ];
 
   environment.pathsToLink = [

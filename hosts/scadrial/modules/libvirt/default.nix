@@ -50,13 +50,8 @@ in
 
   boot.kernelModules = [ "vfio-pci" ];
   boot.kernelParams = [
-    # XXX: update for AMD (also update scripts and hardware configuration with
-    # `nixos-generate-config --show-hardware-config`)
-
-    # "amd_iommu=on" # TODO when I upgrade to AMD
-    # "amd_iommu=pt" # TODO when I upgrade to AMD
-    "intel_iommu=on" # TODO: remove
-    "intel_iommu=igfx_off" # TODO: remove
+    "amd_iommu=on"
+    "amd_iommu=pt"
     "iommu=pt"
     "kvm.ignore_msrs=1"
     "kvm.report_ignored_msrs=0"
@@ -70,6 +65,8 @@ in
   };
 
   systemd.services.libvirtd = {
+    enable = false; # FIXME: update scripts and `nixos-generate-config --show-hardware-config`
+
     # scripts use binaries from these packages
     # NOTE: All these hooks are run with root privileges... Be careful!
     path = with pkgs; [ libvirt procps utillinux doas ];

@@ -79,6 +79,9 @@ in
         set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
         set --global --export GPG_TTY (tty)
 
+        # For zoxide's fzf window
+        set --global --export _ZO_FZF_OPTS '--no-sort --reverse --border --height 40%'
+
         # Miscellaneous exports
         # set --global --export SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
         # set --global --export SKIM_DEFAULT_OPTIONS '--height 20%'

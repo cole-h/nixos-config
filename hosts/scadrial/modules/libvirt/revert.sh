@@ -7,12 +7,15 @@ echo "$(date) Modprobe -r'd vfio-pci, vfio_iommu_type1, and vfio" >> /tmp/win10.
 modprobe nouveau
 echo "$(date) Modprobed nouveau" >> /tmp/win10.log
 
+# XXX: update pci address
 virsh nodedev-reattach pci_0000_00_14_0
 echo "$(date) Rebound USB devices (M+KBD)" >> /tmp/win10.log
 
+# XXX: update pci address
 virsh nodedev-reattach pci_0000_00_1b_0
 echo "$(date) Rebound snd_hda_intel (front panel audio)" >> /tmp/win10.log
 
+# XXX: update pci address
 virsh nodedev-reattach pci_0000_01_00_1
 echo "$(date) Rebound snd_hda_intel (HDMI audio)" >> /tmp/win10.log
 
@@ -25,6 +28,7 @@ echo "$(date) Restarted torrents" >> /tmp/win10.log
 doas -u vin systemctl restart --user pulseaudio.socket
 echo "$(date) Restarted user pulse" >> /tmp/win10.log
 
+# XXX: update pci address
 virsh nodedev-reattach pci_0000_01_00_0
 echo "$(date) Rebound GPU" >> /tmp/win10.log
 

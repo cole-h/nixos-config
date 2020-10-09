@@ -35,34 +35,14 @@
 
     packages = with pkgs;
       [
-        ## nix-related
-        cachix
-        niv
-        nix-index
-        # nixops
-        nixpkgs-fmt
-        nix-prefetch
-        nix-prefetch-scripts
-        nix-top
-
         ## tools
         aerc # terminal email reader; TODO: add config to secrets/
-        bat # cat but better
-        exa # ls but better
-        fd # find files
-        # ffsend # send files to Firefox Send from the terminal
-        hexyl # hex viewer
         hydrus # booru-like image tagger
         hyperfine # cli benchmarker
-        libreoffice # Office but worse
+        mdloader
         newsboat # rss/atom feed reader
         qimgv # image viewer
-        ripgrep # grep but better; [overlays]
         skim # fzf-rs
-        tmate # "Instant Terminal Sharing"
-        tokei # code metrics
-        ytop # fancy top
-        mdloader
 
         # latest.firefox-nightly-bin
         firefox-bin
@@ -76,18 +56,8 @@
         todo-txt-cli # todos tracker
 
         #### User Packages
-        # go # maybe
-        evince
-        zathura
-        pavucontrol
-        gitAndTools.hub
-        ncdu
         # gnome3.networkmanagerapplet
-        gnome3.nautilus # GUI file manager
-        gnome3.file-roller
         foliate
-        # filezilla
-        # binwalk
         (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
 
         #### System Packages
@@ -104,21 +74,9 @@
       EDITOR = "nvim";
       VISUAL = "nvim";
 
-      # Path-related exports
-      # GOPATH = "${config.home.homeDirectory}/.go";
       CARGO_HOME = "${config.home.homeDirectory}/.cargo";
-      # ANDROID_HOME = "${pkgs.androidenv.androidPks_9_0.androidsdk}/libexec/android-sdk";
-      # DEVKITPRO = "/opt/devkitpro";
-      # DEVKITARM = "${DEVKITPRO}/devkitARM";
-      # DEVKITPPC = "${DEVKITPRO}/devkitPPC";
-
-      # Use all processors :)
-      MAKEFLAGS = "\${MAKEFLAGS:+$MAKEFLAGS }-j$(nproc)";
 
       MPD_HOST = "127.0.0.1";
-
-      # For zoxide's fzf window
-      _ZO_FZF_OPTS = "--no-sort --reverse --border --height 40%";
     };
 
     # This value determines the Home Manager release that your
