@@ -545,7 +545,7 @@ in
         #   command = "${pkgs.cadence}/bin/cadence-session-start --system-start";
         # }
         {
-          command = "alacritty --class SCRATCHTERM -e tmux -L scratch";
+          command = "alacritty --class SCRATCHTERM -e tmux -L scratch new-session -A";
         }
         {
           command = ''

@@ -8,9 +8,11 @@ echo 0 > /sys/class/vtconsole/vtcon1/bind
 echo "$(date) Unbound vtcon1" >> /tmp/win10.log
 
 # Unbind the GPU from display driver
-# XXX: update pci address
-virsh nodedev-detach pci_0000_01_00_0
+virsh nodedev-detach pci_0000_08_00_0
 echo "$(date) Unbound GPU" >> /tmp/win10.log
+
+virsh nodedev-detach pci_0000_08_00_1
+echo "$(date) Unbound HDMI audio" >> /tmp/win10.log
 
 systemctl stop znapzend
 echo "$(date) Stopped snapshots while VM is live" >> /tmp/win10.log
@@ -18,16 +20,10 @@ echo "$(date) Stopped snapshots while VM is live" >> /tmp/win10.log
 systemctl stop sonarr transmission
 echo "$(date) Stopped torrents" >> /tmp/win10.log
 
-# XXX: update pci address
-virsh nodedev-detach pci_0000_01_00_1
-echo "$(date) Unbound snd_hda_intel (HDMI audio)" >> /tmp/win10.log
+virsh nodedev-detach pci_0000_0a_00_4
+echo "$(date) Unbound front panel audio" >> /tmp/win10.log
 
-# XXX: update pci address
-virsh nodedev-detach pci_0000_00_1b_0
-echo "$(date) Unbound snd_hda_intel (front panel audio)" >> /tmp/win10.log
-
-# XXX: update pci address
-virsh nodedev-detach pci_0000_00_14_0
+virsh nodedev-detach pci_0000_0a_00_3
 echo "$(date) Unbound USB devices (M+KBD)" >> /tmp/win10.log
 
 modprobe -r nouveau

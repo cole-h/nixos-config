@@ -8,9 +8,9 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -18,18 +18,13 @@
       fsType = "zfs";
     };
 
-  fileSystems."/var" =
-    { device = "rpool/system/var";
-      fsType = "zfs";
-    };
-
-  fileSystems."/media" =
-    { device = "tank/system/media";
-      fsType = "zfs";
-    };
-
   fileSystems."/nix" =
     { device = "rpool/local/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/var" =
+    { device = "rpool/system/var";
       fsType = "zfs";
     };
 
@@ -41,6 +36,11 @@
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/E073-D290";
       fsType = "vfat";
+    };
+
+  fileSystems."/media" =
+    { device = "tank/system/media";
+      fsType = "zfs";
     };
 
   swapDevices =

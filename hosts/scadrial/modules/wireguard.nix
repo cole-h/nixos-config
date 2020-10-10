@@ -3,7 +3,7 @@
 {
   # enable NAT
   networking.nat.enable = true;
-  networking.nat.externalInterface = "enp3s0";
+  networking.nat.externalInterface = "enp4s0";
   networking.nat.internalInterfaces = [ "wg0" ];
   networking.firewall = {
     allowedUDPPorts = [ config.networking.wireguard.interfaces.wg0.listenPort ];
@@ -17,11 +17,11 @@
       privateKeyFile = "${my.secrets.wireguard}/private";
 
       postSetup = ''
-        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -o enp3s0 -j MASQUERADE
+        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -o enp4s0 -j MASQUERADE
       '';
 
       postShutdown = ''
-        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.0.0.0/24 -o enp3s0 -j MASQUERADE
+        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.0.0.0/24 -o enp4s0 -j MASQUERADE
       '';
 
       peers = [

@@ -65,8 +65,6 @@ in
   };
 
   systemd.services.libvirtd = {
-    enable = false; # FIXME: update scripts and `nixos-generate-config --show-hardware-config`
-
     # scripts use binaries from these packages
     # NOTE: All these hooks are run with root privileges... Be careful!
     path = with pkgs; [ libvirt procps utillinux doas ];

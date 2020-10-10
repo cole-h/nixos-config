@@ -1,0 +1,25 @@
+Bus 1 --> 0000:05:00.1 (IOMMU group 16)
+Bus 001 Device 004: ID 05e3:0608 Genesys Logic, Inc. Hub
+Bus 001 Device 002: ID 048d:8297 Integrated Technology Express, Inc. IT8297 RGB LED Controller
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+Bus 2 --> 0000:05:00.1 (IOMMU group 16)
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
+Bus 3 --> 0000:05:00.3 (IOMMU group 16)
+Bus 003 Device 003: ID 05e3:0608 Genesys Logic, Inc. Hub
+Bus 003 Device 004: ID 8087:0029 Intel Corp. AX200 Bluetooth
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+Bus 4 --> 0000:05:00.3 (IOMMU group 16)
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
+Bus 5 --> 0000:0a:00.3 (IOMMU group 25)
+Bus 005 Device 005: ID 04d8:eed2 Microchip Technology, Inc. USB Receiver
+Bus 005 Device 004: ID 04d8:eec5 Microchip Technology, Inc. Massdrop Hub
+Bus 005 Device 007: ID 046d:c539 Logitech, Inc. USB Receiver
+Bus 005 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+Bus 6 --> 0000:0a:00.3 (IOMMU group 25)
+Bus 006 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
