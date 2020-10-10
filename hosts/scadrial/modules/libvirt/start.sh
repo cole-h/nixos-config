@@ -1,6 +1,9 @@
 sync && echo 3 > /proc/sys/vm/drop_caches
 echo "$(date) Freed memory to speed up VM POST" >> /tmp/win10.log
 
+cpupower frequency-set -g performance
+echo "$(date) Changed CPU governors to performance" >> /tmp/win10.log
+
 # Unbind VTconsoles
 echo 0 > /sys/class/vtconsole/vtcon0/bind
 echo "$(date) Unbound vtcon0" >> /tmp/win10.log

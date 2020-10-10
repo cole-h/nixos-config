@@ -15,6 +15,7 @@
       ./programs.nix # misc, short program settings
       ./security.nix # configuration related to general security
       ./services.nix # misc, short service settings
+      ./smb.nix # configuration related to Samba
       ./torrent.nix # configuration related to torrenting
       ./users.nix # configuration related to users
       ./wireguard.nix # configuration related to wireguard

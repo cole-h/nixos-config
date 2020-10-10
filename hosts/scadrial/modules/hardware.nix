@@ -18,4 +18,7 @@
 
   # Update microcode to address "Firmware Bug" messages on startup.
   hardware.cpu.amd.updateMicrocode = true;
+
+  # Use schedutil governor.
+  powerManagement.cpuFreqGovernor = "schedutil";
 }

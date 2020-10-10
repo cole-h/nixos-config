@@ -79,7 +79,9 @@ in
 
       ln -sf ${qemuHook} /var/lib/libvirt/hooks/qemu
       ln -sf ${./start.sh} /var/lib/libvirt/hooks/qemu.d/windows10/prepare/begin/start.sh
+      ln -sf ${./alloc_hugepages.sh} /var/lib/libvirt/hooks/qemu.d/windows10/prepare/begin/alloc_hugepages.sh
       ln -sf ${./revert.sh} /var/lib/libvirt/hooks/qemu.d/windows10/release/end/revert.sh
+      ln -sf ${./dealloc_hugepages.sh} /var/lib/libvirt/hooks/qemu.d/windows10/release/end/dealloc_hugepages.sh
       ln -sf ${./fifo.sh} /var/lib/libvirt/hooks/qemu.d/windows10/started/begin/fifo.sh
     '';
   };
