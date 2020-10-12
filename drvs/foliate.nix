@@ -19,8 +19,9 @@
 , libarchive
 }:
 let
-  version = "2.4.0";
+  version = "2.4.2";
   pname = "foliate";
+  sha256 = "sha256-sFStB6NDh0rVMwVishvhmyBRQ1/SVufRNdvfYqj6Pns=";
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -29,7 +30,7 @@ stdenv.mkDerivation {
     owner = "johnfactotum";
     repo = pname;
     rev = version;
-    sha256 = "1b9b1sn37wimr0qib853jsi7avyxx78gkajd8528x7bddacnzdhc";
+    inherit sha256;
   };
 
   nativeBuildInputs = [

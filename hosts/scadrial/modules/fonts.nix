@@ -51,11 +51,8 @@
       iosevka-custom # code font [overlays]
       cantarell-fonts # REALLY nice UI font
       # liberation_ttf # like Microsoft fonts, but not
-      # gsfonts # [drvs]
       kochi-substitute # JP font
       # source-han-sans-japanese # JP font
-      # sarasa-gothic # Iosevka, but Eastern [drvs]
-      # san-francisco # Apple UI font [drvs]
       # inter # nice UI font
       ipafont # JP font
       # ipaexfont # JP font [drvs]

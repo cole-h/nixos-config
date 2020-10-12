@@ -9,9 +9,6 @@ let
     callPackage
     libsForQt5
     runCommand
-    pkgs
-    lib
-    enableDebugging
 
     python3Packages
     ;
@@ -21,11 +18,9 @@ in
 {
   # misc
   aerc = callPackage ./drvs/aerc { };
-  bemenu = callPackage ./drvs/bemenu.nix { };
   fish = callPackage ./drvs/fish.nix { };
   foliate = callPackage ./drvs/foliate.nix { };
   git-crypt = callPackage ./drvs/git-crypt.nix { };
-  gsfonts = callPackage ./drvs/gsfonts.nix { };
   iosevka-custom = callPackage ./drvs/iosevka/iosevka-custom.nix { };
   mdloader = callPackage ./drvs/mdloader { };
   sonarr = callPackage ./drvs/sonarr.nix { };
@@ -64,7 +59,7 @@ in
   });
 
   kakoune = prev.kakoune.override {
-    configure.plugins = with pkgs.kakounePlugins;
+    configure.plugins = with final.kakounePlugins;
       [
         kak-powerline
         kak-auto-pairs
@@ -85,57 +80,6 @@ in
       sed -i 's@COMMAND = "pass"@COMMAND = "${final.pass-otp}/bin/pass"@' src/passff.py
     '';
   });
-
-  # mpd = final.mpdWithFeatures {
-  #   features = [
-  #     # Storage plugins
-  #     "udisks"
-  #     "webdav"
-  #     # Input plugins
-  #     "curl"
-  #     "mms"
-  #     "nfs"
-  #     # Archive support
-  #     "bzip2"
-  #     "zzip"
-  #     # Decoder plugins
-  #     "audiofile"
-  #     "faad"
-  #     "ffmpeg"
-  #     "flac"
-  #     "fluidsynth"
-  #     "gme"
-  #     "mad"
-  #     "mikmod"
-  #     "mpg123"
-  #     "opus"
-  #     "vorbis"
-  #     # Encoder plugins
-  #     "vorbisenc"
-  #     "lame"
-  #     # Filter plugins
-  #     "libsamplerate"
-  #     # Output plugins
-  #     "alsa"
-  #     "jack"
-  #     "pulse"
-  #     "shout"
-  #     # Client support
-  #     "libmpdclient"
-  #     # Tag support
-  #     "id3tag"
-  #     # Misc
-  #     "dbus"
-  #     "expat"
-  #     "icu"
-  #     "pcre"
-  #     "sqlite"
-  #     "syslog"
-  #     "systemd"
-  #     "yajl"
-  #     "zeroconf"
-  #   ];
-  # };
 
   # Flakes-based
   inherit passrs;

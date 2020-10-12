@@ -5,8 +5,8 @@
 , ffmpeg
 }:
 let
-  version = "411";
-  hash = "sha256-H5x57EcZukh0DmAqYjSNtk7eRWtIWwW6MVqf0C4co60=";
+  version = "413";
+  hash = "sha256-BL8xMqp5jDUj4JpxZz4vhVriNq+QgfqpOYN2Wv/Fh7Y=";
 in
 stdenv.mkDerivation {
   pname = "hydrus";

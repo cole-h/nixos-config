@@ -19,6 +19,11 @@
 , cmake
 }:
 let
+  version = "3.2.0-git";
+
+  rev = "f73ee3011193fee201cded8432bd1c506a02b3a2";
+  hash = "sha256-qFGi1pf6S8hOwLGVLKoBZ2vyMlOMU2ICk11h5sUXRz0=";
+
   fishPreInitHooks = writeText "__fish_build_paths_suffix.fish" ''
     # source nixos environment
     # note that this is required:
@@ -57,11 +62,6 @@ let
         $__nix_profile_paths"/share/fish/vendor_conf.d"
     end
   '';
-
-  version = "3.1.2-git";
-
-  rev = "1fd9debaad46ffcf689e805b1ab9d79df53c409f";
-  hash = "sha256-ghSMqpoI8lWsabQ5M0dXZZTXZ93dI4k3p8yGqSULlKI=";
 
   fish = stdenv.mkDerivation {
     pname = "fish";
@@ -110,8 +110,6 @@ let
     postInstall = with lib; ''
       sed -r "s|command grep|command ${gnugrep}/bin/grep|" \
           -i "$out/share/fish/functions/grep.fish"
-      sed -i "s|which |${which}/bin/which |"               \
-             "$out/share/fish/functions/type.fish"
       sed -e "s|\|cut|\|${coreutils}/bin/cut|"             \
           -i "$out/share/fish/functions/fish_prompt.fish"
       sed -e "s|uname|${coreutils}/bin/uname|"             \

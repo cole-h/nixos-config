@@ -8,9 +8,10 @@
 , otfcc
 }:
 let
-  outputHash = "1hrzpn5zyh564r0xp5i4n8vvs305pia3kv52sv47nzy9xfnj9s2y";
+  outputHash = "sha256-D/0uuZKXGJ1LDwKJBKEHeZvaLvSiBoJR5LoNlH+/5Zc=";
+  sha256 = "073gr8mc7labkyjdq3j8l6w5w28wyyfgylwx8r9125w9zdarziw4";
   pname = "iosevka-${set}";
-  version = "3.2.2";
+  version = "3.6.3";
 
   set = "custom";
 
@@ -123,7 +124,7 @@ stdenv.mkDerivation {
 
   src = fetchTarball {
     url = "https://github.com/be5invis/Iosevka/archive/v${version}.tar.gz";
-    sha256 = "1wbnp6gr3ywvspwk6i0jn68zwjmsd38arn4n2dkh7mdkrmvah81k";
+    inherit sha256;
   };
 
   nativeBuildInputs = [
