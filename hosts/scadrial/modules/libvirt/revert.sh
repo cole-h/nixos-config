@@ -7,6 +7,10 @@ echo "$(date) Modprobe -r'd vfio-pci, vfio_iommu_type1, and vfio" >> /tmp/win10.
 modprobe nouveau
 echo "$(date) Modprobed nouveau" >> /tmp/win10.log
 
+virsh nodedev-reattach pci_0000_05_00_3
+virsh nodedev-reattach pci_0000_05_00_1
+echo "$(date) Rebound misc. USB devices" >> /tmp/win10.log
+
 virsh nodedev-reattach pci_0000_0a_00_3
 echo "$(date) Rebound USB devices (M+KBD)" >> /tmp/win10.log
 

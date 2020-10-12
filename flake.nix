@@ -81,7 +81,7 @@
               type = attrsOf (submoduleWith {
                 modules = [ ];
                 # Makes specialArgs available to home-manager modules as well
-                specialArgs = builtins.removeAttrs specialArgs [ "nixosConfig" ] // {
+                specialArgs = specialArgs // {
                   super = config; # access NixOS configuration from h-m
                 };
               });

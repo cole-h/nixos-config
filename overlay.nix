@@ -22,7 +22,6 @@ in
   # misc
   aerc = callPackage ./drvs/aerc { };
   bemenu = callPackage ./drvs/bemenu.nix { };
-  chatterino2 = libsForQt5.callPackage ./drvs/chatterino2.nix { };
   fish = callPackage ./drvs/fish.nix { };
   foliate = callPackage ./drvs/foliate.nix { };
   git-crypt = callPackage ./drvs/git-crypt.nix { };

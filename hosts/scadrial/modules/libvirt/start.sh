@@ -29,6 +29,10 @@ echo "$(date) Unbound front panel audio" >> /tmp/win10.log
 virsh nodedev-detach pci_0000_0a_00_3
 echo "$(date) Unbound USB devices (M+KBD)" >> /tmp/win10.log
 
+virsh nodedev-detach pci_0000_05_00_3 # maybe problematic because of bluetooth?
+virsh nodedev-detach pci_0000_05_00_1
+echo "$(date) Unbound misc. USB devices" >> /tmp/win10.log
+
 modprobe -r nouveau
 echo "$(date) Modprobe -r'd nouveau" >> /tmp/win10.log
 

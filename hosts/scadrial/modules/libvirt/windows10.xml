@@ -6,23 +6,34 @@
       <libosinfo:os id="http://microsoft.com/win/10"/>
     </libosinfo:libosinfo>
   </metadata>
-  <memory unit='KiB'>12582912</memory>
-  <currentMemory unit='KiB'>12582912</currentMemory>
-  <vcpu placement='static'>4</vcpu>
+  <memory unit='KiB'>25165824</memory>
+  <currentMemory unit='KiB'>25165824</currentMemory>
+  <vcpu placement='static'>12</vcpu>
+  <iothreads>1</iothreads>
   <cputune>
     <vcpupin vcpu='0' cpuset='0'/>
-    <vcpupin vcpu='1' cpuset='1'/>
-    <vcpupin vcpu='2' cpuset='2'/>
-    <vcpupin vcpu='3' cpuset='3'/>
+    <vcpupin vcpu='1' cpuset='8'/>
+    <vcpupin vcpu='2' cpuset='1'/>
+    <vcpupin vcpu='3' cpuset='9'/>
+    <vcpupin vcpu='4' cpuset='2'/>
+    <vcpupin vcpu='5' cpuset='10'/>
+    <vcpupin vcpu='6' cpuset='3'/>
+    <vcpupin vcpu='7' cpuset='11'/>
+    <vcpupin vcpu='8' cpuset='4'/>
+    <vcpupin vcpu='9' cpuset='12'/>
+    <vcpupin vcpu='10' cpuset='5'/>
+    <vcpupin vcpu='11' cpuset='13'/>
+    <emulatorpin cpuset='6,14'/>
+    <iothreadpin iothread='1' cpuset='7,15'/>
+    <iothreadsched iothreads='1' scheduler='fifo' priority='98'/>
   </cputune>
   <resource>
     <partition>/machine</partition>
   </resource>
   <os>
-    <type arch='x86_64' machine='pc-q35-3.1'>hvm</type>
+    <type arch='x86_64' machine='pc-q35-4.0'>hvm</type>
     <loader readonly='yes' type='pflash'>/run/libvirt/nix-ovmf/OVMF_CODE.fd</loader>
     <nvram>/var/lib/libvirt/qemu/nvram/windows10_VARS.fd</nvram>
-    <boot dev='hd'/>
     <bootmenu enable='no'/>
   </os>
   <features>
@@ -32,7 +43,12 @@
       <relaxed state='on'/>
       <vapic state='on'/>
       <spinlocks state='on' retries='8191'/>
+      <vpindex state='on'/>
+      <synic state='on'/>
+      <stimer state='on'/>
+      <reset state='on'/>
       <vendor_id state='on' value='0xACCE551B1E'/>
+      <frequencies state='on'/>
     </hyperv>
     <kvm>
       <hidden state='on'/>
@@ -41,13 +57,17 @@
     <ioapic driver='kvm'/>
   </features>
   <cpu mode='host-passthrough' check='none'>
+    <topology sockets='1' dies='1' cores='6' threads='2'/>
+    <cache mode='passthrough'/>
     <feature policy='disable' name='hypervisor'/>
+    <feature policy='require' name='topoext'/>
   </cpu>
   <clock offset='localtime'>
     <timer name='rtc' tickpolicy='catchup'/>
     <timer name='pit' tickpolicy='delay'/>
     <timer name='hpet' present='no'/>
     <timer name='hypervclock' present='yes'/>
+    <timer name='tsc' present='yes' mode='native'/>
   </clock>
   <on_poweroff>destroy</on_poweroff>
   <on_reboot>restart</on_reboot>
@@ -58,12 +78,11 @@
   </pm>
   <devices>
     <emulator>/run/libvirt/nix-emulators/qemu-system-x86_64</emulator>
-    <disk type='file' device='disk'>
+    <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
-      <source file='/mnt/var/lib/libvirt/images/windows10.raw'/>
-      <backingStore/>
-      <target dev='sda' bus='scsi'/>
-      <address type='drive' controller='0' bus='0' target='0' unit='0'/>
+      <target dev='sdb' bus='scsi'/>
+      <readonly/>
+      <address type='drive' controller='0' bus='0' target='0' unit='1'/>
     </disk>
     <disk type='block' device='disk'>
       <driver name='qemu' type='raw' cache='none' io='native'/>
@@ -72,17 +91,16 @@
       <target dev='sdc' bus='scsi'/>
       <address type='drive' controller='0' bus='0' target='0' unit='2'/>
     </disk>
-    <disk type='file' device='cdrom'>
-      <driver name='qemu' type='raw'/>
-      <target dev='sdb' bus='sata'/>
-      <readonly/>
-      <address type='drive' controller='0' bus='0' target='0' unit='1'/>
+    <disk type='block' device='disk'>
+      <driver name='qemu' type='raw' cache='none' io='threads' discard='unmap'/>
+      <source dev='/dev/zvol/rpool/win10'/>
+      <target dev='sdd' bus='scsi'/>
+      <boot order='1'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='3'/>
     </disk>
     <controller type='scsi' index='0' model='virtio-scsi'>
+      <driver iothread='1'/>
       <address type='pci' domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
-    </controller>
-    <controller type='sata' index='0'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x1f' function='0x2'/>
     </controller>
     <controller type='pci' index='0' model='pcie-root'/>
     <controller type='pci' index='1' model='pcie-root-port'>
@@ -134,17 +152,17 @@
       <target chassis='10' port='0xb'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x3'/>
     </controller>
-    <controller type='virtio-serial' index='0'>
-      <address type='pci' domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
-    </controller>
     <controller type='usb' index='0' model='qemu-xhci' ports='15'>
       <address type='pci' domain='0x0000' bus='0x0a' slot='0x00' function='0x0'/>
+    </controller>
+    <controller type='sata' index='0'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x1f' function='0x2'/>
     </controller>
     <interface type='network'>
       <mac address='52:54:00:b4:ff:3d'/>
       <source network='default'/>
-      <model type='e1000e'/>
-      <address type='pci' domain='0x0000' bus='0x09' slot='0x00' function='0x0'/>
+      <model type='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x06' slot='0x00' function='0x0'/>
     </interface>
     <serial type='pty'>
       <target type='isa-serial' port='0'>
@@ -159,29 +177,29 @@
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <driver name='vfio'/>
       <source>
-        <address domain='0x0000' bus='0x01' slot='0x00' function='0x0'/>
+        <address domain='0x0000' bus='0x08' slot='0x00' function='0x0'/>
       </source>
       <rom file='/var/lib/libvirt/vbios/patched-bios.rom'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0' multifunction='on'/>
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <driver name='vfio'/>
       <source>
-        <address domain='0x0000' bus='0x01' slot='0x00' function='0x1'/>
+        <address domain='0x0000' bus='0x08' slot='0x00' function='0x1'/>
       </source>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x1'/>
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <driver name='vfio'/>
       <source>
-        <address domain='0x0000' bus='0x00' slot='0x1b' function='0x0'/>
+        <address domain='0x0000' bus='0x0a' slot='0x00' function='0x4'/>
       </source>
       <address type='pci' domain='0x0000' bus='0x08' slot='0x00' function='0x0'/>
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <driver name='vfio'/>
       <source>
-        <address domain='0x0000' bus='0x00' slot='0x14' function='0x0'/>
+        <address domain='0x0000' bus='0x0a' slot='0x00' function='0x3'/>
       </source>
       <address type='pci' domain='0x0000' bus='0x02' slot='0x01' function='0x0'/>
     </hostdev>
@@ -191,8 +209,6 @@
   </devices>
   <seclabel type='dynamic' model='dac' relabel='yes'/>
   <qemu:commandline>
-    <qemu:arg value='-overcommit'/>
-    <qemu:arg value='cpu-pm=on'/>
     <qemu:arg value='-D'/>
     <qemu:arg value='/tmp/qemu.log'/>
   </qemu:commandline>
