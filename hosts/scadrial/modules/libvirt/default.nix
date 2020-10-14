@@ -1,4 +1,4 @@
-{ pkgs, my, ... }:
+{ config, pkgs, my, ... }:
 let
   # https://github.com/PassthroughPOST/VFIO-Tools/blob/0bdc0aa462c0acd8db344c44e8692ad3a281449a/libvirt_hooks/qemu
   qemuHook = pkgs.writeShellScript "qemu" ''
@@ -55,6 +55,7 @@ in
     "iommu=pt"
     "kvm.ignore_msrs=1"
     "kvm.report_ignored_msrs=0"
+    # "transparent_hugepage=never"
   ];
 
   virtualisation.libvirtd = {
@@ -67,7 +68,14 @@ in
   systemd.services.libvirtd = {
     # scripts use binaries from these packages
     # NOTE: All these hooks are run with root privileges... Be careful!
-    path = with pkgs; [ libvirt procps utillinux doas ];
+    path = with pkgs; [
+      libvirt
+      procps
+      utillinux
+      doas
+      config.boot.kernelPackages.cpupower
+    ];
+
     preStart = ''
       mkdir -p /var/lib/libvirt/vbios
       ln -sf ${my.secrets."patched-bios.rom"} /var/lib/libvirt/vbios/patched-bios.rom
