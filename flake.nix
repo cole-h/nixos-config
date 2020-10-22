@@ -13,14 +13,13 @@
 
     nix = { url = "github:nixos/nix"; };
     home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "large"; };
-    naersk = { url = "github:nmattia/naersk"; inputs.nixpkgs.follows = "large"; };
     passrs = { url = "github:cole-h/passrs"; };
     wayland = { url = "github:colemickens/nixpkgs-wayland"; };
+    alacritty = { url = "github:cole-h/flake-alacritty"; };
 
     # Not flakes
     secrets = { url = "git+ssh://git@github.com/cole-h/nix-secrets.git"; flake = false; };
     # secrets = { url = "/home/vin/.config/nixpkgs/secrets"; flake = false; };
-    alacritty = { url = "github:alacritty/alacritty"; flake = false; };
     # baduk = { url = "github:dustinlacewell/baduk.nix"; flake = false; };
     doom = { url = "github:hlissner/doom-emacs"; flake = false; };
     # mozilla = { url = "github:mozilla/nixpkgs-mozilla"; flake = false; };
@@ -31,10 +30,7 @@
     let
       channels = {
         pkgs = inputs.large;
-        # modules = inputs.small;
-        # lib = inputs.master;
       };
-      # inherit (channels.lib) lib;
 
       nameValuePair = name: value: { inherit name value; };
       genAttrs = names: f: builtins.listToAttrs (map (n: nameValuePair n (f n)) names);
@@ -49,10 +45,11 @@
           inherit system config;
           overlays = [
             (import ./overlay.nix {
-              inherit (inputs) doom naersk;
-
+              inherit (inputs) doom;
+            })
+            (final: prev: {
               passrs = inputs.passrs.defaultPackage.${system};
-              alacrittySrc = inputs.alacritty;
+              alacritty = inputs.alacritty.defaultPackage.${system};
             })
           ];
         };

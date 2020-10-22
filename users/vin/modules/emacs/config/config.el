@@ -162,10 +162,10 @@ If PEEK is non-nil, keep focus in status buffer window."
 ;; map! and friends
 (map! :g "M-<up>" #'drag-stuff-up)
 (map! :g "M-<down>" #'drag-stuff-down)
-(map! :n "j" #'evil-next-visual-line)
-(map! :n "k" #'evil-previous-visual-line)
-(map! :n "<down>" #'evil-next-visual-line)
-(map! :n "<up>" #'evil-previous-visual-line)
+(map! :nv "j" #'evil-next-visual-line)
+(map! :nv "k" #'evil-previous-visual-line)
+(map! :nv "<down>" #'evil-next-visual-line)
+(map! :nv "<up>" #'evil-previous-visual-line)
 (map! :v "s" #'evil-surround-region)
 (map! (:after company :map company-active-map
         "<tab>" #'company-complete-selection

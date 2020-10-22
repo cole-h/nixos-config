@@ -1,7 +1,4 @@
-{ passrs
-, doom
-, alacrittySrc
-, naersk
+{ doom
 }:
 final: prev:
 let
@@ -12,8 +9,6 @@ let
 
     python3Packages
     ;
-
-  naerskLib = callPackage naersk { };
 in
 {
   # misc
@@ -24,10 +19,6 @@ in
   iosevka-custom = callPackage ./drvs/iosevka/iosevka-custom.nix { };
   mdloader = callPackage ./drvs/mdloader { };
   sonarr = callPackage ./drvs/sonarr.nix { };
-
-  hydrus = callPackage ./drvs/hydrus.nix {
-    inherit (final.qt5) qtbase;
-  };
 
   redshift = callPackage ./drvs/redshift-wayland {
     inherit (python3Packages) python pygobject3 pyxdg wrapPython;
@@ -100,22 +91,15 @@ in
     withNodeJs = false;
   };
 
-  # hydrus = prev.hydrus.overrideAttrs ({ ... }: {
-  #   preFixup = ''
-  #     makeWrapperArgs+=(
-  #       "''${qtWrapperArgs[@]}"
-  #       "--add-flags '--db_dir ''${XDG_DATA_HOME:-$HOME/.local/share}/hydrus/db'"
-  #     )
-  #   '';
-  # });
+  hydrus = prev.hydrus.overrideAttrs ({ ... }: {
+    preFixup = ''
+      makeWrapperArgs+=(
+        "''${qtWrapperArgs[@]}"
+        "--add-flags" "'--db_dir ''${XDG_DATA_HOME:-\$HOME/.local/share}/hydrus/db'"
+      )
+    '';
+  });
 
   # Flakes-based
-  inherit passrs;
-
   doom-emacs = callPackage ./drvs/doom-emacs.nix { src = doom; };
-
-  alacritty = callPackage ./drvs/alacritty.nix {
-    inherit (naerskLib) buildPackage;
-    src = alacrittySrc;
-  };
 }

@@ -56,7 +56,7 @@ in
       aspell
       aspellDicts.en
       aspellDicts.en-computers
-      aspellDicts.en-science
+      # aspellDicts.en-science
       # :checkers grammar
       languagetool
       # :tools editorconfig
