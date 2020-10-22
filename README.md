@@ -30,10 +30,10 @@ https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
     - fish shell history
 
 ## 1. partition
-  - 512MiB /boot at the beginning
+  - 2GiB /boot at the beginning
   - 16GiB swap partition at the beginning
   - rest "linux partition" (for ZFS) -- don't forget native encryption
-    ("encryption=on") and "compression=on"
+    ("encryption=aes-256-gcm") and "compression=on"
     - tank/system (none) -- should be backed up
     - tank/system/root (legacy)
     - tank/system/var (legacy)

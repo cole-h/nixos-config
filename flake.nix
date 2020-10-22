@@ -1,5 +1,5 @@
 {
-  # TODO: https://github.com/Infinisil/system/commit/054d68f0660a608999fccf2f63e3f33dc7c6e0e9
+  # TODO: https://www.reddit.com/r/NixOS/comments/jd3bsd/adguard_home_in_container/g95etuf/
   # https://github.com/bqv/nixrc, https://github.com/colemickens/nixcfg
   description = "cole-h's NixOS configuration";
 
@@ -111,6 +111,15 @@
                 "pkgs=${inputs.self}/compat"
                 "nixos-config=${inputs.self}/compat/nixos"
               ];
+
+              registry = {
+                self.flake = inputs.self;
+
+                nixpkgs = {
+                  from = { id = "nixpkgs"; type = "indirect"; };
+                  flake = channels.pkgs;
+                };
+              };
             };
           };
 

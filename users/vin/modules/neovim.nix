@@ -15,20 +15,11 @@ in
 
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim-unwrapped.overrideAttrs ({ ... }: {
-      version = "nightly";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "neovim";
-        repo = "neovim";
-        rev = "6f2138eb03766680b012ee0bdfca04fdc2c22e89";
-        sha256 = "sha256-kP/QYxAYGsFcGQH5Ad8Fuucz3rdIixS1paLjg61u/4w=";
-      };
-    });
 
     withPython = false;
     withPython3 = false;
     withRuby = false;
+    withNodeJs = false;
 
     plugins = with pkgs.vimPlugins; [
       vim-fugitive

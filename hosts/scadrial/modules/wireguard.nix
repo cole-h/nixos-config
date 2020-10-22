@@ -38,6 +38,7 @@
 
   systemd.timers.update-duckdns = {
     wantedBy = [ "timers.target" ];
+    after = [ "home-manager-vin.service" ];
     timerConfig = {
       Unit = "update-duckdns.service";
       OnCalendar = "hourly";

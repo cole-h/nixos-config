@@ -29,11 +29,14 @@ in
   xdg.dataFile =
     let
       emacsPkgs = (pkgs.emacsPackagesGen emacsPkg).melpaPackages;
-      inherit (emacsPkgs) vterm emacsql-sqlite;
+      inherit (emacsPkgs)
+        # vterm
+        emacsql-sqlite
+        ;
     in
     {
-      "doom-local/straight/build/vterm/vterm-module.so".source =
-        "${vterm}/share/emacs/site-lisp/elpa/vterm-${vterm.version}/vterm-module.so";
+      # "doom-local/straight/build/vterm/vterm-module.so".source =
+      #   "${vterm}/share/emacs/site-lisp/elpa/vterm-${vterm.version}/vterm-module.so";
       "doom-local/straight/build/emacsql-sqlite/sqlite/emacsql-sqlite".source =
         "${emacsql-sqlite}/share/emacs/site-lisp/elpa/emacsql-sqlite-${emacsql-sqlite.version}/sqlite/emacsql-sqlite";
     };

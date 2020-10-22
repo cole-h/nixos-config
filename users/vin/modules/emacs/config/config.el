@@ -18,6 +18,7 @@
 ;; (tool-bar-mode -1)
 (evil-unimpaired-mode)
 (global-eldoc-mode -1)
+(normal-erase-is-backspace-mode 1) ;; make DEL delete forward
 
 ;; loading and friends
 (load! "funcs.el")

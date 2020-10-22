@@ -59,7 +59,7 @@
       ripgrep # grep but better; [overlays]
       tmate # "Instant Terminal Sharing"
       tokei # code metrics
-      ytop # fancy top
+      bottom # fancy top
     ];
 
   environment.pathsToLink = [
