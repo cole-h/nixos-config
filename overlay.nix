@@ -95,7 +95,7 @@ in
     preFixup = ''
       makeWrapperArgs+=(
         "''${qtWrapperArgs[@]}"
-        "--add-flags" "'--db_dir ''${XDG_DATA_HOME:-\$HOME/.local/share}/hydrus/db'"
+        "--add-flags" "--db_dir ''${XDG_DATA_HOME:-\$HOME/.local/share}/hydrus/db"
       )
     '';
   });

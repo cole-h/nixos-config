@@ -1,4 +1,4 @@
-From fe10125cf962aaeae92fa8f3c361a580e25be35d Mon Sep 17 00:00:00 2001
+From 01ec7689ae8d9b23e3ab0b98d7464b71f838de4e Mon Sep 17 00:00:00 2001
 From: Tony Olagbaiye <me@fron.io>
 Date: Wed, 26 Aug 2020 04:53:33 +0100
 Subject: [PATCH 1/4] Add a settings option for log-format
@@ -16,7 +16,7 @@ Co-authored-by: Cole Helbling <cole.e.helbling@outlook.com>
  8 files changed, 65 insertions(+), 41 deletions(-)
 
 diff --git a/src/libmain/common-args.cc b/src/libmain/common-args.cc
-index 3411e2d7a..95b1fdb01 100644
+index 9151a0344..906ecad2c 100644
 --- a/src/libmain/common-args.cc
 +++ b/src/libmain/common-args.cc
 @@ -49,14 +49,6 @@ MixCommonArgs::MixCommonArgs(const string & programName)
@@ -103,7 +103,7 @@ index cada03110..405c2321d 100644
  
  void createDefaultLogger();
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index 1238dc530..dee9ca3d0 100644
+index 4df68d0c9..c17850c7a 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
 @@ -3,6 +3,7 @@
@@ -114,7 +114,7 @@ index 1238dc530..dee9ca3d0 100644
  
  #include <algorithm>
  #include <map>
-@@ -192,6 +193,52 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
+@@ -198,6 +199,52 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
      });
  }
  
@@ -182,10 +182,10 @@ index 8c63c5b34..c9b969537 100644
  
      void requireExperimentalFeature(const std::string & name);
 diff --git a/src/libstore/local.mk b/src/libstore/local.mk
-index d266c8efe..6d5495f99 100644
+index dfe1e2cc4..3a60cca45 100644
 --- a/src/libstore/local.mk
 +++ b/src/libstore/local.mk
-@@ -8,6 +8,8 @@ libstore_SOURCES := $(wildcard $(d)/*.cc $(d)/builtins/*.cc)
+@@ -8,6 +8,8 @@ libstore_SOURCES := $(wildcard $(d)/*.cc $(d)/builtins/*.cc $(d)/build/*.cc)
  
  libstore_LIBS = libutil
  
@@ -198,16 +198,16 @@ index d266c8efe..6d5495f99 100644
  endif
  
  libstore_CXXFLAGS += \
-- -I src/libutil -I src/libstore \
-+ -I src/libmain -I src/libutil -I src/libstore \
+- -I src/libutil -I src/libstore -I src/libstore/build \
++ -I src/libmain -I src/libutil -I src/libstore -I src/libstore/build \
   -DNIX_PREFIX=\"$(prefix)\" \
   -DNIX_STORE_DIR=\"$(storedir)\" \
   -DNIX_DATA_DIR=\"$(datadir)\" \
 diff --git a/src/libutil/types.hh b/src/libutil/types.hh
-index 55d02bcf9..e4c802210 100644
+index 6c4c5ab74..e10c3c207 100644
 --- a/src/libutil/types.hh
 +++ b/src/libutil/types.hh
-@@ -18,6 +18,14 @@ typedef list<string> Strings;
+@@ -19,6 +19,14 @@ typedef list<string> Strings;
  typedef set<string> StringSet;
  typedef std::map<string, string> StringMap;
  
@@ -223,7 +223,7 @@ index 55d02bcf9..e4c802210 100644
  
  typedef string Path;
 diff --git a/src/nix/main.cc b/src/nix/main.cc
-index 1e9e07bc0..2c3d83df5 100644
+index 5056ceb78..7ae033fd3 100644
 --- a/src/nix/main.cc
 +++ b/src/nix/main.cc
 @@ -173,7 +173,7 @@ void mainWrapped(int argc, char * * argv)
@@ -239,7 +239,7 @@ index 1e9e07bc0..2c3d83df5 100644
 2.28.0
 
 
-From bb1e86e36a69576f7f4213fc08f89b9ba2c35643 Mon Sep 17 00:00:00 2001
+From 0249db412b83f9450a75bb5a13717cfd0ec441c0 Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Thu, 17 Sep 2020 17:22:32 -0700
 Subject: [PATCH 2/4] Make loggers pluggable
@@ -363,7 +363,7 @@ index 07b45b3b5..1d818f069 100644
  {
      assert(n < fields.size());
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index dee9ca3d0..0939d7371 100644
+index c17850c7a..e21e32e0c 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
 @@ -3,7 +3,6 @@
@@ -374,7 +374,7 @@ index dee9ca3d0..0939d7371 100644
  
  #include <algorithm>
  #include <map>
-@@ -193,18 +192,35 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
+@@ -199,18 +198,35 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
      });
  }
  
@@ -382,7 +382,7 @@ index dee9ca3d0..0939d7371 100644
 +{
 +    for (auto & builder : registeredLoggers)
 +        if (hasPrefix(builder->name, prefix))
-+            completions->insert(builder->name);
++            completions->add(builder->name);
 +}
 +
 +std::string listLogFormats()
@@ -420,7 +420,7 @@ index dee9ca3d0..0939d7371 100644
      else throw UsageError("option '%s' has an invalid value '%s'", name, str);
  
      createDefaultLogger();
-@@ -220,25 +236,42 @@ template<> std::string BaseSetting<LogFormat>::to_string() const
+@@ -226,25 +242,42 @@ template<> std::string BaseSetting<LogFormat>::to_string() const
      else abort();
  }
  
@@ -522,10 +522,10 @@ index c9b969537..ae1814a44 100644
  // FIXME: don't use a global variable.
  extern Settings settings;
 diff --git a/src/libstore/local.mk b/src/libstore/local.mk
-index 6d5495f99..d266c8efe 100644
+index 3a60cca45..dfe1e2cc4 100644
 --- a/src/libstore/local.mk
 +++ b/src/libstore/local.mk
-@@ -8,8 +8,6 @@ libstore_SOURCES := $(wildcard $(d)/*.cc $(d)/builtins/*.cc)
+@@ -8,8 +8,6 @@ libstore_SOURCES := $(wildcard $(d)/*.cc $(d)/builtins/*.cc $(d)/build/*.cc)
  
  libstore_LIBS = libutil
  
@@ -538,8 +538,8 @@ index 6d5495f99..d266c8efe 100644
  endif
  
  libstore_CXXFLAGS += \
-- -I src/libmain -I src/libutil -I src/libstore \
-+ -I src/libutil -I src/libstore \
+- -I src/libmain -I src/libutil -I src/libstore -I src/libstore/build \
++ -I src/libutil -I src/libstore -I src/libstore/build \
   -DNIX_PREFIX=\"$(prefix)\" \
   -DNIX_STORE_DIR=\"$(storedir)\" \
   -DNIX_DATA_DIR=\"$(datadir)\" \
@@ -632,10 +632,10 @@ index 8a6752e22..49a0c1893 100644
  
  ActivityId getCurActivity()
 diff --git a/src/libutil/types.hh b/src/libutil/types.hh
-index e4c802210..55d02bcf9 100644
+index e10c3c207..6c4c5ab74 100644
 --- a/src/libutil/types.hh
 +++ b/src/libutil/types.hh
-@@ -18,14 +18,6 @@ typedef list<string> Strings;
+@@ -19,14 +19,6 @@ typedef list<string> Strings;
  typedef set<string> StringSet;
  typedef std::map<string, string> StringMap;
  
@@ -654,7 +654,7 @@ index e4c802210..55d02bcf9 100644
 2.28.0
 
 
-From 0e3bd416c16dffa00eb482a5d8ebf0691d3e01ec Mon Sep 17 00:00:00 2001
+From 20bb4bc4b420069ba365914c6d9c73566e0e6eb9 Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Sat, 19 Sep 2020 00:58:16 -0700
 Subject: [PATCH 3/4] Make loggers more pluggable
@@ -675,10 +675,10 @@ Co-authored-by: Daiderd Jordan <daiderd@gmail.com>
  4 files changed, 63 insertions(+), 31 deletions(-)
 
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index 0939d7371..5e3c50510 100644
+index e21e32e0c..3d4c9a0cb 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
-@@ -192,28 +192,33 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
+@@ -198,28 +198,33 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
      });
  }
  
@@ -686,7 +686,7 @@ index 0939d7371..5e3c50510 100644
 -{
 -    for (auto & builder : registeredLoggers)
 -        if (hasPrefix(builder->name, prefix))
--            completions->insert(builder->name);
+-            completions->add(builder->name);
 -}
 -
  std::string listLogFormats()
@@ -722,7 +722,7 @@ index 0939d7371..5e3c50510 100644
  template<> void BaseSetting<LogFormat>::set(const std::string & str)
  {
      if (str == "raw") value = LogFormat::raw;
-@@ -236,6 +241,13 @@ template<> std::string BaseSetting<LogFormat>::to_string() const
+@@ -242,6 +247,13 @@ template<> std::string BaseSetting<LogFormat>::to_string() const
      else abort();
  }
  
@@ -730,13 +730,13 @@ index 0939d7371..5e3c50510 100644
 +{
 +    for (auto & builder : getRegisteredLoggers())
 +        if (hasPrefix(builder->name, prefix))
-+            completions->insert(builder->name);
++            completions->add(builder->name);
 +}
 +
  template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::string & category)
  {
      args.addFlag({
-@@ -252,13 +264,13 @@ template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::str
+@@ -258,13 +270,13 @@ template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::str
  
  void setLogFormat(const LogFormat & logFormat)
  {
@@ -862,7 +862,7 @@ index 6b89f9037..a7539603e 100644
 2.28.0
 
 
-From 746b4bded8c24db5b36c0dba95f2d45882cd2949 Mon Sep 17 00:00:00 2001
+From a67a66f9755718e87300beda2308b6ae26e76b47 Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Sat, 19 Sep 2020 01:03:02 -0700
 Subject: [PATCH 4/4] Move progress-bar to libutil
