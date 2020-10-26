@@ -37,8 +37,8 @@ in
     {
       # "doom-local/straight/build/vterm/vterm-module.so".source =
       #   "${vterm}/share/emacs/site-lisp/elpa/vterm-${vterm.version}/vterm-module.so";
-      "doom-local/straight/build/emacsql-sqlite/sqlite/emacsql-sqlite".source =
-        "${emacsql-sqlite}/share/emacs/site-lisp/elpa/emacsql-sqlite-${emacsql-sqlite.version}/sqlite/emacsql-sqlite";
+      # "doom-local/straight/build/emacsql-sqlite/sqlite/emacsql-sqlite".source =
+      #   "${emacsql-sqlite}/share/emacs/site-lisp/elpa/emacsql-sqlite-${emacsql-sqlite.version}/sqlite/emacsql-sqlite";
     };
 
   home = {
@@ -101,7 +101,7 @@ in
         Service = {
           Type = "simple";
           Environment = [ "DOOMLOCALDIR=${config.home.sessionVariables.DOOMLOCALDIR}" "DOOMDIR=${config.home.sessionVariables.DOOMDIR}" ];
-          ExecStartPre = "${lib.getBin pkgs.doom-emacs}/bin/doom sync";
+          ExecStartPre = "${lib.getBin pkgs.doom-emacs}/bin/doom sync -u";
           ExecStart = "${emacsPkg}/bin/emacs --fg-daemon";
           Restart = "on-failure";
         };

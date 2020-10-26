@@ -52,14 +52,15 @@
       zathura
 
       bat # cat but better
+      bottom # fancy top
       exa # ls but better
       fd # find files
       hexyl # hex viewer
       libreoffice # Office but worse
+      # openconnect # for school VPN, if needed
       ripgrep # grep but better; [overlays]
       tmate # "Instant Terminal Sharing"
       tokei # code metrics
-      bottom # fancy top
     ];
 
   environment.pathsToLink = [

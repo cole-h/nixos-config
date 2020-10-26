@@ -5,10 +5,20 @@ in
 {
   home.packages = with pkgs; [
     # https://www.youtube.com/watch?v=Oyg5iFddsJI
-    zoxide # z-rs; [overlays]
+    zoxide # z-rs
   ];
 
   programs = {
+    direnv = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
     fzf = {
       enable = true;
       enableFishIntegration = true;
@@ -83,12 +93,7 @@ in
         set --global --export _ZO_FZF_OPTS '--no-sort --reverse --border --height 40%'
 
         # Miscellaneous exports
-        # set --global --export SKIM_DEFAULT_COMMAND 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
-        # set --global --export SKIM_DEFAULT_OPTIONS '--height 20%'
         set --global --export LS_COLORS 'ow=36:di=1;34;40:fi=32:ex=31:ln=35:'
-
-        ${pkgs.direnv}/bin/direnv hook fish | source
-        ${pkgs.zoxide}/bin/zoxide init fish --hook pwd | source
 
         t ls
         printf '\n'

@@ -38,11 +38,9 @@
         ## tools
         aerc # terminal email reader; TODO: add config to secrets/
         hydrus # booru-like image tagger
-        hyperfine # cli benchmarker
         mdloader
         newsboat # rss/atom feed reader
         qimgv # image viewer
-        skim # fzf-rs
 
         # latest.firefox-nightly-bin
         firefox-bin
@@ -51,7 +49,7 @@
         # android-studio # android apps
 
         ## misc
-        chatterino2 # Twitch chat client; [drvs]
+        chatterino2 # Twitch chat client
         discord
         todo-txt-cli # todos tracker
 
@@ -60,11 +58,6 @@
         foliate
         (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
 
-        #### System Packages
-        # openconnect # for school VPN, if needed
-        # wireguard # (wg, wg-quick
-
-        ## haskell stuff
         ## Switch USB stuff
       ];
 

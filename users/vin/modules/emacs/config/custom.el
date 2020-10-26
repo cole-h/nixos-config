@@ -8,7 +8,7 @@
  '(auth-source-save-behavior t)
  '(custom-safe-themes
    '("711efe8b1233f2cf52f338fd7f15ce11c836d0b6240a18fffffc2cbd5bfe61b0" "e1ef2d5b8091f4953fe17b4ca3dd143d476c106e221d92ded38614266cea3c8b" default))
- '(package-selected-packages '(adoc-mode))
+ '(package-selected-packages '(tt-mode adoc-mode))
  '(safe-local-variable-values
    '((eval c-set-offset 'inlambda 0)
      (eval c-set-offset 'access-label '-)
