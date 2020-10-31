@@ -1,4 +1,4 @@
-From 01ec7689ae8d9b23e3ab0b98d7464b71f838de4e Mon Sep 17 00:00:00 2001
+From 6822bdb0caa20272e7b4806e46213918a8c02c59 Mon Sep 17 00:00:00 2001
 From: Tony Olagbaiye <me@fron.io>
 Date: Wed, 26 Aug 2020 04:53:33 +0100
 Subject: [PATCH 1/4] Add a settings option for log-format
@@ -6,17 +6,17 @@ Subject: [PATCH 1/4] Add a settings option for log-format
 Co-authored-by: Cole Helbling <cole.e.helbling@outlook.com>
 ---
  src/libmain/common-args.cc |  8 -------
- src/libmain/loggers.cc     | 25 +++-----------------
+ src/libmain/loggers.cc     | 27 ++++------------------
  src/libmain/loggers.hh     |  9 --------
  src/libstore/globals.cc    | 47 ++++++++++++++++++++++++++++++++++++++
  src/libstore/globals.hh    |  3 +++
  src/libstore/local.mk      |  4 +++-
  src/libutil/types.hh       |  8 +++++++
  src/nix/main.cc            |  2 +-
- 8 files changed, 65 insertions(+), 41 deletions(-)
+ 8 files changed, 66 insertions(+), 42 deletions(-)
 
 diff --git a/src/libmain/common-args.cc b/src/libmain/common-args.cc
-index 9151a0344..906ecad2c 100644
+index 3e4e475e5..3212c7885 100644
 --- a/src/libmain/common-args.cc
 +++ b/src/libmain/common-args.cc
 @@ -49,14 +49,6 @@ MixCommonArgs::MixCommonArgs(const string & programName)
@@ -35,10 +35,10 @@ index 9151a0344..906ecad2c 100644
          .longName = "max-jobs",
          .shortName = 'j',
 diff --git a/src/libmain/loggers.cc b/src/libmain/loggers.cc
-index 0a7291780..61f71f627 100644
+index cdf23859b..61f71f627 100644
 --- a/src/libmain/loggers.cc
 +++ b/src/libmain/loggers.cc
-@@ -1,27 +1,12 @@
+@@ -1,32 +1,17 @@
  #include "loggers.hh"
  #include "progress-bar.hh"
  #include "util.hh"
@@ -54,7 +54,7 @@ index 0a7291780..61f71f627 100644
 -    else if (logFormatStr == "raw-with-logs")
 -        return LogFormat::rawWithLogs;
 -    else if (logFormatStr == "internal-json")
--        return LogFormat::internalJson;
+-        return LogFormat::internalJSON;
 -    else if (logFormatStr == "bar")
 -        return LogFormat::bar;
 -    else if (logFormatStr == "bar-with-logs")
@@ -68,6 +68,12 @@ index 0a7291780..61f71f627 100644
      case LogFormat::raw:
          return makeSimpleLogger(false);
      case LogFormat::rawWithLogs:
+         return makeSimpleLogger(true);
+-    case LogFormat::internalJSON:
++    case LogFormat::internalJson:
+         return makeJSONLogger(*makeSimpleLogger(true));
+     case LogFormat::bar:
+         return makeProgressBar();
 @@ -37,12 +22,8 @@ Logger * makeDefaultLogger() {
      }
  }
@@ -83,7 +89,7 @@ index 0a7291780..61f71f627 100644
  }
  
 diff --git a/src/libmain/loggers.hh b/src/libmain/loggers.hh
-index cada03110..405c2321d 100644
+index f3c759193..405c2321d 100644
 --- a/src/libmain/loggers.hh
 +++ b/src/libmain/loggers.hh
 @@ -4,15 +4,6 @@
@@ -93,7 +99,7 @@ index cada03110..405c2321d 100644
 -enum class LogFormat {
 -  raw,
 -  rawWithLogs,
--  internalJson,
+-  internalJSON,
 -  bar,
 -  barWithLogs,
 -};
@@ -103,7 +109,7 @@ index cada03110..405c2321d 100644
  
  void createDefaultLogger();
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index 4df68d0c9..c17850c7a 100644
+index f38601d6d..60f783418 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
 @@ -3,6 +3,7 @@
@@ -114,11 +120,11 @@ index 4df68d0c9..c17850c7a 100644
  
  #include <algorithm>
  #include <map>
-@@ -198,6 +199,52 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
+@@ -203,6 +204,52 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
      });
  }
  
-+template<> void BaseSetting<LogFormat>::set(const std::string & str)
++template<> void BaseSetting<LogFormat>::set(const std::string & str, bool append)
 +{
 +    if (str == "raw")
 +        value = LogFormat::raw;
@@ -135,6 +141,11 @@ index 4df68d0c9..c17850c7a 100644
 +    createDefaultLogger();
 +}
 +
++template<> bool BaseSetting<LogFormat>::isAppendable()
++{
++    return false;
++}
++
 +template<> std::string BaseSetting<LogFormat>::to_string() const
 +{
 +    if (value == LogFormat::raw) return "raw";
@@ -143,11 +154,6 @@ index 4df68d0c9..c17850c7a 100644
 +    else if (value == LogFormat::bar) return "bar";
 +    else if (value == LogFormat::barWithLogs) return "bar-with-logs";
 +    else abort();
-+}
-+
-+template<> nlohmann::json BaseSetting<LogFormat>::toJSON()
-+{
-+    return AbstractSetting::toJSON();
 +}
 +
 +template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::string & category)
@@ -164,14 +170,14 @@ index 4df68d0c9..c17850c7a 100644
 +    });
 +}
 +
- void MaxBuildJobsSetting::set(const std::string & str)
+ void MaxBuildJobsSetting::set(const std::string & str, bool append)
  {
      if (str == "auto") value = std::max(1U, std::thread::hardware_concurrency());
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index 8c63c5b34..c9b969537 100644
+index eabd83e3f..2c2708271 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
-@@ -911,6 +911,9 @@ public:
+@@ -892,6 +892,9 @@ public:
      Setting<Strings> experimentalFeatures{this, {}, "experimental-features",
          "Experimental Nix features to enable."};
  
@@ -204,7 +210,7 @@ index dfe1e2cc4..3a60cca45 100644
   -DNIX_STORE_DIR=\"$(storedir)\" \
   -DNIX_DATA_DIR=\"$(datadir)\" \
 diff --git a/src/libutil/types.hh b/src/libutil/types.hh
-index 6c4c5ab74..e10c3c207 100644
+index 9c85fef62..60e5088b7 100644
 --- a/src/libutil/types.hh
 +++ b/src/libutil/types.hh
 @@ -19,6 +19,14 @@ typedef list<string> Strings;
@@ -239,7 +245,7 @@ index 5056ceb78..7ae033fd3 100644
 2.28.0
 
 
-From 0249db412b83f9450a75bb5a13717cfd0ec441c0 Mon Sep 17 00:00:00 2001
+From b05e5a194bf3700866cf5d9a1ddf59e8c9fedefe Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Thu, 17 Sep 2020 17:22:32 -0700
 Subject: [PATCH 2/4] Make loggers pluggable
@@ -263,17 +269,17 @@ new variant
 
 Co-authored-by: regnat <rg@regnat.ovh>
 ---
- src/libmain/loggers.cc      | 34 ------------------
- src/libmain/loggers.hh      | 11 ------
+ src/libmain/loggers.cc      | 34 -------------------
+ src/libmain/loggers.hh      | 11 -------
  src/libmain/progress-bar.cc |  8 +++++
- src/libstore/globals.cc     | 71 +++++++++++++++++++++++++++----------
+ src/libstore/globals.cc     | 66 +++++++++++++++++++++++++++++--------
  src/libstore/globals.hh     | 16 +++++++--
  src/libstore/local.mk       |  4 +--
- src/libutil/loggers.cc      | 21 +++++++++++
- src/libutil/loggers.hh      | 26 ++++++++++++++
- src/libutil/logging.cc      | 11 ++++++
+ src/libutil/loggers.cc      | 21 ++++++++++++
+ src/libutil/loggers.hh      | 26 +++++++++++++++
+ src/libutil/logging.cc      | 11 +++++++
  src/libutil/types.hh        |  8 -----
- 10 files changed, 132 insertions(+), 78 deletions(-)
+ 10 files changed, 132 insertions(+), 73 deletions(-)
  delete mode 100644 src/libmain/loggers.cc
  delete mode 100644 src/libmain/loggers.hh
  create mode 100644 src/libutil/loggers.cc
@@ -363,7 +369,7 @@ index 07b45b3b5..1d818f069 100644
  {
      assert(n < fields.size());
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index c17850c7a..e21e32e0c 100644
+index 60f783418..204885f65 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
 @@ -3,7 +3,6 @@
@@ -374,7 +380,7 @@ index c17850c7a..e21e32e0c 100644
  
  #include <algorithm>
  #include <map>
-@@ -199,18 +198,35 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
+@@ -204,18 +203,35 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
      });
  }
  
@@ -400,7 +406,7 @@ index c17850c7a..e21e32e0c 100644
 +    return res;
 +}
 +
- template<> void BaseSetting<LogFormat>::set(const std::string & str)
+ template<> void BaseSetting<LogFormat>::set(const std::string & str, bool append)
  {
 -    if (str == "raw")
 -        value = LogFormat::raw;
@@ -420,16 +426,7 @@ index c17850c7a..e21e32e0c 100644
      else throw UsageError("option '%s' has an invalid value '%s'", name, str);
  
      createDefaultLogger();
-@@ -226,25 +242,42 @@ template<> std::string BaseSetting<LogFormat>::to_string() const
-     else abort();
- }
- 
--template<> nlohmann::json BaseSetting<LogFormat>::toJSON()
--{
--    return AbstractSetting::toJSON();
--}
--
- template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::string & category)
+@@ -240,16 +256,38 @@ template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::str
  {
      args.addFlag({
          .longName = name,
@@ -468,11 +465,11 @@ index c17850c7a..e21e32e0c 100644
 +    logger = makeDefaultLogger();
 +}
 +
- void MaxBuildJobsSetting::set(const std::string & str)
+ void MaxBuildJobsSetting::set(const std::string & str, bool append)
  {
      if (str == "auto") value = std::max(1U, std::thread::hardware_concurrency());
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index c9b969537..ae1814a44 100644
+index 2c2708271..4f9278528 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
 @@ -3,6 +3,7 @@
@@ -492,7 +489,7 @@ index c9b969537..ae1814a44 100644
  typedef enum { smEnabled, smRelaxed, smDisabled } SandboxMode;
  
  struct MaxBuildJobsSetting : public BaseSetting<unsigned int>
-@@ -911,9 +914,6 @@ public:
+@@ -892,9 +895,6 @@ public:
      Setting<Strings> experimentalFeatures{this, {}, "experimental-features",
          "Experimental Nix features to enable."};
  
@@ -502,7 +499,7 @@ index c9b969537..ae1814a44 100644
      bool isExperimentalFeatureEnabled(const std::string & name);
  
      void requireExperimentalFeature(const std::string & name);
-@@ -942,8 +942,18 @@ public:
+@@ -923,8 +923,18 @@ public:
            resolves to a different location from that of the build machine. You
            can enable this setting if you are sure you're not going to do that.
          )"};
@@ -603,7 +600,7 @@ index 000000000..6b89f9037
 +
 +}
 diff --git a/src/libutil/logging.cc b/src/libutil/logging.cc
-index 8a6752e22..49a0c1893 100644
+index 6fd0dacef..79dceff03 100644
 --- a/src/libutil/logging.cc
 +++ b/src/libutil/logging.cc
 @@ -1,6 +1,7 @@
@@ -632,7 +629,7 @@ index 8a6752e22..49a0c1893 100644
  
  ActivityId getCurActivity()
 diff --git a/src/libutil/types.hh b/src/libutil/types.hh
-index e10c3c207..6c4c5ab74 100644
+index 60e5088b7..9c85fef62 100644
 --- a/src/libutil/types.hh
 +++ b/src/libutil/types.hh
 @@ -19,14 +19,6 @@ typedef list<string> Strings;
@@ -654,7 +651,7 @@ index e10c3c207..6c4c5ab74 100644
 2.28.0
 
 
-From 20bb4bc4b420069ba365914c6d9c73566e0e6eb9 Mon Sep 17 00:00:00 2001
+From d3f9a102506b9099786c0b314fa72ee7e1721e17 Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Sat, 19 Sep 2020 00:58:16 -0700
 Subject: [PATCH 3/4] Make loggers more pluggable
@@ -668,17 +665,17 @@ rather than an unhelpfully opaque integer.
 Co-authored-by: regnat <rg@regnat.ovh>
 Co-authored-by: Daiderd Jordan <daiderd@gmail.com>
 ---
- src/libstore/globals.cc | 36 ++++++++++++++++++++++++------------
- src/libstore/globals.hh | 18 ++++++++++++------
- src/libutil/loggers.cc  | 34 +++++++++++++++++++++++++---------
- src/libutil/loggers.hh  |  6 ++----
- 4 files changed, 63 insertions(+), 31 deletions(-)
+ src/libstore/globals.cc | 50 ++++++++++++++++++++++++++++-------------
+ src/libstore/globals.hh | 18 ++++++++++-----
+ src/libutil/loggers.cc  | 22 ++++++++++--------
+ src/libutil/loggers.hh  |  8 +++----
+ 4 files changed, 63 insertions(+), 35 deletions(-)
 
 diff --git a/src/libstore/globals.cc b/src/libstore/globals.cc
-index e21e32e0c..3d4c9a0cb 100644
+index 204885f65..bdbbb582a 100644
 --- a/src/libstore/globals.cc
 +++ b/src/libstore/globals.cc
-@@ -198,28 +198,33 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
+@@ -203,33 +203,46 @@ template<> void BaseSetting<SandboxMode>::convertToArg(Args & args, const std::s
      });
  }
  
@@ -688,7 +685,16 @@ index e21e32e0c..3d4c9a0cb 100644
 -        if (hasPrefix(builder->name, prefix))
 -            completions->add(builder->name);
 -}
--
++// This is necessary in order to show the log format's name, rather than an
++// integer, in JSON output.
++NLOHMANN_JSON_SERIALIZE_ENUM(LogFormat, {
++    {LogFormat::raw, "raw"},
++    {LogFormat::rawWithLogs, "raw-with-logs"},
++    {LogFormat::internalJSON, "internal-json"},
++    {LogFormat::bar, "bar"},
++    {LogFormat::barWithLogs, "bar-with-logs"},
++});
+ 
  std::string listLogFormats()
  {
      std::string res;
@@ -699,11 +705,11 @@ index e21e32e0c..3d4c9a0cb 100644
 +    for (auto format = loggers.begin(); format != loggers.end(); ++format) {
          if (!res.empty()) res += ", ";
 -        if (std::next(format) == logFormats.end()) res += "or ";
-+        if (std::next(format) == loggers.end()) res += "or ";
-         res += "'";
+-        res += "'";
 -        res += *format;
-+        res += (*format)->name;
-         res += "'";
+-        res += "'";
++        if (std::next(format) == loggers.end()) res += "or ";
++        res += "'" + (*format)->name + "'";
      }
  
      return res;
@@ -719,10 +725,23 @@ index e21e32e0c..3d4c9a0cb 100644
 +    options->addSetting(this);
 +}
 +
- template<> void BaseSetting<LogFormat>::set(const std::string & str)
+ template<> void BaseSetting<LogFormat>::set(const std::string & str, bool append)
  {
      if (str == "raw") value = LogFormat::raw;
-@@ -242,6 +247,13 @@ template<> std::string BaseSetting<LogFormat>::to_string() const
+     else if (str == "raw-with-logs") value = LogFormat::rawWithLogs;
+-    else if (str == "internal-json") value = LogFormat::internalJson;
++    else if (str == "internal-json") value = LogFormat::internalJSON;
+     else if (str == "bar") value = LogFormat::bar;
+     else if (str == "bar-with-logs") value = LogFormat::barWithLogs;
+     else throw UsageError("option '%s' has an invalid value '%s'", name, str);
+@@ -246,12 +259,19 @@ template<> std::string BaseSetting<LogFormat>::to_string() const
+ {
+     if (value == LogFormat::raw) return "raw";
+     else if (value == LogFormat::rawWithLogs) return "raw-with-logs";
+-    else if (value == LogFormat::internalJson) return "internal-json";
++    else if (value == LogFormat::internalJSON) return "internal-json";
+     else if (value == LogFormat::bar) return "bar";
+     else if (value == LogFormat::barWithLogs) return "bar-with-logs";
      else abort();
  }
  
@@ -736,7 +755,7 @@ index e21e32e0c..3d4c9a0cb 100644
  template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::string & category)
  {
      args.addFlag({
-@@ -258,13 +270,13 @@ template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::str
+@@ -268,13 +288,13 @@ template<> void BaseSetting<LogFormat>::convertToArg(Args & args, const std::str
  
  void setLogFormat(const LogFormat & logFormat)
  {
@@ -753,7 +772,7 @@ index e21e32e0c..3d4c9a0cb 100644
              return builder->builder();
          }
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index ae1814a44..6a28e5230 100644
+index 4f9278528..700e1b168 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
 @@ -12,10 +12,17 @@
@@ -776,7 +795,7 @@ index ae1814a44..6a28e5230 100644
  struct MaxBuildJobsSetting : public BaseSetting<unsigned int>
  {
      MaxBuildJobsSetting(Config * options,
-@@ -943,10 +950,9 @@ public:
+@@ -924,10 +931,9 @@ public:
            can enable this setting if you are sure you're not going to do that.
          )"};
  
@@ -791,14 +810,11 @@ index ae1814a44..6a28e5230 100644
      Logger* makeDefaultLogger();
  };
 diff --git a/src/libutil/loggers.cc b/src/libutil/loggers.cc
-index 34bc03418..e068984a6 100644
+index 34bc03418..b350d6261 100644
 --- a/src/libutil/loggers.cc
 +++ b/src/libutil/loggers.cc
-@@ -1,21 +1,37 @@
- #include "loggers.hh"
+@@ -2,20 +2,24 @@
  
-+#include <nlohmann/json.hpp>
-+
  namespace nix {
  
 -std::set<std::string> logFormats = {
@@ -808,16 +824,6 @@ index 34bc03418..e068984a6 100644
 -    "bar",
 -    "bar-with-logs"
 -};
-+// This is necessary in order to show the log format's name, rather than an
-+// integer, in JSON output.
-+NLOHMANN_JSON_SERIALIZE_ENUM(LogFormat, {
-+    {LogFormat::raw, "raw"},
-+    {LogFormat::rawWithLogs, "raw-with-logs"},
-+    {LogFormat::internalJson, "internal-json"},
-+    {LogFormat::bar, "bar"},
-+    {LogFormat::barWithLogs, "bar-with-logs"},
-+});
-+
 +static std::vector<std::shared_ptr<LoggerBuilder>>* registeredLoggers;
  
 -std::vector<std::shared_ptr<LoggerBuilder>> registeredLoggers;
@@ -842,9 +848,18 @@ index 34bc03418..e068984a6 100644
  
  }
 diff --git a/src/libutil/loggers.hh b/src/libutil/loggers.hh
-index 6b89f9037..a7539603e 100644
+index 6b89f9037..9d38cbc13 100644
 --- a/src/libutil/loggers.hh
 +++ b/src/libutil/loggers.hh
+@@ -7,7 +7,7 @@ namespace nix {
+ enum struct LogFormat {
+     raw,
+     rawWithLogs,
+-    internalJson,
++    internalJSON,
+     bar,
+     barWithLogs,
+ };
 @@ -17,10 +17,8 @@ struct LoggerBuilder {
      std::function<Logger *()> builder;
  };
@@ -862,7 +877,7 @@ index 6b89f9037..a7539603e 100644
 2.28.0
 
 
-From a67a66f9755718e87300beda2308b6ae26e76b47 Mon Sep 17 00:00:00 2001
+From 9a38e065d7f0f7c60f86fd64362b62646e866425 Mon Sep 17 00:00:00 2001
 From: Cole Helbling <cole.e.helbling@outlook.com>
 Date: Sat, 19 Sep 2020 01:03:02 -0700
 Subject: [PATCH 4/4] Move progress-bar to libutil
@@ -889,10 +904,10 @@ This also removes the unused store-api.hh include in progress-bar.cc.
  rename src/{libmain => libutil}/progress-bar.hh (100%)
 
 diff --git a/src/libstore/globals.hh b/src/libstore/globals.hh
-index 6a28e5230..59adb2998 100644
+index 700e1b168..bf86605b9 100644
 --- a/src/libstore/globals.hh
 +++ b/src/libstore/globals.hh
-@@ -950,8 +950,6 @@ public:
+@@ -931,8 +931,6 @@ public:
            can enable this setting if you are sure you're not going to do that.
          )"};
  
