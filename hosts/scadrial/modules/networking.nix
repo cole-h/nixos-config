@@ -19,7 +19,7 @@
     iptables -I FORWARD -i virbr0 -j ACCEPT
   '';
 
-  # networking.firewall.trustedInterfaces = [ "virbr0" ]
+  networking.firewall.trustedInterfaces = [ "virbr0" ];
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [

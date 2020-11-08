@@ -55,6 +55,7 @@ in
         "......" = "../../../../..";
         "......." = "../../../../../..";
         weechat = "tmux -L weechat attach";
+        nman = "MANPAGER='nvim +Man!' man";
       } // cgitcAbbrs;
 
       loginShellInit = ''

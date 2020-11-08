@@ -17,9 +17,10 @@ in
         plan = "15min=>5min,4h=>15min,1d=>4h,1w=>1d,1m=>1w,1y=>1m";
         recursive = true;
       };
+      # TODO: zrepl to 14tb external drive
       "rpool/win10" = {
         timestampFormat = "%Y-%m-%dT%H%M%S";
-        plan = "15min=>5min,4h=>15min,4d=>4h";
+        plan = "1w=>1d";
       };
     };
   };
@@ -50,23 +51,15 @@ in
     nssmdns = true;
   };
 
-  # No longer necessary, now that I have a CTRL. However, keep it around since I
-  # might want it for other devices.
-  # services.interception-tools = {
-  #   enable = false;
-  #   plugins = [ caps2esc ];
-  #   udevmonConfig = ''
-  #     - JOB: "intercept -g $DEVNODE | caps2esc -n | uinput -d $DEVNODE"
-  #       DEVICE:
-  #         EVENTS:
-  #           EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
-  #   '';
-  # };
-
   # services.udev.packages for packages with udev rules
   # SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="eed2", TAG+="uaccess", RUN{builtin}+="uaccess"
-  # Set noop scheduler for zfs partitions
-  services.udev.extraRules = ''
-    KERNEL=="sd[a-z]*[0-9]*|mmcblk[0-9]*p[0-9]*|nvme[0-9]*n[0-9]*p[0-9]*", ENV{ID_FS_TYPE}=="zfs_member", ATTR{../queue/scheduler}="none"
-  '';
+  services.udev.extraRules =
+    # Set noop scheduler for zfs partitions
+    ''
+      KERNEL=="sd[a-z]*[0-9]*|mmcblk[0-9]*p[0-9]*|nvme[0-9]*n[0-9]*p[0-9]*", ENV{ID_FS_TYPE}=="zfs_member", ATTR{../queue/scheduler}="none"
+    '' +
+    # YMDK NP21 permissions
+    ''
+      SUBSYSTEMS=="usb", ATTRS{idVendor}=="594d", ATTRS{idProduct}=="5021", TAG+="uaccess", RUN{builtin}+="uaccess"
+    '';
 }

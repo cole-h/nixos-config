@@ -41,6 +41,8 @@ https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
     - tank/local/nix (legacy)
     - tank/user (none) -- should be backed up
     - tank/user/home (legacy)
+    - tank/user/home/vin (legacy)
+    - tank/user/home/vin/Downloads (legacy) -- don't backup
 
 ``` sh
 export DISK=/dev/disk/by-id/.....

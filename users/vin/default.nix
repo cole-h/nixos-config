@@ -38,9 +38,10 @@
         ## tools
         aerc # terminal email reader; TODO: add config to secrets/
         hydrus # booru-like image tagger
-        mdloader
+        mdloader # used to flash my Drop CTRL
         newsboat # rss/atom feed reader
         qimgv # image viewer
+        bootloadHID # used to flash my QMK numpad
 
         # latest.firefox-nightly-bin
         firefox-bin
