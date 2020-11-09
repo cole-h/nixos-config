@@ -65,9 +65,10 @@ in
       sqlite
       # :lang cc
       # ccls # for lsp
-      clang-tools # for lsp
+      # clang-tools # for lsp
       # :lang latex & :lang org (latex previews)
-      texlive.combined.scheme-medium
+      # texlive.combined.scheme-medium
+      texlive.combined.scheme-tetex
       # :input japanese
       # cmigemo
       # :lang sh

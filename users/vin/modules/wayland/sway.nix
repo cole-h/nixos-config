@@ -130,23 +130,19 @@ in
         smartGaps = true;
       };
 
-      fonts = [ "IPAexGothic 11" "DejaVu Sans Mono 10" ];
+      fonts = [ "IPAexGothic 10" "DejaVu Sans Mono 10" ];
       # fonts = [ "IPAexGothic 11" "Iosevka Custom Book Extended 10" ];
 
       input = {
         "6940:6931:Corsair_Corsair_K70_RGB_Gaming_Keyboard__Keyboard" = {
-          xkb_numlock = "enabled";
           xkb_capslock = "disabled";
-          # xkb_options = "compose:ralt";
         };
-
         "1133:16487:Logitech_G903" = {
           accel_profile = "flat";
           pointer_accel = "0";
         };
-        "1118:36:Microsoft_Microsoft_Trackball_Explorer®" = {
-          accel_profile = "flat";
-          pointer_accel = "1";
+        "22861:20513:YMDK_NP21" = {
+          xkb_numlock = "enabled";
         };
       };
 
