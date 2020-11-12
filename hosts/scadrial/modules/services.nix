@@ -58,8 +58,8 @@ in
     ''
       KERNEL=="sd[a-z]*[0-9]*|mmcblk[0-9]*p[0-9]*|nvme[0-9]*n[0-9]*p[0-9]*", ENV{ID_FS_TYPE}=="zfs_member", ATTR{../queue/scheduler}="none"
     '' +
-    # YMDK NP21 permissions
+    # YMDK NP21 bootloader permissions (obdev HIDBoot)
     ''
-      SUBSYSTEMS=="usb", ATTRS{idVendor}=="594d", ATTRS{idProduct}=="5021", TAG+="uaccess", RUN{builtin}+="uaccess"
+      SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", TAG+="uaccess", RUN{builtin}+="uaccess"
     '';
 }

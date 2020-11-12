@@ -1,3 +1,6 @@
+zpool export bpool
+echo "$(date) Exported bpool since it's connected via USB" >> /tmp/win10.log
+
 sync && echo 1 > /proc/sys/vm/drop_caches
 echo "$(date) Freed memory to speed up VM POST" >> /tmp/win10.log
 

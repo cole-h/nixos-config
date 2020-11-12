@@ -85,6 +85,8 @@ in
 
       interactiveShellInit = ''
 
+        set --append fish_user_paths $HOME/.cargo/bin
+
         # GPG configuration
         ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye &>/dev/null
         set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script

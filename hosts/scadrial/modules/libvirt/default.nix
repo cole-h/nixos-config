@@ -74,6 +74,7 @@ in
       utillinux
       doas
       config.boot.kernelPackages.cpupower
+      zfs
     ];
 
     preStart = ''
