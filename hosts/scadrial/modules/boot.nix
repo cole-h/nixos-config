@@ -11,6 +11,7 @@
     supportedFilesystems = [ "zfs" "ntfs" ]; # allows r/w ntfs
     initrd.kernelModules = [ "nouveau" ]; # load nouveau early for native res tty
     tmpOnTmpfs = true;
+    cleanTmpDir = true;
     # plymouth.enable = true; # requires https://github.com/NixOS/nixpkgs/pull/88789
 
     kernelPackages = pkgs.linuxPackages_zen;
@@ -30,6 +31,7 @@
 
     kernelParams = [
       "udev.log_priority=3"
+      "systemd.unified_cgroup_hierarchy=1"
     ];
 
     # Allow emulated cross compilation for aarch64

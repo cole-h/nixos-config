@@ -31,7 +31,20 @@ in
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
 
-  # inherit (wayland) sway-unwrapped wlroots;
+  chatterino2 = prev.chatterino2.overrideAttrs ({ patches ? [ ], ... }: {
+    # https://github.com/Chatterino/chatterino2/pull/2192
+    patches = patches ++ [
+      (final.fetchpatch {
+        url = "https://github.com/Chatterino/chatterino2/commit/78897785b14011f0b11942c1aa598e52ff12964c.patch";
+        sha256 = "sha256-9UvhRcTg9Jcdp4Iwa0zIC7fCQPzX1+l+1uuOjXcgav8=";
+      })
+      (final.fetchpatch {
+        url = "https://github.com/Chatterino/chatterino2/commit/7cb1aaf8eb36e12b82982bff1c85a5a751d6698a.patch";
+        sha256 = "sha256-frwsL59NYSmfXv8N3x4YxR9ugl1cVSMAnZjl8fzOyuY=";
+      })
+    ];
+  });
+
   wlroots = prev.wlroots.overrideAttrs ({ ... }: {
     src = final.fetchFromGitHub {
       owner = "swaywm";
