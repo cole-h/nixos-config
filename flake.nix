@@ -99,7 +99,6 @@
               package = inputs.nix.defaultPackage.${system}.overrideAttrs ({ patches ? [ ], ... }: {
                 patches = patches ++ [
                   ./log-format-option.patch
-                  ./fix-ifd.patch # https://github.com/NixOS/nix/issues/4261, https://github.com/NixOS/nix/issues/4235
                 ];
               });
 
