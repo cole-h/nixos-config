@@ -40,6 +40,7 @@
         hydrus # booru-like image tagger
         mdloader # used to flash my Drop CTRL
         newsboat # rss/atom feed reader
+        amfora # gemini:// browser
         qimgv # image viewer
         bootloadHID # used to flash my QMK numpad
 

@@ -12,6 +12,7 @@
     # stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
     nix = { url = "github:nixos/nix"; };
+    # nix = { url = "github:nixos/nix/progress-bar"; };
     home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "large"; };
     passrs = { url = "github:cole-h/passrs"; };
     wayland = { url = "github:colemickens/nixpkgs-wayland"; };
@@ -102,8 +103,10 @@
                 ];
               });
 
+              # print-build-logs = true
               extraOptions = ''
                 log-format = bar-with-logs
+                flake-registry = /etc/nix/registry.json
               '';
 
               nixPath = [

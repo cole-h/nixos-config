@@ -234,16 +234,6 @@ in
         "${huh}+8" = "workspace ${wsF8}";
         "${huh}+9" = "workspace ${wsF9}";
         "${huh}+0" = "workspace ${wsF10}";
-        "${modifier}+KP_1" = "workspace ${wsF1}";
-        "${modifier}+KP_2" = "workspace ${wsF2}";
-        "${modifier}+KP_3" = "workspace ${wsF3}";
-        "${modifier}+KP_4" = "workspace ${wsF4}";
-        "${modifier}+KP_5" = "workspace ${wsF5}";
-        "${modifier}+KP_6" = "workspace ${wsF6}";
-        "${modifier}+KP_7" = "workspace ${wsF7}";
-        "${modifier}+KP_8" = "workspace ${wsF8}";
-        "${modifier}+KP_9" = "workspace ${wsF9}";
-        "${modifier}+KP_0" = "workspace ${wsF10}";
         # move focused container to workspace
         "${modifier}+Shift+1" = "move container to workspace ${ws1}";
         "${modifier}+Shift+2" = "move container to workspace ${ws2}";
@@ -275,16 +265,6 @@ in
         "${huh}+Shift+8" = "move container to workspace ${wsF8}";
         "${huh}+Shift+9" = "move container to workspace ${wsF9}";
         "${huh}+Shift+0" = "move container to workspace ${wsF10}";
-        "${modifier}+Shift+KP_End" = "move container to workspace ${wsF1}";
-        "${modifier}+Shift+KP_Down" = "move container to workspace ${wsF2}";
-        "${modifier}+Shift+KP_Next" = "move container to workspace ${wsF3}";
-        "${modifier}+Shift+KP_Left" = "move container to workspace ${wsF4}";
-        "${modifier}+Shift+KP_Begin" = "move container to workspace ${wsF5}";
-        "${modifier}+Shift+KP_Right" = "move container to workspace ${wsF6}";
-        "${modifier}+Shift+KP_Home" = "move container to workspace ${wsF7}";
-        "${modifier}+Shift+KP_Up" = "move container to workspace ${wsF8}";
-        "${modifier}+Shift+KP_Prior" = "move container to workspace ${wsF9}";
-        "${modifier}+Shift+KP_Insert" = "move container to workspace ${wsF10}";
         # move to next/prev workspace
         "Ctrl+${modifier}+Left " = "workspace prev";
         "Ctrl+${modifier}+Right" = "workspace next";
