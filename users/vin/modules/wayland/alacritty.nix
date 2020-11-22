@@ -71,6 +71,10 @@
           mods = "Control";
           action = "ToggleViMode";
         }
+        {
+          key = "NumpadEnter";
+          chars = "\\x0d";
+        }
       ];
     };
   };
