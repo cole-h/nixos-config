@@ -84,6 +84,21 @@
         "type": "github"
       }
     },
+    "emacs": {
+      "locked": {
+        "lastModified": 1606754964,
+        "narHash": "sha256-sJ/EQZgjrvnxKdkL9tc0axEm9o+F62SO2KgVxgGUojs=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "7a5064539be6861e2d1744ed8c57b906bf129950",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
     "home": {
       "inputs": {
         "nixpkgs": [
@@ -91,15 +106,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1604628022,
-        "narHash": "sha256-zCbTh91NBQdGRtO+GZxfKnmRjp+4rOQ2B8wtNpVcxgs=",
-        "owner": "rycee",
+        "lastModified": 1606691558,
+        "narHash": "sha256-mkLAmBhiQ7kI7Ezw1ken3ymGolBmEfiO881iFWSGrbg=",
+        "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "4cc1b77c3fc4f4b3bc61921dda72663eea962fa3",
+        "rev": "c1faa848c5224452660cd6d2e0f4bd3e8d206419",
         "type": "github"
       },
       "original": {
-        "owner": "rycee",
+        "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
       }
@@ -320,6 +335,7 @@
       "inputs": {
         "alacritty": "alacritty",
         "doom": "doom",
+        "emacs": "emacs",
         "home": "home",
         "large": "large",
         "nix": "nix",

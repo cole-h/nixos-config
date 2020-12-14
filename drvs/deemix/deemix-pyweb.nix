@@ -11,14 +11,14 @@ let
         fetchPypi;
 
       pname = "deemix";
-      version = "1.2.15";
+      version = "2.0.4";
     in
     buildPythonPackage {
       inherit pname version;
 
       src = fetchPypi {
         inherit pname version;
-        sha256 = "1hw8f2yspzac7ki8nyib006n0wnf5xblxhcczargh6dfq7i6kg6d";
+        sha256 = "sha256-Vk4p3aU/0E7cpKP7D+8VaWYqHsG5TBe8OOZgyJrig6k=";
       };
 
       # Accesses the network.
@@ -30,33 +30,63 @@ let
         pycryptodomex
         mutagen
         (spotipy.overridePythonAttrs ({ ... }: { dontUseSetuptoolsCheck = true; }))
+      ] ++ [
+        deezer
       ];
     };
 
-  # fuck
-  flask-socketio = python3.pkgs.flask-socketio.overridePythonAttrs ({ ... }: {
+  deezer =
+    let
+      inherit (python3.pkgs)
+        buildPythonPackage
+        fetchPypi;
+
+      pname = "deezer-py";
+      version = "0.0.10";
+    in
+    buildPythonPackage {
+      inherit pname version;
+
+      src = fetchPypi {
+        inherit pname version;
+        sha256 = "sha256-PEuy4D0EKbCA/geaheZ9+RfkJdrsdpv3ny/k0QBOAz4=";
+      };
+
+      # Accesses the network.
+      dontUseSetuptoolsCheck = true;
+
+      propagatedBuildInputs = with python3.pkgs; [
+        eventlet
+        requests
+      ];
+    };
+
+  eventlet = python3.pkgs.eventlet.overridePythonAttrs ({ ... }: {
     propagatedBuildInputs = with python3.pkgs; [
-      flask
-      # fuCK
-      (python-socketio.overridePythonAttrs ({ ... }: {
-        propagatedBuildInputs = with python3.pkgs; [
-          six
-          # FUCK
-          (python-engineio.overridePythonAttrs ({ ... }: { dontUseSetuptoolsCheck = true; }))
-        ];
+      greenlet
+      monotonic
+      six
+
+      (dnspython.overridePythonAttrs ({ ... }: rec {
+        pname = "dnspython";
+        version = "1.16";
+        src = fetchPypi {
+          inherit pname version;
+          extension = "zip";
+          sha256 = "36c5e8e38d4369a08b6780b7f27d790a292b2b08eea01607865bf0936c558e01";
+        };
       }))
     ];
   });
-
 in
 stdenv.mkDerivation {
   pname = "deemix-pyweb";
   version = "git";
 
   src = fetchgit {
-    url = "https://codeberg.org/RemixDev/deemix-pyweb.git";
-    rev = "c83e9a459e373f5e1441c54475d7c2d96145eb0d";
-    sha256 = "0g8rpnwc8p5v5jgx1rr2gyzvr572ganw5qk2v367nwjs4x34j0hs";
+    url = "https://git.rip/RemixDev/deemix-pyweb.git";
+    rev = "521e7b02fdc4a6c2fdb6888f6424e552306711fc";
+    sha256 = "sha256-Duj1XlKkCwa1duJVFGyvRdncPdjalC8Ut8qnCS+1P3o=";
     deepClone = true;
   };
 
@@ -74,9 +104,11 @@ stdenv.mkDerivation {
   pythonPath = with python3.pkgs; [
     pywebview
     flask
+    eventlet
+    flask-socketio
   ] ++ [
     deemix
-    flask-socketio
+    deezer
   ];
 
   installPhase = ''

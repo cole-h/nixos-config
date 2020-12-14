@@ -1,6 +1,6 @@
 { config, pkgs, lib, inputs, system, ... }:
 let
-  emacsPkg = inputs.wayland.packages.${system}.emacs-pgtk;
+  emacsPkg = pkgs.emacsPgtk;
 
   em = pkgs.writeShellScriptBin "em" ''
     case "$1" in

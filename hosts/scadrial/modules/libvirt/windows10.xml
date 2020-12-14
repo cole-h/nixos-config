@@ -35,6 +35,7 @@
     <loader readonly='yes' type='pflash'>/run/libvirt/nix-ovmf/OVMF_CODE.fd</loader>
     <nvram>/var/lib/libvirt/qemu/nvram/windows10_VARS.fd</nvram>
     <bootmenu enable='no'/>
+    <smbios mode='host'/>
   </os>
   <features>
     <acpi/>
@@ -56,7 +57,7 @@
     <vmport state='off'/>
     <ioapic driver='kvm'/>
   </features>
-  <cpu mode='host-passthrough' check='none'>
+  <cpu mode='host-passthrough' check='none' migratable='on'>
     <topology sockets='1' dies='1' cores='6' threads='2'/>
     <cache mode='passthrough'/>
     <feature policy='disable' name='hypervisor'/>
@@ -221,8 +222,12 @@
   </devices>
   <seclabel type='dynamic' model='dac' relabel='yes'/>
   <qemu:commandline>
-    <qemu:arg value='-D'/>
-    <qemu:arg value='/tmp/qemu.log'/>
+      <!-- <qemu:arg value='-smbios'/> -->
+      <!-- <qemu:arg value='type=2,manufacturer=Gigabyte,product=X570 AORUS PRO WIFI,version=AM4,serial=203000013054'/> -->
+      <!-- <qemu:arg value='-smbios'/> -->
+      <!-- <qemu:arg value='type=4,manufacturer=AMD,version=1000'/> -->
+      <!-- <qemu:arg value='-smbios'/> -->
+      <!-- <qemu:arg value='type=17,manufacturer=Samsung'/> -->
   </qemu:commandline>
 </domain>
 

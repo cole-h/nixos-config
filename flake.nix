@@ -13,9 +13,10 @@
 
     nix = { url = "github:nixos/nix"; };
     # nix = { url = "github:nixos/nix/progress-bar"; };
-    home = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "large"; };
+    home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "large"; };
     passrs = { url = "github:cole-h/passrs"; };
     wayland = { url = "github:colemickens/nixpkgs-wayland"; };
+    emacs = { url = "github:nix-community/emacs-overlay"; };
     alacritty = { url = "github:cole-h/flake-alacritty"; };
     # pijul = { url = "/home/vin/workspace/pijul/pijul"; };
 
@@ -46,6 +47,7 @@
         import pkgs {
           inherit system config;
           overlays = [
+            inputs.emacs.overlay
             (import ./overlay.nix {
               inherit (inputs) doom;
             })
@@ -189,29 +191,31 @@
 
       legacyPackages = forAllSystems ({ pkgs, ... }: pkgs);
 
-      defaultPackage = {
-        x86_64-linux = forOneSystem "x86_64-linux" ({ system, pkgs, ... }:
-          nixus system ({ ... }: {
-            defaults = { name, ... }:
-              let
-                nixos = inputs.self.nixosConfigurations.${name};
-              in
-              {
-                nixpkgs = pkgs.path;
+      defaultPackage = forAllSystems ({ system, ... }:
+        inputs.self.nixosConfigurations.scadrial.config.system.build.toplevel);
+      # defaultPackage = {
+      #   x86_64-linux = forOneSystem "x86_64-linux" ({ system, pkgs, ... }:
+      #     nixus system ({ ... }: {
+      #       defaults = { name, ... }:
+      #         let
+      #           nixos = inputs.self.nixosConfigurations.${name};
+      #         in
+      #         {
+      #           nixpkgs = pkgs.path;
 
-                configuration = {
-                  imports = nixos.modules;
-                };
-              };
+      #           configuration = {
+      #             imports = nixos.modules;
+      #           };
+      #         };
 
-            nodes = {
-              scadrial = { ... }: {
-                host = "root@localhost";
-                privilegeEscalationCommand = [ "exec" ];
-              };
-            };
-          }));
-      };
+      #       nodes = {
+      #         scadrial = { ... }: {
+      #           host = "root@localhost";
+      #           privilegeEscalationCommand = [ "exec" ];
+      #         };
+      #       };
+      #     }));
+      # };
 
       apps = forAllSystems ({ system, ... }: {
         nixus = {

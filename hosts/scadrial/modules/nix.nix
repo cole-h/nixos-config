@@ -17,6 +17,7 @@
       "https://passrs.cachix.org"
       "https://alacritty.cachix.org"
       "https://nixpkgs-wayland.cachix.org"
+      "https://nix-community.cachix.org"
     ];
 
     binaryCachePublicKeys = [
@@ -25,6 +26,7 @@
       "passrs.cachix.org-1:qEBRtLoyRFMZC8obhs0JjUW95PVaPYAUvixVPt6Qsa0="
       "alacritty.cachix.org-1:/qirsw0af1Mf5vshRf3mWVuE/kCB6vZn6tYOkd4nWsU="
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
 }
