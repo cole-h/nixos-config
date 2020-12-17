@@ -102,7 +102,6 @@ stdenv.mkDerivation {
   dontUseSetuptoolsCheck = true;
 
   pythonPath = with python3.pkgs; [
-    pywebview
     flask
     eventlet
     flask-socketio

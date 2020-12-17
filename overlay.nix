@@ -63,16 +63,6 @@ in
     };
   });
 
-  kakoune = prev.kakoune.override {
-    configure.plugins = with final.kakounePlugins;
-      [
-        kak-powerline
-        kak-auto-pairs
-        kak-vertical-selection
-        kak-buffers
-      ];
-  };
-
   discord = runCommand "discord"
     { buildInputs = [ final.makeWrapper ]; }
     ''
