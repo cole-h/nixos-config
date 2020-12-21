@@ -78,6 +78,84 @@ let
       }))
     ];
   });
+
+  flask-socketio =
+    let
+      inherit (python3.pkgs)
+        buildPythonPackage
+        fetchPypi;
+
+      pname = "Flask-SocketIO";
+      version = "5.0.0";
+    in
+    buildPythonPackage {
+      inherit pname version;
+
+      src = fetchPypi {
+        inherit pname version;
+        sha256 = "sha256-xTXPLr5Ces3rRj5Uk4YlP8Xmy6aiu5YTiywuF+IKmdo=";
+      };
+
+      dontCheck = true;
+      dontUseSetuptoolsCheck = true;
+
+      propagatedBuildInputs = with python3.pkgs; [
+        flask
+      ] ++ [
+        (
+          let
+            inherit (python3.pkgs)
+              buildPythonPackage
+              fetchPypi;
+
+            pname = "python-socketio";
+            version = "5.0.3";
+          in
+          buildPythonPackage {
+            inherit pname version;
+
+            src = fetchPypi {
+              inherit pname version;
+              sha256 = "3794412ea577144ce1bc8f258deb265230da1d9d1ff5427c32fe7e8de484c275";
+            };
+
+            dontCheck = true;
+            dontUseSetuptoolsCheck = true;
+
+            propagatedBuildInputs = with python3.pkgs; [
+              six
+              bidict
+            ] ++ [
+              (
+                let
+                  inherit (python3.pkgs)
+                    buildPythonPackage
+                    fetchPypi;
+
+                  pname = "python-engineio";
+                  version = "4.0.0";
+                in
+                buildPythonPackage {
+                  inherit pname version;
+
+                  src = fetchPypi {
+                    inherit pname version;
+                    sha256 = "9f34afa4170f5ba6e3d9ff158752ccf8fbb2145f16554b2f0fc84646675be99a";
+                  };
+
+                  dontCheck = true;
+                  dontUseSetuptoolsCheck = true;
+
+                  propagatedBuildInputs = with python3.pkgs; [
+                    six
+                  ];
+                }
+              )
+            ];
+          }
+        )
+      ];
+    };
 in
 stdenv.mkDerivation {
   pname = "deemix-pyweb";
@@ -104,8 +182,8 @@ stdenv.mkDerivation {
   pythonPath = with python3.pkgs; [
     flask
     eventlet
-    flask-socketio
   ] ++ [
+    flask-socketio
     deemix
     deezer
   ];

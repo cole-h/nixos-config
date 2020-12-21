@@ -43,6 +43,7 @@
         amfora # gemini:// browser
         qimgv # image viewer
         bootloadHID # used to flash my QMK numpad
+        kakoune # interesting text editor
 
         # latest.firefox-nightly-bin
         firefox-bin

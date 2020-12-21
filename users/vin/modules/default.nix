@@ -3,7 +3,6 @@
     [
       ./fish.nix # fish config
       ./gpg.nix # GPG config
-      ./kakoune.nix # kak config
       ./mail.nix # maildir config
       ./mpd.nix # mpd config
       ./mpv.nix # mpv config
