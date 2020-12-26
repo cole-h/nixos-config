@@ -40,6 +40,7 @@
       nix-prefetch-scripts
       nix-top
       openssl
+      par # nice paragraph formatter
       pavucontrol
       pciutils
       posix_man_pages

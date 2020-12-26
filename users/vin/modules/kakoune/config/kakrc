@@ -75,6 +75,7 @@ set-option global grepcmd 'rg --no-heading --line-number --column --sort path'
 set-option global ui_options ncurses_set_title=false ncurses_assistant=off
 set-option global indentwidth 2
 set-option global scrolloff 3,3
+set-option global autowrap_fmtcmd 'par -w %c'
 
 # Highlighters
 add-highlighter global/show-trailing-whitespace regex '\h+$' 0:Error

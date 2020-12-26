@@ -31,7 +31,7 @@ https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
 
 ## 1. partition
   - 2GiB /boot at the beginning
-  - 16GiB swap partition at the beginning
+  - 32GiB swap partition at the beginning
   - rest "linux partition" (for ZFS) -- don't forget native encryption
     ("encryption=aes-256-gcm") and "compression=on"
     - tank/system (none) -- should be backed up
@@ -48,8 +48,8 @@ https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
 export DISK=/dev/disk/by-id/.....
 gdisk $DISK
   # o (delete all partitions + protective mbr)
-  # n, 1, +1M,   +1G, ef00  (EFI boot)
-  # n, 2, ...,  +16G, 8200  (swap)
+  # n, 1, +1M,   +2G, ef00  (EFI boot)
+  # n, 2, ...,  +32G, 8200  (swap)
   # n, 3, ...,  ....,  ...  (Linux)
   # c, 3, "[a-z]pool" -- set part label
   # w
@@ -59,41 +59,47 @@ mkswap -L swap $DISK-part2
 swapon $DISK-part2 # otherwise, nixos-install won't generate hardware config for this
 
 zpool create \
-    -O atime=off \
-    -O compression=zstd \
-    # apparently gcm is faster than ccm
-    -O encryption=aes-256-gcm -O keyformat=passphrase \
-    -O xattr=sa \
-    -O acltype=posixacl \
     -O mountpoint=none \
-    # my SSD (ADATA SU800) may or may not lie that it uses a 512B physical block
-    # size; ashift of 13 (8k) shouldn't really hurt, according to various people
-    -O ashift=13 \
+    # SSDs may or may not lie that it uses a 512B physical block size;
+    # ashift of 12 (4k) shouldn't really hurt, according to various
+    # people
+    -O ashift=12 \
     -R /mnt \
-    rpool $DISK-part3
+    apool $DISK-part3
+
+zfs create \
+    -o atime=off \
+    -o compression=zstd \
+    # apparently gcm is faster than ccm
+    -o encryption=aes-256-gcm -o keyformat=passphrase \
+    -o xattr=sa \
+    -o acltype=posixacl \
+    -o mountpoint=none \
+    apool/ROOT
 
 # https://gist.github.com/LnL7/5701d70f46ea23276840a6b1c404597f
 # maybe don't need mountpoint=legacy except for /nix?
-zfs create -o canmount=off rpool/system
-zfs create -o mountpoint=legacy rpool/system/root
-zfs create -o mountpoint=legacy rpool/system/var # maybe don't need legacy
-zfs create -o mountpoint=legacy rpool/system/media # maybe don't need legacy
-zfs create -o canmount=off rpool/local
-zfs create -o mountpoint=legacy rpool/local/nix
-zfs create -o canmount=off rpool/user
-zfs create -o mountpoint=legacy rpool/user/home # maybe don't need legacy
-zfs create -V 302G rpool/win10
+zfs create -o canmount=off apool/ROOT/system
+zfs create -o mountpoint=legacy apool/ROOT/system/root
+zfs create -o mountpoint=legacy apool/ROOT/system/var # maybe don't need legacy
+zfs create -o mountpoint=legacy apool/ROOT/system/media # maybe don't need legacy
+zfs create -o canmount=off apool/ROOT/local
+zfs create -o mountpoint=legacy apool/ROOT/local/nix
+zfs create -o canmount=off apool/ROOT/user
+zfs create -o canmount=off apool/ROOT/user/vin
+zfs create -o mountpoint=legacy apool/ROOT/user/vin/home # maybe don't need legacy
+zfs create -V 302G apool/ROOT/win10
 
 # create snapshot of everything `@blank` -- easy to switch to tmpfs if I want
-zfs snapshot rpool/system@blank
-# roll back with `zfs rollback -r rpool/local/root@blank`
+zfs snapshot apool/ROOT/system@blank
+# roll back with `zfs rollback -r apool/ROOT/local/root@blank`
 
-mount -t zfs rpool/system/root /mnt
-mkdir -p /mnt/boot /mnt/var /mnt/media /mnt/nix /mnt/home
-mount -t zfs rpool/system/var /mnt/var
-mount -t zfs rpool/system/media /mnt/media
-mount -t zfs rpool/local/nix /mnt/nix
-mount -t zfs rpool/user/home /mnt/home
+mount -t zfs apool/ROOT/system/root /mnt
+mkdir -p /mnt/boot /mnt/var /mnt/media /mnt/nix /mnt/home/vin
+mount -t zfs apool/ROOT/system/var /mnt/var
+mount -t zfs apool/ROOT/system/media /mnt/media
+mount -t zfs apool/ROOT/local/nix /mnt/nix
+mount -t zfs apool/ROOT/user/vin/home /mnt/home/vin
 mount $DISK-part1 /mnt/boot
 ```
 
@@ -134,4 +140,6 @@ git clone --reference nixpkgs/master https://spectrum-os.org/git/nixpkgs spectru
 # copy FF profile from backup
 # copy sonarr settings (watched shows, etc) from backup
 # copy fish shell history from backup
-  ```
+# copy zoxide db
+# copy hydrus
+```
