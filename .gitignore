@@ -16,3 +16,5 @@ users/*/modules/weechat/config/logs
 users/*/modules/weechat/config/urlserver_list.txt
 users/*/modules/weechat/config/relay.conf
 hosts/scadrial/modules/borg/config.json
+users/*/modules/kakoune/config/plugins
+users/*/modules/kakoune/config/colors

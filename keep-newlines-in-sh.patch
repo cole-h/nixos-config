@@ -1,0 +1,57 @@
+From 94ad2ad62809d33fa734dd30d42a31c3aeec2e07 Mon Sep 17 00:00:00 2001
+From: Cole Helbling <cole.e.helbling@outlook.com>
+Date: Fri, 25 Dec 2020 01:11:21 -0800
+Subject: [PATCH] src: add option to keep newlines in %sh{...} blocks
+
+---
+ src/command_manager.cc | 19 ++++++++++++-------
+ src/main.cc            |  2 ++
+ 2 files changed, 14 insertions(+), 7 deletions(-)
+
+diff --git a/src/command_manager.cc b/src/command_manager.cc
+index ca619f7f..2be3e5e4 100644
+--- a/src/command_manager.cc
++++ b/src/command_manager.cc
+@@ -323,14 +323,19 @@ expand_token(const Token& token, const Context& context, const ShellContext& she
+             content, context, {}, ShellManager::Flags::WaitForStdout,
+             shell_context).first;
+ 
+-        int trailing_eol_count = 0;
+-        for (auto c : str | reverse())
+-        {
+-            if (c != '\n')
+-                break;
+-            ++trailing_eol_count;
++        bool trim_newlines = context.options()["shell_expansion_trim_newlines"].get<bool>();
++
++        if (trim_newlines) {
++            int trailing_eol_count = 0;
++            for (auto c : str | reverse())
++            {
++                if (c != '\n')
++                    break;
++                ++trailing_eol_count;
++            }
++            str.resize(str.length() - trailing_eol_count, 0);
+         }
+-        str.resize(str.length() - trailing_eol_count, 0);
++
+         return {str};
+     }
+     case Token::Type::RegisterExpand:
+diff --git a/src/main.cc b/src/main.cc
+index fbb074a0..c9496d93 100644
+--- a/src/main.cc
++++ b/src/main.cc
+@@ -563,6 +563,8 @@ void register_options()
+         "set of pair of characters to be considered as matching pairs",
+         { '(', ')', '{', '}', '[', ']', '<', '>' });
+     reg.declare_option<int>("startup_info_version", "version up to which startup info changes should be hidden", 0);
++    reg.declare_option("shell_expansion_trim_newlines",
++                       "whether or not to trim newlines from %sh{...} scopes", true);
+ }
+ 
+ static Client* local_client = nullptr;
+-- 
+2.29.2
+

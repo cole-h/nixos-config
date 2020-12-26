@@ -13,6 +13,7 @@
 
       ./emacs # doom + emacs setup
       ./git # git config
+      ./kakoune # kakoune setup
       ./wayland # sway, etc config
       ./weechat # weechat config
     ];

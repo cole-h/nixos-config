@@ -104,6 +104,10 @@ in
     '';
   });
 
+  kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs ({ patches ? [], ... }: {
+    patches = patches ++ [ ./keep-newlines-in-sh.patch ];
+  });
+
   # Flakes-based
   doom-emacs = callPackage ./drvs/doom-emacs.nix { src = doom; };
 }

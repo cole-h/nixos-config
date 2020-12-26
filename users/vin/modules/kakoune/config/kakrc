@@ -1,0 +1,89 @@
+# plug.kak setup
+declare-option -docstring "plug.kak's directory" str plugkakdir "%val{config}/plugins/plug.kak"
+declare-option -docstring "plug.kak's main script" str plugkak "%opt{plugkakdir}/rc/plug.kak"
+
+try %{
+  source "%opt{plugkak}"
+} catch %sh{
+  if [ ! -d "$kak_opt_plugkakdir" ]; then
+    git clone https://github.com/robertmeta/plug.kak.git "$kak_opt_plugkakdir"
+    echo 'source "%opt{plugkak}"'
+  fi
+}
+
+# Plugins
+plug "robertmeta/plug.kak" noload config %{
+  set-option global plug_always_ensure true
+  set-option global plug_install_dir %sh{ printf %s "${kak_opt_plugkakdir}/../" }
+}
+plug "jdugan6240/powerline.kak" config %{
+  powerline-start
+} defer powerline %{
+  powerline-separator global none
+}
+plug "alexherbo2/prelude.kak"
+plug "alexherbo2/auto-pairs.kak" config %{
+  require-module prelude
+  require-module auto-pairs
+  hook -once global WinCreate .* auto-pairs-enable
+}
+plug "Delapouite/kakoune-buffers" config %{
+  hook global WinDisplay .* info-buffers
+  map global user b ': enter-buffers-mode<ret>' -docstring 'buffers…'
+  map global user B ': enter-user-mode -lock buffers<ret>' -docstring 'buffers (lock)…'
+}
+plug "andreyorst/smarttab.kak" config %{
+  hook global WinSetOption filetype=(rust|kak|sh|nix|c|cpp) expandtab
+}
+plug "dracula/kakoune" theme config %{
+  colorscheme dracula-transparent
+  face global LineNumberCursor "%opt{yellow}"
+  face global MatchingChar "%opt{green}+u"
+}
+plug "Screwtapello/kakoune-state-save" domain "gitlab.com"
+plug "fsub/kakoune-mark"
+plug "insipx/kak-crosshairs" config %{
+  hook -once global WinCreate .* cursorline
+  set-face global crosshairs_line "default,%opt{gray}"
+}
+plug "alexherbo2/surround.kak" config %{
+  require-module surround
+  map global user s ': enter-user-mode -lock surround<ret>' -docstring 'surround…'
+  map global user S ': surround-enter-insert-mode<ret>' -docstring 'surround insert…'
+}
+plug "TeddyDD/kakoune-edit-or-dir" config %{
+  unalias global e edit
+  alias global e edit-or-dir
+}
+plug "kak-lsp/kak-lsp" do %{
+  mkdir -p $HOME/.config/kak-lsp
+  [ ! -f $HOME/.config/kak-lsp/kak-lsp.toml ] && cp ./kak-lsp.toml $HOME/.config/kak-lsp
+  cargo install --locked --force --path .
+}
+plug "alexherbo2/view-mode.kak"
+plug "alexherbo2/manual-indent.kak" config %{
+  require-module manual-indent
+  hook global WinCreate .* manual-indent-enable
+}
+plug "delapouite/kakoune-mirror" config %{
+  map global normal "'" ': enter-user-mode -lock mirror<ret>'
+}
+
+# Options
+set-option global startup_info_version 20200901
+set-option global grepcmd 'rg --no-heading --line-number --column --sort path'
+set-option global ui_options ncurses_set_title=false ncurses_assistant=off
+set-option global indentwidth 2
+set-option global scrolloff 3,3
+
+# Highlighters
+add-highlighter global/show-trailing-whitespace regex '\h+$' 0:Error
+
+# Keys
+source "%val{config}/keys.kak"
+
+# Commands
+source "%val{config}/commands.kak"
+
+# Hooks
+source "%val{config}/hooks.kak"
