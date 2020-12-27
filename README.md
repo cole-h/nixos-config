@@ -23,7 +23,7 @@ https://grahamc.com/blog/nixos-on-zfs
 https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
 
 ## 0. preparations
-  - make iso with `nix build -f ~/workspace/vcs/nixpkgs/nixos-unstable/nixos config.system.build.isoImage -I nixos-config=iso.nix`
+  - make iso with `nix build .#iso`
   - backup stateful stuff
     - FF profile
     - sonarr settings (watched shows, etc)
