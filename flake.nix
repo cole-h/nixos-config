@@ -19,6 +19,7 @@
     emacs = { url = "github:nix-community/emacs-overlay"; };
     alacritty = { url = "github:cole-h/flake-alacritty"; };
     # pijul = { url = "/home/vin/workspace/pijul/pijul"; };
+    neovim = { url = "github:neovim/neovim?dir=contrib"; };
 
     # Not flakes
     secrets = { url = "git+ssh://git@github.com/cole-h/nix-secrets.git"; flake = false; };
@@ -54,6 +55,7 @@
             (final: prev: {
               passrs = inputs.passrs.defaultPackage.${system};
               alacritty = inputs.alacritty.defaultPackage.${system};
+              neovim-unwrapped = inputs.neovim.defaultPackage.${system};
               # pijul = inputs.pijul.defaultPackage.${system};
             })
           ];

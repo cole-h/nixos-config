@@ -76,17 +76,6 @@ in
     '';
   });
 
-  neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs ({ ... }: {
-    version = "nightly";
-
-    src = final.fetchFromGitHub {
-      owner = "neovim";
-      repo = "neovim";
-      rev = "6f2138eb03766680b012ee0bdfca04fdc2c22e89";
-      sha256 = "sha256-kP/QYxAYGsFcGQH5Ad8Fuucz3rdIixS1paLjg61u/4w=";
-    };
-  });
-
   # python2 GTFO my closure
   neovim = prev.neovim.override {
     withPython = false;
@@ -104,7 +93,7 @@ in
     '';
   });
 
-  kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs ({ patches ? [], ... }: {
+  kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs ({ patches ? [ ], ... }: {
     patches = patches ++ [ ./keep-newlines-in-sh.patch ];
   });
 
