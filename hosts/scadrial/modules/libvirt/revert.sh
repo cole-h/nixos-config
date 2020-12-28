@@ -7,14 +7,14 @@ echo "$(date) Modprobe -r'd vfio-pci, vfio_iommu_type1, and vfio" >> /tmp/win10.
 modprobe nouveau
 echo "$(date) Modprobed nouveau" >> /tmp/win10.log
 
-virsh nodedev-reattach pci_0000_05_00_3
-virsh nodedev-reattach pci_0000_05_00_1
+virsh nodedev-reattach pci_0000_06_00_3
+virsh nodedev-reattach pci_0000_06_00_1
 echo "$(date) Rebound misc. USB devices" >> /tmp/win10.log
 
-virsh nodedev-reattach pci_0000_0a_00_3
+virsh nodedev-reattach pci_0000_0b_00_3
 echo "$(date) Rebound USB devices (M+KBD)" >> /tmp/win10.log
 
-virsh nodedev-reattach pci_0000_0a_00_4
+virsh nodedev-reattach pci_0000_0b_00_4
 echo "$(date) Rebound front panel audio" >> /tmp/win10.log
 
 systemctl restart znapzend
@@ -26,10 +26,10 @@ echo "$(date) Restarted torrents" >> /tmp/win10.log
 doas -u vin systemctl restart --user pulseaudio.socket
 echo "$(date) Restarted user pulse" >> /tmp/win10.log
 
-virsh nodedev-reattach pci_0000_08_00_1
+virsh nodedev-reattach pci_0000_09_00_1
 echo "$(date) Rebound HDMI audio" >> /tmp/win10.log
 
-virsh nodedev-reattach pci_0000_08_00_0
+virsh nodedev-reattach pci_0000_09_00_0
 echo "$(date) Rebound GPU" >> /tmp/win10.log
 
 # Wait 1 second to avoid possible race condition

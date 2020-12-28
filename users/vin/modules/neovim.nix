@@ -221,8 +221,8 @@ in
         autocmd BufWritePre * undojoin | Neoformat
       augroup END
     '' +
-    # LSP config
-    ''
+    # LSP config -- busted
+    (lib.optionalString false ''
       " Set completeopt to have a better completion experience
       set completeopt=menuone,noinsert,noselect
 
@@ -295,6 +295,6 @@ in
       " Enable type inlay hints
       autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
       \ lua require'lsp_extensions'.inlay_hints{ prefix = ''', highlight = "Comment" }
-    '';
+    '');
   };
 }
