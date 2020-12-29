@@ -94,7 +94,16 @@ in
   });
 
   kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs ({ patches ? [ ], ... }: {
-    patches = patches ++ [ ./keep-newlines-in-sh.patch ];
+    patches = patches ++ [
+      ./keep-newlines-in-sh.patch
+    ];
+
+    src = final.fetchFromGitHub {
+      owner = "mawww";
+      repo = "kakoune";
+      rev = "958a9431214dc4bece30aa30a8159e0bb8b5bbe7";
+      sha256 = "sha256-KSFuM9WQxdUc7lFaDYGB9zZGOHuckto9SEd9cR7evKo=";
+    };
   });
 
   # Flakes-based
