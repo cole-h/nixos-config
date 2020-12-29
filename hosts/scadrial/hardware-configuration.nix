@@ -8,33 +8,38 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "rpool/system/root";
-      fsType = "zfs";
-    };
-
-  fileSystems."/nix" =
-    { device = "rpool/local/nix";
+    { device = "apool/ROOT/system/root";
       fsType = "zfs";
     };
 
   fileSystems."/var" =
-    { device = "rpool/system/var";
+    { device = "apool/ROOT/system/var";
       fsType = "zfs";
     };
 
-  fileSystems."/home" =
-    { device = "rpool/user/home";
+  fileSystems."/nix" =
+    { device = "apool/ROOT/local/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/vin" =
+    { device = "apool/ROOT/user/vin/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/vin/Downloads" =
+    { device = "apool/ROOT/user/vin/home/Downloads";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/E073-D290";
+    { device = "/dev/disk/by-uuid/0279-A3C4";
       fsType = "vfat";
     };
 
@@ -44,8 +49,7 @@
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/f6fe5b36-b804-4678-8ccb-79655b9b1e58"; }
+    [ { device = "/dev/disk/by-uuid/6ffb5a36-79fd-4a70-9ffb-b8984643c8de"; }
     ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

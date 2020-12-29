@@ -19,7 +19,9 @@
   xdg.enable = true;
 
   home.file."scripts".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nixpkgs/scripts";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/flake/scripts";
+  home.file."Music".source =
+    config.lib.file.mkOutOfStoreSymlink "/media/Music";
 
   # Finally, a cursor theme that displays hands on clickable objects
   home.file.".icons/default".source = "${pkgs.gnome3.adwaita-icon-theme}/share/icons/Adwaita";
@@ -43,7 +45,6 @@
         amfora # gemini:// browser
         qimgv # image viewer
         bootloadHID # used to flash my QMK numpad
-        kakoune # interesting text editor
 
         # latest.firefox-nightly-bin
         firefox-bin

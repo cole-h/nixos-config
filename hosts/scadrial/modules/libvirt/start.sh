@@ -1,3 +1,6 @@
+# if the file exists, take ownership of it
+[ -f /tmp/win10.log ] && chown root /tmp/win10.log
+
 zpool export bpool
 echo "$(date) Exported bpool since it's connected via USB" >> /tmp/win10.log
 

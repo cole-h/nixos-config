@@ -15,7 +15,7 @@ let
     volume="$(${pkgs.pamixer}/bin/pamixer --get-volume)%"
     time="$(${pkgs.coreutils}/bin/date +'%d %B %G %T')"
 
-    space="$(test $(zfs list -H | awk '{if ($1 == "rpool") print $3}' | numfmt --from=iec) -lt $(echo 20G | numfmt --from=iec) && echo '!! less than 20G left in rpool !!')"
+    space="$(test "$(zfs list -H | awk '{if ($1 == "apool") print $3}' | numfmt --from=iec)" -lt "$(echo 20G | numfmt --from=iec)" && echo '!! less than 20G left in apool !!')"
 
     printf "%s  %s  %s  %s\n" "$space" "$music" "$volume" "$time"
   '';

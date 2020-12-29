@@ -26,5 +26,6 @@
       git-crypt
       neovim
       kakoune
+      htop
     ];
 }

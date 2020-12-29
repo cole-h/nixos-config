@@ -89,3 +89,15 @@ define-command -override delete-trailing-whitespace -docstring 'delete trailing 
     execute-keys -draft '"az'
   }
 }
+
+define-command -override -params ..1 -file-completion CD -docstring "cd to the current file's directory" %{
+  try %{
+    evaluate-commands %sh{
+      if [ -n "$1" ]; then
+        printf %s "cd "$1""
+      else
+        printf %s "cd $(dirname "$kak_buffile")"
+      fi
+    }
+  }
+}

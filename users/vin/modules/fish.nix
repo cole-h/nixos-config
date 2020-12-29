@@ -3,17 +3,13 @@ let
   cgitcAbbrs = (pkgs.callPackage my.drvs.cgitc { }).abbrs;
 in
 {
-  home.packages = with pkgs; [
-    # https://www.youtube.com/watch?v=Oyg5iFddsJI
-    zoxide # z-rs
-  ];
-
   programs = {
     direnv = {
       enable = true;
       enableFishIntegration = true;
     };
 
+    # https://www.youtube.com/watch?v=Oyg5iFddsJI
     zoxide = {
       enable = true;
       enableFishIntegration = true;
@@ -38,6 +34,7 @@ in
         # std = "rustup doc --std";
         t = "todo.sh $argv";
         win10 = "doas virsh start windows10";
+        fish_greeting = "";
       };
 
       shellAbbrs = {

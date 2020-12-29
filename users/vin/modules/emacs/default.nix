@@ -87,7 +87,7 @@ in
 
       # Don't want to have to `home-manager switch` every time I change something,
       # so don't add it to the store.
-      DOOMDIR = "${config.xdg.configHome}/nixpkgs/users/${config.home.username}/modules/emacs/config";
+      DOOMDIR = "${config.home.homeDirectory}/flake/users/${config.home.username}/modules/emacs/config";
     };
   };
 

@@ -21,11 +21,13 @@
       gdb
       git
       gitAndTools.hub
+      git-crypt
       gnome3.file-roller
       gnome3.nautilus # GUI file manager
       htop
       imagemagick
       iotop
+      kakoune
       libarchive # maybe atool?
       # libreoffice
       lsof

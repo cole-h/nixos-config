@@ -73,10 +73,16 @@
         pkgs = pkgsFor channels.pkgs system;
       };
 
-      mkSystem = system: pkgs: hostname:
+      mkSystem =
+        { system
+        , pkgs
+        , hostname
+        , bootstrap ? false
+        }:
         let
-          inherit (pkgs.lib) mkOption;
-          inherit (pkgs.lib.types) attrsOf submoduleWith;
+          inherit (pkgs) lib;
+          inherit (lib) mkOption;
+          inherit (lib.types) attrsOf submoduleWith;
           inherit (inputs.home.nixosModules) home-manager;
 
           home = { ... }: {
@@ -144,9 +150,11 @@
               lib.mkForce ".${date}.${rev}-cosmere";
           };
 
-          modules = [
+          modules = lib.optionals (!bootstrap) [
+            # This stuff is too big for my flash drive
             home-manager
             home
+          ] ++ [
             (./hosts + "/${hostname}/configuration.nix")
             nix
             misc
@@ -161,10 +169,9 @@
             };
           };
         in
-        channels.pkgs.lib.nixosSystem
-          {
-            inherit system modules specialArgs pkgs;
-          } // { inherit modules; }; # let Nixus have access to this stuff
+        channels.pkgs.lib.nixosSystem {
+          inherit system modules specialArgs pkgs;
+        };
 
       nixus = sys: import inputs.nixus { deploySystem = sys; };
     in
@@ -177,56 +184,42 @@
             system = "x86_64-linux";
             pkgs = pkgsFor channels.pkgs system;
           in
-          mkSystem system pkgs "scadrial";
+          mkSystem {
+            inherit system pkgs;
+            hostname = "scadrial";
+          };
+
+        bootstrap =
+          let
+            system = "x86_64-linux";
+            pkgs = pkgsFor channels.pkgs system;
+          in
+          mkSystem {
+            inherit system pkgs;
+            hostname = "scadrial";
+            bootstrap = true;
+          };
       };
 
-      packages = forAllSystems ({ system, ... }: {
-        iso =
-          let
-            iso = import "${channels.pkgs}/nixos" {
-              configuration = ./iso.nix;
-              inherit system;
-            };
-          in
-          iso.config.system.build.isoImage;
-      });
+      packages = forAllSystems ({ system, ... }:
+        (builtins.listToAttrs (map
+          (k: nameValuePair k inputs.self.nixosConfigurations.${k}.config.system.build.toplevel)
+          (builtins.attrNames inputs.self.nixosConfigurations)
+        )) // {
+          iso =
+            let
+              iso = import "${channels.pkgs}/nixos" {
+                configuration = ./iso.nix;
+                inherit system;
+              };
+            in
+            iso.config.system.build.isoImage;
+        });
 
       legacyPackages = forAllSystems ({ pkgs, ... }: pkgs);
 
       defaultPackage = forAllSystems ({ system, ... }:
-        inputs.self.nixosConfigurations.scadrial.config.system.build.toplevel);
-      # defaultPackage = {
-      #   x86_64-linux = forOneSystem "x86_64-linux" ({ system, pkgs, ... }:
-      #     nixus system ({ ... }: {
-      #       defaults = { name, ... }:
-      #         let
-      #           nixos = inputs.self.nixosConfigurations.${name};
-      #         in
-      #         {
-      #           nixpkgs = pkgs.path;
-
-      #           configuration = {
-      #             imports = nixos.modules;
-      #           };
-      #         };
-
-      #       nodes = {
-      #         scadrial = { ... }: {
-      #           host = "root@localhost";
-      #           privilegeEscalationCommand = [ "exec" ];
-      #         };
-      #       };
-      #     }));
-      # };
-
-      apps = forAllSystems ({ system, ... }: {
-        nixus = {
-          type = "app";
-          program = inputs.self.defaultPackage.${system}.outPath;
-        };
-      });
-
-      defaultApp = forAllSystems ({ system, ... }: inputs.self.apps.${system}.nixus);
+        inputs.self.packages.${system}.scadrial);
 
       devShell = forAllSystems ({ system, pkgs, ... }:
         with pkgs;

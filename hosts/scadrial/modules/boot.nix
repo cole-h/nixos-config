@@ -14,6 +14,10 @@
     cleanTmpDir = true;
     # plymouth.enable = true; # requires https://github.com/NixOS/nixpkgs/pull/88789
 
+    # TODO: remove once I'm sure I don't need it anymore
+    zfs.extraPools = [ "rpool" ];
+    zfs.forceImportRoot = false; # XXX
+
     kernelPackages = pkgs.linuxPackages_zen;
     extraModulePackages = [ pkgs.linuxPackages_zen.v4l2loopback ];
     # FIXME: doesn't seem to work? only a manual `modprobe ...` makes

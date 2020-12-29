@@ -30,7 +30,7 @@ in
           # (file: lib.nameValuePair (stripExtension file) (toString ./scripts + "/${file}"))
           # (builtins.attrNames (builtins.readDir ./scripts))
 
-          (file: lib.nameValuePair (stripExtension file) ("/home/vin/.config/nixpkgs/scripts/${file}"))
+          (file: lib.nameValuePair (stripExtension file) ("/home/vin/flake/scripts/${file}"))
           (builtins.attrNames (builtins.readDir ./scripts))
       );
     in
@@ -50,7 +50,7 @@ in
           # (file: lib.nameValuePair file ("${secretDir}/${file}"))
           # (builtins.attrNames (builtins.readDir secretDir))
 
-          (file: lib.nameValuePair file ("/home/vin/.config/nixpkgs/secrets/${file}"))
+          (file: lib.nameValuePair file ("/home/vin/flake/secrets/${file}"))
           (builtins.attrNames (builtins.readDir secrets))
       );
     in

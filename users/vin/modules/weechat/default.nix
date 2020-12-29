@@ -7,7 +7,7 @@
 
   xdg.configFile = {
     "weechat".source = config.lib.file.mkOutOfStoreSymlink
-      "${config.xdg.configHome}/nixpkgs/users/${config.home.username}/modules/weechat/config";
+      "${config.home.homeDirectory}/flake/users/${config.home.username}/modules/weechat/config";
   };
 
   # NOTE: Only works well with lingering enabled -- otherwise systemd might kill

@@ -6,10 +6,6 @@ hook global WinSetOption filetype=(rust) %{ # TODO: |c|cpp)
   set-option -add buffer powerline_format ' lsp'
 }
 
-hook -once global BufCreate ^\*scratch.*\* %{
-  edit "%val{config}/kakrc"
-}
-
 hook global WinCreate ^[^*]+$ %{
   add-highlighter window/number-lines number-lines -relative -hlcursor -separator " "
   add-highlighter window/show-matching show-matching

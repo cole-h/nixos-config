@@ -1,18 +1,15 @@
-{ pkgs, lib, my, ... }:
-let
-  caps2esc = pkgs.callPackage my.drvs.caps2esc { };
-in
+{ pkgs, lib, ... }:
 {
   services.znapzend = {
     enable = true;
     pure = true;
     zetup = {
-      "rpool/system" = {
+      "apool/ROOT/system" = {
         timestampFormat = "%Y-%m-%dT%H%M%S";
         plan = "15min=>5min,4h=>15min,1d=>4h,1w=>1d,1m=>1w,1y=>1m";
         recursive = true;
       };
-      "rpool/user" = {
+      "apool/ROOT/user" = {
         timestampFormat = "%Y-%m-%dT%H%M%S";
         plan = "15min=>5min,4h=>15min,1d=>4h,1w=>1d,1m=>1w,1y=>1m";
         recursive = true;
