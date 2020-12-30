@@ -1,19 +1,34 @@
 # Hooks
-hook global BufCreate .* update-todo
+## highlight todos and similar notation in comments
+hook global BufCreate .* %{
+  try %{ remove-highlighter buffer/todo }
+  try %{
+    add-highlighter buffer/todo group
+    add-highlighter buffer/todo/todo dynregex \
+      (?S)^.*%opt{comment_line}\h+(TODO:?).*$ 1:yellow+fb
+    add-highlighter buffer/todo/fixme dynregex \
+      (?S)^.*%opt{comment_line}\h+((?:FIXME|XXX):?).*$ 1:red+fb
+    add-highlighter buffer/todo/note dynregex \
+      (?S)^.*%opt{comment_line}\h+(NOTE:?).*$ 1:green+fb
+  }
+}
 
+## show lsp info in lsp buffers
 hook global WinSetOption filetype=(rust) %{ # TODO: |c|cpp)
   lsp-enable-window
   set-option -add buffer powerline_format ' lsp'
 }
 
+## line numbers in actual buffers only
 hook global WinCreate ^[^*]+$ %{
   add-highlighter window/number-lines number-lines -relative -hlcursor -separator " "
   add-highlighter window/show-matching show-matching
 }
 
+## wayland
 hook -once global KakBegin .* %{
   evaluate-commands %sh{
-    [[ -n "$SWAYSOCK" && -n "$WAYLAND_DISPLAY" ]] && echo 'provide-module wayland %{}; require-module wayland'
+    [[ -n "$WAYLAND_DISPLAY" ]] && echo 'provide-module wayland %{}; require-module wayland'
   }
 }
 
@@ -35,6 +50,7 @@ hook global ModuleLoaded wayland %{
   }
 }
 
+## set formatter
 hook global WinSetOption filetype=.* %{
   evaluate-commands %sh{
     formatter=""

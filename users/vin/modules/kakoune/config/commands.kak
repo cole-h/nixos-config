@@ -8,19 +8,6 @@ define-command -override -docstring 'goto line begin if not count' zero %{
   }
 }
 
-define-command -override -docstring 'update todo highlighter' update-todo %{
-  try %{ remove-highlighter buffer/todo }
-  try %{
-    add-highlighter buffer/todo group
-    add-highlighter buffer/todo/todo dynregex \
-      (?S)^.*%opt{comment_line}\h+(TODO:?).*$ 1:yellow+fb
-    add-highlighter buffer/todo/fixme dynregex \
-      (?S)^.*%opt{comment_line}\h+((?:FIXME|XXX):?).*$ 1:red+fb
-    add-highlighter buffer/todo/note dynregex \
-      (?S)^.*%opt{comment_line}\h+(NOTE:?).*$ 1:green+fb
-  }
-}
-
 define-command -override -docstring 'insert multiple times with count' multi-insert %{
   evaluate-commands %sh{
     if [ $kak_count -gt 1 ]; then
@@ -100,4 +87,8 @@ define-command -override -params ..1 -file-completion CD -docstring "cd to the c
       fi
     }
   }
+}
+
+define-command -docstring 'comment-line and fallback to comment-block' comment %{
+  try %{execute-keys ': comment-line<ret>'} catch %{execute-keys ': comment-block<ret>'}
 }

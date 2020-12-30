@@ -24,4 +24,6 @@
   # 2. Disconnect phone
   # 3. adb connect [ip]
   programs.adb.enable = true;
+
+  programs.iotop.enable = true;
 }

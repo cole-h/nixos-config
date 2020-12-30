@@ -173,4 +173,5 @@ doas virsh define ..../windows10.xml
 # fish_config for dracula colors
 # syncthing setup
 # copy weechat logs
+# emacs all-the-icons-install-fonts to ~/.local/share/fonts
 ```

@@ -31,10 +31,9 @@ map global grep l ': edit -existing *grep*<ret>' -docstring 'show grep results'
 
 ## format
 map global format <\> ': delete-trailing-whitespace<ret>' -docstring 'delete trailing whitespace'
-map global format w '|par -w $kak_opt_autowrap_column<ret>' -docstring 'wrap selection'
 
 ## normal
-map global normal '#' ': comment-line<ret>' -docstring 'comment line'
+map global normal '#' %{: comment<ret>} -docstring 'comment line'
 map global normal n nvv
 map global normal i ': multi-insert<ret>'
 map global normal 0 ': zero<ret>'
