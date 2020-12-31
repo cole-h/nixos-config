@@ -92,3 +92,27 @@ define-command -override -params ..1 -file-completion CD -docstring "cd to the c
 define-command -docstring 'comment-line and fallback to comment-block' comment %{
   try %{execute-keys ': comment-line<ret>'} catch %{execute-keys ': comment-block<ret>'}
 }
+
+define-command alt-buf %{
+  evaluate-commands %sh{
+    source "$kak_opt_prelude_path"
+
+    eval set -- "$kak_quoted_opt_bufhist"
+    lastbuf=""
+    for bufname; do
+      lastbuf="$bufname"
+    done
+
+    lastbuf="$(printf %s "$lastbuf" | sed 's/\([*?.]\)/\\&/g')"
+    bufs="$(printf %s "$kak_opt_bufhist" | sed "s@$lastbuf@@g" | tr -s ' ')"
+    bufs="${bufs%% }"
+    bufs="${bufs## }"
+    prev="${bufs##* }"
+
+    if [ -z "$prev" ]; then
+      kak_escape fail 'No other buffers available.'
+    else
+      kak_escape buffer "$prev"
+    fi
+  }
+}

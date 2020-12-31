@@ -36,7 +36,11 @@ hook global ModuleLoaded wayland %{
   try %{ set-option global shell_expansion_trim_newlines false }
 
   define-command -override -hidden paste -docstring 'paste from wl-clipboard' %{
-    reg '"' %sh{ wl-paste -n }
+    evaluate-commands %sh{
+      source "$kak_opt_prelude_path"
+
+      [ "$kak_main_reg_dquote" != "$(wl-paste -n)" ] && kak_escape reg '"' "$(wl-paste -n)"
+    }
   }
 
   map global normal p ': paste; execute-keys p<ret>'
@@ -45,7 +49,7 @@ hook global ModuleLoaded wayland %{
 
   hook -always global RegisterModified '"' %{
    nop %sh{
-      printf %s "$kak_main_reg_dquote" | wl-copy >/dev/null 2>&1 &
+      printf %s "$kak_main_reg_dquote" | wl-copy >/dev/null 2>&1
     }
   }
 }
@@ -74,4 +78,22 @@ hook global WinSetOption filetype=.* %{
   hook -once -always window WinSetOption filetype=.* %{
     unset-option window formatcmd
   }
+}
+
+## git gutter
+hook global WinCreate .* %{ try %{ git show-diff } }
+hook global BufWritePost .* %{ try %{ git update-diff } }
+
+## bufhist list for better alternate buffer functionality
+declare-option str-list bufhist
+
+hook global WinDisplay .* %{
+  # move the current buffer to the end of the list
+  set-option -remove global bufhist %val{hook_param}
+  set-option -add global bufhist %val{hook_param}
+}
+
+hook global BufClose .* %{
+  # This is no longer a valid buffer, remove it from the list
+  set-option -remove global bufhist %val{hook_param}
 }
