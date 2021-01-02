@@ -18,23 +18,28 @@
       fsType = "zfs";
     };
 
-  fileSystems."/var" =
-    { device = "apool/ROOT/system/var";
-      fsType = "zfs";
-    };
-
   fileSystems."/nix" =
     { device = "apool/ROOT/local/nix";
       fsType = "zfs";
     };
 
+  fileSystems."/home" =
+    { device = "apool/ROOT/user/home";
+      fsType = "zfs";
+    };
+
   fileSystems."/home/vin" =
-    { device = "apool/ROOT/user/vin/home";
+    { device = "apool/ROOT/user/home/vin";
       fsType = "zfs";
     };
 
   fileSystems."/home/vin/Downloads" =
-    { device = "apool/ROOT/user/vin/home/Downloads";
+    { device = "apool/ROOT/user/home/vin/Downloads";
+      fsType = "zfs";
+    };
+
+  fileSystems."/var" =
+    { device = "apool/ROOT/system/var";
       fsType = "zfs";
     };
 

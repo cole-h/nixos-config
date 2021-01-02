@@ -98,21 +98,17 @@ define-command alt-buf %{
     source "$kak_opt_prelude_path"
 
     eval set -- "$kak_quoted_opt_bufhist"
-    lastbuf=""
-    for bufname; do
-      lastbuf="$bufname"
-    done
 
-    lastbuf="$(printf %s "$lastbuf" | sed 's/\([*?.]\)/\\&/g')"
-    bufs="$(printf %s "$kak_opt_bufhist" | sed "s@$lastbuf@@g" | tr -s ' ')"
-    bufs="${bufs%% }"
-    bufs="${bufs## }"
-    prev="${bufs##* }"
-
-    if [ -z "$prev" ]; then
-      kak_escape fail 'No other buffers available.'
+    if [ $# -ne 2 ]; then
+      # The history list didn't have enough items in it.
+      kak_escape fail "no last buffer"
     else
-      kak_escape buffer "$prev"
+      # Toss all but the last two items in the list
+      shift $(( $# - 2 ))
+
+      # Having dropped all the preceding items,
+      # $1 is the previous buffer and $2 is the current buffer
+      kak_escape buffer "$1"
     fi
   }
 }

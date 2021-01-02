@@ -32,27 +32,27 @@ hook -once global KakBegin .* %{
   }
 }
 
-hook global ModuleLoaded wayland %{
-  try %{ set-option global shell_expansion_trim_newlines false }
+# hook global ModuleLoaded wayland %{
+#   try %{ set-option global shell_expansion_trim_newlines false }
 
-  define-command -override -hidden paste -docstring 'paste from wl-clipboard' %{
-    evaluate-commands %sh{
-      source "$kak_opt_prelude_path"
+#   define-command -override -hidden paste -docstring 'paste from wl-clipboard' %{
+#     evaluate-commands %sh{
+#       source "$kak_opt_prelude_path"
 
-      [ "$kak_main_reg_dquote" != "$(wl-paste -n)" ] && kak_escape reg '"' "$(wl-paste -n)"
-    }
-  }
+#       [ "$kak_main_reg_dquote" != "$(wl-paste -n)" ] && kak_escape reg '"' "$(wl-paste)"
+#     }
+#   }
 
-  map global normal p ': paste; execute-keys p<ret>'
-  map global normal P ': paste; execute-keys P<ret>'
-  map global normal R ': paste; execute-keys R<ret>'
+#   map global normal p ': paste; execute-keys p<ret>'
+#   map global normal P ': paste; execute-keys P<ret>'
+#   map global normal R ': paste; execute-keys R<ret>'
 
-  hook -always global RegisterModified '"' %{
-   nop %sh{
-      printf %s "$kak_main_reg_dquote" | wl-copy >/dev/null 2>&1
-    }
-  }
-}
+#   hook -always global RegisterModified '"' %{
+#    nop %sh{
+#       printf %s "$kak_main_reg_dquote" | wl-copy >/dev/null 2>&1
+#     }
+#   }
+# }
 
 ## set formatter
 hook global WinSetOption filetype=.* %{

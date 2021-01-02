@@ -13,16 +13,16 @@ alias global g grep
 # https://github.com/chambln/kakoune-readline
 
 # Mappings
+## user
+map global user g ': enter-user-mode -lock grep<ret>' -docstring 'grep mode…'
+map global user e ': enter-user-mode edit<ret>' -docstring 'edit mode…'
+map global user <\> ': enter-user-mode format<ret>' -docstring 'format mode…'
+
 ## edit
 map global edit r ' :edit "%val{config}/kakrc"<ret>' -docstring 'edit kakrc'
 map global edit k ': edit "%val{config}/keys.kak"<ret>' -docstring 'edit keys'
 map global edit c ': edit "%val{config}/commands.kak"<ret>' -docstring 'edit commands'
 map global edit h ': edit "%val{config}/hooks.kak"<ret>' -docstring 'edit hooks'
-
-## user
-map global user g ': enter-user-mode -lock grep<ret>' -docstring 'grep mode…'
-map global user e ': enter-user-mode edit<ret>' -docstring 'edit mode…'
-map global user <\> ': enter-user-mode format<ret>' -docstring 'format mode…'
 
 ## grep
 map global grep p ': grep-previous-match<ret>' -docstring 'grep-previous-match'
@@ -49,3 +49,6 @@ map global insert <c-w> %{<a-;>: execute-keys -draft bd<ret>}
 
 ## buffers
 # map global buffers a %{: alt-buf<ret>} -docstring 'alternate'
+
+## goto
+map global goto a %{<esc>: alt-buf<ret>} -docstring 'alternate buffer'

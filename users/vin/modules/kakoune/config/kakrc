@@ -4,20 +4,18 @@ declare-option -docstring "plug.kak's main script" str plugkak "%opt{plugkakdir}
 
 try %{
   source "%opt{plugkak}"
-} catch %{
-  evaluate-commands %sh{
-    if [ ! -d "$kak_opt_plugkakdir" ]; then
-      git clone https://github.com/robertmeta/plug.kak.git "$kak_opt_plugkakdir"
-      echo 'source "%opt{plugkak}"'
-    fi
-  }
+} catch %sh{
+  if [ ! -d "$kak_opt_plugkakdir" ]; then
+    git clone https://github.com/robertmeta/plug.kak.git "$kak_opt_plugkakdir"
+    echo 'source "%opt{plugkak}"'
+  fi
 }
 
+set-option global plug_always_ensure true
+set-option global plug_install_dir %sh{ printf %s "${kak_opt_plugkakdir}/../" }
+
 # Plugins
-plug "robertmeta/plug.kak" noload config %{
-  set-option global plug_always_ensure true
-  set-option global plug_install_dir %sh{ printf %s "${kak_opt_plugkakdir}/../" }
-}
+plug "robertmeta/plug.kak" noload
 plug "jdugan6240/powerline.kak" config %{
   powerline-start
 } defer powerline %{

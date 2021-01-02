@@ -174,4 +174,5 @@ doas virsh define ..../windows10.xml
 # syncthing setup
 # copy weechat logs
 # emacs all-the-icons-install-fonts to ~/.local/share/fonts
+# copy authorized_keys
 ```
