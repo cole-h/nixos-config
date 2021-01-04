@@ -6,7 +6,7 @@ declare-user-mode edit
 # Aliases
 alias global Q quit
 alias global W write
-alias global g grep
+# alias global g grep
 
 # TODO:
 # https://github.com/lenormf/kakoune-extra/blob/master/readline.kak
@@ -39,17 +39,22 @@ map global normal i ': multi-insert<ret>'
 map global normal 0 ': zero<ret>'
 map global normal ^ gi
 map global normal $ gl
-map global normal <space> <space><semicolon>
+# map global normal <space> <space><semicolon>
 map global normal <percent> <c-s><percent>
 map global normal = '|par -w "$kak_opt_autowrap_column"<ret>' -docstring "wrap selection"
 map global normal <c-^> %{: alt-buf<ret>} -docstring "alternate buffer"
 map global normal u ': execute-keys -draft u<ret>' -docstring "undo but don't move cursor"
+map global normal U ': execute-keys -draft U<ret>' -docstring "redo but don't move cursor"
+# map global normal <a-x> %{ try %{
+#   <a-x>S.<ret><a-K><c-v><ret><ret><a-_>
+# } catch %{
+#   <a-x>
+# }}
 
 ## insert
-map global insert <c-w> %{<a-;>: execute-keys -draft bd<ret>}
-
-## buffers
-# map global buffers a %{: alt-buf<ret>} -docstring 'alternate'
+# https://github.com/chambln/kakoune-readline/blob/master/readline.kak
+map global insert <c-w> '<a-;><a-/>\S+\s*<ret><a-;>d'
+map global insert <a-d> '<a-;>;<a-;>E<a-;>"_d'
 
 ## goto
 map global goto a %{<esc>: alt-buf<ret>} -docstring 'alternate buffer'

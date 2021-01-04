@@ -49,7 +49,7 @@ hook global ModuleLoaded wayland %{
 }
 
 ## set formatter
-hook global WinSetOption filetype=.* %{
+hook global BufSetOption filetype=.* %{
   evaluate-commands %sh{
     formatter=""
 
@@ -58,14 +58,12 @@ hook global WinSetOption filetype=.* %{
       nix) formatter="nixpkgs-fmt" ;;
     esac
 
-    [ -n "$formatter" ] && printf %s "set-option window formatcmd '$formatter'"
+    [ -n "$formatter" ] && printf %s "set-option buffer formatcmd '$formatter'"
   }
 
   hook buffer BufWritePre .* %{
     evaluate-commands %sh{
-      if [ -n "$kak_opt_formatcmd" ] && [ -x "$(command -v "$kak_opt_formatcmd")" ]; then
-        printf %s format
-      fi
+      [ -n "$kak_opt_formatcmd" ] && printf %s format
     }
   }
 
@@ -91,3 +89,16 @@ hook global BufClose .* %{
   # This is no longer a valid buffer, remove it from the list
   set-option -remove global bufhist %val{hook_param}
 }
+
+hook global WinDisplay .* %{
+  set-option global alt_bufname %opt{current_bufname}
+  set-option global current_bufname %val{bufname}
+}
+
+hook global WinDisplay .* info-buffers
+
+hook global BufWritePost .* modeline-update
+hook global BufSetOption (readonly|filetype)=.+ modeline-update
+hook global WinDisplay .* %{ modeline-update; modeline-update-pos }
+hook global NormalKey [jk] modeline-update-pos
+hook global NormalIdle .* modeline-update-pos

@@ -1,56 +1,50 @@
 # plug.kak setup
-declare-option -docstring "plug.kak's directory" str plugkakdir "%val{config}/plugins/plug.kak"
+declare-option -docstring "plug.kak's directory" str plugkakdir "%val{config}/autoload/plugins/plug"
 declare-option -docstring "plug.kak's main script" str plugkak "%opt{plugkakdir}/rc/plug.kak"
 
 try %{
-  source "%opt{plugkak}"
+  require-module plug
 } catch %sh{
   if [ ! -d "$kak_opt_plugkakdir" ]; then
-    git clone https://github.com/robertmeta/plug.kak.git "$kak_opt_plugkakdir"
+    git clone https://github.com/alexherbo2/plug.kak.git "$kak_opt_plugkakdir"
     echo 'source "%opt{plugkak}"'
+    echo 'require-module plug'
+    echo 'info Please run plug-install to install your plugins.'
   fi
 }
 
-set-option global plug_always_ensure true
-set-option global plug_install_dir %sh{ printf %s "${kak_opt_plugkakdir}/../" }
-
 # Plugins
-plug "robertmeta/plug.kak" noload
-plug "jdugan6240/powerline.kak" config %{
-  powerline-start
-} defer powerline %{
-  powerline-separator global none
+plug plug "https://github.com/alexherbo2/plug.kak" %{
+  # plug-install
 }
-plug "alexherbo2/prelude.kak" config %{
-  require-module prelude
-}
-plug "alexherbo2/auto-pairs.kak" config %{
-  require-module auto-pairs
-  hook -once global WinDisplay .* auto-pairs-enable
-}
-plug "delapouite/kakoune-buffers" config %{
-  hook global WinDisplay .* info-buffers
-  map global user b ': enter-buffers-mode<ret>' -docstring 'buffers…'
-  map global user B ': enter-user-mode -lock buffers<ret>' -docstring 'buffers (lock)…'
-}
-plug "andreyorst/smarttab.kak" config %{
+plug prelude "https://github.com/alexherbo2/prelude.kak"
+# plug auto-pairs "https://github.com/alexherbo2/auto-pairs.kak" %{
+#   hook -once global WinDisplay .* auto-pairs-enable
+# }
+plug smarttab "https://github.com/andreyorst/smarttab.kak" %{
   hook global WinSetOption filetype=(rust|kak|sh|nix|c|cpp) expandtab
+  set-option global softtabstop 4
 }
-plug "dracula/kakoune" theme config %{
+plug-old dracula "https://github.com/dracula/kakoune" %{
+  # TODO: don't forget to symlink the colors
   colorscheme dracula-transparent
-  face global LineNumberCursor "%opt{yellow}"
-  face global MatchingChar "%opt{green}+u"
-  face global CursorLine "default,%opt{gray}"
+  set-face global LineNumberCursor "%opt{yellow}"
+  set-face global MatchingChar "%opt{green}+u"
+  set-face global CursorLine "default,%opt{gray}"
+  hook global BufCreate .* %{
+    add-highlighter buffer/autowrap_column column '%opt{autowrap_column}' "default,%opt{gray}"
+  }
 }
-plug "Screwtapello/kakoune-state-save" domain "gitlab.com"
-plug "fsub/kakoune-mark"
-plug "kak-lsp/kak-lsp" do %{
-  mkdir -p $HOME/.config/kak-lsp
-  [ ! -f $HOME/.config/kak-lsp/kak-lsp.toml ] && cp ./kak-lsp.toml $HOME/.config/kak-lsp
-  cargo install --locked --force --path .
+plug-old state-save "https://gitlab.com/Screwtapello/kakoune-state-save"
+plug-old mark "https://gitlab.com/fsub/kakoune-mark"
+plug-old lsp "https://github.com/kak-lsp/kak-lsp" %{
+  # plug-execute lsp sh -c %{
+  #   [ ! -d $HOME/.config/kak-lsp ] && mkdir -p $HOME/.config/kak-lsp
+  #   [ ! -f $HOME/.config/kak-lsp/kak-lsp.toml ] && cp ./kak-lsp.toml $HOME/.config/kak-lsp
+  #   kak-lsp -V || cargo install --force --path .
+  # }
 }
-plug "alexherbo2/view-mode.kak"
-plug "delapouite/kakoune-mirror" config %{
+plug-old mirror "https://github.com/delapouite/kakoune-mirror" %{
   map global normal "'" ': enter-user-mode -lock mirror<ret>'
 }
 
@@ -61,6 +55,14 @@ set-option global ui_options ncurses_set_title=false ncurses_assistant=off
 set-option global indentwidth 2
 set-option global scrolloff 3,3
 set-option global autowrap_fmtcmd 'par -w %c'
+
+set-option global modelinefmt '{%opt{yellow}+r} %val{bufname}%opt{modeline_readonly}{{context_info}} {default} '
+set-option -add global modelinefmt '{%opt{cyan}}%val{cursor_line}:%val{cursor_char_column}{default} '
+set-option -add global modelinefmt '{{mode_info}} '
+set-option -add global modelinefmt '{%opt{yellow}}%opt{modeline_filetype}{default}'
+set-option -add global modelinefmt '{%opt{purple}+r} %val{client} {default}'
+set-option -add global modelinefmt '{%opt{cyan}+r} %val{session} {default}'
+set-option -add global modelinefmt '{%opt{yellow}+r} %opt{modeline_position} {default}'
 
 # Highlighters
 add-highlighter global/show-trailing-whitespace regex '\h+$' 0:Error

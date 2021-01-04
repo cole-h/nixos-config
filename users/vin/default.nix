@@ -68,8 +68,8 @@
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
     # otherwise sessionVariables won't be sourced in new shells
     sessionVariables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
+      EDITOR = "kak";
+      VISUAL = "kak";
 
       CARGO_HOME = "${config.home.homeDirectory}/.cargo";
 
