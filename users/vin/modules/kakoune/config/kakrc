@@ -47,6 +47,7 @@ plug-old lsp "https://github.com/kak-lsp/kak-lsp" %{
 plug-old mirror "https://github.com/delapouite/kakoune-mirror" %{
   map global normal "'" ': enter-user-mode -lock mirror<ret>'
 }
+plug-old edit-or-dir "https://github.com/TeddyDD/kakoune-edit-or-dir"
 
 # Options
 set-option global startup_info_version 20200901

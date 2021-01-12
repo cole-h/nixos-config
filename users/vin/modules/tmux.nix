@@ -6,7 +6,7 @@
     aggressiveResize = true;
     baseIndex = 1;
     clock24 = true;
-    terminal = "screen-256color";
+    terminal = "tmux-256color";
     sensibleOnTop = false;
     secureSocket = false;
 
@@ -30,7 +30,7 @@
       bind -n C-l send-keys C-l \; run 'sleep 0.1' \; clear-history
 
       # edit configuration
-      bind e new-window -n '~/.tmux.conf' "sh -c 'nvim -u ~/.config/nvim/init.vim ~/.tmux.conf && tmux source ~/.tmux.conf && tmux display \"~/.tmux.conf sourced\"'"
+      bind e new-window -n '~/.tmux.conf' "sh -c '$EDITOR ~/.tmux.conf && tmux source ~/.tmux.conf && tmux display \"~/.tmux.conf sourced\"'"
 
       # reload configuration
       bind r source-file ~/.tmux.conf \; display '~/.tmux.conf sourced'

@@ -26,6 +26,18 @@ in
     fish = {
       enable = true;
 
+      plugins = [
+        {
+          name = "hydro";
+          src = pkgs.fetchFromGitHub {
+            repo = "hydro";
+            owner = "jorgebucaran";
+            rev = "e95b97ecae32e94273387ceb4f8393a16f34e293";
+            sha256 = "sha256-Opbchx9xEDyp/maoMogjFFV7Pxx3q9nlEOAJgAQaTgQ=";
+          };
+        }
+      ];
+
       functions = {
         cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
         mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
@@ -52,7 +64,6 @@ in
         "......" = "../../../../..";
         "......." = "../../../../../..";
         weechat = "tmux -L weechat attach";
-        nman = "MANPAGER='nvim +Man!' man";
       } // cgitcAbbrs;
 
       loginShellInit = ''
@@ -80,12 +91,21 @@ in
         end
       '';
 
+      promptInit = ''
+
+        # Hydro prompt config
+        set --global hydro_symbol_prompt '>'
+        set --global hydro_symbol_git_dirty '*'
+        set --global hydro_color_pwd green
+        set --global hydro_color_error red
+      '';
+
       interactiveShellInit = ''
 
         set --append fish_user_paths $HOME/.cargo/bin
 
         # GPG configuration
-        ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye &>/dev/null
+        ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye &>/dev/null &
         set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
         set --global --export GPG_TTY (tty)
 

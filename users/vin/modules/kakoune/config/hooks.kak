@@ -5,11 +5,11 @@ hook global BufCreate .* %{
   try %{
     add-highlighter buffer/todo group
     add-highlighter buffer/todo/todo dynregex \
-      (?S)^.*%opt{comment_line}\h+(TODO:?).*$ 1:yellow+fb
+      (?S)^.*%opt{comment_line}.+(TODO:?).*$ 1:yellow+fb
     add-highlighter buffer/todo/fixme dynregex \
-      (?S)^.*%opt{comment_line}\h+((?:FIXME|XXX):?).*$ 1:red+fb
+      (?S)^.*%opt{comment_line}.+((?:FIXME|XXX|!!!):?).*$ 1:red+fb
     add-highlighter buffer/todo/note dynregex \
-      (?S)^.*%opt{comment_line}\h+(NOTE:?).*$ 1:green+fb
+      (?S)^.*%opt{comment_line}.+(NOTE:?).*$ 1:green+fb
   }
 }
 
@@ -43,7 +43,7 @@ hook global ModuleLoaded wayland %{
 
   hook -always global RegisterModified '"' %{
    nop %sh{
-      printf %s "$kak_main_reg_dquote" | wl-copy >/dev/null 2>&1
+      [ "$kak_main_reg_dquote" != "$(wl-paste)" ] && printf %s "$kak_main_reg_dquote" | wl-copy >/dev/null 2>&1
     }
   }
 }
@@ -65,10 +65,6 @@ hook global BufSetOption filetype=.* %{
     evaluate-commands %sh{
       [ -n "$kak_opt_formatcmd" ] && printf %s format
     }
-  }
-
-  hook -once -always window WinSetOption filetype=.* %{
-    unset-option window formatcmd
   }
 }
 

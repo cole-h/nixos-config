@@ -1,10 +1,9 @@
 { ... }:
 
 {
-  networking.hostName = "scadrial"; # Define your hostname.
   networking.hostId = "1bb11552"; # Required for ZFS.
   networking.useDHCP = false;
-  networking.nameservers = [ "192.168.1.212" "8.8.8.8" ];
+  networking.nameservers = [ "192.168.1.212" "1.1.1.1" ];
   networking.defaultGateway = "192.168.1.1";
   networking.interfaces.enp5s0.ipv4 = {
     addresses = [

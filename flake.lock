@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "aarch-images": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1606946511,
+        "narHash": "sha256-On2V2F+6h+M4SMQ8iyy1CxU6ksM36LqVfG0Bpouu7KI=",
+        "owner": "Mic92",
+        "repo": "nixos-aarch64-images",
+        "rev": "2ddb57c544cc49f8ddb18823444833787e99e00a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nixos-aarch64-images",
+        "type": "github"
+      }
+    },
     "alacritty": {
       "inputs": {
         "alacritty": "alacritty_2",
@@ -316,22 +332,6 @@
         "type": "github"
       }
     },
-    "nixus": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1601222289,
-        "narHash": "sha256-Y/C4NoE6ERHtlu3V/f6/W9eZ2RRzRZD1PG7XAYtO4Pg=",
-        "owner": "infinisil",
-        "repo": "nixus",
-        "rev": "2127516f68ce6f900b38289985377559e69aab88",
-        "type": "github"
-      },
-      "original": {
-        "owner": "infinisil",
-        "repo": "nixus",
-        "type": "github"
-      }
-    },
     "passrs": {
       "inputs": {
         "naersk": "naersk_2",
@@ -353,6 +353,7 @@
     },
     "root": {
       "inputs": {
+        "aarch-images": "aarch-images",
         "alacritty": "alacritty",
         "doom": "doom",
         "emacs": "emacs",
@@ -360,7 +361,6 @@
         "large": "large",
         "neovim": "neovim",
         "nix": "nix",
-        "nixus": "nixus",
         "passrs": "passrs",
         "secrets": "secrets",
         "wayland": "wayland"

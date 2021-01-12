@@ -12,9 +12,9 @@ define-command -override -docstring 'insert multiple times with count' multi-ins
   evaluate-commands %sh{
     if [ $kak_count -gt 1 ]; then
       # https://github.com/mawww/kakoune/issues/1106#issuecomment-523776280
-      echo 'execute-keys -with-hooks \;i.<esc>hd %val{count} Ph %val{count} HLs.<ret>c'
+      echo "execute-keys -with-hooks \;i.<esc>hd %val{count} Ph %val{count} HLs.<ret>c"
     else
-      echo 'execute-keys -with-hooks i'
+      echo "execute-keys -with-hooks i"
     fi
   }
 }

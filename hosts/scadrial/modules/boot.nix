@@ -39,7 +39,7 @@
     ];
 
     # Allow emulated cross compilation for aarch64
-    # binfmt.emulatedSystems = [ "aarch64-linux" ];
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
   # Select internationalisation properties.

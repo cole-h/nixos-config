@@ -27,7 +27,7 @@
     # baduk = { url = "github:dustinlacewell/baduk.nix"; flake = false; };
     doom = { url = "github:hlissner/doom-emacs"; flake = false; };
     # mozilla = { url = "github:mozilla/nixpkgs-mozilla"; flake = false; };
-    nixus = { url = "github:infinisil/nixus"; flake = false; };
+    aarch-images = { url = "github:Mic92/nixos-aarch64-images"; flake = false; };
   };
 
   outputs = inputs:
@@ -77,7 +77,7 @@
         { system
         , pkgs
         , hostname
-        , bootstrap ? false
+        , includeHome ? true
         }:
         let
           inherit (pkgs) lib;
@@ -107,11 +107,11 @@
 
           nix = { ... }: {
             nix = {
-              package = inputs.nix.defaultPackage.${system}.overrideAttrs ({ patches ? [ ], ... }: {
+              package = lib.mkForce (inputs.nix.defaultPackage.${system}.overrideAttrs ({ patches ? [ ], ... }: {
                 patches = patches ++ [
                   ./log-format-option.patch
                 ];
-              });
+              }));
 
               # print-build-logs = true
               extraOptions = ''
@@ -150,11 +150,12 @@
               lib.mkForce ".${date}.${rev}-cosmere";
           };
 
-          modules = lib.optionals (!bootstrap) [
+          modules = lib.optionals includeHome [
             # This stuff is too big for my flash drive
             home-manager
             home
           ] ++ [
+            { networking.hostName = hostname; }
             (./hosts + "/${hostname}/configuration.nix")
             nix
             misc
@@ -164,7 +165,7 @@
             inherit inputs system;
 
             my = import ./my.nix {
-              inherit (pkgs) lib;
+              inherit lib;
               inherit (inputs) secrets;
             };
           };
@@ -172,8 +173,6 @@
         channels.pkgs.lib.nixosSystem {
           inherit system modules specialArgs pkgs;
         };
-
-      nixus = sys: import inputs.nixus { deploySystem = sys; };
     in
     {
       inherit inputs;
@@ -197,24 +196,63 @@
           mkSystem {
             inherit system pkgs;
             hostname = "scadrial";
-            bootstrap = true;
+            includeHome = false;
+          };
+
+        scar =
+          let
+            system = "aarch64-linux";
+            pkgs = pkgsFor channels.pkgs system;
+          in
+          mkSystem {
+            inherit system pkgs;
+            hostname = "scar"; # https://coppermind.net/wiki/Scar
+            includeHome = false;
           };
       };
 
-      packages = forAllSystems ({ system, ... }:
-        (builtins.listToAttrs (map
-          (k: nameValuePair k inputs.self.nixosConfigurations.${k}.config.system.build.toplevel)
-          (builtins.attrNames inputs.self.nixosConfigurations)
-        )) // {
-          iso =
-            let
-              iso = import "${channels.pkgs}/nixos" {
-                configuration = ./iso.nix;
-                inherit system;
-              };
-            in
-            iso.config.system.build.isoImage;
-        });
+      packages = forAllSystems
+        ({ system, ... }:
+          (builtins.listToAttrs (map
+            (k: nameValuePair k inputs.self.nixosConfigurations.${k}.config.system.build.toplevel)
+            (builtins.attrNames inputs.self.nixosConfigurations)
+          )) // {
+            iso =
+              let
+                iso = import "${channels.pkgs}/nixos" {
+                  configuration = ./iso.nix;
+                  inherit system;
+                };
+              in
+              iso.config.system.build.isoImage;
+          }) //
+      {
+        sd =
+          let
+            system = "aarch64-linux";
+            pkgs = pkgsFor channels.pkgs system;
+            buildImage = pkgs.callPackage "${inputs.aarch-images}/pkgs/build-image" { };
+
+            image = (import "${channels.pkgs}/nixos" {
+              configuration = ./sd.nix;
+              inherit system;
+            }).config.system.build.sdImage;
+          in
+          pkgs.callPackage "${inputs.aarch-images}/images/rockchip.nix" {
+            inherit buildImage;
+            uboot = pkgs.ubootRock64;
+            aarch64Image = pkgs.stdenv.mkDerivation {
+              name = "sd";
+              src = image;
+
+              phases = [ "installPhase" ];
+              noAuditTmpdir = true;
+              preferLocalBuild = true;
+
+              installPhase = "ln -s $src/sd-image/*.img $out";
+            };
+          };
+      };
 
       legacyPackages = forAllSystems ({ pkgs, ... }: pkgs);
 
