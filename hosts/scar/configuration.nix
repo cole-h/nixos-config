@@ -17,8 +17,6 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  nix.package = pkgs.nixUnstable;
-
   security.doas.enable = true;
 
   services.sshd.enable = true;

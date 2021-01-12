@@ -27,5 +27,5 @@ else
         --header "$auth" --form "ids[]=$id")"
     echo "$res"
 
-    [ "$url" -ne "null" ] && echo "$url" | tee -a ~/imgur.log | wl-copy --trim-newline
+    [ ! "$url" = "null" ] && echo "$url" | tee -a ~/imgur.log | wl-copy --trim-newline
 fi

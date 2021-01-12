@@ -6,6 +6,7 @@
     extraOptions = ''
       experimental-features = nix-command flakes
       builders-use-substitutes = true
+      secret-key-files = /root/cache-priv-key.pem
     '';
 
     trustedUsers = [ "vin" ];
