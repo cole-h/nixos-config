@@ -1,4 +1,6 @@
-{ ... }:
+{ hostname ? with builtins; head (split "\n" (readFile /etc/hostname))
+, ...
+}:
 let
   flake = import
     (fetchTarball {
@@ -8,7 +10,5 @@ let
     {
       src = ../../.;
     };
-
-  hostname = with builtins; head (split "\n" (readFile /etc/hostname));
 in
 flake.defaultNix.nixosConfigurations.${hostname}

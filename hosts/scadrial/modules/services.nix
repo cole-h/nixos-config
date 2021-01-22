@@ -30,7 +30,7 @@
   services.gvfs.enable = true;
 
   # Hide the "help" message
-  services.mingetty.helpLine = lib.mkForce "";
+  # services.mingetty.helpLine = lib.mkForce "";
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

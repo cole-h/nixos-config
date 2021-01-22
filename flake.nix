@@ -5,21 +5,25 @@
 
   inputs = {
     # Flakes
-    # large.url = "git+file:///home/vin/workspace/vcs/nixpkgs/master";
-    large.url = "github:nixos/nixpkgs/nixos-unstable";
-    # master.url = "github:nixos/nixpkgs/master";
-    # small.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    # stable.url = "github:nixos/nixpkgs/nixos-20.09";
+    # nixpkgs.url = "git+file:///home/vin/workspace/vcs/nixpkgs/master";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/2f47650c2f28d87f86ab807b8a339c684d91ec56";
+    # nixpkgs.url = "github:nixos/nixpkgs/master";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
 
     nix = { url = "github:nixos/nix"; };
     # nix = { url = "github:nixos/nix/progress-bar"; };
-    home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "large"; };
+    home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     passrs = { url = "github:cole-h/passrs"; };
     wayland = { url = "github:colemickens/nixpkgs-wayland"; };
     emacs = { url = "github:nix-community/emacs-overlay"; };
     alacritty = { url = "github:cole-h/flake-alacritty"; };
     # pijul = { url = "/home/vin/workspace/pijul/pijul"; };
     neovim = { url = "github:neovim/neovim?dir=contrib"; };
+    # TODO: switch all / most secrets to sops
+    sops = { url = "github:Mic92/sops-nix"; inputs.nixpkgs.follows = "nixpkgs"; };
+    agenix = { url = "git+file:///home/vin/workspace/vcs/agenix"; };
 
     # Not flakes
     secrets = { url = "git+ssh://git@github.com/cole-h/nix-secrets.git"; flake = false; };
@@ -33,7 +37,7 @@
   outputs = inputs:
     let
       channels = {
-        pkgs = inputs.large;
+        pkgs = inputs.nixpkgs;
       };
 
       nameValuePair = name: value: { inherit name value; };
@@ -84,8 +88,10 @@
           inherit (lib) mkOption;
           inherit (lib.types) attrsOf submoduleWith;
           inherit (inputs.home.nixosModules) home-manager;
+          inherit (inputs.sops.nixosModules) sops;
+          inherit (inputs.agenix.nixosModules) age;
 
-          home = { ... }: {
+          home = { config, ... }: {
             # "submodule types have merging semantics" -- bqv
             options.home-manager.users = mkOption {
               type = attrsOf (submoduleWith {
@@ -107,15 +113,11 @@
 
           nix = { ... }: {
             nix = {
-              package = lib.mkForce (inputs.nix.defaultPackage.${system}.overrideAttrs ({ patches ? [ ], ... }: {
-                patches = patches ++ [
-                  ./log-format-option.patch
-                ];
-              }));
+              package = lib.mkForce inputs.nix.defaultPackage.${system};
 
               # print-build-logs = true
+              # log-format = bar-with-logs
               extraOptions = ''
-                log-format = bar-with-logs
                 flake-registry = /etc/nix/registry.json
               '';
 
@@ -148,6 +150,13 @@
                 rev = self.shortRev or "dirty";
               in
               lib.mkForce ".${date}.${rev}-cosmere";
+
+            # system.activationScripts.setup-secrets = pkgs.lib.mkForce "";
+            # age.defaultPubKey = "RWRO4uslKOt+v5r8IDLvA+fxjL/UtYcAhNsEFfuKNjQlQlvY5Jy1VnHx";
+            # age.secrets.test = {
+            #   file = ./test.age;
+            #   signature.file = ./test.age.minisig;
+            # };
           };
 
           modules = lib.optionals includeHome [
@@ -159,6 +168,8 @@
             (./hosts + "/${hostname}/configuration.nix")
             nix
             misc
+            sops
+            age
           ];
 
           specialArgs = {
@@ -219,40 +230,40 @@
           )) // {
             iso =
               let
+                system = "x86_64-linux";
                 iso = import "${channels.pkgs}/nixos" {
                   configuration = ./iso.nix;
                   inherit system;
                 };
               in
               iso.config.system.build.isoImage;
-          }) //
-      {
-        sd =
-          let
-            system = "aarch64-linux";
-            pkgs = pkgsFor channels.pkgs system;
-            buildImage = pkgs.callPackage "${inputs.aarch-images}/pkgs/build-image" { };
 
-            image = (import "${channels.pkgs}/nixos" {
-              configuration = ./sd.nix;
-              inherit system;
-            }).config.system.build.sdImage;
-          in
-          pkgs.callPackage "${inputs.aarch-images}/images/rockchip.nix" {
-            inherit buildImage;
-            uboot = pkgs.ubootRock64;
-            aarch64Image = pkgs.stdenv.mkDerivation {
-              name = "sd";
-              src = image;
+            sd =
+              let
+                system = "aarch64-linux";
+                pkgs = pkgsFor channels.pkgs system;
+                buildImage = pkgs.callPackage "${inputs.aarch-images}/pkgs/build-image" { };
 
-              phases = [ "installPhase" ];
-              noAuditTmpdir = true;
-              preferLocalBuild = true;
+                image = (import "${channels.pkgs}/nixos" {
+                  configuration = ./sd.nix;
+                  inherit system;
+                }).config.system.build.sdImage;
+              in
+              pkgs.callPackage "${inputs.aarch-images}/images/rockchip.nix" {
+                inherit buildImage;
+                uboot = pkgs.ubootRock64;
+                aarch64Image = pkgs.stdenv.mkDerivation {
+                  name = "sd";
+                  src = image;
 
-              installPhase = "ln -s $src/sd-image/*.img $out";
-            };
-          };
-      };
+                  phases = [ "installPhase" ];
+                  noAuditTmpdir = true;
+                  preferLocalBuild = true;
+
+                  installPhase = "ln -s $src/sd-image/*.img $out";
+                };
+              };
+          });
 
       legacyPackages = forAllSystems ({ pkgs, ... }: pkgs);
 
@@ -265,10 +276,22 @@
         stdenv.mkDerivation {
           name = "shell";
 
+          sopsPGPKeyDirs = [
+            "./keys/hosts"
+            "./keys/users"
+          ];
+
+          nativeBuildInputs = [
+            inputs.sops.packages.${system}.sops-pgp-hook
+          ];
+
           buildInputs =
             [
               git
               git-crypt
+              sops
+
+              inputs.sops.packages.${system}.ssh-to-pgp
             ];
         });
     };

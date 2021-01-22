@@ -4,16 +4,10 @@ let
 in
 {
   programs = {
-    direnv = {
-      enable = true;
-      enableFishIntegration = true;
-    };
+    direnv.enable = true;
 
     # https://www.youtube.com/watch?v=Oyg5iFddsJI
-    zoxide = {
-      enable = true;
-      enableFishIntegration = true;
-    };
+    zoxide.enable = true;
 
     fzf = {
       enable = true;
@@ -25,18 +19,6 @@ in
 
     fish = {
       enable = true;
-
-      plugins = [
-        {
-          name = "hydro";
-          src = pkgs.fetchFromGitHub {
-            repo = "hydro";
-            owner = "jorgebucaran";
-            rev = "0c7e1beb17c8e33ecfa647b347dff60666279a6a";
-            sha256 = "sha256-WnYdLNN3DGSuiIkEghWJjWbJPkrMQe6e2ChS4qMWmew=";
-          };
-        }
-      ];
 
       functions = {
         cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
@@ -66,6 +48,15 @@ in
         weechat = "tmux -L weechat attach";
       } // cgitcAbbrs;
 
+      shellInit = ''
+
+        # Hydro prompt config
+        set --global --export hydro_symbol_prompt '>'
+        set --global --export hydro_symbol_git_dirty '*'
+        set --global --export hydro_color_pwd green
+        set --global --export hydro_color_error red
+      '';
+
       loginShellInit = ''
 
         # tmux counts as a login shell
@@ -91,21 +82,12 @@ in
         end
       '';
 
-      promptInit = ''
-
-        # Hydro prompt config
-        set --global hydro_symbol_prompt '>'
-        set --global hydro_symbol_git_dirty '*'
-        set --global hydro_color_pwd green
-        set --global hydro_color_error red
-      '';
-
       interactiveShellInit = ''
 
         set --append fish_user_paths $HOME/.cargo/bin
 
         # GPG configuration
-        ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye &>/dev/null &
+        ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye &>/dev/null
         set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
         set --global --export GPG_TTY (tty)
 

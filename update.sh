@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
-nix flake update \
-	--update-input large \
-	--update-input nix \
-	--update-input home \
-	--update-input passrs \
-	--update-input wayland \
-	--update-input alacritty \
-	--update-input doom \
-	--update-input nixus
+
+mapfile -t arr < <(nix eval --json .#inputs \
+  | jq -r '. | to_entries | map ("--update-input \(.key)") | join(" ")')
+
+nix flake update ${arr[@]}

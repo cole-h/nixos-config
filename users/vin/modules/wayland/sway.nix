@@ -80,10 +80,6 @@ let
   wsF10 = "20";
 in
 {
-  xdg.configFile = {
-    "imgur".source = config.lib.file.mkOutOfStoreSymlink my.secrets.imgur;
-  };
-
   home.packages = with pkgs; [
     swaybg
     swayidle

@@ -7,6 +7,7 @@
     [
       ./hardware-configuration.nix
       ./modules
+      ./secrets
     ];
 
   # Set your time zone.

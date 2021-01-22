@@ -4,37 +4,33 @@
   environment.enableDebugInfo = true;
   environment.systemPackages = with pkgs;
     [
+      age
       bc
       binutils
-      borgbackup
+      # borgbackup
       cachix
-      cntr # used for breakpointHook
-      cryptsetup # for borgbackup
-      direnv
+      # cntr # used for breakpointHook
+      # cryptsetup # for borgbackup
       dnsutils
       e2fsprogs
       evince
       ffmpeg
       file
-      filezilla
+      # filezilla # for switch
       gcc
       gdb
       git
-      gitAndTools.hub
       git-crypt
       gnome3.file-roller
       gnome3.nautilus # GUI file manager
       htop
       imagemagick
       kakoune
-      libarchive # maybe atool?
-      # libreoffice
       lsof
       manpages
       ncdu
       neovim
       netcat-openbsd
-      nix-direnv
       nix-index
       nixpkgs-fmt
       nix-prefetch
@@ -47,6 +43,7 @@
       posix_man_pages
       psmisc
       rsync
+      sops
       strace
       usbutils
       wireguard
@@ -58,16 +55,12 @@
       exa # ls but better
       fd # find files
       hexyl # hex viewer
-      libreoffice # Office but worse
+      # libreoffice # Office but worse
       # openconnect # for school VPN, if needed
       ripgrep # grep but better; [overlays]
-      tmate # "Instant Terminal Sharing"
+      # tmate # "Instant Terminal Sharing"
       tokei # code metrics
     ];
-
-  environment.pathsToLink = [
-    "/share/nix-direnv"
-  ];
 
   # For nix-direnv (https://github.com/nix-community/nix-direnv)
   nix.extraOptions = ''

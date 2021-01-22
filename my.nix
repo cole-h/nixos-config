@@ -36,6 +36,7 @@ in
     in
     scripts;
 
+  # TODO: switch to sops secrets for user secrets as well
   secrets =
     let
       filter = attrs: lib.filterAttrs

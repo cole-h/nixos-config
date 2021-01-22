@@ -1,3 +1,0 @@
-freenode.UndeadLeech
-freenode.ddevault
-freenode.kchibisov

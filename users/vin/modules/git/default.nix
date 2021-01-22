@@ -21,8 +21,6 @@ in
     "git/ignore".text = ''
       .gdb_history
     '';
-
-    "git/gitauth.inc".source = config.lib.file.mkOutOfStoreSymlink my.secrets."gitauth.inc";
   };
 
   programs.git = {

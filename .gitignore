@@ -15,6 +15,10 @@ users/*/modules/weechat/config/xfer
 users/*/modules/weechat/config/logs
 users/*/modules/weechat/config/urlserver_list.txt
 users/*/modules/weechat/config/relay.conf
+users/*/modules/weechat/config/freenode.pem
+users/*/modules/weechat/config/sec.conf
+users/*/modules/weechat/config/irc.conf
+**.weechattmp
 hosts/scadrial/modules/borg/config.json
 users/*/modules/kakoune/config/colors
 users/*/modules/kakoune/config/autoload

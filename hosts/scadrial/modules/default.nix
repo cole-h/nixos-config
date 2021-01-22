@@ -18,8 +18,8 @@
       ./smb.nix # configuration related to Samba
       ./torrent.nix # configuration related to torrenting
       ./users.nix # configuration related to users
-      ./wireguard.nix # configuration related to wireguard
 
       ./libvirt # configuration related to libvirt and vfio + pci passthrough
+      ./wireguard # configuration related to wireguard
     ];
 }

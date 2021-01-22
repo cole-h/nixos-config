@@ -19,13 +19,15 @@
 
   security.doas.enable = true;
 
-  services.sshd.enable = true;
+  services.openssh.enable = true;
+  services.openssh.extraConfig = "StreamLocalBindUnlink yes";
 
   environment.systemPackages = with pkgs;
     [
       git
       htop
       kakoune
+      wol
     ];
 
   # TODO:

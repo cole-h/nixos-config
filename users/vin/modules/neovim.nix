@@ -1,18 +1,5 @@
 { config, lib, pkgs, ... }:
-let
-  lsp_extensions = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    name = "lsp_extensions.nvim";
-    src = pkgs.fetchFromGitHub {
-      owner = "tjdevries";
-      repo = "lsp_extensions.nvim";
-      rev = "7c3f907c3cf94d5797dcdaf5a72c5364a91e6bd2";
-      sha256 = "sha256-337MdE4Rc/4f8dxv+2lzSQ9zWQ7eivK/LBUJC0GnLzE=";
-    };
-  };
-in
 {
-  home.file."${config.xdg.configHome}/nvim/parser/rust.so".source = "${pkgs.tree-sitter.builtGrammars.rust}/parser";
-
   programs.neovim = {
     enable = true;
 
@@ -30,14 +17,8 @@ in
       traces-vim
       vim-commentary
       vim-sensible
-      nvim-lspconfig
-      lsp_extensions
-      completion-nvim
-      diagnostic-nvim
       direnv-vim
       fzf-vim
-      nvim-treesitter
-      neoformat
 
       # Appearance
       vim-fish
@@ -126,18 +107,6 @@ in
       " change the directory only for the current window
       nnoremap <silent> <leader>. :lcd %:p:h<cr>
       nnoremap <silent> <leader><tab><tab> :CtrlPBuffer<cr>
-      nnoremap <silent> <leader><tab>1 :buffer 1<cr>
-      nnoremap <silent> <leader><tab>2 :buffer 2<cr>
-      nnoremap <silent> <leader><tab>3 :buffer 3<cr>
-      nnoremap <silent> <leader><tab>4 :buffer 4<cr>
-      nnoremap <silent> <leader><tab>5 :buffer 5<cr>
-      nnoremap <silent> <leader><tab>6 :buffer 6<cr>
-      nnoremap <silent> <leader><tab>7 :buffer 7<cr>
-      nnoremap <silent> <leader><tab>8 :buffer 8<cr>
-      nnoremap <silent> <leader><tab>9 :buffer 9<cr>
-      nnoremap <silent> <leader><tab>0 :buffer 0<cr>
-
-      command Jp e ++enc=euc-jp
 
       " Preferences for various file formats
       autocmd FileType c setlocal noet ts=4 sw=4 tw=80
@@ -215,86 +184,6 @@ in
       let g:lightline = {
         \ 'colorscheme': 'dracula'
         \ }
-
-      augroup fmt
-        autocmd!
-        autocmd BufWritePre * undojoin | Neoformat
-      augroup END
-    '' +
-    # LSP config -- busted
-    (lib.optionalString false ''
-      " Set completeopt to have a better completion experience
-      set completeopt=menuone,noinsert,noselect
-
-      " Avoid showing extra messages when using completion
-      set shortmess+=c
-
-
-      " Configure lsp
-      " https://github.com/neovim/nvim-lspconfig#rust_analyzer
-      lua <<EOF
-      vim.cmd('packadd nvim-lspconfig')
-
-      -- nvim_lsp object
-      local nvim_lsp = require'lspconfig'
-
-      -- function to attach completion and diagnostics
-      -- when setting up lsp
-      local on_attach = function(client)
-          require'completion'.on_attach(client)
-          require'diagnostic'.on_attach(client)
-      end
-
-      nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
-
-      EOF
-
-      " Code navigation shortcuts
-      nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-      nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-      nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-      nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-      nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-      nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-      nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-      nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-      nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-
-      " Trigger completion with <tab>
-      " found in :help completion
-      function! s:check_back_space() abort
-          let col = col('.') - 1
-          return !col || getline('.')[col - 1]  =~ '\s'
-      endfunction
-
-      inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ completion#trigger_completion()
-
-      " Visualize diagnostics
-      let g:diagnostic_enable_virtual_text = 1
-      let g:diagnostic_trimmed_virtual_text = '40'
-      " Don't show diagnostics while in insert mode
-      let g:diagnostic_insert_delay = 1
-
-      " have a fixed column for the diagnostics to appear in
-      " this removes the jitter when warnings/errors flow in
-      set signcolumn=yes
-
-      " Set updatetime for CursorHold
-      " 300ms of no cursor movement to trigger CursorHold
-      set updatetime=300
-      " Show diagnostic popup on cursor hover
-      autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
-
-      " Goto previous/next diagnostic warning/error
-      nnoremap <silent> g[ <cmd>PrevDiagnosticCycle<cr>
-      nnoremap <silent> g] <cmd>NextDiagnosticCycle<cr>
-
-      " Enable type inlay hints
-      autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-      \ lua require'lsp_extensions'.inlay_hints{ prefix = ''', highlight = "Comment" }
-    '');
+    '';
   };
 }

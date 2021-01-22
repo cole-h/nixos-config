@@ -1,0 +1,11 @@
+keys:
+  - &cole-h 68B80D57B2E54AC3EC1F49B0B37E0F2371016A4C
+  - &scadrial 9065537245a17fe06fd7450b72e61ee11fcaac29
+  - &scar 1b156a1dd5c8bfced0f2dfe04d0089d916427d93
+
+creation_rules:
+  - key_groups:
+    - pgp:
+        - *cole-h
+        - *scadrial
+        - *scar

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, my, ... }:
+{ pkgs, lib, ... }:
 let
   stableChannel = false;
   betaChannel = false;
@@ -34,10 +34,5 @@ in
 
       rust-analyzer
     ] ++ toolchains ++ rustpkgs;
-
-    file = {
-      ".cargo/credentials".source =
-        config.lib.file.mkOutOfStoreSymlink my.secrets.cargo-credentials;
-    };
   };
 }

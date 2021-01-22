@@ -86,6 +86,7 @@ hook global BufClose .* %{
   set-option -remove global bufhist %val{hook_param}
 }
 
+## buffer info
 hook global WinDisplay .* %{
   set-option global alt_bufname %opt{current_bufname}
   set-option global current_bufname %val{bufname}
@@ -93,8 +94,26 @@ hook global WinDisplay .* %{
 
 hook global WinDisplay .* info-buffers
 
+## modeline stuff
 hook global BufWritePost .* modeline-update
 hook global BufSetOption (readonly|filetype)=.+ modeline-update
 hook global WinDisplay .* %{ modeline-update; modeline-update-pos }
 hook global NormalKey [jk] modeline-update-pos
 hook global NormalIdle .* modeline-update-pos
+
+## file-specific config
+# hook global BufSetOption filetype=.* %{
+#   evaluate-commands %sh{
+#     set() {
+#       opt="$1"
+#       val="$2"
+#       printf "%s\n" "set-option buffer $opt $val"
+#     }
+
+#     case "$kak_opt_filetype" in
+#       git-commit)
+#         set "autowrap_column" "72"
+#         ;;
+#     esac
+#   }
+# }

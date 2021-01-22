@@ -44,6 +44,5 @@ echo "$(date) Rebound vtcon1" >> /tmp/win10.log
 cpupower frequency-set -g schedutil
 echo "$(date) Changed CPU governors to schedutil" >> /tmp/win10.log
 
-sleep 1
 echo "$(date) End" >> /tmp/win10.log
 echo >> /tmp/win10.log

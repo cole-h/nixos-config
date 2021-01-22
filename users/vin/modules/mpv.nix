@@ -7,8 +7,6 @@
   ];
 
   xdg.configFile = with pkgs; {
-    "streamlink/config".source = config.lib.file.mkOutOfStoreSymlink my.secrets.streamlink;
-
     "mpv/scripts" = {
       recursive = true;
 

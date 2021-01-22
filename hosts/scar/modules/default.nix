@@ -2,7 +2,9 @@
   imports =
     [
       ./networking.nix
-      ./users.nix
       ./nix.nix
+      ./programs.nix
+      ./users.nix
+      ./wireguard
     ];
 }

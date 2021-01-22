@@ -1,6 +1,11 @@
 # if the file exists, take ownership of it
 [ -f /tmp/win10.log ] && chown root /tmp/win10.log
 
+killall -e sway
+echo "$(date) Tried to kill sway" >> /tmp/win10.log
+sleep 1
+ps aux | rg sway | rg -v rg && exit 1 # if sway is still running, everything breaks anyways
+
 zpool export bpool
 echo "$(date) Exported bpool since it's connected via USB" >> /tmp/win10.log
 
