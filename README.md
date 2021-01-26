@@ -175,4 +175,6 @@ doas virsh define ..../windows10.xml
 # copy weechat logs
 # emacs all-the-icons-install-fonts to ~/.local/share/fonts
 # copy authorized_keys
+# copy chatterino stuff
+# copy todo stuff
 ```

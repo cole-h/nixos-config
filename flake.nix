@@ -152,7 +152,7 @@
               lib.mkForce ".${date}.${rev}-cosmere";
 
             # system.activationScripts.setup-secrets = pkgs.lib.mkForce "";
-            # age.defaultPubKey = "RWRO4uslKOt+v5r8IDLvA+fxjL/UtYcAhNsEFfuKNjQlQlvY5Jy1VnHx";
+            # age.defaultPubKey = "RWQflwR3rpBIGhY68arhyDoAXFKksT0uI/cTdafx84otEgXyTOaHgUbI";
             # age.secrets.test = {
             #   file = ./test.age;
             #   signature.file = ./test.age.minisig;

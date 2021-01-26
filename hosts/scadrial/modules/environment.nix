@@ -28,6 +28,7 @@
       kakoune
       lsof
       manpages
+      minisign
       ncdu
       neovim
       netcat-openbsd
