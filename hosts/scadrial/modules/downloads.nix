@@ -1,5 +1,5 @@
 { pkgs, config, ... }:
-
+# https://github.com/etu/nixconfig/blob/master/hosts/fenchurch/services/jellyfin.nix
 {
   users.groups.downloads.gid = 947;
   users.users.downloads = {
@@ -34,16 +34,24 @@
     group = "downloads";
   };
 
+  services.jellyfin = {
+    enable = true;
+    user = "downloads";
+    group = "downloads";
+  };
+
   networking.firewall.allowedTCPPorts = [
+    8096 # jellyfin
     8989 # sonarr
     9091 # transmission
-    80 # allow
+    80
   ];
 
   # NOTE: Should also add rules in pihole so others can connect
   networking.extraHosts = ''
     127.0.0.1 sonarr.local
     127.0.0.1 torrents.local
+    127.0.0.1 jellyfin.local
   '';
 
   services.nginx = {
@@ -64,6 +72,10 @@
         };
         "torrents.local".locations."/" = {
           proxyPass = "http://127.0.0.1:9091/";
+          extraConfig = onlyLan;
+        };
+        "jellyfin.local".locations."/" = {
+          proxyPass = "http://127.0.0.1:8096/";
           extraConfig = onlyLan;
         };
       };
