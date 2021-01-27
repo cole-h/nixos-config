@@ -94,15 +94,11 @@ in
   });
 
   kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs ({ patches ? [ ], ... }: {
-    patches = patches ++ [
-      ./keep-newlines-in-sh.patch
-    ];
-
     src = final.fetchFromGitHub {
       owner = "mawww";
       repo = "kakoune";
-      rev = "958a9431214dc4bece30aa30a8159e0bb8b5bbe7";
-      sha256 = "sha256-KSFuM9WQxdUc7lFaDYGB9zZGOHuckto9SEd9cR7evKo=";
+      rev = "7751c7e188bfc7b2f7e4a70e33032677d84597e5";
+      sha256 = "sha256-6sMh+aL/Xj6rUkJCH4m+mLcOC3zE/bbzKux2rdUZzAc=";
     };
   });
 
