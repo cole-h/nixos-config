@@ -23,6 +23,7 @@ hook global WinSetOption filetype=(rust) %{ # TODO: |c|cpp)
 hook global WinCreate ^[^*]+$ %{
   add-highlighter window/number-lines number-lines -relative -hlcursor -separator " "
   add-highlighter window/show-matching show-matching
+  add-highlighter window/show-trailing-whitespace regex '\h+$' 0:Error
 }
 
 ## wayland

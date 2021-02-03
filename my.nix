@@ -1,5 +1,4 @@
 { lib
-, secrets
 }:
 let
   stripStore = path:
@@ -35,27 +34,6 @@ in
       );
     in
     scripts;
-
-  # TODO: switch to sops secrets for user secrets as well
-  secrets =
-    let
-      filter = attrs: lib.filterAttrs
-        (name: value: !((lib.hasPrefix "." name) || (name == "README.md")))
-        attrs;
-
-      secrets' = builtins.listToAttrs (
-        map
-          # FIXME: find a good solution to keeping secrets out of store
-          # - using a `secrets` input adds it to the store
-          # - using "/home/vin/.config/nixpkgs/secrets" makes it impure
-          # (file: lib.nameValuePair file ("${secretDir}/${file}"))
-          # (builtins.attrNames (builtins.readDir secretDir))
-
-          (file: lib.nameValuePair file ("/home/vin/flake/secrets/${file}"))
-          (builtins.attrNames (builtins.readDir secrets))
-      );
-    in
-    (filter secrets');
 
   drvs =
     let

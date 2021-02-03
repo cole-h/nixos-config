@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitHub
 , autoconf
 , automake
@@ -68,10 +69,10 @@ stdenv.mkDerivation {
     gtk3
     python
     hicolor-icon-theme
-  ] ++ stdenv.lib.optional withRandr libxcb
-  ++ stdenv.lib.optional withGeoclue geoclue
-  ++ stdenv.lib.optional withDrm libdrm
-  ++ stdenv.lib.optionals withWayland [ wayland wayland-protocols wlroots ]
+  ] ++ lib.optional withRandr libxcb
+  ++ lib.optional withGeoclue geoclue
+  ++ lib.optional withDrm libdrm
+  ++ lib.optionals withWayland [ wayland wayland-protocols wlroots ]
   ;
 
   pythonPath = [ pygobject3 pyxdg ];

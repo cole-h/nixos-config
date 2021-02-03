@@ -45,24 +45,15 @@
         amfora # gemini:// browser
         qimgv # image viewer
         bootloadHID # used to flash my QMK numpad
-
-        # latest.firefox-nightly-bin
         firefox-bin
         pass-otp
         passrs
         # android-studio # android apps
-
-        ## misc
         chatterino2 # Twitch chat client
         discord
         todo-txt-cli # todos tracker
-
-        #### User Packages
-        # gnome3.networkmanagerapplet
         foliate
-        (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
-
-        ## Switch USB stuff
+        # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
       ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,

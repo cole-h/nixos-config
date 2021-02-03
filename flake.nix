@@ -26,8 +26,6 @@
     agenix = { url = "git+file:///home/vin/workspace/vcs/agenix"; };
 
     # Not flakes
-    secrets = { url = "git+ssh://git@github.com/cole-h/nix-secrets.git"; flake = false; };
-    # secrets = { url = "/home/vin/.config/nixpkgs/secrets"; flake = false; };
     # baduk = { url = "github:dustinlacewell/baduk.nix"; flake = false; };
     doom = { url = "github:hlissner/doom-emacs"; flake = false; };
     # mozilla = { url = "github:mozilla/nixpkgs-mozilla"; flake = false; };
@@ -114,6 +112,7 @@
           nix = { ... }: {
             nix = {
               package = lib.mkForce inputs.nix.defaultPackage.${system};
+              checkConfig = false; # --no-net was renamed to --offline
 
               # print-build-logs = true
               # log-format = bar-with-logs
@@ -177,7 +176,6 @@
 
             my = import ./my.nix {
               inherit lib;
-              inherit (inputs) secrets;
             };
           };
         in
@@ -186,7 +184,7 @@
         };
     in
     {
-      inherit inputs;
+      inputs = builtins.removeAttrs inputs [ "self" ];
 
       nixosConfigurations = {
         scadrial =
