@@ -1,6 +1,31 @@
 { config, lib, pkgs, ... }:
 
 {
+  # set up proper emoji fallback, but just for Alacritty
+  xdg.configFile."fontconfig/fonts.conf".text = ''
+    <?xml version="1.0"?>
+    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+    <fontconfig>
+      <alias>
+        <family>term</family>
+        <prefer>
+          <family>Iosevka Custom</family>
+          <family>Noto Color Emoji</family>
+         </prefer>
+      </alias>
+
+      <selectfont>
+        <rejectfont>
+          <pattern>
+            <patelt name="family">
+              <string>Bitstream Vera Sans</string>
+            </patelt>
+          </pattern>
+        </rejectfont>
+      </selectfont>
+    </fontconfig>
+  '';
+
   programs.alacritty = {
     enable = true;
     settings = {
@@ -13,7 +38,7 @@
         size = 11;
 
         normal = {
-          family = "Iosevka Custom";
+          family = "term";
           style = "Book Extended";
         };
       };

@@ -1,30 +1,36 @@
 {
   "name": "iosevka",
-  "version": "3.6.3",
-  "engines": {
-    "node": ">=12.16.0"
-  },
+  "version": "5.0.0-rc.1",
+  "main": "./font-src/index.js",
   "scripts": {
-    "build": "verda -f verdafile.js"
+    "build": "node utility/ensure-verda-exists && verda -f verdafile.js",
+    "bump-ver": "node utility/update-package-json-version/index",
+    "clean": "node utility/ensure-verda-exists && verda -f verdafile.js clean"
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "cldr": "^5.7.0",
-    "ejs": "^3.1.3",
+    "@unicode/unicode-13.0.0": "^1.0.2",
+    "cldr": "^5.8.0",
+    "ejs": "^3.1.5",
     "fs-extra": "^9.0.1",
-    "object-assign": "^4.1.1",
-    "otfcc-ttcize": "^0.10.2",
-    "patel": "^0.33.1",
-    "semver": "^7.3.2",
+    "ot-builder": "^1.0.0",
+    "otb-ttc-bundle": "^1.0.0",
+    "patel": "^0.34.0",
+    "semver": "^7.3.4",
     "spiro": "^2.0.0",
     "stylus": "^0.54.8",
     "toposort": "^2.0.2",
-    "ttf2woff": "^2.0.2",
-    "ttf2woff2": "^3.0.0",
     "typo-geom": "^0.11.0",
-    "unicode-13.0.0": "^0.8.0",
-    "unorm": "^1.6.0",
-    "verda": "^1.1.0",
+    "verda": "^1.2.1",
+    "wawoff2": "^1.0.2",
     "which": "^2.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.1.0",
+    "prettier": "^2.2.1"
+  },
+  "engines": {
+    "node": ">=12.16.0"
   }
 }

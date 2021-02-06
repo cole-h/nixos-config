@@ -1,5 +1,5 @@
-{ stdenv
-, lib
+{ lib
+, stdenv
 , pkgs
 , fetchFromGitHub
 , nodejs-12_x
@@ -8,10 +8,10 @@
 , otfcc
 }:
 let
-  outputHash = "sha256-D/0uuZKXGJ1LDwKJBKEHeZvaLvSiBoJR5LoNlH+/5Zc=";
-  sha256 = "073gr8mc7labkyjdq3j8l6w5w28wyyfgylwx8r9125w9zdarziw4";
+  # outputHash = "sha256-S3SVR0ppVJ3UJpCo6OI4dWPo3Wn6OBB/BHrGcD0oTD0=";
+  sha256 = "sha256-vFXO+cf+FVNR7QxESULS2dkjS5WYO4CNe+BBQhUOWfw=";
   pname = "iosevka-${set}";
-  version = "3.6.3";
+  version = "5.0.0-rc.1";
 
   set = "custom";
 
@@ -87,34 +87,36 @@ let
       oblique = "oblique";
     };
 
-    design = [
-      "no-ligation"
-      "sp-term"
-      "v-a-doublestorey"
-      "v-asterisk-high"
-      "v-at-threefold"
-      "v-brace-curly"
-      "v-caret-high"
-      "v-dollar-through"
-      "v-eszet-sulzbacher"
-      "v-f-straight"
-      "v-g-singlestorey"
-      "v-i-serifed"
-      "v-lig-ltgteq-slanted"
-      "v-l-italic"
-      "v-m-shortleg"
-      "v-numbersign-slanted"
-      "v-one-base"
-      "v-paragraph-high"
-      "v-percent-dots"
-      "v-q-taily"
-      "v-three-flattop"
-      "v-tilde-low"
-      "v-t-standard"
-      "v-underscore-high"
-      "v-y-straight"
-      "v-zero-reverse-slashed"
-    ];
+    no-ligation = true;
+    spacing.fixed = true;
+
+    variants = {
+      a = "double-storey";
+      f = "serifless"; # straight
+      g = "single-storey";
+      i = "serifed";
+      l = "serifed-tailed";
+      m = "short-leg";
+      q = "tailed";
+      t = "standard";
+      y = "straight";
+
+      eszet = "sulzbacher";
+      zero = "reverse-slashed";
+      one = "base";
+      three = "flattop";
+      tilde = "low";
+      asterisk = "high";
+      underscore = "high";
+      paragraph-sign = "high";
+      caret = "high";
+      brace = "curly";
+      number-sign = "slanted";
+      at = "threefold";
+      dollar = "through";
+      percent = "dots";
+      # lig-ltgteq = "slanted";
+    };
   };
 
   buildDeps = (import ./. { inherit pkgs; }).package;
@@ -122,8 +124,10 @@ in
 stdenv.mkDerivation {
   inherit pname version;
 
-  src = fetchTarball {
-    url = "https://github.com/be5invis/Iosevka/archive/v${version}.tar.gz";
+  src = fetchFromGitHub {
+    owner = "be5invis";
+    repo = "Iosevka";
+    rev = "v${version}";
     inherit sha256;
   };
 
@@ -159,7 +163,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  inherit outputHash;
-  outputHashAlgo = "sha256";
-  outputHashMode = "recursive";
+  # inherit outputHash;
+  # outputHashAlgo = "sha256";
+  # outputHashMode = "recursive";
 }
