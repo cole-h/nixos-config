@@ -83,7 +83,7 @@ in
   home.packages = with pkgs; [
     swaybg
     swayidle
-    swaylock
+    swaylock-effects
   ];
 
   wayland.windowManager.sway = {
@@ -154,7 +154,7 @@ in
       floating.modifier = "${modifier}";
 
       keybindings = {
-        "Ctrl+Alt+l" = "exec swaylock -f -i ${wallpaper} --scaling fill";
+        "Ctrl+Alt+l" = "exec swaylock --clock --indicator -f -i ${wallpaper} --scaling fill";
 
         ## Basics
         # start a terminal
@@ -347,7 +347,7 @@ in
 
         # set $system (l) lock, (e) logout, (s) suspend
         "${system}" = {
-          l = "exec swaylock -f -i ${wallpaper} --scaling fill, mode default";
+          l = "exec swaylock --clock --indicator -f -i ${wallpaper} --scaling fill, mode default";
           e = "exec 'systemctl --user stop sway; swaymsg exit; systemctl --user stop sway-session.target'"; # exit
           s = "exec --no-startup-id systemctl suspend, mode default";
           # return to default mode
@@ -524,10 +524,10 @@ in
         {
           command = ''
             swayidle -w \
-              timeout 900 'swaylock -f -i ${wallpaper} --scaling fill' \
+              timeout 900 'swaylock --clock --indicator -f -i ${wallpaper} --scaling fill' \
               timeout 1200 'swaymsg "output * dpms off"' \
                 resume 'swaymsg "output * dpms on"' \
-              before-sleep 'swaylock -f -i ${wallpaper} --scaling fill'
+              before-sleep 'swaylock --clock --indicator -f -i ${wallpaper} --scaling fill'
           '';
         }
       ];
