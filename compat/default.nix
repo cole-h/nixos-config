@@ -8,7 +8,7 @@ let
       sha256 = "0h0iw41nbrarz1n39f0f94xkg4gjvl2vlhlqkivmbwrib5jwspnj";
     })
     {
-      src = ../.;
+      src = builtins.filterSource (path: _: baseNameOf path != ".git") ../.;
     };
 in
 flake.defaultNix.legacyPackages.${builtins.currentSystem}
