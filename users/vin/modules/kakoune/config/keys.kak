@@ -43,8 +43,8 @@ map global normal $ gl
 map global normal <percent> <c-s><percent>
 map global normal = '|par -w "$kak_opt_autowrap_column"<ret>' -docstring "wrap selection"
 map global normal <c-^> %{: alt-buf<ret>} -docstring "alternate buffer"
-map global normal u ': execute-keys -draft u<ret>' -docstring "undo but don't move cursor"
-map global normal U ': execute-keys -draft U<ret>' -docstring "redo but don't move cursor"
+# map global normal u ': execute-keys -draft u<ret>' -docstring "undo but don't move cursor"
+# map global normal U ': execute-keys -draft U<ret>' -docstring "redo but don't move cursor"
 # map global normal <a-x> %{ try %{
 #   <a-x>S.<ret><a-K><c-v><ret><ret><a-_>
 # } catch %{

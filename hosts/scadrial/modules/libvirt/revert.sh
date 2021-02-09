@@ -20,8 +20,8 @@ echo "$(date) Rebound front panel audio" >> /tmp/win10.log
 systemctl restart znapzend
 echo "$(date) Restarted snapshots" >> /tmp/win10.log
 
-systemctl restart sonarr transmission
-echo "$(date) Restarted torrents" >> /tmp/win10.log
+systemctl restart sonarr transmission jellyfin
+echo "$(date) Restarted torrents and media" >> /tmp/win10.log
 
 doas -u vin systemctl restart --user pulseaudio.socket
 echo "$(date) Restarted user pulse" >> /tmp/win10.log

@@ -31,8 +31,8 @@ echo "$(date) Unbound HDMI audio" >> /tmp/win10.log
 systemctl stop znapzend
 echo "$(date) Stopped snapshots while VM is live" >> /tmp/win10.log
 
-systemctl stop sonarr transmission
-echo "$(date) Stopped torrents" >> /tmp/win10.log
+systemctl stop sonarr transmission jellyfin
+echo "$(date) Stopped torrents and media" >> /tmp/win10.log
 
 virsh nodedev-detach pci_0000_0b_00_4
 echo "$(date) Unbound front panel audio" >> /tmp/win10.log

@@ -90,7 +90,7 @@ let
     no-ligation = true;
     spacing.fixed = true;
 
-    variants = {
+    variants.design = {
       a = "double-storey";
       f = "serifless"; # straight
       g = "single-storey";
