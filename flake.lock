@@ -22,8 +22,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1609364598,
-        "narHash": "sha256-y0Nt1OVBo27qYRYz12bHEDbgn6ATqdN1VZ0dRzLHwgU=",
+        "lastModified": 1612822013,
+        "narHash": "sha256-XCC5Peyle9SGTlmRRAnR1inhT+O6nskUz/izt0+/HYY=",
+        "ref": "minisign",
+        "rev": "0b7e2c23766535821d174e3fb2fb5cbc224b9508",
+        "revCount": 43,
         "type": "git",
         "url": "file:///home/vin/workspace/vcs/agenix"
       },
@@ -163,6 +166,27 @@
         "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
+      }
+    },
+    "mail": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1612901376,
+        "narHash": "sha256-CfknYrK2diJqZWmv3dtS801F6pZYgIIWUuGFLl0PzYo=",
+        "owner": "simple-nixos-mailserver",
+        "repo": "nixos-mailserver",
+        "rev": "0c4b9a898527dcaf9a3491ad1cb37a6c3a7b1b63",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "simple-nixos-mailserver",
+        "repo": "nixos-mailserver",
+        "type": "gitlab"
       }
     },
     "naersk": {
@@ -403,6 +427,7 @@
         "doom": "doom",
         "emacs": "emacs",
         "home": "home",
+        "mail": "mail",
         "neovim": "neovim",
         "nix": "nix",
         "nixpkgs": "nixpkgs_6",
@@ -444,6 +469,21 @@
         "owner": "nixos",
         "ref": "nixos-unstable-small",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "utils": {
+      "locked": {
+        "lastModified": 1605370193,
+        "narHash": "sha256-YyMTf3URDL/otKdKgtoMChu4vfVL3vCMkRqpGifhUn0=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5021eac20303a61fafe17224c087f5519baed54d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },

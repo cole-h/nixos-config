@@ -1,3 +1,0 @@
-[submodule "secrets"]
-	path = secrets
-	url = git@github.com:cole-h/nix-secrets.git

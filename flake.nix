@@ -24,6 +24,7 @@
     # TODO: switch all / most secrets to sops
     sops = { url = "github:Mic92/sops-nix"; inputs.nixpkgs.follows = "nixpkgs"; };
     agenix = { url = "git+file:///home/vin/workspace/vcs/agenix"; };
+    mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     # Not flakes
     # baduk = { url = "github:dustinlacewell/baduk.nix"; flake = false; };
@@ -79,35 +80,12 @@
         { system
         , pkgs
         , hostname
-        , includeHome ? true
+        , extraModules ? [ ]
         }:
         let
           inherit (pkgs) lib;
-          inherit (lib) mkOption;
-          inherit (lib.types) attrsOf submoduleWith;
-          inherit (inputs.home.nixosModules) home-manager;
           inherit (inputs.sops.nixosModules) sops;
           inherit (inputs.agenix.nixosModules) age;
-
-          home = { config, ... }: {
-            # "submodule types have merging semantics" -- bqv
-            options.home-manager.users = mkOption {
-              type = attrsOf (submoduleWith {
-                modules = [ ];
-                # Makes specialArgs available to home-manager modules as well
-                specialArgs = specialArgs // {
-                  super = config; # access NixOS configuration from h-m
-                };
-              });
-            };
-
-            config.home-manager = {
-              users = import ./users;
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              verbose = true;
-            };
-          };
 
           nix = { ... }: {
             nix = {
@@ -158,11 +136,7 @@
             # };
           };
 
-          modules = lib.optionals includeHome [
-            # This stuff is too big for my flash drive
-            home-manager
-            home
-          ] ++ [
+          modules = extraModules ++ [
             { networking.hostName = hostname; }
             (./hosts + "/${hostname}/configuration.nix")
             nix
@@ -195,6 +169,22 @@
           mkSystem {
             inherit system pkgs;
             hostname = "scadrial";
+            extraModules =
+              let
+                inherit (inputs.home.nixosModules) home-manager;
+
+                home = { ... }: {
+                  config.home-manager = {
+                    users = import ./users;
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
+                    verbose = true;
+                  };
+                };
+              in
+              [
+                home-manager
+              ];
           };
 
         bootstrap =
@@ -205,7 +195,6 @@
           mkSystem {
             inherit system pkgs;
             hostname = "scadrial";
-            includeHome = false;
           };
 
         scar =
@@ -216,7 +205,19 @@
           mkSystem {
             inherit system pkgs;
             hostname = "scar"; # https://coppermind.net/wiki/Scar
-            includeHome = false;
+          };
+
+        yolen =
+          let
+            system = "x86_64-linux";
+            pkgs = pkgsFor channels.pkgs system;
+          in
+          mkSystem {
+            inherit system pkgs;
+            hostname = "yolen";
+            extraModules = [
+              inputs.mail.nixosModules.mailserver
+            ];
           };
       };
 
@@ -261,36 +262,49 @@
                   installPhase = "ln -s $src/sd-image/*.img $out";
                 };
               };
+
+            do =
+              let
+                system = "x86_64-linux";
+                do = import "${channels.pkgs}/nixos" {
+                  configuration = ./do.nix;
+                  inherit system;
+                };
+              in
+              do.config.system.build.kexec_tarball;
           });
 
-      legacyPackages = forAllSystems ({ pkgs, ... }: pkgs);
+      legacyPackages = forAllSystems
+        ({ pkgs, ... }: pkgs);
 
-      defaultPackage = forAllSystems ({ system, ... }:
-        inputs.self.packages.${system}.scadrial);
+      defaultPackage = forAllSystems
+        ({ system, ... }:
+          inputs.self.packages.${system}.scadrial);
 
-      devShell = forAllSystems ({ system, pkgs, ... }:
-        with pkgs;
+      devShell = forAllSystems
+        ({ system, pkgs, ... }:
+          with pkgs;
 
-        stdenv.mkDerivation {
-          name = "shell";
+          stdenv.mkDerivation {
+            name = "shell";
 
-          sopsPGPKeyDirs = [
-            "./keys/hosts"
-            "./keys/users"
-          ];
-
-          nativeBuildInputs = [
-            inputs.sops.packages.${system}.sops-pgp-hook
-          ];
-
-          buildInputs =
-            [
-              git
-              git-crypt
-              sops
-
-              inputs.sops.packages.${system}.ssh-to-pgp
+            sopsPGPKeyDirs = [
+              "./keys/hosts"
+              "./keys/users"
             ];
-        });
+
+            nativeBuildInputs = [
+              inputs.sops.packages.${system}.sops-pgp-hook
+            ];
+
+            buildInputs =
+              [
+                git
+                git-crypt
+                sops
+
+                inputs.sops.packages.${system}.ssh-to-pgp
+              ];
+          });
     };
 }
