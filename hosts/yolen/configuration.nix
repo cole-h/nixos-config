@@ -3,6 +3,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./modules
     ];
 
   boot.loader.grub.enable = true;
@@ -53,41 +54,4 @@
     ];
 
   system.stateVersion = "21.05";
-
-  ### MAIL
-  mailserver =
-    let
-      domain = config.networking.domain;
-    in
-    {
-      enable = false;
-      mailDirectory = "/var/lib/mail";
-      dkimKeyDirectory = "/var/lib/dkim";
-      fqdn = "mail.${domain}";
-      domains = [ domain ];
-
-      loginAccounts = {
-        "cole@${domain}" = {
-          hashedPasswordFile = "";
-
-          aliases = [
-            "postmaster@${domain}"
-            "abuse@${domain}"
-            "admin@${domain}"
-          ];
-        };
-      };
-
-      # Use Let's Encrypt certificates.
-      certificateScheme = 3;
-
-      # Enable IMAP and POP3
-      enableImap = true;
-      enablePop3 = true;
-      enableImapSsl = true;
-      enablePop3Ssl = true;
-
-      # Enable the ManageSieve protocol
-      enableManageSieve = true;
-    };
 }
