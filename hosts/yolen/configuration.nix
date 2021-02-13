@@ -25,9 +25,7 @@
   };
 
   services.openssh.enable = true;
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH6wCrUu1DHKFqeiRxNvIvv41rE5zS9rdingyKtZX5gy openpgp:0xF208643A"
-  ];
+  services.openssh.passwordAuthentication = false;
 
   users.mutableUsers = false;
   users.users.hoid = {
@@ -41,6 +39,10 @@
       "wheel"
     ];
   };
+
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH6wCrUu1DHKFqeiRxNvIvv41rE5zS9rdingyKtZX5gy openpgp:0xF208643A"
+  ];
 
   nix.package = pkgs.nixUnstable;
 
