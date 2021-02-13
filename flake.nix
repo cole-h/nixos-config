@@ -171,9 +171,24 @@
             hostname = "scadrial";
             extraModules =
               let
+                inherit (pkgs) lib;
+                inherit (lib) mkOption;
+                inherit (lib.types) attrsOf submoduleWith;
                 inherit (inputs.home.nixosModules) home-manager;
 
                 home = { ... }: {
+                  # "submodule types have merging semantics" -- bqv
+                  options.home-manager.users = mkOption {
+                    type = attrsOf (submoduleWith {
+                      modules = [ ];
+                      specialArgs = {
+                        my = import ./my.nix {
+                          inherit lib;
+                        };
+                      };
+                    });
+                  };
+
                   config.home-manager = {
                     users = import ./users;
                     useGlobalPkgs = true;
@@ -184,6 +199,7 @@
               in
               [
                 home-manager
+                home
               ];
           };
 

@@ -34,6 +34,8 @@
 
       personal-cipher-preferences =
         "TWOFISH AES256 AES192 CAMELLIA256 CAMELLIA192 CAMELLIA128 AES CAST5";
+
+      faked-system-time = "1609455600";
     };
   };
 }
