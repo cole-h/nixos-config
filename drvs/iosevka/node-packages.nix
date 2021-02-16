@@ -850,13 +850,13 @@ let
         sha512 = "LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==";
       };
     };
-    "graceful-fs-4.2.5" = {
+    "graceful-fs-4.2.6" = {
       name = "graceful-fs";
       packageName = "graceful-fs";
-      version = "4.2.5";
+      version = "4.2.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.5.tgz";
-        sha512 = "kBBSQbz2K0Nyn+31j/w36fUfxkBW9/gfwRWdUY1ULReH3iokVJgddZAFcD1D0xlgTmFxJCbUkUclAlc6/IDJkw==";
+        url = "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.6.tgz";
+        sha512 = "nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==";
       };
     };
     "has-1.0.3" = {
@@ -1237,13 +1237,13 @@ let
         sha512 = "NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==";
       };
     };
-    "resolve-1.19.0" = {
+    "resolve-1.20.0" = {
       name = "resolve";
       packageName = "resolve";
-      version = "1.19.0";
+      version = "1.20.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/resolve/-/resolve-1.19.0.tgz";
-        sha512 = "rArEXAgsBG4UgRGcynxWIWKFvh/XZCcS8UJdHhwy91zwAvCZIbcs+vAbflgBnNjYMs/i/i+/Ux6IZhML1yPvxg==";
+        url = "https://registry.npmjs.org/resolve/-/resolve-1.20.0.tgz";
+        sha512 = "wENBPt4ySzg4ybFQW2TT1zMQucPK95HSh/nq2CFTZVOGut2+pQvSsgtda4d26YrYcr067wjbmzOG8byDPBX63A==";
       };
     };
     "resolve-url-0.2.1" = {
@@ -1723,20 +1723,20 @@ let
         sha512 = "o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==";
       };
     };
-    "yargs-parser-20.2.4" = {
+    "yargs-parser-20.2.5" = {
       name = "yargs-parser";
       packageName = "yargs-parser";
-      version = "20.2.4";
+      version = "20.2.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/yargs-parser/-/yargs-parser-20.2.4.tgz";
-        sha512 = "WOkpgNhPTlE73h4VFAFsOnomJVaovO8VqLDzy5saChRBFQFBoMYirowyW+Q9HB4HFF4Z7VZTiG3iSzJJA29yRA==";
+        url = "https://registry.npmjs.org/yargs-parser/-/yargs-parser-20.2.5.tgz";
+        sha512 = "jYRGS3zWy20NtDtK2kBgo/TlAoy5YUuhD9/LZ7z7W4j1Fdw2cqD0xEEclf8fxc8xjD6X5Qr+qQQwCEsP8iRiYg==";
       };
     };
   };
   args = {
     name = "iosevka";
     packageName = "iosevka";
-    version = "5.0.0-rc.1";
+    version = "5.0.1";
     src = ./.;
     dependencies = [
       sources."@iarna/toml-2.2.5"
@@ -1867,7 +1867,7 @@ let
       sources."function-bind-1.1.1"
       sources."get-caller-file-2.0.5"
       sources."glob-7.1.6"
-      sources."graceful-fs-4.2.5"
+      sources."graceful-fs-4.2.6"
       sources."has-1.0.3"
       sources."has-flag-3.0.0"
       sources."hashish-0.0.4"
@@ -1915,7 +1915,7 @@ let
       sources."prelude-ls-1.1.2"
       sources."require-directory-2.1.1"
       sources."require-main-filename-2.0.0"
-      sources."resolve-1.19.0"
+      sources."resolve-1.20.0"
       sources."resolve-url-0.2.1"
       sources."restore-cursor-3.1.0"
       sources."resumer-0.0.0"
@@ -1993,7 +1993,7 @@ let
       sources."y18n-5.0.5"
       sources."yallist-4.0.0"
       sources."yargs-16.2.0"
-      sources."yargs-parser-20.2.4"
+      sources."yargs-parser-20.2.5"
     ];
     buildInputs = globalBuildInputs;
     meta = {

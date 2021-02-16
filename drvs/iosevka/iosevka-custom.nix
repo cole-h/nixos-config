@@ -8,10 +8,9 @@
 , otfcc
 }:
 let
-  # outputHash = "sha256-S3SVR0ppVJ3UJpCo6OI4dWPo3Wn6OBB/BHrGcD0oTD0=";
-  sha256 = "sha256-vFXO+cf+FVNR7QxESULS2dkjS5WYO4CNe+BBQhUOWfw=";
+  sha256 = "sha256-XAv7q5jPkz7l8uCEnqPMu3GpgUiNYjF3kcXBho2lOjI=";
   pname = "iosevka-${set}";
-  version = "5.0.0-rc.1";
+  version = "5.0.1";
 
   set = "custom";
 
@@ -162,8 +161,4 @@ stdenv.mkDerivation {
   '';
 
   enableParallelBuilding = true;
-
-  # inherit outputHash;
-  # outputHashAlgo = "sha256";
-  # outputHashMode = "recursive";
 }
