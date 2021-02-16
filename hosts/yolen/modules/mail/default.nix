@@ -27,9 +27,7 @@
           hashedPasswordFile = config.sops.secrets.cole.path;
 
           aliases = [
-            "postmaster@${domain}"
-            "abuse@${domain}"
-            "admin@${domain}"
+            "@${domain}"
           ];
         };
       };
