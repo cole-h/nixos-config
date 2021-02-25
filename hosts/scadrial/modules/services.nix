@@ -91,6 +91,8 @@
           filesystems = {
             "apool/ROOT/system<" = true;
             "apool/ROOT/user<" = true;
+            "apool/ROOT/user/home/vin/Downloads" = false;
+            "rpool/win10" = true;
           };
 
           send.encrypted = true;
