@@ -34,16 +34,16 @@ https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
   - 32GiB swap partition at the beginning
   - rest "linux partition" (for ZFS) -- don't forget native encryption
     ("encryption=aes-256-gcm") and "compression=zstd"
-    - apool/ROOT/system (none) -- should be backed up
-    - apool/ROOT/system/root (legacy)
-    - apool/ROOT/system/var (legacy)
-    - apool/ROOT/local (none) -- shouldn't be backed up
-    - apool/ROOT/local/nix (legacy)
-    - apool/ROOT/user (none) -- should be backed up
-    - apool/ROOT/user/home (legacy)
-    - apool/ROOT/user/home/vin (legacy)
-    - apool/ROOT/user/home/vin/Downloads (legacy) -- don't backup
-    - apool/reserved (none)
+    - apool/r (none)
+    - apool/r/local (none) -- shouldn't be backed up
+    - apool/r/local/root (legacy)
+    - apool/r/local/nix (legacy)
+    - apool/r/local/var (legacy)
+    - apool/r/safe (none) -- "safe" to back up
+    - apool/r/safe/state/home (legacy)
+    - apool/r/safe/state/home/vin (legacy)
+    - apool/r/safe/state/home/vin/Downloads (legacy) -- don't backup
+    - apool/alloc (none) -- 1G file to make sure we don't run out of space (can be freed to make fs stuff work again)
 
 ``` sh
 # This section should be run as root.
@@ -54,7 +54,7 @@ gdisk $DISK
   # n, 1, +1M,   +2G, ef00  (EFI boot)
   # n, 2, ...,  +32G, 8200  (swap)
   # n, 3, ...,  ....,  ...  (Linux)
-  # c, 3, "[a-z]pool" -- set part label
+  # c, 3, "[a-z][0-9]?pool" -- set part label
   # w
 
 mkfs.fat -F 32 -n boot $DISK-part1
@@ -70,51 +70,59 @@ zpool create \
     apool $DISK-part3
 
 zfs create \
+    -o canmount=off \
     -o atime=off \
     # requires ZoL 2.0
     -o compression=zstd \
     # apparently gcm is faster than ccm
     -o encryption=aes-256-gcm -o keyformat=passphrase \
+    # apparently useful with xattr=sa
+    -o dnodesize=auto \
     -o xattr=sa \
     -o acltype=posixacl \
-    apool/ROOT
+    # UTF-8 filenames only
+    # -o normalization=formD \
+    apool/r
 
 # https://gist.github.com/LnL7/5701d70f46ea23276840a6b1c404597f
 # maybe don't need mountpoint=legacy except for /nix?
 alias nomount='zfs create -o canmount=off'
 alias legacy='zfs create -o mountpoint=legacy'
-nomount apool/ROOT/system
-legacy apool/ROOT/system/root
-legacy apool/ROOT/system/var
-legacy apool/ROOT/system/media
-nomount apool/ROOT/local
-legacy apool/ROOT/local/nix
-nomount apool/ROOT/user
-nomount apool/ROOT/user/vin
-legacy apool/ROOT/user/vin/home
-legacy apool/ROOT/user/vin/home/Downloads
-# zfs create -V 302G apool/ROOT/win10
+nomount apool/r
+nomount apool/r/local
+legacy apool/r/local/root # /
+legacy apool/r/local/nix # /nix
+legacy apool/r/local/var # /var
+nomount apool/r/safe
+legacy apool/r/safe/state
+legacy -p apool/r/safe/state/home/vin/Downloads # create /home, /home/vin, and /home/vin/Downloads datasets
+nomount apool/alloc
+# zfs create -V 302G apool/r/win10
 
 # keep space available in case it's ever needed
-# to free up the space, `zfs set refreservation=none apool/reserved`
-nomount -o refreservation=1G apool/reserved
+# to free up the space, `zfs set refreservation=none apool/alloc`
+nomount -o refreservation=1G apool/alloc
 
 # create snapshot of everything `@blank` -- easy to switch to tmpfs if I want
-zfs snapshot -r apool/ROOT@blank
-# roll back with `zfs rollback -r apool/ROOT@blank`
+zfs snapshot -r apool/r@blank
+# roll back with `zfs rollback -r apool/r@blank`
 
 mkdir -p /tmp/sys
 zpool import rpool tank
 mount -t zfs rpool/system/root /tmp/sys
 zfs load-key -L file:///tmp/sys/tank-key tank
 
-mount -t zfs apool/ROOT/system/root /mnt
+alias zmnt='mount -t zfs'
+zmnt apool/r/local/root /mnt
 cp /tmp/sys/tank-key /mnt
-mkdir -p /mnt/{boot,var,media,nix,home/vin,mnt}
-mount -t zfs apool/ROOT/system/var /mnt/var
-mount -t zfs apool/ROOT/local/nix /mnt/nix
-mount -t zfs apool/ROOT/user/vin/home /mnt/home/vin
-mount -t zfs tank/system/media /mnt/media
+mkdir -p /mnt/{boot,var,media,nix,state/home/vin/Downloads,mnt}
+zmnt apool/r/local/var /mnt/var
+zmnt apool/r/local/nix /mnt/nix
+zmnt apool/r/safe/state /mnt/state
+zmnt apool/r/safe/state/home /mnt/state/home
+zmnt apool/r/safe/state/home/vin /mnt/state/home/vin
+zmnt apool/r/safe/state/home/vin/Downloads /mnt/state/home/vin/Downloads
+zmnt tank/system/media /mnt/media
 mount $DISK-part1 /mnt/boot
 ```
 
@@ -124,28 +132,28 @@ mount $DISK-part1 /mnt/boot
 ``` sh
 # This section should be run as the ISO user
 
-gpg --import # import secret key for live ISO to be able to clone secrets
-gpg -K --with-keygrip | tail -2 | sed 's/.*Keygrip = //' >> ~/.gnupg/sshcontrol # add auth subkey to sshcontrol
-git clone --recurse-submodules https://github.com/cole-h/nixos-config /mnt/tmp/nixos-config
-git -C /mnt/tmp/nixos-config/secrets crypt unlock
+git clone https://github.com/cole-h/nixos-config /mnt/tmp/nixos-config
 
 doas swapon $DISK-part2 # otherwise, nixos-install won't generate hardware config for this
 nixos-generate-config --root /mnt --dir /tmp/nixos-config/hosts/scadrial
 
 sed "s@networking.hostId = \".*\"@networking.hostId = \"$(head -c 8 /etc/machine-id)\"@" -i hosts/scadrial/modules/networking.nix
+# copy old host key to /mnt/tmp/host/ed25519? or maybe it's /tmp/host/ed25519. why not both.
 nix build /mnt/tmp/nixos-config#bootstrap --out-link /tmp/outsystem
 nixos-install --system /tmp/outsystem --no-root-passwd --no-channel-copy
 
 nixos-enter
   echo "nameserver 192.168.1.212" >> /etc/resolv.conf
-  nix-daemon &
+  nix-daemon &>/dev/null &
   doas -u vin bash
-    gpg --import # import secret key again, for user
-    doas mv /tmp/nixos-config ~/flake
-    doas chown -R vin:users ~/flake
+    gpg --import # import secret key for user
+    doas chown -R vin:users /tmp/nixos-config
+    mv /tmp/nixos-config ~/flake
     # might need to get pinentry-curses and set pinentry-program in
     # ~/.gnupg/gpg-agent.conf
     doas nixos-rebuild switch --flake .
+    # add new host key to .agenix.toml (assuming it exists yet... might
+    #   need to be once new system is booted)
 
 systemctl reboot
 ```
