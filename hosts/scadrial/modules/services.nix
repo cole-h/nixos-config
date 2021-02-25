@@ -153,8 +153,34 @@
             type = "local";
             listener_name = "bpool_sink";
           };
+
+          # recv = {
+          #   properties."inherit" = [
+          #     "compression"
+          #   ];
+          # };
         }
       ];
+    };
+  };
+
+  systemd.services.zrepl-replicate = {
+    description = "Trigger zrepl replication for push_to_bpool";
+    serviceConfig.Type = "oneshot";
+    script = ''
+      ${pkgs.zrepl}/bin/zrepl --config /etc/zrepl/zrepl.yml signal wakeup push_to_bpool
+    '';
+  };
+
+  systemd.timers.zrepl-replicate = {
+    description = "Trigger zrepl replication for push_to_bpool";
+    requires = [ "zfs-import.target" ];
+    wantedBy = [ "timers.target" "local-fs.target" ];
+    after = [ "zfs-import-bpool.service" ];
+    timerConfig = {
+      Unit = "zrepl-replicate.service";
+      OnCalendar = "daily";
+      Persistent = true;
     };
   };
 
