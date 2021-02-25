@@ -1,9 +1,8 @@
 { config, ... }:
 {
-  sops.secrets = {
+  age.secrets = {
     cole = {
-      format = "binary";
-      sopsFile = ./cole;
+      file = ./cole;
     };
   };
 
@@ -24,7 +23,7 @@
       loginAccounts = {
         "cole@${domain}" = {
           # nix shell nixpkgs#apacheHttpd -c htpasswd -nbB "" "super secret password" | cut -d: -f2
-          hashedPasswordFile = config.sops.secrets.cole.path;
+          hashedPasswordFile = config.age.secrets.cole.path;
 
           aliases = [
             "@${domain}"

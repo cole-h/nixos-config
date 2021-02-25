@@ -5,6 +5,7 @@
   environment.systemPackages = with pkgs;
     [
       age
+      agenix
       bc
       binutils
       # borgbackup
@@ -44,7 +45,6 @@
       posix_man_pages
       psmisc
       rsync
-      sops
       strace
       usbutils
       wireguard

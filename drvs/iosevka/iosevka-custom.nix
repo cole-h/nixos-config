@@ -10,7 +10,7 @@
 let
   sha256 = "sha256-XAv7q5jPkz7l8uCEnqPMu3GpgUiNYjF3kcXBho2lOjI=";
   pname = "iosevka-${set}";
-  version = "5.0.1";
+  version = "5.0.3";
 
   set = "custom";
 
@@ -96,7 +96,7 @@ let
       i = "serifed";
       l = "serifed-tailed";
       m = "short-leg";
-      q = "tailed";
+      q = "straight";
       t = "standard";
       y = "straight";
 

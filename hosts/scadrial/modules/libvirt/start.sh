@@ -28,7 +28,7 @@ echo "$(date) Unbound GPU" >> /tmp/win10.log
 virsh nodedev-detach pci_0000_09_00_1
 echo "$(date) Unbound HDMI audio" >> /tmp/win10.log
 
-systemctl stop znapzend
+systemctl stop zrepl
 echo "$(date) Stopped snapshots while VM is live" >> /tmp/win10.log
 
 systemctl stop sonarr transmission jellyfin

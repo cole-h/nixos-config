@@ -10,15 +10,13 @@
       (i: config.networking.wireguard.interfaces.${i}.listenPort)
       (builtins.attrNames config.networking.wireguard.interfaces);
 
-  sops.secrets = {
+  age.secrets = {
     wg0-priv = {
-      format = "binary";
-      sopsFile = ./priv;
+      file = ./priv;
     };
 
     wg0-psk = {
-      format = "binary";
-      sopsFile = ./psk;
+      file = ./psk;
     };
   };
 
@@ -26,7 +24,7 @@
     wg0 = {
       ips = [ "10.0.0.1/24" ];
       listenPort = 1194;
-      privateKeyFile = config.sops.secrets.wg0-priv.path;
+      privateKeyFile = config.age.secrets.wg0-priv.path;
 
       postSetup = ''
         ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -o ${config.networking.nat.externalInterface} -j MASQUERADE
@@ -40,7 +38,7 @@
         {
           # Hathsin
           publicKey = "Nx3B53tK74nc909S0gM0sozUMZOVpAmkqsvyEo6VWSE=";
-          presharedKeyFile = config.sops.secrets.wg0-psk.path;
+          presharedKeyFile = config.age.secrets.wg0-psk.path;
           allowedIPs = [ "10.0.0.2/32" ];
         }
       ];

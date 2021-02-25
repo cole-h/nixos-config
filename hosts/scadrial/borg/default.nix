@@ -6,37 +6,32 @@
     extraGroups = [ "keys" ];
   };
 
-  sops.secrets = {
+  age.secrets = {
     wg-borg-psk = {
       owner = config.users.users.ofborg.name;
-      format = "binary";
-      sopsFile = ./psk;
+      file = ./psk;
     };
 
     wg-borg-priv = {
       owner = config.users.users.ofborg.name;
-      format = "binary";
-      sopsFile = ./priv;
+      file = ./priv;
     };
 
     wg-borg-setup = {
       mode = "0500";
       owner = config.users.users.ofborg.name;
-      format = "binary";
-      sopsFile = ./borg-setup.sh;
+      file = ./borg-setup.sh;
     };
 
     wg-borg-teardown = {
       mode = "0500";
       owner = config.users.users.ofborg.name;
-      format = "binary";
-      sopsFile = ./borg-teardown.sh;
+      file = ./borg-teardown.sh;
     };
 
     borg-cert = {
       owner = config.users.users.vin.name;
-      format = "binary";
-      sopsFile = ./cert;
+      file = ./cert;
     };
   };
 
@@ -47,10 +42,10 @@
 
     pathConfig = {
       PathExists = [
-        config.sops.secrets.wg-borg-priv.path
-        config.sops.secrets.wg-borg-psk.path
-        config.sops.secrets.wg-borg-setup.path
-        config.sops.secrets.wg-borg-teardown.path
+        config.age.secrets.wg-borg-priv.path
+        config.age.secrets.wg-borg-psk.path
+        config.age.secrets.wg-borg-setup.path
+        config.age.secrets.wg-borg-teardown.path
       ];
     };
   };
@@ -61,8 +56,8 @@
     after = [ "network.target" "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     environment.WG_ENDPOINT_RESOLUTION_RETRIES = "infinity";
-    environment.PRIV_FILE = config.sops.secrets.wg-borg-priv.path;
-    environment.PSK_FILE = config.sops.secrets.wg-borg-psk.path;
+    environment.PRIV_FILE = config.age.secrets.wg-borg-priv.path;
+    environment.PSK_FILE = config.age.secrets.wg-borg-psk.path;
     path = with pkgs; [
       iproute
       wireguard-tools
@@ -72,8 +67,8 @@
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      ExecStart = config.sops.secrets.wg-borg-setup.path;
-      ExecStopPost = config.sops.secrets.wg-borg-teardown.path;
+      ExecStart = config.age.secrets.wg-borg-setup.path;
+      ExecStopPost = config.age.secrets.wg-borg-teardown.path;
       User = config.users.users.ofborg.name;
       CapabilityBoundingSet = [ "CAP_NET_ADMIN" ]; # required for wg(1) functionality
       AmbientCapabilities = [ "CAP_NET_ADMIN" ]; # ^

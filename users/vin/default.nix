@@ -1,8 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   imports =
     [
+      "${inputs.impermanence}/home-manager.nix"
       ./modules
     ];
 
@@ -54,6 +55,7 @@
         todo-txt-cli # todos tracker
         foliate
         # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
+        thunderbird
       ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,

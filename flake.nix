@@ -6,25 +6,28 @@
   inputs = {
     # Flakes
     # nixpkgs.url = "git+file:///home/vin/workspace/vcs/nixpkgs/master";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "git+file:///home/vin/workspace/vcs/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:nixos/nixpkgs/2f47650c2f28d87f86ab807b8a339c684d91ec56";
     # nixpkgs.url = "github:nixos/nixpkgs/master";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
 
+    agenix-rs = { url = "github:cole-h/agenix-rs"; };
+    agenix = { url = "github:cole-h/agenix/symlink"; };
+    # agenix = { url = "git+file:///home/vin/workspace/vcs/agenix"; };
+    alacritty = { url = "github:cole-h/flake-alacritty"; };
+    emacs = { url = "github:nix-community/emacs-overlay"; };
+    home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
+    # TODO: actually set up impermanence
+    impermanence = { url = "github:nix-community/impermanence"; };
+    mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
+    neovim = { url = "github:neovim/neovim?dir=contrib"; };
     nix = { url = "github:nixos/nix"; };
     # nix = { url = "github:nixos/nix/progress-bar"; };
-    home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     passrs = { url = "github:cole-h/passrs"; };
-    wayland = { url = "github:colemickens/nixpkgs-wayland"; };
-    emacs = { url = "github:nix-community/emacs-overlay"; };
-    alacritty = { url = "github:cole-h/flake-alacritty"; };
     # pijul = { url = "/home/vin/workspace/pijul/pijul"; };
-    neovim = { url = "github:neovim/neovim?dir=contrib"; };
-    # TODO: switch all / most secrets to sops
-    sops = { url = "github:Mic92/sops-nix"; inputs.nixpkgs.follows = "nixpkgs"; };
-    agenix = { url = "git+file:///home/vin/workspace/vcs/agenix"; };
-    mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
+    wayland = { url = "github:colemickens/nixpkgs-wayland"; };
 
     # Not flakes
     # baduk = { url = "github:dustinlacewell/baduk.nix"; flake = false; };
@@ -59,6 +62,7 @@
               passrs = inputs.passrs.defaultPackage.${system};
               alacritty = inputs.alacritty.defaultPackage.${system};
               neovim-unwrapped = inputs.neovim.defaultPackage.${system};
+              agenix = inputs.agenix-rs.defaultPackage.${system};
               # pijul = inputs.pijul.defaultPackage.${system};
             })
           ];
@@ -84,13 +88,12 @@
         }:
         let
           inherit (pkgs) lib;
-          inherit (inputs.sops.nixosModules) sops;
           inherit (inputs.agenix.nixosModules) age;
+          inherit (inputs.impermanence.nixosModules) impermanence;
 
           nix = { ... }: {
             nix = {
               package = lib.mkForce inputs.nix.defaultPackage.${system};
-              checkConfig = false; # --no-net was renamed to --offline
 
               # print-build-logs = true
               # log-format = bar-with-logs
@@ -127,13 +130,6 @@
                 rev = self.shortRev or "dirty";
               in
               lib.mkForce ".${date}.${rev}-cosmere";
-
-            # system.activationScripts.setup-secrets = pkgs.lib.mkForce "";
-            # age.defaultPubKey = "RWQflwR3rpBIGhY68arhyDoAXFKksT0uI/cTdafx84otEgXyTOaHgUbI";
-            # age.secrets.test = {
-            #   file = ./test.age;
-            #   signature.file = ./test.age.minisig;
-            # };
           };
 
           modules = extraModules ++ [
@@ -141,8 +137,8 @@
             (./hosts + "/${hostname}/configuration.nix")
             nix
             misc
-            sops
             age
+            impermanence
           ];
 
           specialArgs = {
@@ -182,6 +178,8 @@
                     type = attrsOf (submoduleWith {
                       modules = [ ];
                       specialArgs = {
+                        inherit inputs;
+
                         my = import ./my.nix {
                           inherit lib;
                         };
@@ -211,6 +209,11 @@
           mkSystem {
             inherit system pkgs;
             hostname = "scadrial";
+            extraModules = [
+              {
+                # age.sshKeyPaths = [ "/tmp/host/ed25519" ];
+              }
+            ];
           };
 
         scar =
@@ -304,22 +307,11 @@
           stdenv.mkDerivation {
             name = "shell";
 
-            sopsPGPKeyDirs = [
-              "./keys/hosts"
-              "./keys/users"
-            ];
-
-            nativeBuildInputs = [
-              inputs.sops.packages.${system}.sops-pgp-hook
-            ];
-
             buildInputs =
               [
                 git
-                git-crypt
-                sops
 
-                inputs.sops.packages.${system}.ssh-to-pgp
+                agenix
               ];
           });
     };

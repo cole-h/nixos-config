@@ -16,7 +16,7 @@
       ./programs.nix # misc, short program settings
       ./security.nix # configuration related to general security
       ./services.nix # misc, short service settings
-      ./smb.nix # configuration related to Samba
+      # ./smb.nix # configuration related to Samba
       ./users.nix # configuration related to users
 
       ./libvirt # configuration related to libvirt and vfio + pci passthrough

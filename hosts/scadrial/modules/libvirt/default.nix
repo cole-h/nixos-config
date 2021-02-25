@@ -44,10 +44,8 @@ in
     onShutdown = "shutdown";
   };
 
-  sops.secrets.bios = {
-    format = "binary";
-    # mode = "0440";
-    sopsFile = ./bios;
+  age.secrets.bios = {
+    file = ./bios;
     path = "/var/lib/libvirt/vbios/patched-bios.rom";
   };
 

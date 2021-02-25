@@ -3,7 +3,7 @@
   boot = {
     # Use the systemd-boot EFI boot loader.
     loader.systemd-boot.enable = true;
-    loader.systemd-boot.configurationLimit = 128;
+    loader.systemd-boot.configurationLimit = 256;
     loader.systemd-boot.consoleMode = "max"; # 1920x1080? poggers
     loader.systemd-boot.memtest86.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -14,18 +14,14 @@
     cleanTmpDir = true;
     # plymouth.enable = true; # requires https://github.com/NixOS/nixpkgs/pull/88789
 
-    # TODO: remove once I'm sure I don't need it anymore
-    zfs.extraPools = [ "rpool" ];
-    zfs.forceImportRoot = false; # XXX
+    zfs.extraPools = [ "rpool" "bpool" ];
+    zfs.requestEncryptionCredentials = [ "apool" "bpool" "rpool" "tank" ];
+    zfs.forceImportRoot = false;
 
     kernelPackages = pkgs.linuxPackages_zen;
     extraModulePackages = [ pkgs.linuxPackages_zen.v4l2loopback ];
-    # FIXME: doesn't seem to work? only a manual `modprobe ...` makes
-    # v4l2loopback show up in lsmod
     extraModprobeConfig = ''
       options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"
-      # options snd-hda-intel vid=8086 pid=8ca0 snoop=0
-      # options snd_hda_intel vid=8086 pid=8ca0 snoop=0
     '';
 
     kernel.sysctl = {

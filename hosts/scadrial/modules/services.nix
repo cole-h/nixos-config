@@ -1,24 +1,158 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
-  services.znapzend = {
+  services.zrepl = {
     enable = true;
-    pure = true;
-    zetup = {
-      "apool/ROOT/system" = {
-        timestampFormat = "%Y-%m-%dT%H%M%S";
-        plan = "15min=>5min,4h=>15min,1d=>4h,1w=>1d,1m=>1w,1y=>1m";
-        recursive = true;
+    settings = {
+      global = {
+        logging = [
+          {
+            type = "syslog";
+            level = "info";
+            format = "human";
+          }
+        ];
       };
-      "apool/ROOT/user" = {
-        timestampFormat = "%Y-%m-%dT%H%M%S";
-        plan = "15min=>5min,4h=>15min,1d=>4h,1w=>1d,1m=>1w,1y=>1m";
-        recursive = true;
-      };
-      # TODO: zrepl to 14tb external drive
-      "rpool/win10" = {
-        timestampFormat = "%Y-%m-%dT%H%M%S";
-        plan = "1w=>1d";
-      };
+
+      jobs = [
+        {
+          name = "sys_user_snap";
+          type = "snap";
+          filesystems = {
+            "apool/ROOT/system<" = true;
+            "apool/ROOT/user<" = true;
+          };
+
+          snapshotting = {
+            type = "periodic";
+            interval = "5m";
+            prefix = "zrepl_snap_";
+          };
+
+          pruning.keep = [
+            {
+              # keep all non-zrepl snapshots
+              type = "regex";
+              negate = true;
+              regex = "^zrepl_.*";
+            }
+            {
+              type = "grid";
+              regex = "^zrepl_snap_.*";
+              grid = lib.concatStringsSep " | " [
+                "3x5m"
+                "16x15m"
+                "6x4h"
+                "7x1d"
+                "4x1w"
+                "52x1w"
+              ];
+            }
+          ];
+        }
+        {
+          name = "win10_snap";
+          type = "snap";
+          filesystems = {
+            "rpool/win10" = true;
+          };
+
+          snapshotting = {
+            type = "periodic";
+            interval = "4h";
+            prefix = "zrepl_win10_";
+          };
+
+          pruning.keep = [
+            {
+              # keep all non-zrepl snapshots
+              type = "regex";
+              negate = true;
+              regex = "^zrepl_.*";
+            }
+            {
+              type = "grid";
+              regex = "^zrepl_win10_.*";
+              grid = lib.concatStringsSep " | " [
+                "6x4h"
+              ];
+            }
+          ];
+        }
+        {
+          name = "push_to_bpool";
+          type = "push";
+
+          connect = {
+            type = "local";
+            listener_name = "bpool_sink";
+            client_identity = "${config.networking.hostName}";
+          };
+
+          filesystems = {
+            "apool/ROOT/system<" = true;
+            "apool/ROOT/user<" = true;
+          };
+
+          send.encrypted = true;
+
+          # if space becomes an issue, uncomment below:
+          # replication.protection = {
+          #   initial = "guarantee_resumability";
+          #   # https://zrepl.github.io/configuration/replication.html#protection-option
+          #   # sacrifice resumability in return for the ability to free disk space
+          #   incremental = "guarantee_incremental";
+          # };
+
+          # snapshotting is handled by snap jobs
+          snapshotting.type = "manual";
+
+          pruning = {
+            # no-op prune rule on sender (keep all snapshots), snap jobs
+            # handle this
+            keep_sender = [
+              {
+                type = "regex";
+                regex = ".*";
+              }
+            ];
+
+            keep_receiver = [
+              {
+                # keep all non-zrepl snapshots
+                type = "regex";
+                negate = true;
+                regex = "^zrepl_.*";
+              }
+              {
+                type = "grid";
+                regex = "^zrepl_snap_.*";
+                grid = lib.concatStringsSep " | " [
+                  "1x1h(keep=all)"
+                  "24x1h"
+                  "365x1d"
+                ];
+              }
+              {
+                type = "grid";
+                regex = "^zrepl_win10_.*";
+                grid = lib.concatStringsSep " | " [
+                  "7x1d(keep=all)"
+                  "4x1w"
+                ];
+              }
+            ];
+          };
+        }
+        {
+          name = "bpool_sink";
+          type = "sink";
+          root_fs = "bpool/zrepl/sink";
+          serve = {
+            type = "local";
+            listener_name = "bpool_sink";
+          };
+        }
+      ];
     };
   };
 

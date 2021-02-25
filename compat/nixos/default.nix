@@ -4,11 +4,14 @@
 let
   flake = import
     (fetchTarball {
-      url = "https://github.com/edolstra/flake-compat/archive/535e7c011657b6111b706441e046d285807bc58d.tar.gz";
-      sha256 = "0h0iw41nbrarz1n39f0f94xkg4gjvl2vlhlqkivmbwrib5jwspnj";
+      url = "https://github.com/edolstra/flake-compat/archive/99f1c2157fba4bfe6211a321fd0ee43199025dbf.tar.gz";
+      sha256 = "0x2jn3vrawwv9xp15674wjz9pixwjyj3j771izayl962zziivbx2";
     })
     {
-      src = builtins.filterSource (path: _: baseNameOf path != ".git") ../.;
+      src = builtins.filterSource
+        (path: _: baseNameOf path != ".git"
+          || baseNameOf path != "target"
+          || baseNameOf path != "result") ./../..;
     };
 in
 flake.defaultNix.nixosConfigurations.${hostname}

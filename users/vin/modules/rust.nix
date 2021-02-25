@@ -10,27 +10,18 @@ let
     ++ lib.optional nightlyChannel nightly.rust;
 
   rustpkgs = with pkgs.rust.packages.stable; [
-    cargo
-    clippy
-    rustc
-    rustfmt
+    # cargo
+    # clippy
+    # rustc
+    # rustfmt
   ];
 
 in
 {
   home = {
     packages = with pkgs; [
-      # cargo-about
-      # cargo-asm
-      # cargo-audit
-      # cargo-bloat
-      # cargo-crev
+      rustup
       cargo-edit
-      # cargo-expand
-      # cargo-flamegraph
-      # flamegraph
-      # cargo-geiger
-      # cargo-license
 
       rust-analyzer
     ] ++ toolchains ++ rustpkgs;
