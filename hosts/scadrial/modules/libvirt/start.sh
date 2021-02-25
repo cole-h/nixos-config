@@ -6,6 +6,9 @@ echo "$(date) Tried to kill sway" >> /tmp/win10.log
 sleep 1
 ps aux | rg sway | rg -v rg && exit 1 # if sway is still running, everything breaks anyways
 
+systemctl stop zrepl
+echo "$(date) Stopped snapshots while VM is live" >> /tmp/win10.log
+
 zpool export bpool
 echo "$(date) Exported bpool since it's connected via USB" >> /tmp/win10.log
 
@@ -27,9 +30,6 @@ echo "$(date) Unbound GPU" >> /tmp/win10.log
 
 virsh nodedev-detach pci_0000_09_00_1
 echo "$(date) Unbound HDMI audio" >> /tmp/win10.log
-
-systemctl stop zrepl
-echo "$(date) Stopped snapshots while VM is live" >> /tmp/win10.log
 
 systemctl stop sonarr transmission jellyfin
 echo "$(date) Stopped torrents and media" >> /tmp/win10.log

@@ -17,9 +17,6 @@ echo "$(date) Rebound USB devices (M+KBD)" >> /tmp/win10.log
 virsh nodedev-reattach pci_0000_0b_00_4
 echo "$(date) Rebound front panel audio" >> /tmp/win10.log
 
-systemctl restart zrepl
-echo "$(date) Restarted snapshots" >> /tmp/win10.log
-
 systemctl restart sonarr transmission jellyfin
 echo "$(date) Restarted torrents and media" >> /tmp/win10.log
 
@@ -46,6 +43,9 @@ echo "$(date) Changed CPU governors to schedutil" >> /tmp/win10.log
 
 zpool import bpool
 echo "$(date) Imported bpool" >> /tmp/win10.log
+
+systemctl restart zrepl
+echo "$(date) Restarted snapshots" >> /tmp/win10.log
 
 echo "$(date) End" >> /tmp/win10.log
 echo >> /tmp/win10.log
