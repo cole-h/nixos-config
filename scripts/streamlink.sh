@@ -3,7 +3,7 @@
 stream="${1-moonmoon}"
 
 if [[ ! $(pgrep chatterino) ]]; then
-    (chatterino &>/dev/null &)
+    (QT_QPA_PLATFORM=wayland chatterino &>/dev/null &)
 fi
 
 stream() {

@@ -201,3 +201,10 @@ define-command info-buffers -docstring 'populate an info box with a numbered buf
     printf "^\n"
   }
 }
+
+define-command select-all-occurrences -docstring 'select all occurrences of the current selection' %{
+  # Should this use * or <a-*>? * adds \b on word boundaries.
+  #exec -save-regs 'ab/' %{*"aZ%s<ret>"bZ"az"b<a-z>a}
+  exec -save-regs 'ab/' %{<a-*>"aZ%s<ret>"bZ"az"b<a-z>a}
+  echo
+}

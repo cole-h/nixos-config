@@ -44,7 +44,7 @@ echo "$(date) Changed CPU governors to schedutil" >> /tmp/win10.log
 zpool import bpool
 echo "$(date) Imported bpool" >> /tmp/win10.log
 
-systemctl restart zrepl
+systemctl restart zrepl zrepl-replicate.timer
 echo "$(date) Restarted snapshots" >> /tmp/win10.log
 
 echo "$(date) End" >> /tmp/win10.log

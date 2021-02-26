@@ -6,7 +6,7 @@ echo "$(date) Tried to kill sway" >> /tmp/win10.log
 sleep 1
 ps aux | rg sway | rg -v rg && exit 1 # if sway is still running, everything breaks anyways
 
-systemctl stop zrepl
+systemctl stop zrepl zrepl-replicate.timer
 echo "$(date) Stopped snapshots while VM is live" >> /tmp/win10.log
 
 zpool export bpool
