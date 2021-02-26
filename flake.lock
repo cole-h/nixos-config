@@ -22,11 +22,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1614276286,
-        "narHash": "sha256-1+F4c18QmtHw8fyrmrA0BXre2M1IWBkyWS7lnZhE5I8=",
+        "lastModified": 1614304804,
+        "narHash": "sha256-6rZQKTg8sOGBIJhm2hx6uL5htOD2/foIhTODsok/CWk=",
         "owner": "cole-h",
         "repo": "agenix",
-        "rev": "bbf8eb9a8716336d0b9fd358e0afe8282adc2353",
+        "rev": "8944f502025b74606af1fa45c82f8fa891a77558",
         "type": "github"
       },
       "original": {
