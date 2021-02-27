@@ -28,21 +28,26 @@
   services.openssh.passwordAuthentication = false;
 
   users.mutableUsers = false;
-  users.users.hoid = {
-    isNormalUser = true;
-    uid = 1000;
-    shell = pkgs.fish;
-    openssh.authorizedKeys.keys = config.users.users.root.openssh.authorizedKeys.keys;
-    hashedPassword = "$6$5ixP2MjKpzZJZ$TaT/4jn1MGdqaQ4twwKuYkC7opYQf.kO5t6bgADSvBDF57UGCzHtXygnsnlxG3ULNIaCJbHy9zGfV.Jvqmxai/";
+  users.users = {
+    hoid = {
+      isNormalUser = true;
+      uid = 1000;
+      openssh.authorizedKeys.keys = config.users.users.root.openssh.authorizedKeys.keys;
+      hashedPassword = "$6$5ixP2MjKpzZJZ$TaT/4jn1MGdqaQ4twwKuYkC7opYQf.kO5t6bgADSvBDF57UGCzHtXygnsnlxG3ULNIaCJbHy9zGfV.Jvqmxai/";
 
-    extraGroups = [
-      "wheel"
-    ];
+      extraGroups = [
+        "wheel"
+      ];
+    };
+
+    root = {
+      hashedPassword = null;
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH6wCrUu1DHKFqeiRxNvIvv41rE5zS9rdingyKtZX5gy openpgp:0xF208643A"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINMcTaqUZSwv6YW8lx/JhsAZTdNSSC2fR8Pgk8woeFKh vin@scadrial"
+      ];
+    };
   };
-
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH6wCrUu1DHKFqeiRxNvIvv41rE5zS9rdingyKtZX5gy openpgp:0xF208643A"
-  ];
 
   nix.package = pkgs.nixUnstable;
 
