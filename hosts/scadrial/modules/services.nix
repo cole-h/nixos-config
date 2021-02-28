@@ -73,7 +73,7 @@
               type = "grid";
               regex = "^zrepl_win10_.*";
               grid = lib.concatStringsSep " | " [
-                "6x4h"
+                "1x4h"
               ];
             }
           ];
