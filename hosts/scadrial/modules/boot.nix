@@ -15,7 +15,7 @@
     # plymouth.enable = true; # requires https://github.com/NixOS/nixpkgs/pull/88789
 
     zfs.extraPools = [ "rpool" "bpool" ];
-    zfs.requestEncryptionCredentials = [ "apool/ROOT" "bpool" "rpool" "tank" ];
+    zfs.requestEncryptionCredentials = [ "apool/ROOT" "bpool" "rpool/win10" "tank" ];
     zfs.forceImportRoot = false;
 
     kernelPackages = pkgs.linuxPackages_zen;
