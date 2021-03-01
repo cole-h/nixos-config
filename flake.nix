@@ -154,6 +154,7 @@
         };
     in
     {
+      # for use with update.sh script
       inputs = builtins.removeAttrs inputs [ "self" ];
 
       nixosConfigurations = {
