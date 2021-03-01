@@ -1,6 +1,7 @@
 { config, ... }:
 let
-  vin = config.users.users.vin;
+  inherit (config.users.users)
+    vin;
 in
 {
   age.secrets = {
@@ -49,19 +50,23 @@ in
     weechat-irc = {
       owner = vin.name;
       file = ./weechat-irc;
-      path = "${vin.home}/flake/users/${vin.name}/modules/weechat/config/irc.conf";
+      path = "${vin.home}/.config/weechat/irc.conf";
     };
 
     weechat-sec = {
       owner = vin.name;
       file = ./weechat-sec;
-      path = "${vin.home}/flake/users/${vin.name}/modules/weechat/config/sec.conf";
+      path = "${vin.home}/.config/weechat/sec.conf";
     };
 
     weechat-pem = {
       owner = vin.name;
       file = ./weechat-pem;
-      path = "${vin.home}/flake/users/${vin.name}/modules/weechat/config/freenode.pem";
+      path = "${vin.home}/.config/weechat/freenode.pem";
+    };
+
+    bpool = {
+      file = ./bpool;
     };
   };
 }

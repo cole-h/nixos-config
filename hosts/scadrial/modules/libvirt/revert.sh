@@ -45,6 +45,7 @@ cpupower frequency-set -g schedutil
 echo "$(date) Changed CPU governors to schedutil"
 
 zpool import 14488990227566370050
+zfs load-key bpool
 echo "$(date) Imported bpool"
 
 systemctl restart zrepl zrepl-replicate.timer
