@@ -102,7 +102,7 @@
               '';
 
               nixPath = [
-                "pkgs=${inputs.self}/compat"
+                "nixpkgs=${inputs.self}/compat"
                 "nixos-config=${inputs.self}/compat/nixos"
               ];
 
@@ -294,7 +294,7 @@
           });
 
       legacyPackages = forAllSystems
-        ({ pkgs, ... }: pkgs);
+        ({ pkgs, ... }: builtins.trace "Using <nixpkgs> compat wrapper..." pkgs);
 
       defaultPackage = forAllSystems
         ({ system, ... }:
