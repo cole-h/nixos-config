@@ -22,16 +22,16 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1614633519,
+        "lastModified": 1614636597,
         "narHash": "sha256-nj4QsSc9ajyhZjNIcumKuqST4foBrwca+t9EGRRWO6E=",
         "owner": "cole-h",
         "repo": "agenix",
-        "rev": "a04463127b6b8884fc2e4bc897f9b347edf1f65c",
+        "rev": "b3480aca310c409d3d97cebd0a9d6f7d2e99d12f",
         "type": "github"
       },
       "original": {
         "owner": "cole-h",
-        "ref": "symlink-cond-module",
+        "ref": "symlink",
         "repo": "agenix",
         "type": "github"
       }
