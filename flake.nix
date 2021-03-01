@@ -22,7 +22,7 @@
     # TODO: actually set up impermanence
     impermanence = { url = "github:nix-community/impermanence"; };
     mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
-    neovim = { url = "github:neovim/neovim?dir=contrib"; };
+    # neovim = { url = "github:neovim/neovim?dir=contrib"; };
     nix = { url = "github:nixos/nix"; };
     # nix = { url = "github:nixos/nix/progress-bar"; };
     passrs = { url = "github:cole-h/passrs"; };
@@ -46,6 +46,7 @@
       genAttrs = names: f: builtins.listToAttrs (map (n: nameValuePair n (f n)) names);
 
       config = {
+        allowAliase = false;
         allowUnfree = true;
         android_sdk.accept_license = true;
       };
@@ -61,7 +62,7 @@
             (final: prev: {
               passrs = inputs.passrs.defaultPackage.${system};
               alacritty = inputs.alacritty.defaultPackage.${system};
-              neovim-unwrapped = inputs.neovim.defaultPackage.${system};
+              # neovim-unwrapped = inputs.neovim.defaultPackage.${system};
               agenix = inputs.agenix-rs.defaultPackage.${system};
               # pijul = inputs.pijul.defaultPackage.${system};
             })
