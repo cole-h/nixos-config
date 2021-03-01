@@ -13,310 +13,310 @@ let
         sha512 = "trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==";
       };
     };
-    "@ot-builder/bin-composite-types-1.0.2" = {
+    "@ot-builder/bin-composite-types-1.0.3" = {
       name = "_at_ot-builder_slash_bin-composite-types";
       packageName = "@ot-builder/bin-composite-types";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/bin-composite-types/-/bin-composite-types-1.0.2.tgz";
-        sha512 = "YWlWy5Btp4aSCX6stibMdAaB6Z7pgwimDXYlrgJ8HoXZkWmkWLXvpwPYw+zMWTNeWqOT+qAjnHacsl06ryZA6A==";
+        url = "https://registry.npmjs.org/@ot-builder/bin-composite-types/-/bin-composite-types-1.0.3.tgz";
+        sha512 = "PEjk6MhiY53QQEW6NQAPYfNBdCqoFEE9OkG+25tvhJ6MWsEUz+hUq9argDjeP2DNckd4WRyGcmp6GtH8J4clLQ==";
       };
     };
-    "@ot-builder/bin-util-1.0.2" = {
+    "@ot-builder/bin-util-1.0.3" = {
       name = "_at_ot-builder_slash_bin-util";
       packageName = "@ot-builder/bin-util";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/bin-util/-/bin-util-1.0.2.tgz";
-        sha512 = "YHT0oXrmq3taDdIIopV6YBsH8DkzSkkiKW6a/jMZTYYb0tRHgybpuqRUq5uoDNnkA0ntl7sx+nf8p4e4TOUpJQ==";
+        url = "https://registry.npmjs.org/@ot-builder/bin-util/-/bin-util-1.0.3.tgz";
+        sha512 = "x66vsg6oNJmQ/xp+sQLMUk2imXn5L0psdKj5FYziqZQ99B055+t8Ydf6FM42GRYW2xIczeDIesmLZkRaQPgTOA==";
       };
     };
-    "@ot-builder/cli-help-shower-1.0.2" = {
+    "@ot-builder/cli-help-shower-1.0.3" = {
       name = "_at_ot-builder_slash_cli-help-shower";
       packageName = "@ot-builder/cli-help-shower";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/cli-help-shower/-/cli-help-shower-1.0.2.tgz";
-        sha512 = "7LJTbtkACJjwEBPWvkzCFnoK6H7HPYSFiXNFBL+p4ta9/z4OQM6AawvAdmmA/nVXA77WwTB4j2pPNJj6wjvQNQ==";
+        url = "https://registry.npmjs.org/@ot-builder/cli-help-shower/-/cli-help-shower-1.0.3.tgz";
+        sha512 = "gLKTb/EnGKl5qmhzRQum0szIT0v5Fzk0UxVWdbmJjeCl6xWNsWQd2sCUujIFVz0qaKGLPvImvn2W8Q5j8JnOkw==";
       };
     };
-    "@ot-builder/cli-proc-1.0.2" = {
+    "@ot-builder/cli-proc-1.0.3" = {
       name = "_at_ot-builder_slash_cli-proc";
       packageName = "@ot-builder/cli-proc";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/cli-proc/-/cli-proc-1.0.2.tgz";
-        sha512 = "JKG11KtIhj+n9FIbyzlE+8C3esEM0VrBUYhdm+q95DhG5b0Jvw0CoJBb9TpEK83jwYxJKbvVfoqOmtnJ5YJ2tA==";
+        url = "https://registry.npmjs.org/@ot-builder/cli-proc/-/cli-proc-1.0.3.tgz";
+        sha512 = "m+oaigFwF2fuXEvK1OQxfF3n0c4KOnNdq0TV+nIqRHzovU/e4Z1WM8Z3uUt0MJFy4k+SS+HUlQTTAOP9VA1Fcw==";
       };
     };
-    "@ot-builder/cli-shared-1.0.2" = {
+    "@ot-builder/cli-shared-1.0.3" = {
       name = "_at_ot-builder_slash_cli-shared";
       packageName = "@ot-builder/cli-shared";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/cli-shared/-/cli-shared-1.0.2.tgz";
-        sha512 = "zpNhTkSUpK41jrWBZworApKhqslOVijcyOCbmJ2EitFSkajoA0PeFmjeLak3LR5HoMNIoS8yYcPtzr/lTt7vXQ==";
+        url = "https://registry.npmjs.org/@ot-builder/cli-shared/-/cli-shared-1.0.3.tgz";
+        sha512 = "cGZvNRD/YQ1CKwfNoN+93PDkAifZJ5Ey57Pgaheo/K2C60WqNYooIhjI6ws4YKJ3fyR7Bnblm3i+X3Yk8VSCBg==";
       };
     };
-    "@ot-builder/common-impl-1.0.2" = {
+    "@ot-builder/common-impl-1.0.3" = {
       name = "_at_ot-builder_slash_common-impl";
       packageName = "@ot-builder/common-impl";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/common-impl/-/common-impl-1.0.2.tgz";
-        sha512 = "73L6qruH8QcEGpGuYCzE6tFqlAX/9wKAbIEhJWjk1ymEBGXIkBzIbhTGXxyGAgYmrDwT23pwMIG9ozH/okauvw==";
+        url = "https://registry.npmjs.org/@ot-builder/common-impl/-/common-impl-1.0.3.tgz";
+        sha512 = "WflKduZfy2q3NbnBcHpkKRo/ifSxRaSqnTQkJD9UBmhS10zVYv6XoPL9NC/CAUjbeRLL8eS3WMdBZWaw6mwEvQ==";
       };
     };
-    "@ot-builder/errors-1.0.2" = {
+    "@ot-builder/errors-1.0.3" = {
       name = "_at_ot-builder_slash_errors";
       packageName = "@ot-builder/errors";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/errors/-/errors-1.0.2.tgz";
-        sha512 = "n1xUxFPmG+nM4BCM13vXNufkRtQ0dWHyTB3K5OtoYWoATle6ETfHiQk0S4k9IsIyjysVWUOvtRTPAO4hJA6csQ==";
+        url = "https://registry.npmjs.org/@ot-builder/errors/-/errors-1.0.3.tgz";
+        sha512 = "tpgnvmZeaK36OvAcbDQ4eeCWxJMk223BHYT2xUw7cRq7fUXJZI7+CqSg81Hwbir1sL6SbHjl356bkgbut1zHJQ==";
       };
     };
-    "@ot-builder/io-bin-cff-1.0.2" = {
+    "@ot-builder/io-bin-cff-1.0.3" = {
       name = "_at_ot-builder_slash_io-bin-cff";
       packageName = "@ot-builder/io-bin-cff";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/io-bin-cff/-/io-bin-cff-1.0.2.tgz";
-        sha512 = "N49Bj2EsaHPWfPAoM7zbzSpX+DniKHjpakVa6319F0lwY4FRUYqQPbvEEFDo8tgwDWDNuke1Rg4EQXCh4iENxQ==";
+        url = "https://registry.npmjs.org/@ot-builder/io-bin-cff/-/io-bin-cff-1.0.3.tgz";
+        sha512 = "LfXw3RkxrvudKYAwVsWMGXZ7R6fSUM9GFl4tBCOiY/MmSwkZ3pI7JicrVTLOs+ZuizKdtVQe5KfY/sjz0SyFeg==";
       };
     };
-    "@ot-builder/io-bin-encoding-1.0.2" = {
+    "@ot-builder/io-bin-encoding-1.0.3" = {
       name = "_at_ot-builder_slash_io-bin-encoding";
       packageName = "@ot-builder/io-bin-encoding";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/io-bin-encoding/-/io-bin-encoding-1.0.2.tgz";
-        sha512 = "WFENprSBPDXmavzzKzegdjNKzhUCgDyoUEiIGpYCJqnylCW1/h8Ebw0HVt8Je3N4MZWT+9yah4+95C7wNNyYTA==";
+        url = "https://registry.npmjs.org/@ot-builder/io-bin-encoding/-/io-bin-encoding-1.0.3.tgz";
+        sha512 = "0QTgXPfEyItzkqNGXhxPIciOrF7+hbAwfnJf1yBSYvJl3JiE0FKpN3XDIWrPl71flkvvXFBHGoB+wIp8vwiLNw==";
       };
     };
-    "@ot-builder/io-bin-ext-private-1.0.2" = {
+    "@ot-builder/io-bin-ext-private-1.0.3" = {
       name = "_at_ot-builder_slash_io-bin-ext-private";
       packageName = "@ot-builder/io-bin-ext-private";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/io-bin-ext-private/-/io-bin-ext-private-1.0.2.tgz";
-        sha512 = "L326SWioJmP9tN4rC7Cjg/UuKigraTREwZlhGPgFgvokTbJxBJOI5vYdAKBRWQoMauzqsq4a6+LZspmDehjIWg==";
+        url = "https://registry.npmjs.org/@ot-builder/io-bin-ext-private/-/io-bin-ext-private-1.0.3.tgz";
+        sha512 = "RRzfr6yzFTDx0w7L5AKIIJPZ0ab+5WUxUssnBxnBatzOnmtgJmobYdX4R6SLbFPiq+YDyAa/mB44EGLyWcVAgw==";
       };
     };
-    "@ot-builder/io-bin-font-1.0.2" = {
+    "@ot-builder/io-bin-font-1.0.3" = {
       name = "_at_ot-builder_slash_io-bin-font";
       packageName = "@ot-builder/io-bin-font";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/io-bin-font/-/io-bin-font-1.0.2.tgz";
-        sha512 = "QmDocVL2Omtvbb3SAZVajNDHK2/wEvP9jRnHiMTWMKLKy8Q1EaHhxhZNTMmcPji9aoMuYFDn9FFUCyCDhgyJMQ==";
+        url = "https://registry.npmjs.org/@ot-builder/io-bin-font/-/io-bin-font-1.0.3.tgz";
+        sha512 = "Eq+tjzRqivY8e3r3rCzVppWizqXpXutacWO8Mdw0TqlnfSONVfJStLafzDTOKrbrr2m7dYEC7sBwkQz65iuARQ==";
       };
     };
-    "@ot-builder/io-bin-glyph-store-1.0.2" = {
+    "@ot-builder/io-bin-glyph-store-1.0.3" = {
       name = "_at_ot-builder_slash_io-bin-glyph-store";
       packageName = "@ot-builder/io-bin-glyph-store";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/io-bin-glyph-store/-/io-bin-glyph-store-1.0.2.tgz";
-        sha512 = "GUoAfN1NFBDiHJ+vI1g4hmY6D+tDosOYWqnXYki9atBjH4biTxGB2qFAIz5WcNBZXeooQxjMb1eLt4zLl4gA3Q==";
+        url = "https://registry.npmjs.org/@ot-builder/io-bin-glyph-store/-/io-bin-glyph-store-1.0.3.tgz";
+        sha512 = "TNHLSZ7Hs6X92HMMjZQ6Zru84bbu/5p/SWJDIEq4IuiNrDGIrTHFtIAC4XfK5mWOFfP0fNXR00ox9wjeerYeZw==";
       };
     };
-    "@ot-builder/io-bin-layout-1.0.2" = {
+    "@ot-builder/io-bin-layout-1.0.3" = {
       name = "_at_ot-builder_slash_io-bin-layout";
       packageName = "@ot-builder/io-bin-layout";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/io-bin-layout/-/io-bin-layout-1.0.2.tgz";
-        sha512 = "z6iC8jBSJ0sGszxxmyJ+esCZXdiLrUY9bCeqbx8UQWDa2DC9359okr6YHr9VPeiP8DN2ezT3g0DmXnKLzm/QgA==";
+        url = "https://registry.npmjs.org/@ot-builder/io-bin-layout/-/io-bin-layout-1.0.3.tgz";
+        sha512 = "XyyAgn6FjXgdyudq5CcbDoWpUbqlraqDiXHAY1XttpiIvLiTDtWj8KTryLoS8WkfaWLvZ/W2t8VylL6wvR4Saw==";
       };
     };
-    "@ot-builder/io-bin-metadata-1.0.2" = {
+    "@ot-builder/io-bin-metadata-1.0.3" = {
       name = "_at_ot-builder_slash_io-bin-metadata";
       packageName = "@ot-builder/io-bin-metadata";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/io-bin-metadata/-/io-bin-metadata-1.0.2.tgz";
-        sha512 = "D2P4HXha0KM3MrTEu4/CSzJjT7jk0WD7qzopRk74z2dOc3O4qLQZ19fqSPUfBCpGWcaHF4u2QA+0Nuaw5oyyJg==";
+        url = "https://registry.npmjs.org/@ot-builder/io-bin-metadata/-/io-bin-metadata-1.0.3.tgz";
+        sha512 = "JmnK3csx7+M+61Id/w9+cRNz/hrCShNZbG04yPMAWKbq7YXuPRhX1/4/vdlDwmJFRF3V3TIz1WsIVpjmdrhocw==";
       };
     };
-    "@ot-builder/io-bin-metric-1.0.2" = {
+    "@ot-builder/io-bin-metric-1.0.3" = {
       name = "_at_ot-builder_slash_io-bin-metric";
       packageName = "@ot-builder/io-bin-metric";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/io-bin-metric/-/io-bin-metric-1.0.2.tgz";
-        sha512 = "HpYj3YifEzfDfT640SE1UWqkmkrwqQMKjMqgivcMrfLRIkJwBIWW+oCZIoGlcvf9vY4CDDMmjPiQmZ2l43TrdQ==";
+        url = "https://registry.npmjs.org/@ot-builder/io-bin-metric/-/io-bin-metric-1.0.3.tgz";
+        sha512 = "b6pvou6rYgT+VUkRLM1UqdVcCCgi+/YIRuzLH+mKfYcP3oEhdK5g1FbX0gEzPHuwjIksOAq+z57JY5WuWkRAbQ==";
       };
     };
-    "@ot-builder/io-bin-name-1.0.2" = {
+    "@ot-builder/io-bin-name-1.0.3" = {
       name = "_at_ot-builder_slash_io-bin-name";
       packageName = "@ot-builder/io-bin-name";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/io-bin-name/-/io-bin-name-1.0.2.tgz";
-        sha512 = "pE+NBTv2NKg7d0eDbs1TVdLERZ+BUJy7AXMa9Hq7c8tRYOg3krk+Fa48joKPQWtdezVQYtTMc/TJBOcC3Ww5fQ==";
+        url = "https://registry.npmjs.org/@ot-builder/io-bin-name/-/io-bin-name-1.0.3.tgz";
+        sha512 = "jDKoPRX4to+z5yuY/pZv7owEGjzjIvqqlZN8jNeDYwbnq1+Mheyfwe+0A5RnYSTdvQceLHtwRN722/rap33r7A==";
       };
     };
-    "@ot-builder/io-bin-sfnt-1.0.2" = {
+    "@ot-builder/io-bin-sfnt-1.0.3" = {
       name = "_at_ot-builder_slash_io-bin-sfnt";
       packageName = "@ot-builder/io-bin-sfnt";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/io-bin-sfnt/-/io-bin-sfnt-1.0.2.tgz";
-        sha512 = "xXfccIbP1ZTSTp+r1ZZfq+S4HpNPe8Oy4sW0k5d92+rMSWmvImM2gm1v+PjC0A473QjyqZg7S9l3CPE+2qcbYw==";
+        url = "https://registry.npmjs.org/@ot-builder/io-bin-sfnt/-/io-bin-sfnt-1.0.3.tgz";
+        sha512 = "7AOYNulmBGQxvr+4jeQTz2cgS88l8arPE4m8EcLcNj9AGlKF5Mhk1an+OjH8JRvuHjRaq7yqfO8ZCdAaF32U9Q==";
       };
     };
-    "@ot-builder/io-bin-ttf-1.0.2" = {
+    "@ot-builder/io-bin-ttf-1.0.3" = {
       name = "_at_ot-builder_slash_io-bin-ttf";
       packageName = "@ot-builder/io-bin-ttf";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/io-bin-ttf/-/io-bin-ttf-1.0.2.tgz";
-        sha512 = "eCv/6sCAATeFoUwbQSw839RQz61z7nkMv/k075b56wBw8vPSqV6d/8zGkRKFjeE5ma+0PuuiYjH7FfDPCNV9uQ==";
+        url = "https://registry.npmjs.org/@ot-builder/io-bin-ttf/-/io-bin-ttf-1.0.3.tgz";
+        sha512 = "xQFAG3lnzycqNrxbZ9jn8V+b9RzdgMg7YFRMd12TYoRzdoHaIh+v2DZ8lyhwkv3owvYDzr6iRCI6nts3mFQuug==";
       };
     };
-    "@ot-builder/ot-1.0.2" = {
+    "@ot-builder/ot-1.0.3" = {
       name = "_at_ot-builder_slash_ot";
       packageName = "@ot-builder/ot";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/ot/-/ot-1.0.2.tgz";
-        sha512 = "r4359lMQTpiQ2cHhxFuoonxo8rLFzUZw0NiEXTzCL0UxSu5kcGH7gDDGtHDdSB5a5W+qCNDLt/goD/FnYddlyg==";
+        url = "https://registry.npmjs.org/@ot-builder/ot/-/ot-1.0.3.tgz";
+        sha512 = "fEQdRjO58o5PfnUSpx3KzqC4l5tpvX9tquKrvEi/MgKr08PykTs9iUFkzcfQ3+1zHDrebfrq2Peei0vpcaGC3Q==";
       };
     };
-    "@ot-builder/ot-encoding-1.0.2" = {
+    "@ot-builder/ot-encoding-1.0.3" = {
       name = "_at_ot-builder_slash_ot-encoding";
       packageName = "@ot-builder/ot-encoding";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/ot-encoding/-/ot-encoding-1.0.2.tgz";
-        sha512 = "mZ7s/hEHYaGZFpKZ+FB9vynHrZWWObCvnuCtRvcp51DwF4J8/NCp5VT3n7/20BSfEnghQQjhpk6z2RzQD9k3mA==";
+        url = "https://registry.npmjs.org/@ot-builder/ot-encoding/-/ot-encoding-1.0.3.tgz";
+        sha512 = "Bmd7Zdb6E791681fH2a7th9puyVbQb1YARYaIdns3fGu9+BJCrvZ2D5SBOIVuPen2TxSDZ5tfQkf/yjz63WbPQ==";
       };
     };
-    "@ot-builder/ot-ext-private-1.0.2" = {
+    "@ot-builder/ot-ext-private-1.0.3" = {
       name = "_at_ot-builder_slash_ot-ext-private";
       packageName = "@ot-builder/ot-ext-private";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/ot-ext-private/-/ot-ext-private-1.0.2.tgz";
-        sha512 = "XRRjq69p/MWKJOWfeAWJnMWF/4RrMlDIz3sp/pMn5vUivysh6qcOoOHHwkD2MFKI9PysmDgMrYIyxnKvmQczMA==";
+        url = "https://registry.npmjs.org/@ot-builder/ot-ext-private/-/ot-ext-private-1.0.3.tgz";
+        sha512 = "yu7C79YRwHV7W6cuee0ONsye2Dd6MOgAWcAcORtpFn5VjBc2Nvxs5OAXKlysbOeHtaVGfDub4w8phx/9ZfoxvA==";
       };
     };
-    "@ot-builder/ot-glyphs-1.0.2" = {
+    "@ot-builder/ot-glyphs-1.0.3" = {
       name = "_at_ot-builder_slash_ot-glyphs";
       packageName = "@ot-builder/ot-glyphs";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/ot-glyphs/-/ot-glyphs-1.0.2.tgz";
-        sha512 = "mTtKVG0n2O9KVFNBBgfitidkulXEA747tdQofa+mo6CZghFGgJaVSm4xXkqh0nv3TmuWPWcLUDzzXovrwSyaEg==";
+        url = "https://registry.npmjs.org/@ot-builder/ot-glyphs/-/ot-glyphs-1.0.3.tgz";
+        sha512 = "NJgyHqEINRlZnyEiP+tBsYvQceIvD2XBM1bcJqUCY4xwrOBGtEceP3ChVz44UQEBrtdIOCjv/nycxp55VIKqug==";
       };
     };
-    "@ot-builder/ot-layout-1.0.2" = {
+    "@ot-builder/ot-layout-1.0.3" = {
       name = "_at_ot-builder_slash_ot-layout";
       packageName = "@ot-builder/ot-layout";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/ot-layout/-/ot-layout-1.0.2.tgz";
-        sha512 = "FC/LkcZ1MB9cRdXMpOoYiC06tdLWWj1XdV4q8+L+q3wM0EGH8YzqHqoI9MXFpGlB9ucHC/FDWXybjXOYWFtQAA==";
+        url = "https://registry.npmjs.org/@ot-builder/ot-layout/-/ot-layout-1.0.3.tgz";
+        sha512 = "HIpQABvaJTKfFi4ui+Vu3AM51VV0Zr2sU3jtAy2kS8HFIyiNVlJCn925jc3n/NzLHvU2FjBeQDFr8o2sQGRchg==";
       };
     };
-    "@ot-builder/ot-metadata-1.0.2" = {
+    "@ot-builder/ot-metadata-1.0.3" = {
       name = "_at_ot-builder_slash_ot-metadata";
       packageName = "@ot-builder/ot-metadata";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/ot-metadata/-/ot-metadata-1.0.2.tgz";
-        sha512 = "WVZfIDb90XblRRuhK1EWsMePidBs96/uhv4T1/uNi8o8lhgdAszJo/qeOakhDqn29X3rWyYWZutAxVqx37GBsg==";
+        url = "https://registry.npmjs.org/@ot-builder/ot-metadata/-/ot-metadata-1.0.3.tgz";
+        sha512 = "JK6IPCVCuCdi5k6FQWEXMqdPlPoORuWan4skXWpe7s7NUXYHonJBwZ6sLrPqPIbYmOlEotxT93VvoUo1sqZS0A==";
       };
     };
-    "@ot-builder/ot-name-1.0.2" = {
+    "@ot-builder/ot-name-1.0.3" = {
       name = "_at_ot-builder_slash_ot-name";
       packageName = "@ot-builder/ot-name";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/ot-name/-/ot-name-1.0.2.tgz";
-        sha512 = "1mNhgVPmz88699vVMmyHp6SYUldRi0tmNLgzoH98Wrg4GghEGyu11fG7GMoT6HsrKxdXCysUZjWdMvsidfyoaw==";
+        url = "https://registry.npmjs.org/@ot-builder/ot-name/-/ot-name-1.0.3.tgz";
+        sha512 = "Z1VjRAoCgxMDloyOEoKWiimHf0S/AHXHsw57QtNAyPwzn8MR7tuzZ2epMxygrAQSaGHgOwPQ/th+fZ2RdvPuzA==";
       };
     };
-    "@ot-builder/ot-sfnt-1.0.2" = {
+    "@ot-builder/ot-sfnt-1.0.3" = {
       name = "_at_ot-builder_slash_ot-sfnt";
       packageName = "@ot-builder/ot-sfnt";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/ot-sfnt/-/ot-sfnt-1.0.2.tgz";
-        sha512 = "8jP3zzSP2u0kIj8JyMH9ZLJox97T6VC7dkiRwq9ekGMbxLa+5nWWh6DuAOSFfdlVyUK3I/4sl4aqSP7Lyp/hYw==";
+        url = "https://registry.npmjs.org/@ot-builder/ot-sfnt/-/ot-sfnt-1.0.3.tgz";
+        sha512 = "uLctpLG/QM15IBuP8GQG7UfwFEcWVLPwTbOlrx0K6he393YVtZ3t+QwNzT1T+Ucvy2E6oxnlDSzvlz+xGHLvJA==";
       };
     };
-    "@ot-builder/ot-standard-glyph-namer-1.0.2" = {
+    "@ot-builder/ot-standard-glyph-namer-1.0.3" = {
       name = "_at_ot-builder_slash_ot-standard-glyph-namer";
       packageName = "@ot-builder/ot-standard-glyph-namer";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/ot-standard-glyph-namer/-/ot-standard-glyph-namer-1.0.2.tgz";
-        sha512 = "xTPAXBMQq1iILVphw9L7DW0KBQdeniQ1l+42oCDJK4XtKAOkSQZ7IQUBHD2rJjX2LmklEm/isLfLDIZxFezj9g==";
+        url = "https://registry.npmjs.org/@ot-builder/ot-standard-glyph-namer/-/ot-standard-glyph-namer-1.0.3.tgz";
+        sha512 = "JW9cwINVxteCadCKiBo4ufCWS7DP1t+RfcVbDgQ940VGIRm59MJw5CbVM50k4Pf3dYXHJmDYMGDzSKGAZ9x+6g==";
       };
     };
-    "@ot-builder/prelude-1.0.2" = {
+    "@ot-builder/prelude-1.0.3" = {
       name = "_at_ot-builder_slash_prelude";
       packageName = "@ot-builder/prelude";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/prelude/-/prelude-1.0.2.tgz";
-        sha512 = "h9JHlibcc4w6cTVcuIARxcmvH8JhuB0z6CcUj+s+7zfzlkQXghuOk6wgHzimcrxDDOZeRNmXJNG7RCqdDeAGiA==";
+        url = "https://registry.npmjs.org/@ot-builder/prelude/-/prelude-1.0.3.tgz";
+        sha512 = "7GJ+sMzMqsI7Pe4bqM4lATQLdOJrxOoQudg3xJBe1C0UbVfXLmqvVUkKM1GMd3eR0C1sTkAxRdqILycAXzNwKQ==";
       };
     };
-    "@ot-builder/primitive-1.0.2" = {
+    "@ot-builder/primitive-1.0.3" = {
       name = "_at_ot-builder_slash_primitive";
       packageName = "@ot-builder/primitive";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/primitive/-/primitive-1.0.2.tgz";
-        sha512 = "bf03EipsJQZH4+o9QW11B54DzN0QdEyg61xZdbK5PCaoEeb0ahYYtzkb/CZF6nw3UFEVtci3MQww8XZWpEgydQ==";
+        url = "https://registry.npmjs.org/@ot-builder/primitive/-/primitive-1.0.3.tgz";
+        sha512 = "IgtWW8Q+gb5lzXWyPivKG0CxU3CdPZUB6tjxA9Ui+TNxTZAmj1nxmJ90Cw9CODFkcywRykSHzo3WTgLGWH6kIQ==";
       };
     };
-    "@ot-builder/rectify-1.0.2" = {
+    "@ot-builder/rectify-1.0.3" = {
       name = "_at_ot-builder_slash_rectify";
       packageName = "@ot-builder/rectify";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/rectify/-/rectify-1.0.2.tgz";
-        sha512 = "tDbC/ap6X1JoJqTIlVsbWgi6IbVFZ5Fc+csNHI7B11/y5aY0Nz1Eupar+nnnoABtXNO3pWP0A3suY2z7U6B91A==";
+        url = "https://registry.npmjs.org/@ot-builder/rectify/-/rectify-1.0.3.tgz";
+        sha512 = "nm6Ql6oyxEdDrGtFAPOqBlEKUGIyiM8QaI57MosPshfB8UUDJAI6uAaQP4pzV4Go8/6Do3zPkDnmqQIYt/lmmQ==";
       };
     };
-    "@ot-builder/stat-glyphs-1.0.2" = {
+    "@ot-builder/stat-glyphs-1.0.3" = {
       name = "_at_ot-builder_slash_stat-glyphs";
       packageName = "@ot-builder/stat-glyphs";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/stat-glyphs/-/stat-glyphs-1.0.2.tgz";
-        sha512 = "xFKPyM0zLRktvpTdzVQB+ffmzGbROJd4atcLKr+UB6hTSVcSiLBsOU+BQNeveb7Njz/mgAmFhnVkWO+2uSwIMA==";
+        url = "https://registry.npmjs.org/@ot-builder/stat-glyphs/-/stat-glyphs-1.0.3.tgz";
+        sha512 = "1pZ7I/OXbQ5egHlHAK4bOthg04qp9Og/RPvFN2UTNAobRPEun/IOpnf6yO7t/JLR4Lvr1lxxDeQjt4tdPMOWOQ==";
       };
     };
-    "@ot-builder/trace-1.0.2" = {
+    "@ot-builder/trace-1.0.3" = {
       name = "_at_ot-builder_slash_trace";
       packageName = "@ot-builder/trace";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/trace/-/trace-1.0.2.tgz";
-        sha512 = "4+cOuSys8WTBOsvSXJqKgYlZu5TrukYpViSA3pbUnjWSJRmpGtwDtNiX62F8Wo/F+9pTIwOBwAbh/yWjYjCRng==";
+        url = "https://registry.npmjs.org/@ot-builder/trace/-/trace-1.0.3.tgz";
+        sha512 = "wr+cLAXFEdXOyLpBRW9XR28NapfJhhqOnJIiOaC3g0A31nvQtINBZaiQ8o2tSekmcmhCOsimoYWpg/SjLgq0GA==";
       };
     };
-    "@ot-builder/var-store-1.0.2" = {
+    "@ot-builder/var-store-1.0.3" = {
       name = "_at_ot-builder_slash_var-store";
       packageName = "@ot-builder/var-store";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/var-store/-/var-store-1.0.2.tgz";
-        sha512 = "hMkIu2DaIiiBMkolGtjZ0P/Urx76zaSBeXO8aItjw0xiu/JGo843vngU7P6FNtingaolchrVrm6SRrIz7jFD6g==";
+        url = "https://registry.npmjs.org/@ot-builder/var-store/-/var-store-1.0.3.tgz";
+        sha512 = "qJSHH+bll62V+T1oa2AvB/kAamgdFO2ZmTfkiyUK1Rb1zaBthYDADHXrzrAUdUARgAkXUXGHTZEGWc8WeU2smw==";
       };
     };
-    "@ot-builder/variance-1.0.2" = {
+    "@ot-builder/variance-1.0.3" = {
       name = "_at_ot-builder_slash_variance";
       packageName = "@ot-builder/variance";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@ot-builder/variance/-/variance-1.0.2.tgz";
-        sha512 = "VYSKYfLmfnQckio6C5SEsv5gaUkdKIPNX0Yusidc9EpmdoOyHdBGlHDmpWEtzyAni3Jl2eMHGhd+GCnfkdBhYA==";
+        url = "https://registry.npmjs.org/@ot-builder/variance/-/variance-1.0.3.tgz";
+        sha512 = "K23fg29QU8hJkwqwhAHjVeoFVxzdEi8miOXopn8MIjPPnKUCQ+Zkbnml1I+XKrz9juQDhBszcB0kuPpBy4/hxA==";
       };
     };
     "@unicode/unicode-13.0.0-1.0.3" = {
@@ -1093,22 +1093,22 @@ let
         sha512 = "+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==";
       };
     };
-    "ot-builder-1.0.2" = {
+    "ot-builder-1.0.3" = {
       name = "ot-builder";
       packageName = "ot-builder";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ot-builder/-/ot-builder-1.0.2.tgz";
-        sha512 = "LLb8H2Rbe/x4BgzoTOWuWH2cQm0hJKu6PXVQc7WHNQuRx1O82Rg+0GeXjV36cznOXM6IsA1VZgsuLz9oNb+15Q==";
+        url = "https://registry.npmjs.org/ot-builder/-/ot-builder-1.0.3.tgz";
+        sha512 = "ApuXJZmB30IAspJwojBh2VxQfLMMqu6fkQ7nrNmG+ubL6uvgqW7kZYIyCcaXU4utONLP6bDP988bNovQXVfNAQ==";
       };
     };
-    "otb-ttc-bundle-1.0.2" = {
+    "otb-ttc-bundle-1.0.3" = {
       name = "otb-ttc-bundle";
       packageName = "otb-ttc-bundle";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/otb-ttc-bundle/-/otb-ttc-bundle-1.0.2.tgz";
-        sha512 = "FK+d5iSrwQogNNNT+IPsk3wNmwOK6xunP4fytztaU3zZUK3YtaiuJjp4VeqF1+CpOaFr6MYlQHOTfhChT+ssSg==";
+        url = "https://registry.npmjs.org/otb-ttc-bundle/-/otb-ttc-bundle-1.0.3.tgz";
+        sha512 = "U2Eh0kXe8YzP/F8sNJvqnBi8Y57oG4xcAND0IsGGSm+q1Csn30V0k34rA3rKmelnM/oXT5J0EbZKIvlapPdfLw==";
       };
     };
     "p-limit-2.3.0" = {
@@ -1426,13 +1426,13 @@ let
         sha1 = "a8f6eaeca90674c333e7c43953f275b451510695";
       };
     };
-    "string-width-4.2.0" = {
+    "string-width-4.2.2" = {
       name = "string-width";
       packageName = "string-width";
-      version = "4.2.0";
+      version = "4.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/string-width/-/string-width-4.2.0.tgz";
-        sha512 = "zUz5JD+tgqtuDjMhwIg5uFVV3dtqZ9yQJlZVfq4I01/K5Paj5UHj7VyrQOJvzawSVlKpObApbfD0Ed6yJc+1eg==";
+        url = "https://registry.npmjs.org/string-width/-/string-width-4.2.2.tgz";
+        sha512 = "XBJbT3N4JhVumXE0eoLU9DCjcaF92KLNqTmFCnG1pf8duUxFGwtP6AD6nkjw9a3IdiRtL3E2w3JDiE/xi3vOeA==";
       };
     };
     "strip-ansi-6.0.0" = {
@@ -1723,26 +1723,26 @@ let
         sha512 = "o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==";
       };
     };
-    "yargs-parser-20.2.5" = {
+    "yargs-parser-20.2.6" = {
       name = "yargs-parser";
       packageName = "yargs-parser";
-      version = "20.2.5";
+      version = "20.2.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/yargs-parser/-/yargs-parser-20.2.5.tgz";
-        sha512 = "jYRGS3zWy20NtDtK2kBgo/TlAoy5YUuhD9/LZ7z7W4j1Fdw2cqD0xEEclf8fxc8xjD6X5Qr+qQQwCEsP8iRiYg==";
+        url = "https://registry.npmjs.org/yargs-parser/-/yargs-parser-20.2.6.tgz";
+        sha512 = "AP1+fQIWSM/sMiET8fyayjx/J+JmTPt2Mr0FkrgqB4todtfa53sOsrSAcIrJRD5XS20bKUwaDIuMkWKCEiQLKA==";
       };
     };
   };
   args = {
     name = "iosevka";
     packageName = "iosevka";
-    version = "5.0.3";
+    version = "5.0.4";
     src = ./.;
     dependencies = [
       sources."@iarna/toml-2.2.5"
-      sources."@ot-builder/bin-composite-types-1.0.2"
-      sources."@ot-builder/bin-util-1.0.2"
-      (sources."@ot-builder/cli-help-shower-1.0.2" // {
+      sources."@ot-builder/bin-composite-types-1.0.3"
+      sources."@ot-builder/bin-util-1.0.3"
+      (sources."@ot-builder/cli-help-shower-1.0.3" // {
         dependencies = [
           sources."ansi-styles-4.3.0"
           sources."chalk-4.1.0"
@@ -1752,7 +1752,7 @@ let
           sources."supports-color-7.2.0"
         ];
       })
-      (sources."@ot-builder/cli-proc-1.0.2" // {
+      (sources."@ot-builder/cli-proc-1.0.3" // {
         dependencies = [
           sources."ansi-styles-4.3.0"
           sources."chalk-4.1.0"
@@ -1762,7 +1762,7 @@ let
           sources."supports-color-7.2.0"
         ];
       })
-      (sources."@ot-builder/cli-shared-1.0.2" // {
+      (sources."@ot-builder/cli-shared-1.0.3" // {
         dependencies = [
           sources."ansi-styles-4.3.0"
           sources."chalk-4.1.0"
@@ -1772,35 +1772,35 @@ let
           sources."supports-color-7.2.0"
         ];
       })
-      sources."@ot-builder/common-impl-1.0.2"
-      sources."@ot-builder/errors-1.0.2"
-      sources."@ot-builder/io-bin-cff-1.0.2"
-      sources."@ot-builder/io-bin-encoding-1.0.2"
-      sources."@ot-builder/io-bin-ext-private-1.0.2"
-      sources."@ot-builder/io-bin-font-1.0.2"
-      sources."@ot-builder/io-bin-glyph-store-1.0.2"
-      sources."@ot-builder/io-bin-layout-1.0.2"
-      sources."@ot-builder/io-bin-metadata-1.0.2"
-      sources."@ot-builder/io-bin-metric-1.0.2"
-      sources."@ot-builder/io-bin-name-1.0.2"
-      sources."@ot-builder/io-bin-sfnt-1.0.2"
-      sources."@ot-builder/io-bin-ttf-1.0.2"
-      sources."@ot-builder/ot-1.0.2"
-      sources."@ot-builder/ot-encoding-1.0.2"
-      sources."@ot-builder/ot-ext-private-1.0.2"
-      sources."@ot-builder/ot-glyphs-1.0.2"
-      sources."@ot-builder/ot-layout-1.0.2"
-      sources."@ot-builder/ot-metadata-1.0.2"
-      sources."@ot-builder/ot-name-1.0.2"
-      sources."@ot-builder/ot-sfnt-1.0.2"
-      sources."@ot-builder/ot-standard-glyph-namer-1.0.2"
-      sources."@ot-builder/prelude-1.0.2"
-      sources."@ot-builder/primitive-1.0.2"
-      sources."@ot-builder/rectify-1.0.2"
-      sources."@ot-builder/stat-glyphs-1.0.2"
-      sources."@ot-builder/trace-1.0.2"
-      sources."@ot-builder/var-store-1.0.2"
-      sources."@ot-builder/variance-1.0.2"
+      sources."@ot-builder/common-impl-1.0.3"
+      sources."@ot-builder/errors-1.0.3"
+      sources."@ot-builder/io-bin-cff-1.0.3"
+      sources."@ot-builder/io-bin-encoding-1.0.3"
+      sources."@ot-builder/io-bin-ext-private-1.0.3"
+      sources."@ot-builder/io-bin-font-1.0.3"
+      sources."@ot-builder/io-bin-glyph-store-1.0.3"
+      sources."@ot-builder/io-bin-layout-1.0.3"
+      sources."@ot-builder/io-bin-metadata-1.0.3"
+      sources."@ot-builder/io-bin-metric-1.0.3"
+      sources."@ot-builder/io-bin-name-1.0.3"
+      sources."@ot-builder/io-bin-sfnt-1.0.3"
+      sources."@ot-builder/io-bin-ttf-1.0.3"
+      sources."@ot-builder/ot-1.0.3"
+      sources."@ot-builder/ot-encoding-1.0.3"
+      sources."@ot-builder/ot-ext-private-1.0.3"
+      sources."@ot-builder/ot-glyphs-1.0.3"
+      sources."@ot-builder/ot-layout-1.0.3"
+      sources."@ot-builder/ot-metadata-1.0.3"
+      sources."@ot-builder/ot-name-1.0.3"
+      sources."@ot-builder/ot-sfnt-1.0.3"
+      sources."@ot-builder/ot-standard-glyph-namer-1.0.3"
+      sources."@ot-builder/prelude-1.0.3"
+      sources."@ot-builder/primitive-1.0.3"
+      sources."@ot-builder/rectify-1.0.3"
+      sources."@ot-builder/stat-glyphs-1.0.3"
+      sources."@ot-builder/trace-1.0.3"
+      sources."@ot-builder/var-store-1.0.3"
+      sources."@ot-builder/variance-1.0.3"
       sources."@unicode/unicode-13.0.0-1.0.3"
       sources."amdefine-1.0.1"
       sources."ansi-regex-5.0.0"
@@ -1890,8 +1890,8 @@ let
       sources."once-1.4.0"
       sources."onetime-5.1.2"
       sources."optionator-0.8.3"
-      sources."ot-builder-1.0.2"
-      (sources."otb-ttc-bundle-1.0.2" // {
+      sources."ot-builder-1.0.3"
+      (sources."otb-ttc-bundle-1.0.3" // {
         dependencies = [
           sources."ansi-styles-4.3.0"
           sources."chalk-4.1.0"
@@ -1941,7 +1941,7 @@ let
       sources."split-1.0.1"
       sources."sprintf-js-1.0.3"
       sources."stack-trace-0.0.9"
-      sources."string-width-4.2.0"
+      sources."string-width-4.2.2"
       sources."strip-ansi-6.0.0"
       (sources."stylus-0.54.8" // {
         dependencies = [
@@ -1993,7 +1993,7 @@ let
       sources."y18n-5.0.5"
       sources."yallist-4.0.0"
       sources."yargs-16.2.0"
-      sources."yargs-parser-20.2.5"
+      sources."yargs-parser-20.2.6"
     ];
     buildInputs = globalBuildInputs;
     meta = {

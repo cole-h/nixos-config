@@ -8,9 +8,9 @@
 , otfcc
 }:
 let
-  sha256 = "sha256-XAv7q5jPkz7l8uCEnqPMu3GpgUiNYjF3kcXBho2lOjI=";
+  sha256 = "sha256-Zn3xUdtrVu6WGWXN5XeXnZYnYi4q/80NtnHYVwYGs7w=";
   pname = "iosevka-${set}";
-  version = "5.0.3";
+  version = "5.0.4";
 
   set = "custom";
 
