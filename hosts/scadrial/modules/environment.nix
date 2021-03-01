@@ -27,12 +27,12 @@
       htop
       imagemagick
       kakoune
+      libressl.nc # netcat-openbsd
       lsof
-      manpages
+      man-pages
       minisign
       ncdu
       neovim
-      netcat-openbsd
       nix-index
       nixpkgs-fmt
       nix-prefetch
@@ -47,8 +47,8 @@
       rsync
       strace
       usbutils
-      wireguard
-      xdg_utils
+      wireguard-tools
+      xdg-utils
       zathura
 
       bat # cat but better
