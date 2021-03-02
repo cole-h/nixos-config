@@ -10,9 +10,11 @@ sleep 1
 ps aux | rg sway | rg -v rg && exit 1 # if sway is still running, everything breaks anyways
 
 systemctl stop zrepl zrepl-replicate.timer
+ps aux | rg zfs
 echo "$(date) Stopped snapshots while VM is live"
 
-zpool export 14488990227566370050
+zpool export bpool
+zpool list bpool && exit 1 # if bpool is still there, detaching it can corrupt data
 echo "$(date) Exported bpool since it's connected via USB"
 
 sync && echo 1 > /proc/sys/vm/drop_caches
@@ -46,11 +48,3 @@ echo "$(date) Unbound USB devices (M+KBD)"
 virsh nodedev-detach pci_0000_06_00_3 # maybe problematic because of bluetooth?
 virsh nodedev-detach pci_0000_06_00_1
 echo "$(date) Unbound misc. USB devices"
-
-# modprobe -r nouveau
-# echo "$(date) Modprobe -r'd nouveau"
-
-# Load VFIO Kernel Module
-# modprobe vfio-pci
-# echo "$(date) Modprobe'd vfio-pci"
-# echo "$(date) Start"

@@ -65,7 +65,6 @@ in
             zfs
             ripgrep
             killall
-            kmod
           ];
         };
       in

@@ -1,15 +1,6 @@
 exec 2>>/tmp/win10.log
 exec 1>&2
 
-# Unload VFIO-PCI Kernel Driver
-# modprobe -r vfio-pci
-# modprobe -r vfio_iommu_type1
-# modprobe -r vfio
-# echo "$(date) Modprobe -r'd vfio-pci, vfio_iommu_type1, and vfio"
-
-# modprobe nouveau
-# echo "$(date) Modprobed nouveau"
-
 virsh nodedev-reattach pci_0000_06_00_3
 virsh nodedev-reattach pci_0000_06_00_1
 echo "$(date) Rebound misc. USB devices"
