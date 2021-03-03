@@ -35,6 +35,7 @@ echo "$(date) Rebound vtcon1"
 cpupower frequency-set -g schedutil
 echo "$(date) Changed CPU governors to schedutil"
 
+zpool import # discover pools since bpool disk might have gone to sleep
 zpool import 14488990227566370050
 zfs load-key bpool
 echo "$(date) Imported bpool"
