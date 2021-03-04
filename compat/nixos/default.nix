@@ -8,10 +8,7 @@ let
       sha256 = "0x2jn3vrawwv9xp15674wjz9pixwjyj3j771izayl962zziivbx2";
     })
     {
-      src = builtins.filterSource
-        (path: _: baseNameOf path != ".git"
-          || baseNameOf path != "target"
-          || baseNameOf path != "result") ./../..;
+      src = ./../..;
     };
 in
 flake.defaultNix.nixosConfigurations.${hostname}
