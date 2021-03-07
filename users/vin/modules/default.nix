@@ -2,6 +2,7 @@
   imports =
     [
       ./fish.nix # fish config
+      ./zsh.nix # zsh config
       ./gpg.nix # GPG config
       ./mail.nix # maildir config
       ./mpd.nix # mpd config

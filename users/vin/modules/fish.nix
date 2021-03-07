@@ -48,15 +48,6 @@ in
         weechat = "tmux -L weechat attach";
       } // cgitcAbbrs;
 
-      shellInit = ''
-
-        # Hydro prompt config
-        set --global --export hydro_symbol_prompt '>'
-        set --global --export hydro_symbol_git_dirty '*'
-        set --global --export hydro_color_pwd green
-        set --global --export hydro_color_error red
-      '';
-
       loginShellInit = ''
 
         # tmux counts as a login shell
@@ -69,8 +60,8 @@ in
           # Start sway
           if [ (tty) = "/dev/tty1" ]
               systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY \
-                        IN_NIX_SHELL __HM_SESS_VARS_SOURCED GPG_TTY NIX_PATH
-              exec sway >/dev/null 2>/tmp/sway.log # TODO: log to syslog even without a unit pls
+                        IN_NIX_SHELL __HM_SESS_VARS_SOURCED GPG_TTY NIX_PATH SHLVL
+              exec env --unset=SHLVL sway >/dev/null 2>/tmp/sway.log # TODO: log to syslog even without a unit pls
           end
 
           # Start windows VM
@@ -89,7 +80,6 @@ in
         # GPG configuration
         ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye &>/dev/null
         set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
-        set --global --export GPG_TTY (tty)
 
         # For zoxide's fzf window
         set --global --export _ZO_FZF_OPTS '--no-sort --reverse --border --height 40%'

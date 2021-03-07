@@ -9,13 +9,7 @@ let
     } + "/.gdbinit";
 in
 {
-  home = {
-    file.".gdbinit".source = gdbinit;
-
-    packages = with pkgs; [
-      git-crypt # store secrets; [overlays]
-    ];
-  };
+  home.file.".gdbinit".source = gdbinit;
 
   xdg.configFile = {
     "git/ignore".text = ''
@@ -46,6 +40,7 @@ in
       push.default = "current";
       rebase.autoStash = true;
       sendemail.annotate = true;
+      merge.conflictstyle = "diff3";
 
       diff."nodiff".command = "${pkgs.coreutils}/bin/true";
 
