@@ -8,6 +8,8 @@
 
   security.acme.acceptTerms = true;
   security.acme.email = "cole.e.helbling@gmail.com";
+  # https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/issues/182#note_342901583
+  security.acme.certs."${config.mailserver.fqdn}".keyType = "rsa4096";
 
   mailserver =
     let
