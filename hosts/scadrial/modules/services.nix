@@ -166,10 +166,12 @@
 
   systemd.services.zrepl-replicate = {
     description = "Trigger zrepl replication for push_to_bpool";
-    serviceConfig.Type = "oneshot";
-    script = ''
-      ${pkgs.zrepl}/bin/zrepl --config /etc/zrepl/zrepl.yml signal wakeup push_to_bpool
-    '';
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.zrepl}/bin/zrepl --config /etc/zrepl/zrepl.yml signal wakeup push_to_bpool";
+      # already have a unit for this, so why not use it
+      ExecStartPre = "systemctl restart zfs-import-bpool.service";
+    };
   };
 
   systemd.timers.zrepl-replicate = {

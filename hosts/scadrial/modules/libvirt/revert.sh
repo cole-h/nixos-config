@@ -14,7 +14,9 @@ echo "$(date) Rebound front panel audio"
 systemctl restart sonarr transmission jellyfin
 echo "$(date) Restarted torrents and media"
 
-doas -u vin systemctl restart --user pulseaudio.socket
+doas -u vin \
+  env XDG_RUNTIME_DIR=/run/user/$(id -u vin) DBUS_SESSION_ADDRESS=unix:path=/run/user/$(id -u vin)/bus \
+  systemctl restart --user pipewire-pulse.socket
 echo "$(date) Restarted user pulse"
 
 virsh nodedev-reattach pci_0000_09_00_1
@@ -34,11 +36,6 @@ echo "$(date) Rebound vtcon1"
 
 cpupower frequency-set -g schedutil
 echo "$(date) Changed CPU governors to schedutil"
-
-zpool import # discover pools since bpool disk might have gone to sleep
-zpool import 14488990227566370050
-zfs load-key bpool
-echo "$(date) Imported bpool"
 
 systemctl restart zrepl zrepl-replicate.timer
 echo "$(date) Restarted snapshots"

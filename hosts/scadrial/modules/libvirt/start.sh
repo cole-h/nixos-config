@@ -14,7 +14,7 @@ ps aux | rg zfs
 echo "$(date) Stopped snapshots while VM is live"
 
 zpool export bpool
-zpool list bpool && exit 1 # if bpool is still there, detaching it can corrupt data
+zpool list bpool 2>/dev/null && exit 1 # if bpool is still there, detaching it can corrupt data
 echo "$(date) Exported bpool since it's connected via USB"
 
 sync && echo 1 > /proc/sys/vm/drop_caches

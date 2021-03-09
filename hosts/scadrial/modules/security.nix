@@ -12,4 +12,7 @@
 
   # To allow home-manager's provided swaylock actually unlock.
   security.pam.services.swaylock = { };
+
+  # Realtime
+  security.rtkit.enable = true;
 }

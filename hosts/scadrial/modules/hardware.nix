@@ -4,13 +4,12 @@
   # Enable sound.
   sound.enable = true;
 
-  hardware.pulseaudio = {
+  # Use pipewire for sound.
+  services.pipewire = {
     enable = true;
-    package = pkgs.pulseaudioFull;
-    configFile = pkgs.runCommand "default.pa" { } ''
-      sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
-        ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
-    '';
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
 
   # Enable OpenGL.
