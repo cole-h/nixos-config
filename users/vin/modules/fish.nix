@@ -61,7 +61,7 @@ in
           if [ (tty) = "/dev/tty1" ]
               systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY \
                         IN_NIX_SHELL __HM_SESS_VARS_SOURCED GPG_TTY NIX_PATH SHLVL
-              exec env --unset=SHLVL sway >/dev/null 2>/tmp/sway.log # TODO: log to syslog even without a unit pls
+              exec env --unset=SHLVL systemd-cat -t sway -- sway --debug
           end
 
           # Start windows VM
