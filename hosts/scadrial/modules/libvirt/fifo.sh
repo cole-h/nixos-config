@@ -1,4 +1,4 @@
-exec 2>>/tmp/win10.log
+exec 2> >(systemd-cat -t win10)
 exec 1>&2
 
 # Set FIFO scheduler

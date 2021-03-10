@@ -1,7 +1,4 @@
-# if the file exists, take ownership of it
-[ -f /tmp/win10.log ] && chown root /tmp/win10.log
-
-exec 2>>/tmp/win10.log
+exec 2> >(systemd-cat -t win10)
 exec 1>&2
 
 killall -e sway
