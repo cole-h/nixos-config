@@ -11,7 +11,7 @@
       ./rust.nix # rust-related
       ./tmux.nix # tmux config
 
-      ./emacs # doom + emacs setup
+      # ./emacs # doom + emacs setup
       ./git # git config
       ./kakoune # kakoune setup
       ./wayland # sway, etc config
