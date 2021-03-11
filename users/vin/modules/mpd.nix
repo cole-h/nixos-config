@@ -37,8 +37,8 @@
         }
 
         audio_output {
-            type "pulse"
-            name "My Pulse Output"
+            type "jack"
+            name "JACK Device"
             mixer_type "software"
         }
 
@@ -54,7 +54,7 @@
     };
   };
 
-  systemd.user.services.mpd = {
+  systemd.user.services."mpd" = {
     Unit = { Documentation = "man:mpd(1) man:mpd.conf(5)"; };
     Service = {
       # allow MPD to use real-time priority 50
