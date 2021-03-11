@@ -13,7 +13,6 @@ in
 {
   # misc
   aerc = callPackage ./drvs/aerc { };
-  fish = callPackage ./drvs/fish.nix { };
   foliate = callPackage ./drvs/foliate.nix { };
   git-crypt = callPackage ./drvs/git-crypt.nix { };
   iosevka-custom = callPackage ./drvs/iosevka/iosevka-custom.nix { };
