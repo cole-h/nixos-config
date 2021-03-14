@@ -348,7 +348,7 @@ in
         # set $system (l) lock, (e) logout, (s) suspend
         "${system}" = {
           l = "exec swaylock --clock --indicator -f -i ${wallpaper} --scaling fill, mode default";
-          e = "exec 'systemctl --user stop sway; swaymsg exit; systemctl --user stop sway-session.target'"; # exit
+          e = "exec 'swaymsg exit; systemctl --user stop sway-session.target'"; # exit
           s = "exec --no-startup-id systemctl suspend, mode default";
           # return to default mode
           Return = "mode default";

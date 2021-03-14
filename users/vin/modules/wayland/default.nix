@@ -106,59 +106,6 @@ in
           WantedBy = [ "sway-session.target" ];
         };
       };
-
-      sway = {
-        Unit = {
-          Description = "sway";
-          Documentation = [ "man:sway(5)" ];
-          BindsTo = [ "graphical-session.target" ];
-          Wants = [ "graphical-session-pre.target" ];
-          After = [ "graphical-session-pre.target" ];
-        };
-
-        Service = {
-          Type = "simple";
-
-          Environment = [
-            "LD_LIBRARY_PATH=${pkgs.mesa_drivers}/lib"
-            "LIBGL_DRIVERS_PATH=${pkgs.mesa_drivers}/lib/dri"
-            "SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh"
-            # "WAYLAND_DEBUG=1"
-          ];
-
-          ExecStart = "${config.wayland.windowManager.sway.package}/bin/sway";
-          ExecStop = "${config.wayland.windowManager.sway.package}/bin/swaymsg exit";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
-      };
-
-      # TODO: "pam_authenticate failed: authentication information unavailable"
-      # swayidle = {
-      #   Unit = {
-      #     Description = "swayidle";
-      #     Documentation = [ "man:swayidle(1)" ];
-      #     PartOf = [ "sway-session.target" ];
-      #   };
-
-      #   Service = {
-      #     Type = "simple";
-      #     ExecStart = ''
-      #       ${pkgs.swayidle}/bin/swayidle -w \
-      #         timeout 1200 '${pkgs.swaylock}/bin/swaylock -f -i ${my.wallpaper} --scaling fill' \
-      #         timeout 1500 'swaymsg "output * dpms off"' \
-      #           resume 'swaymsg "output * dpms on"' \
-      #         before-sleep '${pkgs.swaylock}/bin/swaylock -f -i ${my.wallpaper} --scaling fill'
-      #     '';
-      #     RestartSec = 3;
-      #     Restart = "always";
-      #   };
-
-      #   Install = {
-      #     WantedBy = [ "sway-session.target" ];
-      #   };
-      # };
     };
   };
 }
