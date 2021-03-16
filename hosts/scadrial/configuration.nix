@@ -9,7 +9,6 @@
       ./hardware-configuration.nix
       ./modules
       ./secrets
-      ./borg
     ];
 
   # Set your time zone.

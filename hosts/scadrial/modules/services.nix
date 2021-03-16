@@ -1,5 +1,10 @@
 { config, pkgs, lib, ... }:
 {
+  # Used for ofborg.
+  # https://tailscale.com/kb/1063/install-nixos
+  services.tailscale.enable = true;
+
+  # ZFS snapshotting for stuff I want backed up.
   services.zrepl = {
     enable = true;
     settings = {
@@ -194,7 +199,7 @@
   services.gvfs.enable = true;
 
   # Hide the "help" message
-  # services.mingetty.helpLine = lib.mkForce "";
+  services.getty.helpLine = lib.mkForce "";
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
