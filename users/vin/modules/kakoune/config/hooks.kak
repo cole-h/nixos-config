@@ -16,7 +16,6 @@ hook global BufCreate .* %{
 ## show lsp info in lsp buffers
 hook global WinSetOption filetype=(rust) %{ # TODO: |c|cpp)
   lsp-enable-window
-  set-option -add buffer powerline_format ' lsp'
 }
 
 ## line numbers in actual buffers only
