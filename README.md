@@ -9,7 +9,6 @@ from (see [`names`](./names)). They were manually copy-pasted from throughout th
 were discarded.
 
 [Brandon Sanderson]: https://www.brandonsanderson.com/
-[hostnames]: ./hostnames
 [Coppermind]: https://coppermind.net/wiki/Coppermind:Welcome
 [planets, shards]: https://coppermind.net/wiki/Cosmere#Planets
 [locations]: https://coppermind.net/wiki/Category:Locations
@@ -20,6 +19,8 @@ were discarded.
 
 https://grahamc.com/blog/nixos-on-zfs
 
+https://grahamc.com/blog/erase-your-darlings
+
 https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
 
 ## 0. preparation
@@ -28,22 +29,23 @@ https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
     - FF profile
     - sonarr settings (watched shows, etc)
     - fish shell history
+    - old host key for decrypting secrets, at least until you can get a new host key
 
 ## 1. partition
   - 2GiB /boot at the beginning
   - 32GiB swap partition at the beginning
   - rest "linux partition" (for ZFS) -- don't forget native encryption
     ("encryption=aes-256-gcm") and "compression=zstd"
-    - apool/r (none)
-    - apool/r/local (none) -- shouldn't be backed up
-    - apool/r/local/root (legacy)
-    - apool/r/local/nix (legacy)
-    - apool/r/local/var (legacy)
-    - apool/r/safe (none) -- "safe" to back up
-    - apool/r/safe/state/home (legacy)
-    - apool/r/safe/state/home/vin (legacy)
-    - apool/r/safe/state/home/vin/Downloads (legacy) -- don't backup
-    - apool/alloc (none) -- 1G file to make sure we don't run out of space (can be freed to make fs stuff work again)
+    - apool/r
+    - apool/r/local -- shouldn't be backed up
+    - apool/r/local/root
+    - apool/r/local/nix
+    - apool/r/safe -- "safe" to back up
+    - apool/r/safe/state/var
+    - apool/r/safe/state/home
+    - apool/r/safe/state/home/vin
+    - apool/r/safe/state/home/vin/Downloads -- don't backup
+    - apool/alloc -- 1G file to make sure we don't run out of space (can be freed to make fs stuff work again)
 
 ``` sh
 # This section should be run as root.
@@ -59,20 +61,23 @@ gdisk $DISK
 
 mkfs.fat -F 32 -n boot $DISK-part1
 mkswap -L swap $DISK-part2
+swapon $DISK-part2 # TODO: maybe it needs to be done later? idk
 
+export POOL=apool
 zpool create \
     -O mountpoint=none \
     # SSDs may or may not lie that it uses a 512B physical block size;
     # ashift of 12 (4k) shouldn't really hurt, according to various
     # people
     -o ashift=12 \
+    # set altroot to /mnt so it'll automount, but to /mnt
     -R /mnt \
-    apool $DISK-part3
+    $POOL $DISK-part3
 
 zfs create \
     -o canmount=off \
     -o atime=off \
-    # requires ZoL 2.0
+    # requires OpenZFS 2.0
     -o compression=zstd \
     # apparently gcm is faster than ccm
     -o encryption=aes-256-gcm -o keyformat=passphrase \
@@ -82,47 +87,45 @@ zfs create \
     -o acltype=posixacl \
     # UTF-8 filenames only
     # -o normalization=formD \
-    apool/r
+    $POOL/r
 
-# https://gist.github.com/LnL7/5701d70f46ea23276840a6b1c404597f
-# maybe don't need mountpoint=legacy except for /nix?
-alias nomount='zfs create -o canmount=off'
-alias legacy='zfs create -o mountpoint=legacy'
-nomount apool/r
-nomount apool/r/local
-legacy apool/r/local/root # /
-legacy apool/r/local/nix # /nix
-legacy apool/r/local/var # /var
-nomount apool/r/safe
-legacy apool/r/safe/state
-legacy -p apool/r/safe/state/home/vin/Downloads # create /home, /home/vin, and /home/vin/Downloads datasets
-nomount apool/alloc
-# zfs create -V 302G apool/r/win10
+# https://logs.nix.samueldr.com/nixos-chat/2021-03-15#1615840612-1615841027
+# Add `options = ["zfsutil"];` to the really required datasets (/
+# and /nix) in filesystems.nix
+zfs create $POOL/r/local
+zfs create $POOL/r/local/root -o mountpoint=/
+zfs create $POOL/r/local/nix -o mountpoint=/nix
+zfs create $POOL/r/safe
+zfs create $POOL/r/safe/state -o mountpoint=/state
+zfs create $POOL/r/safe/state/var -o mountpoint=/state/var
+zfs create $POOL/r/safe/state/home -o mountpoint=/state/home
+zfs create $POOL/r/safe/state/home/vin -o mountpoint=/state/home/vin
+zfs create $POOL/r/safe/state/home/vin/Downloads -o mountpoint=/state/home/vin/Downloads
+# zfs create -V 302G $POOL/r/win10
+
+# copy tank key to /tmp/tank-key (add to usb?)
+cp /tmp/tank-key /mnt/state
+zpool import tank
+zfs load-key -L file:///mnt/state/tank-key tank
+zfs set keylocation=file:///state/tank-key tank
+
+# Unmount the just-created datasets to prevent them from being detected
+# when generating the hardware config.
+zfs unmount -a
 
 # keep space available in case it's ever needed
-# to free up the space, `zfs set refreservation=none apool/alloc`
-nomount -o refreservation=1G apool/alloc
+# to free up the space, `zfs set refreservation=none $POOL/alloc`
+zfs create -o canmount=off -o refreservation=1G $POOL/alloc
 
-# create snapshot of everything `@blank` -- easy to switch to tmpfs if I want
-zfs snapshot -r apool/r@blank
-# roll back with `zfs rollback -r apool/r@blank`
+# create snapshot of everything `@blank`
+zfs snapshot -r $POOL@blank
+# roll back with `zfs rollback -r <dataset>@blank`
 
-mkdir -p /tmp/sys
-zpool import rpool tank
-mount -t zfs rpool/system/root /tmp/sys
-zfs load-key -L file:///tmp/sys/tank-key tank
+# don't need to create /nix, /state, etc. because `zfs create` does
+mkdir -p /mnt/boot /mnt/media /mnt/mnt
 
-alias zmnt='mount -t zfs'
-zmnt apool/r/local/root /mnt
-cp /tmp/sys/tank-key /mnt
-mkdir -p /mnt/{boot,var,media,nix,state/home/vin/Downloads,mnt}
-zmnt apool/r/local/var /mnt/var
-zmnt apool/r/local/nix /mnt/nix
-zmnt apool/r/safe/state /mnt/state
-zmnt apool/r/safe/state/home /mnt/state/home
-zmnt apool/r/safe/state/home/vin /mnt/state/home/vin
-zmnt apool/r/safe/state/home/vin/Downloads /mnt/state/home/vin/Downloads
-zmnt tank/system/media /mnt/media
+# mount stuff so it's detected by nixos-generate-config
+mount -t zfs tank/system/media /mnt/media
 mount $DISK-part1 /mnt/boot
 ```
 
@@ -130,23 +133,34 @@ mount $DISK-part1 /mnt/boot
 ## 2. install
 
 ``` sh
-# This section should be run as the ISO user
+# This section should be run as the ISO user (typically nixos)
 
 git clone https://github.com/cole-h/nixos-config /mnt/tmp/nixos-config
 
-doas swapon $DISK-part2 # otherwise, nixos-install won't generate hardware config for this
+# nixos-install won't generate hardware config for us
 nixos-generate-config --root /mnt --dir /tmp/nixos-config/hosts/scadrial
 
-sed "s@networking.hostId = \".*\"@networking.hostId = \"$(head -c 8 /etc/machine-id)\"@" -i hosts/scadrial/modules/networking.nix
+# don't want to generate a config with our zfs-automounted datasets in
+# it, so we mount AFTER we generate the hardware config
+doas bash
+  zfs mount $POOL/r/local/root
+  zfs mount $POOL/r/local/nix
+  zfs mount $POOL/r/safe/state
+  zfs mount $POOL/r/safe/state/var
+  zfs mount $POOL/r/safe/state/home
+  zfs mount $POOL/r/safe/state/home/vin
+  zfs mount $POOL/r/safe/state/home/vin/Downloads
+
+sed "s@networking.hostId = \".*\"@networking.hostId = \"$(head -c8 /etc/machine-id)\"@" -i hosts/scadrial/modules/networking.nix
 # copy old host key to /mnt/tmp/host/ed25519? or maybe it's /tmp/host/ed25519. why not both.
 nix build /mnt/tmp/nixos-config#bootstrap --out-link /tmp/outsystem
 nixos-install --system /tmp/outsystem --no-root-passwd --no-channel-copy
 
 nixos-enter
-  echo "nameserver 192.168.1.212" >> /etc/resolv.conf
+  echo "nameserver 8.8.8.8" >> /etc/resolv.conf
   nix-daemon &>/dev/null &
   doas -u vin bash
-    gpg --import # import secret key for user
+    gpg --import # import secret key for user (used for pass and stuff)
     doas chown -R vin:users /tmp/nixos-config
     mv /tmp/nixos-config ~/flake
     # might need to get pinentry-curses and set pinentry-program in
@@ -164,15 +178,15 @@ systemctl reboot
 ``` sh
 # This section should be run as the default user (vin, in this case)
 
-doas mount -t zfs rpool/user/home /mnt
-rsync -aP /mnt/vin/.password-store/ ~/.password-store/
-rsync -aP /mnt/vin/.mozilla/ ~/.mozilla/
-rsync -aP /mnt/vin/workspace/ ~/workspace/
+doas mount -t zfs bpool/zrepl/sink/scadrial/apool/ROOT/user/home/vin /mnt -o ro
+rsync -aP /mnt/.password-store/ ~/.password-store/
+rsync -aP /mnt/.mozilla/ ~/.mozilla/
+rsync -aP /mnt/workspace/ ~/workspace/
 ln -s ~/.local/share/hydrus/db ~/workspace/vcs/hydrus/db
-rsync -a /mnt/vin/.cache/.j4_history ~/.cache/
-rsync -aP --ignore-existing /mnt/vin/.local/share/chatterino/ ~/.local/share/chatterino/
-rsync -a /mnt/vin/.local/share/zoxide/ ~/.local/share/zoxide/
-rsync -a /mnt/vin/.local/share/fish/fish_history ~/.local/share/fish/
+rsync -a /mnt/.cache/.j4_history ~/.cache/
+rsync -aP --ignore-existing /mnt/.local/share/chatterino/ ~/.local/share/chatterino/
+rsync -a /mnt/.local/share/zoxide/ ~/.local/share/zoxide/
+rsync -a /mnt/.local/share/fish/fish_history ~/.local/share/fish/
 # verify PCI addresses in windows10.xml and start.sh / revert.sh, then:
 doas virsh define ..../windows10.xml
 

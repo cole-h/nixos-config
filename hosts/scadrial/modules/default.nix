@@ -9,6 +9,7 @@
       ./boot.nix # configuration related to boot
       ./downloads.nix # configuration related to torrenting
       ./environment.nix # configuration related to environment.*
+      ./filesystems.nix # configuration related to filesystems
       ./fonts.nix # configuration related to fonts
       ./hardware.nix # configuration related to hardware
       ./networking.nix # configuration related to networking
