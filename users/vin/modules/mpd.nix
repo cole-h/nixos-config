@@ -37,8 +37,8 @@
         }
 
         audio_output {
-            type "jack"
-            name "JACK Device"
+            type "pulse"
+            name "My Pulse Output"
             mixer_type "software"
         }
 
