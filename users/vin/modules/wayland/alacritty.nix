@@ -82,7 +82,10 @@
 
       selection.save_to_clipboard = true;
 
-      cursor.vi_mode_style = "Beam";
+      cursor = {
+        style.blinking = "On";
+        vi_mode_style = "Beam";
+      };
 
       key_bindings = [
         {
