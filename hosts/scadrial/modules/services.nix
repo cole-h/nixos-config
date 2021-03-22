@@ -1,5 +1,10 @@
 { config, pkgs, lib, ... }:
 {
+  # It fails nowadays due to "Read event structure of invalid size.",
+  # dunno why, but I don't need it.
+  systemd.services."systemd-rfkill".enable = false;
+  systemd.sockets."systemd-rfkill".enable = false;
+
   # Used for ofborg.
   # https://tailscale.com/kb/1063/install-nixos
   services.tailscale.enable = true;
