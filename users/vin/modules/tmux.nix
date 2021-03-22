@@ -106,28 +106,6 @@
       bind v split-window -h -c '#{pane_current_path}'
       bind % split-window -h -c '#{pane_current_path}'
       # }}}
-
-      ## base16 dracula
-      # default statusbar colors
-      set-option -g status-style "fg=#62d6e8,bg=#3a3c4e"
-      # default window title colors
-      set-window-option -g window-status-style "fg=#62d6e8,bg=default"
-      # active window title colors
-      set-window-option -g window-status-current-style "fg=#00f769,bg=default"
-      # pane border
-      set-option -g pane-border-style "fg=#3a3c4e"
-      set-option -g pane-active-border-style "fg=#4d4f68"
-      # message text
-      set-option -g message-style "fg=#e9e9f4,bg=#3a3c4e"
-      # pane number display
-      set-option -g display-panes-active-colour "#ebff87"
-      set-option -g display-panes-colour "#00f769"
-      # clock
-      set-window-option -g clock-mode-colour "#ebff87"
-      # copy mode highlight
-      set-window-option -g mode-style "fg=#62d6e8,bg=#4d4f68"
-      # bell
-      set-window-option -g window-status-bell-style "fg=#3a3c4e,bg=#ea51b2"
     '';
   };
 }
