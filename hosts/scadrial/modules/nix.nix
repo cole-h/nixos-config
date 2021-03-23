@@ -10,7 +10,6 @@
     '';
 
     trustedUsers = [ "vin" ];
-    autoOptimiseStore = true;
     binaryCaches = [
       # "https://cache.qyliss.net"
       # "https://cole-h.cachix.org"
