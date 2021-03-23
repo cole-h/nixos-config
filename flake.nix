@@ -31,7 +31,7 @@
 
     # Not flakes
     # baduk = { url = "github:dustinlacewell/baduk.nix"; flake = false; };
-    doom = { url = "github:hlissner/doom-emacs"; flake = false; };
+    # doom = { url = "github:hlissner/doom-emacs"; flake = false; };
     # mozilla = { url = "github:mozilla/nixpkgs-mozilla"; flake = false; };
     aarch-images = { url = "github:Mic92/nixos-aarch64-images"; flake = false; };
   };
@@ -57,7 +57,8 @@
           overlays = [
             inputs.emacs.overlay
             (import ./overlay.nix {
-              inherit (inputs) doom;
+              doom = null;
+              # inherit (inputs) doom;
             })
             (final: prev: {
               passrs = inputs.passrs.defaultPackage.${system};
