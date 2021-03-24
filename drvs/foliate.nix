@@ -19,9 +19,9 @@
 , libarchive
 }:
 let
-  version = "2.4.2";
+  version = "2.6.2";
   pname = "foliate";
-  sha256 = "sha256-sFStB6NDh0rVMwVishvhmyBRQ1/SVufRNdvfYqj6Pns=";
+  sha256 = "sha256-hfvZMzNACk8ECnrCfQ8WSTbqVcNhmboOCKNGSkxBwAM=";
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -64,13 +64,11 @@ stdenv.mkDerivation {
   # Improvements/alternatives welcome, but this seems to work for now :/
   # See: https://github.com/NixOS/nixpkgs/issues/31168#issuecomment-341793501
   postInstall = ''
-    ln -s "$out/bin/com.github.johnfactotum.Foliate" "$out/bin/foliate"
-
     sed -e "2iimports.package._findEffectiveEntryPointName = () => 'com.github.johnfactotum.Foliate'" \
-      -i $out/bin/foliate
+      -i $out/bin/com.github.johnfactotum.Foliate
   '';
 
   postFixup = ''
-    sed '2iexport WEBKIT_DISABLE_COMPOSITING_MODE=1' -i "$out/bin/foliate"
+    ln -s "$out/bin/com.github.johnfactotum.Foliate" "$out/bin/foliate"
   '';
 }
