@@ -35,7 +35,6 @@
       alang = "jp,jpn,ja,Japanese,japanese,en,eng";
       audio-display = "no";
       cache-pause = "no";
-      cache-secs = 600;
       cache = "yes";
       gpu-context = "wayland";
       mute = "no";
