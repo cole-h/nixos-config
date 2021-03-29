@@ -16,7 +16,7 @@ echo ">>>> Restarted torrents and media"
 
 doas -u vin \
   env XDG_RUNTIME_DIR=/run/user/$(id -u vin) DBUS_SESSION_ADDRESS=unix:path=/run/user/$(id -u vin)/bus \
-  systemctl restart --user pipewire-pulse.socket
+  systemctl restart --user pipewire.socket pipewire-pulse.socket
 echo ">>>> Restarted user pulse"
 
 virsh nodedev-reattach pci_0000_09_00_1
