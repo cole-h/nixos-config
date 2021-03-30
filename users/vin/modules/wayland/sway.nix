@@ -424,9 +424,13 @@ in
             command = "floating enable";
           }
           {
-            criteria = { app_id = "mpv"; };
+            criteria = { app_id = "mpv"; title = "^twitch.tv/.* - mpv"; };
             command =
               "border none, resize set width 1520 px height 1030 px, move left, inhibit_idle visible";
+          }
+          {
+            criteria = { app_id = "mpv"; };
+            command = "border none, inhibit_idle visible";
           }
           {
             criteria = {
@@ -508,7 +512,7 @@ in
 
       assigns = {
         "${ws2}" = [
-          { app_id = "mpv"; }
+          { title = "twitch.tv/.* - mpv"; }
           { class = "chatterino"; }
           { app_id = "chatterino"; }
         ];
