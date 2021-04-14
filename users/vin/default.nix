@@ -38,24 +38,24 @@
 
     packages = with pkgs;
       [
-        ## tools
         aerc # terminal email reader; TODO: add config to secrets/
+        amfora # gemini:// browser
+        # android-studio # android apps
+        bootloadHID # used to flash my QMK numpad
+        chatterino2 # Twitch chat client
+        dfmt # par + fmt but better
+        discord
+        # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
+        firefox-bin
+        foliate
         hydrus # booru-like image tagger
         mdloader # used to flash my Drop CTRL
         newsboat # rss/atom feed reader
-        amfora # gemini:// browser
-        qimgv # image viewer
-        bootloadHID # used to flash my QMK numpad
-        firefox-bin
         pass-otp
         passrs
-        # android-studio # android apps
-        chatterino2 # Twitch chat client
-        discord
-        todo-txt-cli # todos tracker
-        foliate
-        # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
+        qimgv # image viewer
         thunderbird
+        todo-txt-cli # todos tracker
       ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
