@@ -41,6 +41,7 @@ in
       rebase.autoStash = true;
       sendemail.annotate = true;
       merge.conflictstyle = "diff3";
+      init.defaultBranch = "main";
 
       diff."nodiff".command = "${pkgs.coreutils}/bin/true";
 
