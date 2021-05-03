@@ -487,7 +487,7 @@ in
           }
           {
             criteria = { app_id = "SCRATCHTERM"; };
-            command = "move scratchpad, border pixel, opacity 0.95, sticky enable";
+            command = "move scratchpad, border pixel, sticky enable";
           }
           # set opacity to 0 so that we don't see the flicker as a result of being
           # unable to specify alacritty's size in pixels
