@@ -128,7 +128,7 @@ in
         smartGaps = true;
       };
 
-      fonts = [ "IPAexGothic 10" "DejaVu Sans Mono 10" ];
+      fonts.names = [ "IPAexGothic 10" "DejaVu Sans Mono 10" ];
       # fonts = [ "IPAexGothic 11" "Iosevka Custom Book Extended 10" ];
 
       input = {
@@ -541,7 +541,7 @@ in
         {
           statusCommand = "while ${status}/bin/status; do sleep 0.1; done";
           position = "top";
-          fonts = [ "IPAexGothic 11" "DejaVu Sans Mono 10" ];
+          fonts.names = [ "IPAexGothic 11" "DejaVu Sans Mono 10" ];
           colors = {
             background = "#1f1f1f";
             # inactiveWorkspace = { background = "#808080"; border = "#808080"; text = "#888888"; };
