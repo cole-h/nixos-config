@@ -3,6 +3,7 @@
 {
   users.groups.downloads.gid = 947;
   users.users.downloads = {
+    isSystemUser = true;
     group = "downloads";
     uid = 947;
     inherit (config.services.transmission) home;
