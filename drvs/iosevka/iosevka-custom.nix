@@ -8,9 +8,9 @@
 , otfcc
 }:
 let
-  sha256 = "sha256-N5ckHBjUFsBTtGqUsJbEHDSdnJ3PODVKI2IYYCR4+lw=";
+  sha256 = "ffTgFIQpk59HPpXxEYzmjr8FEMHsnRvMCnDHnhxPuRw=";
   pname = "iosevka-${set}";
-  version = "5.2.1";
+  version = "6.1.3";
 
   set = "custom";
 
@@ -105,7 +105,7 @@ let
       one = "base";
       three = "flattop";
       tilde = "low";
-      asterisk = "high";
+      asterisk = "penta-high";
       underscore = "high";
       paragraph-sign = "high";
       caret = "high";
