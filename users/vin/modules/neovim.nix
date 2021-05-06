@@ -3,7 +3,6 @@
   programs.neovim = {
     enable = true;
 
-    withPython = false;
     withPython3 = false;
     withRuby = false;
     withNodeJs = false;
