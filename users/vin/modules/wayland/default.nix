@@ -8,7 +8,6 @@ in
     [
       ./sway.nix # sway config
       ./mako.nix # mako config
-      ./alacritty.nix # alacritty config
       # ./waybar.nix # waybar config
       # ./japanese.nix # JP config
     ];

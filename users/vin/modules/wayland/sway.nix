@@ -85,6 +85,7 @@ in
     swaybg
     swayidle
     swaylock-effects
+    foot
   ];
 
   wayland.windowManager.sway = {
