@@ -38,14 +38,15 @@ let
 
   ## Executables
   inherit (my.scripts)
-    alacritty
+    # alacritty
     imgur
     passmenu
     otpmenu
     ;
 
-  term = alacritty;
-  alacritty' = "${pkgs.alacritty}/bin/alacritty"; # [drvs]
+  # term = alacritty;
+  term = "${pkgs.foot}/bin/foot";
+  # alacritty' = "${pkgs.alacritty}/bin/alacritty";
   kitty = "${pkgs.kitty}/bin/kitty";
   menu = ''
     ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop \
@@ -128,7 +129,8 @@ in
         smartGaps = true;
       };
 
-      fonts.names = [ "IPAexGothic 10" "DejaVu Sans Mono 10" ];
+      fonts.size = 10.0;
+      # fonts = [ "IPAexGothic 10" "DejaVu Sans Mono 10" ];
       # fonts = [ "IPAexGothic 11" "Iosevka Custom Book Extended 10" ];
 
       input = {
@@ -160,7 +162,7 @@ in
         # start a terminal
         "${modifier}+Return" = "exec ${term}";
         "${modifier}+KP_Enter" = "exec ${term}";
-        "${modifier}+Shift+Return" = "exec ${alacritty'}";
+        # "${modifier}+Shift+Return" = "exec ${alacritty'}";
         "${modifier}+Ctrl+Shift+Return" = "exec ${kitty}";
         # kill focused window
         "${modifier}+Shift+q" = "kill";
@@ -507,6 +509,10 @@ in
             criteria = { instance = "pinentry"; };
             command = "sticky enable";
           }
+          {
+            criteria = { app_id = "foot"; };
+            command = "border pixel 2";
+          }
         ];
       };
 
@@ -523,7 +529,8 @@ in
         #   command = "${pkgs.cadence}/bin/cadence-session-start --system-start";
         # }
         {
-          command = "alacritty --class SCRATCHTERM -e tmux -L scratch new-session -A";
+          # command = "alacritty --class SCRATCHTERM -e tmux -L scratch new-session -A";
+          command = "foot --app-id=SCRATCHTERM tmux -L scratch new-session -A";
         }
         {
           command = ''
@@ -541,7 +548,8 @@ in
         {
           statusCommand = "while ${status}/bin/status; do sleep 0.1; done";
           position = "top";
-          fonts.names = [ "IPAexGothic 11" "DejaVu Sans Mono 10" ];
+          # fonts = [ "IPAexGothic 11" "DejaVu Sans Mono 10" ];
+          fonts.size = 10.0;
           colors = {
             background = "#1f1f1f";
             # inactiveWorkspace = { background = "#808080"; border = "#808080"; text = "#888888"; };

@@ -26,8 +26,12 @@
     </fontconfig>
   '';
 
+  home.packages = [
+    pkgs.foot
+  ];
+
   programs.alacritty = {
-    enable = true;
+    enable = false;
     settings = {
       scrolling = {
         history = 100000;
