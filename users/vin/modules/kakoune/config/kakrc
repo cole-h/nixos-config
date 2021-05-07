@@ -25,12 +25,11 @@ plug smarttab "https://github.com/andreyorst/smarttab.kak" %{
   hook global WinSetOption filetype=(rust|kak|sh|nix|c|cpp) expandtab
   set-option global softtabstop 4
 }
-plug-old dracula "https://github.com/dracula/kakoune" %{
+plug-old gruvbox "https://github.com/andreyorst/base16-gruvbox.kak" %{
   # TODO: don't forget to symlink the colors
-  colorscheme dracula-transparent
-  set-face global LineNumberCursor "%opt{yellow}"
-  set-face global MatchingChar "%opt{green}+u"
+  colorscheme base16-gruvbox-dark-medium
   set-face global CursorLine "default,%opt{gray}"
+  set-face global PrimarySelection "default,rgb:7c6f64+g"
   hook global BufCreate .* %{
     add-highlighter buffer/autowrap_column column '%opt{autowrap_column}' "default,%opt{gray}"
   }
@@ -50,12 +49,17 @@ plug-old mirror "https://github.com/delapouite/kakoune-mirror" %{
 plug-old edit-or-dir "https://github.com/TeddyDD/kakoune-edit-or-dir"
 
 # Options
-set-option global startup_info_version 20200901
+set-option global startup_info_version 20210501
 set-option global grepcmd 'rg --no-heading --line-number --column --sort path'
 set-option global ui_options ncurses_set_title=false ncurses_assistant=off
 set-option global indentwidth 2
 set-option global scrolloff 3,3
 set-option global autowrap_fmtcmd 'par -w %c'
+
+# https://github.com/andreyorst/base16-gruvbox.kak/blob/882a612562ddd4a9a4054a1dfee2176fa8846092/colors/base16-gruvbox-dark-hard.kak#L32
+set-option global yellow "rgb:d79921"
+set-option global cyan "rgb:689d6a"
+set-option global purple "rgb:b16286"
 
 set-option global modelinefmt '{%opt{yellow}+r} %val{bufname}%opt{modeline_readonly}{{context_info}} {default} '
 set-option -add global modelinefmt '{%opt{cyan}}%val{cursor_line}:%val{cursor_char_column}{default} '

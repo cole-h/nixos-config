@@ -28,7 +28,7 @@ hook global WinCreate ^[^*]+$ %{
 ## wayland
 hook -once global KakBegin .* %{
   evaluate-commands %sh{
-    [[ -n "$WAYLAND_DISPLAY" ]] && echo 'provide-module wayland %{}; require-module wayland'
+    [[ -n "$WAYLAND_DISPLAY" ]] && echo 'require-module wayland'
   }
 }
 
