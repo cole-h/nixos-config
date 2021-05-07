@@ -50,13 +50,19 @@ in
     };
   });
 
-  sway-unwrapped = prev.sway-unwrapped.overrideAttrs ({ ... }: {
+  sway-unwrapped = prev.sway-unwrapped.overrideAttrs ({ buildInputs ? [ ], ... }: {
     src = final.fetchFromGitHub {
       owner = "swaywm";
       repo = "sway";
       rev = "1.4";
       sha256 = "11qf89y3q92g696a6f4d23qb44gqixg6qxq740vwv2jw59ms34ja";
     };
+
+    patches = [ ];
+
+    buildInputs = buildInputs ++ [
+      final.mesa_drivers.dev
+    ];
   });
 
   discord = runCommand "discord"
@@ -89,12 +95,12 @@ in
     '';
   });
 
-  kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs ({ patches ? [ ], ... }: {
+  kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs ({ ... }: {
     src = final.fetchFromGitHub {
       owner = "mawww";
       repo = "kakoune";
-      rev = "7751c7e188bfc7b2f7e4a70e33032677d84597e5";
-      sha256 = "sha256-6sMh+aL/Xj6rUkJCH4m+mLcOC3zE/bbzKux2rdUZzAc=";
+      rev = "ead12e11bdfc861c0f1decb9ff7e91582196fcfe";
+      sha256 = "UpnYNpZN4YLk2T3P8CfdgW0I7UKEyEj2EPONfGXQhHM=";
     };
   });
 
