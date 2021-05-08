@@ -1,10 +1,28 @@
-{ config, lib, pkgs, ... }:
+{ super, config, lib, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
     cantata # gui
     ncmpcpp # tui
+    playerctl
   ];
+
+  services.spotifyd = {
+    enable = true;
+    package = pkgs.spotifyd.override { withMpris = true; };
+
+    settings.global = {
+      username = "cole.e.helbling@outlook.com";
+      password_cmd = "cat ${super.age.secrets.spotifyd.path}";
+      use_mpris = true;
+      backend = "pulseaudio";
+      device_name = "spotifyd";
+      bitrate = 320;
+      volume_normalisation = true;
+      normalisation_pregain = -10;
+      device_type = "speaker";
+    };
+  };
 
   services = {
     mpd = rec {

@@ -20,6 +20,55 @@ let
     printf "%s  %s  %s  %s\n" "$space" "$music" "$volume" "$time"
   '';
 
+  pp = pkgs.writeScriptBin "pp" ''
+    #!${pkgs.fish}/bin/fish
+    # https://github.com/Icelk/dotfiles/blob/c8b21cd0e4f00a03bf5e5cc8182803bd20e3c623/scripts/playerctl-custom.sh#L1
+
+    function pctl
+        dbus-send --type=method_call --dest="org.mpris.MediaPlayer2.$argv[1]" /org/mpris/MediaPlayer2 "org.mpris.MediaPlayer2.Player.$argv[2]"
+    end
+
+    # Super-fast compared to (playerctl status)
+    function pctl_get
+        set response (dbus-send --reply-timeout=1000 --print-reply --dest="org.mpris.MediaPlayer2.$argv[1]" /org/mpris/MediaPlayer2 "org.freedesktop.DBus.Properties.Get" string:"org.mpris.MediaPlayer2.Player" string:"$argv[2]")
+        if test $status -ne 0
+            echo "Stopped"
+        else
+            echo (echo $response | string split '"')[2]
+        end
+    end
+
+    set spt_status (pctl_get "spotifyd" "PlaybackStatus")
+
+    function pref_spt
+        set player (playerctl -l | grep "spotifyd")
+
+        if test $status -eq 0
+            set player (echo $player | head -n 1)
+        else
+            set player (playerctl -l | head -n 1)
+        end
+
+        echo $player
+    end
+
+    for player in (playerctl -l)
+        if string match -q $player "spotifyd"
+            if string match -q $spt_status "Playing"
+                pctl $player "Pause"
+                exit 0
+            end
+        else
+            if string match -q (pctl_get $player "PlaybackStatus") "Playing"
+                pctl $player "Pause"
+                exit 0
+            end
+        end
+    end
+
+    pctl (pref_spt) "Play"
+  '';
+
   ## Variables for bindings
   # Logo key
   modifier = "Mod4";
@@ -308,11 +357,10 @@ in
           "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
         "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
 
-        # or playerctl, but need to enable mpris for mpd
-        "XF86AudioPlay" = "exec ${pkgs.mpc_cli}/bin/mpc toggle";
-        "XF86AudioStop" = "exec ${pkgs.mpc_cli}/bin/mpc stop";
-        "XF86AudioPrev" = "exec ${pkgs.mpc_cli}/bin/mpc prev";
-        "XF86AudioNext" = "exec ${pkgs.mpc_cli}/bin/mpc next";
+        "XF86AudioPlay" = "exec ${pp}/bin/pp";
+        "XF86AudioStop" = "exec ${pkgs.playerctl}/bin/playerctl stop";
+        "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl prev";
+        "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
 
         ## Modes
         "${modifier}+r" = "mode resize";

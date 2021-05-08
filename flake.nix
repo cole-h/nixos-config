@@ -175,26 +175,21 @@
                 inherit (lib.types) attrsOf submoduleWith;
                 inherit (inputs.home.nixosModules) home-manager;
 
-                home = { ... }: {
-                  # "submodule types have merging semantics" -- bqv
-                  options.home-manager.users = mkOption {
-                    type = attrsOf (submoduleWith {
-                      modules = [ ];
-                      specialArgs = {
-                        inherit inputs;
-
-                        my = import ./my.nix {
-                          inherit lib;
-                        };
-                      };
-                    });
-                  };
-
+                home = { config, ... }: {
                   config.home-manager = {
                     users = import ./users;
                     useGlobalPkgs = true;
                     useUserPackages = true;
                     verbose = true;
+
+                    extraSpecialArgs = {
+                      inherit inputs;
+                      super = config;
+
+                      my = import ./my.nix {
+                        inherit lib;
+                      };
+                    };
                   };
                 };
               in

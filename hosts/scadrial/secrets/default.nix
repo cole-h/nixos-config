@@ -68,5 +68,10 @@ in
     bpool = {
       file = ./bpool;
     };
+
+    spotifyd = {
+      owner = vin.name;
+      file = ./spotifyd;
+    };
   };
 }
