@@ -5,7 +5,7 @@
       ./zsh.nix # zsh config
       ./gpg.nix # GPG config
       ./mail.nix # maildir config
-      ./mpd.nix # mpd config
+      ./music.nix # music config
       ./mpv.nix # mpv config
       ./neovim.nix # neovim config
       ./rust.nix # rust-related
