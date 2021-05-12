@@ -30,6 +30,7 @@ in
     cantata # gui
     ncmpcpp # tui
     playerctl
+    spotify
   ];
 
   services.spotifyd = {
