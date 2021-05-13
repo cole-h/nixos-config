@@ -33,6 +33,11 @@ in
     spotify
   ];
 
+  systemd.user.services."spotifyd" = {
+    Unit.After = [ "suspend.target" ];
+    Install.WantedBy = [ "suspend.target" "default.target" ];
+  };
+
   services.spotifyd = {
     enable = true;
     package = pkgs.spotifyd.override { withMpris = true; };
