@@ -50,7 +50,6 @@ in
       device_name = "spotifyd";
       bitrate = 320;
       volume_normalisation = true;
-      normalisation_pregain = -10;
       device_type = "speaker";
       on_song_change_hook = spotifyd-change;
     };
