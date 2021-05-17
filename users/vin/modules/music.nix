@@ -52,6 +52,7 @@ in
       volume_normalisation = true;
       device_type = "speaker";
       on_song_change_hook = spotifyd-change;
+      autoplay = true;
     };
   };
 
