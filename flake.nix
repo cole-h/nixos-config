@@ -13,7 +13,7 @@
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
 
-    agenix-rs = { url = "github:cole-h/agenix-rs"; };
+    agenix-cli = { url = "github:cole-h/agenix-cli"; };
     agenix = { url = "github:cole-h/agenix/symlink"; };
     # agenix = { url = "git+file:///home/vin/workspace/vcs/agenix"; };
     emacs = { url = "github:nix-community/emacs-overlay"; };
@@ -62,7 +62,7 @@
             (final: prev: {
               passrs = inputs.passrs.defaultPackage.${system};
               # neovim-unwrapped = inputs.neovim.defaultPackage.${system};
-              agenix = inputs.agenix-rs.defaultPackage.${system};
+              agenix = inputs.agenix-cli.defaultPackage.${system};
               # pijul = inputs.pijul.defaultPackage.${system};
             })
           ];
