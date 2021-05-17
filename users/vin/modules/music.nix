@@ -36,6 +36,7 @@ in
   systemd.user.services."spotifyd" = {
     Unit.After = [ "suspend.target" ];
     Install.WantedBy = [ "suspend.target" "default.target" ];
+    Service.Restart = "always";
   };
 
   services.spotifyd = {
