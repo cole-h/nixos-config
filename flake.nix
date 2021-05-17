@@ -16,7 +16,6 @@
     agenix-rs = { url = "github:cole-h/agenix-rs"; };
     agenix = { url = "github:cole-h/agenix/symlink"; };
     # agenix = { url = "git+file:///home/vin/workspace/vcs/agenix"; };
-    alacritty = { url = "github:cole-h/flake-alacritty"; };
     emacs = { url = "github:nix-community/emacs-overlay"; };
     home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     # TODO: actually set up impermanence
@@ -62,7 +61,6 @@
             })
             (final: prev: {
               passrs = inputs.passrs.defaultPackage.${system};
-              alacritty = inputs.alacritty.defaultPackage.${system};
               # neovim-unwrapped = inputs.neovim.defaultPackage.${system};
               agenix = inputs.agenix-rs.defaultPackage.${system};
               # pijul = inputs.pijul.defaultPackage.${system};
