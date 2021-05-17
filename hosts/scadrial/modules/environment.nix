@@ -64,10 +64,4 @@
 
       pinentry.${config.programs.gnupg.agent.pinentryFlavor}
     ];
-
-  # For nix-direnv (https://github.com/nix-community/nix-direnv)
-  nix.extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
-  '';
 }
