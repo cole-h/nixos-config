@@ -30,6 +30,8 @@
       wol
     ];
 
+  fileSystems."/data".options = [ "nofail" ];
+
   # TODO:
   # swapDevices = [ { device = "/swapfile"; size = 4096; } ];
 
