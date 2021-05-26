@@ -1,1 +1,0 @@
-../autojoinem.py

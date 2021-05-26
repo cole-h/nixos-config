@@ -47,24 +47,6 @@ in
       path = "${vin.home}/.config/streamlink/config";
     };
 
-    weechat-irc = {
-      owner = vin.name;
-      file = ./weechat-irc;
-      path = "${vin.home}/.config/weechat/irc.conf";
-    };
-
-    weechat-sec = {
-      owner = vin.name;
-      file = ./weechat-sec;
-      path = "${vin.home}/.config/weechat/sec.conf";
-    };
-
-    weechat-pem = {
-      owner = vin.name;
-      file = ./weechat-pem;
-      path = "${vin.home}/.config/weechat/freenode.pem";
-    };
-
     bpool = {
       file = ./bpool;
     };

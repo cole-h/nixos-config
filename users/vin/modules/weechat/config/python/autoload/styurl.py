@@ -1,1 +1,0 @@
-../styurl.py
