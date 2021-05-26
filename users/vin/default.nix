@@ -57,6 +57,7 @@
         thunderbird
         todo-txt-cli # todos tracker
         element-desktop
+        git-absorb
       ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
