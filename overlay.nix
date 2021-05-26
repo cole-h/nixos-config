@@ -78,6 +78,14 @@ in
     '';
   });
 
+  element-desktop = runCommand "element-desktop"
+    { buildInputs = [ final.makeWrapper ]; }
+    ''
+      makeWrapper ${prev.element-desktop}/bin/element-desktop $out/bin/element-desktop \
+        --add-flags '--enable-features=UseOzonePlatform --ozone-platform=wayland'
+      ln -s ${prev.element-desktop}/share $out/share
+    '';
+
   # python2 GTFO my closure
   neovim = prev.neovim.override {
     withPython = false;
