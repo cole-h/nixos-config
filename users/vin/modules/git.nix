@@ -31,6 +31,14 @@ in
     includes = [
       # includes github auth token, etc
       { path = "gitauth.inc"; }
+      # work stuff
+      {
+        condition = "gitdir:~/workspace/detsys/";
+        contents = {
+          user.email = "cole.helbling@determinate.systems";
+          commit.gpgSign = false;
+        };
+      }
     ];
 
     extraConfig = {
@@ -54,3 +62,7 @@ in
     };
   };
 }
+
+
+
+
