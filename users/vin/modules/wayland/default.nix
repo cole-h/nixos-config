@@ -20,7 +20,7 @@ in
     alacritty # [drvs]
     kitty # alt terminal as backup
     libnotify # notifications part 2: electric boogaloo
-    redshift # blue-light filter; [overlays]
+    wlsunset # blue-light filter
     bemenu # dmenu launcher; [overlays]
     j4-dmenu-desktop # desktop files
     rofi # has rofi-emoji as a plugin; [overlays]
@@ -87,16 +87,16 @@ in
         };
       };
 
-      redshift = {
+      wlsunset = {
         Unit = {
-          Description = "redshift";
-          Documentation = [ "man:redshift(1)" ];
+          Description = "wlsunset";
+          Documentation = [ "man:wlsunset(1)" ];
           PartOf = [ "sway-session.target" ];
         };
 
         Service = {
           Type = "simple";
-          ExecStart = "${pkgs.redshift}/bin/redshift -t 6500:3000 -l 38.68:-121.14";
+          ExecStart = "${pkgs.wlsunset}/bin/wlsunset -T 6500 -t 3000 -l 38.68 -L -121.14";
           RestartSec = 3;
           Restart = "always";
         };

@@ -20,12 +20,6 @@ in
   sonarr = callPackage ./drvs/sonarr.nix { };
   bootloadHID = callPackage ./drvs/bootloadHID.nix { };
 
-  redshift = callPackage ./drvs/redshift-wayland {
-    inherit (python3Packages) python pygobject3 pyxdg wrapPython;
-    withGeoclue = false;
-    geoclue = null;
-  };
-
   # small-ish overrides
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
@@ -39,30 +33,6 @@ in
       sha256 = "sha256-kpj4CQBFRE6cqPzPO+QIQ+GF3aEQdYkDrFtXRYdPLMc=";
       fetchSubmodules = true;
     };
-  });
-
-  wlroots = prev.wlroots.overrideAttrs ({ ... }: {
-    src = final.fetchFromGitHub {
-      owner = "swaywm";
-      repo = "wlroots";
-      rev = "0.10.1";
-      sha256 = "0j2lh9vc92zhn44rjbia5aw3y1rpgfng1x1h17lcvj5m4i6vj0pc";
-    };
-  });
-
-  sway-unwrapped = prev.sway-unwrapped.overrideAttrs ({ buildInputs ? [ ], ... }: {
-    src = final.fetchFromGitHub {
-      owner = "swaywm";
-      repo = "sway";
-      rev = "1.4";
-      sha256 = "11qf89y3q92g696a6f4d23qb44gqixg6qxq740vwv2jw59ms34ja";
-    };
-
-    patches = [ ];
-
-    buildInputs = buildInputs ++ [
-      final.mesa_drivers.dev
-    ];
   });
 
   discord = runCommand "discord"

@@ -3,6 +3,8 @@ let
   cgitcAbbrs = (pkgs.callPackage my.drvs.cgitc { }).abbrs;
 in
 {
+  home.sessionVariables.WLR_DRM_NO_MODIFIERS = 1;
+
   programs = {
     direnv.enable = true;
 
