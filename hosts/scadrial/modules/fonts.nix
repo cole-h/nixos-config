@@ -48,7 +48,6 @@
       ttf_bitstream_vera
       # dejavu_fonts
       jetbrains-mono # code font
-      iosevka-custom # code font [overlays]
       cantarell-fonts # REALLY nice UI font
       # liberation_ttf # like Microsoft fonts, but not
       kochi-substitute # JP font
