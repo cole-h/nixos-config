@@ -563,6 +563,10 @@ in
             criteria = { app_id = "foot"; };
             command = "border pixel 2";
           }
+          {
+            criteria = { title = "Firefox — Sharing Indicator"; };
+            command = "floating enable, nofocus";
+          }
         ];
       };
 
