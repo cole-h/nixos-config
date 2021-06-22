@@ -358,7 +358,8 @@ in
           "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
         "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
 
-        "XF86AudioPlay" = "exec ${pp}/bin/pp";
+        # "XF86AudioPlay" = "exec ${pp}/bin/pp";
+        "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioStop" = "exec ${pkgs.playerctl}/bin/playerctl stop";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl prev";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
