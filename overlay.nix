@@ -82,6 +82,14 @@ in
     };
   });
 
+  vscode = runCommand "vscode"
+    { buildInputs = [ final.makeWrapper ]; }
+    ''
+      makeWrapper ${prev.vscode}/bin/code $out/bin/code \
+        --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+      ln -s ${prev.vscode}/share $out/share
+    '';
+
   # Flakes-based
   doom-emacs = callPackage ./drvs/doom-emacs.nix { src = doom; };
 }
