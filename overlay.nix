@@ -24,17 +24,6 @@ in
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
 
-  chatterino2 = prev.chatterino2.overrideAttrs ({ ... }: {
-    version = "2.2.3-git";
-    src = final.fetchFromGitHub {
-      owner = "chatterino";
-      repo = "chatterino2";
-      rev = "032a791ec163f1fdc7762ef657930dd25fff7671";
-      sha256 = "sha256-kpj4CQBFRE6cqPzPO+QIQ+GF3aEQdYkDrFtXRYdPLMc=";
-      fetchSubmodules = true;
-    };
-  });
-
   discord = runCommand "discord"
     { buildInputs = [ final.makeWrapper ]; }
     ''
