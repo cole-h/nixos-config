@@ -5,8 +5,9 @@ killall -e sway 2>/dev/null
 echo ">>>> Tried to kill sway" >> /tmp/win10.log
 ps aux | rg sway | rg -v rg && exit 1 # if sway is still running, everything breaks anyways
 
-systemctl stop zrepl zrepl-replicate.timer
+systemctl stop zrepl.service zrepl-replicate.timer zrepl-replicate.service
 echo ">>>> Stopped snapshots while VM is live"
+ps aux | rg zrepl | rg -v rg && exit 1 # if zrepl is still running, everything breaks anyways
 
 zpool export bpool
 zpool list bpool 2>/dev/null && exit 1 # if bpool is still there, detaching it can corrupt data
