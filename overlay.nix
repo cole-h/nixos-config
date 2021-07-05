@@ -66,8 +66,8 @@ in
     src = final.fetchFromGitHub {
       owner = "mawww";
       repo = "kakoune";
-      rev = "ead12e11bdfc861c0f1decb9ff7e91582196fcfe";
-      sha256 = "UpnYNpZN4YLk2T3P8CfdgW0I7UKEyEj2EPONfGXQhHM=";
+      rev = "c68f85659f419a59a477c2dc7464a66ab6e67ec5";
+      sha256 = "rrB+QIMhNcy/2elSN4Y4HjVhVDEld+jF11ESgUEtY9A=";
     };
   });
 
