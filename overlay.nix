@@ -79,6 +79,18 @@ in
       ln -s ${prev.vscode}/share $out/share
     '';
 
+  wlroots = prev.wlroots.overrideAttrs ({ patches ? [ ], ... }: {
+    patches = patches ++ [
+      # fix hang due to "drmModeSetCursor failed" -- "DRM: Moving pinned object 00000000e0ba99fc!"
+      # https://github.com/swaywm/wlroots/issues/2991
+      (final.fetchpatch {
+        name = "drm-fix-cursor.patch";
+        url = "https://patch-diff.githubusercontent.com/raw/swaywm/wlroots/pull/3021.patch";
+        sha256 = "QhBXTI4h9+pwJNJaXex5Q3vBme/IdvUjZ6BwsnQikng=";
+      })
+    ];
+  });
+
   # Flakes-based
   doom-emacs = callPackage ./drvs/doom-emacs.nix { src = doom; };
 }
