@@ -40,7 +40,7 @@ in
   };
 
   services.spotifyd = {
-    enable = true;
+    # enable = true;
     package = pkgs.spotifyd.override { withMpris = true; };
 
     settings.global = {
@@ -59,7 +59,7 @@ in
 
   services = {
     mpd = rec {
-      enable = true;
+      # enable = true;
 
       dataDir = "${config.xdg.configHome}/mpd";
       musicDirectory = "${config.home.homeDirectory}/Music";
@@ -99,10 +99,10 @@ in
       '';
     };
 
-    mpdris2 = {
-      enable = true;
-      notifications = true;
-    };
+    # mpdris2 = {
+    #   enable = true;
+    #   notifications = true;
+    # };
   };
 
   systemd.user.services."mpd" = {
