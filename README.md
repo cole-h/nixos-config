@@ -76,8 +76,6 @@ zfs create \
     -o compression=zstd \
     # apparently gcm is faster than ccm
     -o encryption=aes-256-gcm -o keyformat=passphrase \
-    # apparently useful with xattr=sa
-    -o dnodesize=auto \
     -o xattr=sa \
     -o acltype=posixacl \
     # UTF-8 filenames only
