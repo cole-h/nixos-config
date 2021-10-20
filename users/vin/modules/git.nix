@@ -45,6 +45,7 @@ in
       sendemail.annotate = true;
       merge.conflictstyle = "diff3";
       init.defaultBranch = "main";
+      absorb.maxStack = "100";
 
       diff."nodiff".command = "${pkgs.coreutils}/bin/true";
 
