@@ -29,4 +29,7 @@
 
   # Don't wait for udev to finish processing events.
   systemd.services.systemd-udev-settle.serviceConfig.ExecStart = [ "" "${pkgs.coreutils}/bin/true" ];
+
+  # May be necessary for the 6700XT?
+  # hardware.enableRedistributableFirmware = true;
 }
