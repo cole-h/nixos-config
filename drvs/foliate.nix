@@ -3,7 +3,7 @@
 , meson
 , ninja
 , gettext
-, pkgconfig
+, pkg-config
 , python3
 , wrapGAppsHook
 , gobject-introspection
@@ -39,7 +39,7 @@ stdenv.mkDerivation {
     hicolor-icon-theme
     meson
     ninja
-    pkgconfig
+    pkg-config
     python3
     wrapGAppsHook
   ];

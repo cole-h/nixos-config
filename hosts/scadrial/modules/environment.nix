@@ -21,14 +21,15 @@
       gcc
       gdb
       git
-      gnome3.file-roller
-      gnome3.nautilus # GUI file manager
+      gnome.file-roller
+      gnome.nautilus # GUI file manager
       htop
       imagemagick
       kakoune
       libressl.nc # netcat-openbsd
       lsof
       man-pages
+      man-pages-posix
       minisign
       ncdu
       neovim
@@ -41,7 +42,6 @@
       par # nice paragraph formatter
       pavucontrol
       pciutils
-      posix_man_pages
       psmisc
       rsync
       strace

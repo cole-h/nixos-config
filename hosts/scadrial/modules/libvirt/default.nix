@@ -59,7 +59,7 @@ in
           paths = with pkgs; [
             libvirt
             procps
-            utillinux
+            util-linux
             doas
             config.boot.kernelPackages.cpupower
             zfs

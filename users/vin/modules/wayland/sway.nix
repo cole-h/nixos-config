@@ -222,7 +222,7 @@ in
         # reload the configuration file
         "${modifier}+Shift+c" = "reload";
         # open file browser
-        "${modifier}+e" = "exec ${pkgs.gnome3.nautilus}/bin/nautilus";
+        "${modifier}+e" = "exec ${pkgs.gnome.nautilus}/bin/nautilus";
         # "${modifier}+e" = "exec nautilus";
         # paste to paste.sr.ht
         # "${modifier}+c" = "exec ~/scripts/paste";

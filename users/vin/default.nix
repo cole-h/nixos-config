@@ -26,7 +26,7 @@
 
   # Finally, a cursor theme that displays hands on clickable objects
   xsession.pointerCursor = {
-    package = pkgs.gnome3.adwaita-icon-theme;
+    package = pkgs.gnome.adwaita-icon-theme;
     name = "Adwaita";
     size = 24;
   };
