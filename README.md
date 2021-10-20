@@ -144,11 +144,8 @@ nixos-enter
   echo "nameserver 192.168.1.212" >> /etc/resolv.conf
   nix-daemon &>/dev/null &
   doas -u vin bash
-    gpg --import # import secret key for user
     doas chown -R vin:users /tmp/nixos-config
     mv /tmp/nixos-config ~/flake
-    # might need to get pinentry-curses and set pinentry-program in
-    # ~/.gnupg/gpg-agent.conf
     doas nixos-rebuild switch --flake .
     # add new host key to .agenix.toml (assuming it exists yet... might
     #   need to be once new system is booted)

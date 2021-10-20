@@ -155,7 +155,6 @@ in
       # export GDK_BACKEND=wayland
       export _JAVA_AWT_WM_NONREPARENTING=1
       export XDG_CURRENT_DESKTOP=sway
-      export PINENTRY_USER_DATA=gtk
     '';
 
     # TODO: swayidle+swaylock command
@@ -225,9 +224,6 @@ in
         # open file browser
         "${modifier}+e" = "exec ${pkgs.gnome3.nautilus}/bin/nautilus";
         # "${modifier}+e" = "exec nautilus";
-        # open password menu
-        "${modifier}+p" = "exec ${passmenu}";
-        "${modifier}+Shift+p" = "exec ${otpmenu}";
         # paste to paste.sr.ht
         # "${modifier}+c" = "exec ~/scripts/paste";
 

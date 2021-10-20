@@ -61,7 +61,5 @@
       ripgrep # grep but better; [overlays]
       # tmate # "Instant Terminal Sharing"
       tokei # code metrics
-
-      pinentry.${config.programs.gnupg.agent.pinentryFlavor}
     ];
 }

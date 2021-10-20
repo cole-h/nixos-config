@@ -57,11 +57,6 @@ in
           PipelineDepth = 50;
         };
       };
-
-      # gpg = {
-      #   key = "68B80D57B2E54AC3EC1F49B0B37E0F2371016A4C";
-      #   signByDefault = true;
-      # };
     };
   };
 }

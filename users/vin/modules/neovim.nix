@@ -140,25 +140,6 @@
       nmap <leader>l :set list!<CR>
       set listchars=tab:▸\ ,eol:¬,space:.
 
-      augroup encrypted
-        autocmd!
-        autocmd BufReadPre,FileReadPre *.gpg
-          \ setlocal noswapfile noundofile nobackup bin
-        autocmd BufReadPre,FileReadPre *.gpg
-          \ setlocal viminfo=
-        autocmd BufReadPost,FileReadPost *.gpg
-          \ execute "'[,']!gpg --decrypt --default-recipient-self 2>/dev/null" |
-          \ setlocal nobin |
-          \ execute "doautocmd BufReadPost " . expand("%:r") |
-          \ setlocal nomodifiable ro
-        autocmd BufWritePre,FileWritePre *.gpg
-          \ setlocal bin |
-          \ '[,']!gpg --encrypt --default-recipient-self 2>/dev/null
-        autocmd BufWritePost,FileWritePost *.gpg
-          \ silent u |
-          \ setlocal nobin
-      augroup END
-
       " Persist cursor position between sessions
       augroup vimrc-remember-cursor-position
         autocmd!

@@ -23,10 +23,6 @@ in
 
     userEmail = "cole.e.helbling@outlook.com";
     userName = "Cole Helbling";
-    signing = {
-      key = "68B80D57B2E54AC3EC1F49B0B37E0F2371016A4C";
-      signByDefault = true;
-    };
 
     includes = [
       # includes github auth token, etc
@@ -36,7 +32,6 @@ in
         condition = "gitdir:~/workspace/detsys/";
         contents = {
           user.email = "cole.helbling@determinate.systems";
-          commit.gpgSign = false;
         };
       }
     ];

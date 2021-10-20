@@ -3,7 +3,6 @@
     [
       ./fish.nix # fish config
       ./git.nix # git config
-      ./gpg.nix # GPG config
       ./mail.nix # maildir config
       ./mpv.nix # mpv config
       ./music.nix # music config

@@ -63,7 +63,7 @@ in
           # Start sway
           if [ (tty) = "/dev/tty1" ]
               systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY \
-                        IN_NIX_SHELL __HM_SESS_VARS_SOURCED GPG_TTY NIX_PATH SHLVL
+                        IN_NIX_SHELL __HM_SESS_VARS_SOURCED NIX_PATH SHLVL
               exec env --unset=SHLVL systemd-cat -t sway -- sway --debug
           end
 
@@ -79,10 +79,6 @@ in
       interactiveShellInit = ''
 
         set --append fish_user_paths $HOME/.cargo/bin
-
-        # GPG configuration
-        ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye &>/dev/null
-        set --global --export PINENTRY_USER_DATA gtk # nonstandard -- used by my pinentry script
 
         # For zoxide's fzf window
         set --global --export _ZO_FZF_OPTS '--no-sort --reverse --border --height 40%'
