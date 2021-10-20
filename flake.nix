@@ -15,23 +15,15 @@
 
     agenix-cli = { url = "github:cole-h/agenix-cli"; };
     agenix = { url = "github:cole-h/agenix/symlink"; };
-    # agenix = { url = "git+file:///home/vin/workspace/vcs/agenix"; };
-    emacs = { url = "github:nix-community/emacs-overlay"; };
     home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     # TODO: actually set up impermanence
     impermanence = { url = "github:nix-community/impermanence"; };
     mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
-    # neovim = { url = "github:neovim/neovim?dir=contrib"; };
     nix = { url = "github:nixos/nix"; };
-    # nix = { url = "github:nixos/nix/progress-bar"; };
     passrs = { url = "github:cole-h/passrs"; };
-    # pijul = { url = "/home/vin/workspace/pijul/pijul"; };
     wayland = { url = "github:colemickens/nixpkgs-wayland"; };
 
     # Not flakes
-    # baduk = { url = "github:dustinlacewell/baduk.nix"; flake = false; };
-    # doom = { url = "github:hlissner/doom-emacs"; flake = false; };
-    # mozilla = { url = "github:mozilla/nixpkgs-mozilla"; flake = false; };
     aarch-images = { url = "github:Mic92/nixos-aarch64-images"; flake = false; };
   };
 
@@ -45,7 +37,7 @@
       genAttrs = names: f: builtins.listToAttrs (map (n: nameValuePair n (f n)) names);
 
       config = {
-        allowAliase = false;
+        allowAliases = false;
         allowUnfree = true;
         android_sdk.accept_license = true;
       };
@@ -54,7 +46,6 @@
         import pkgs {
           inherit system config;
           overlays = [
-            inputs.emacs.overlay
             (import ./overlay.nix {
               doom = null;
               # inherit (inputs) doom;
