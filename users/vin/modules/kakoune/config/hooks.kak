@@ -117,3 +117,11 @@ hook global NormalIdle .* modeline-update-pos
 #     esac
 #   }
 # }
+
+## enable autowrap for git-commit
+hook -group GitWrapper global WinSetOption filetype=git-commit %{
+    set buffer autowrap_column 72
+    autowrap-enable
+
+    hook window WinSetOption filetype=(?!git-commit).* %{ autowrap-disable }
+}
