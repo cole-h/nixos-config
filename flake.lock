@@ -193,24 +193,6 @@
         "type": "github"
       }
     },
-    "naersk": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_5"
-      },
-      "locked": {
-        "lastModified": 1602173141,
-        "narHash": "sha256-m6wU6lP0wf2OMw3KtJqn27ITtg29+ftciGHicLiVSGE=",
-        "owner": "nmattia",
-        "repo": "naersk",
-        "rev": "22b96210b2433228d42bce460f3befbdcfde7520",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nmattia",
-        "repo": "naersk",
-        "type": "github"
-      }
-    },
     "nix": {
       "inputs": {
         "lowdown-src": "lowdown-src",
@@ -307,35 +289,6 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1603153815,
-        "narHash": "sha256-uCav0CJ0Zm0vbqJiS9NUYD4XZg4Ww9bbsFzcDUzh2+U=",
-        "path": "/nix/store/1gw4hczsp0ir5xs0n8sddda3vzsn902r-source",
-        "rev": "007126eef72271480cb7670e19e501a1ad2c1ff2",
-        "type": "path"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_6": {
-      "locked": {
-        "lastModified": 1603472399,
-        "narHash": "sha256-AWaqGxP/MlFO67rk9SFBaxR73D99i04X3r6dGoqzAyo=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "3c96aceb3c4d86ccd785fde05c1c978541584dbb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_7": {
-      "locked": {
         "lastModified": 1634436779,
         "narHash": "sha256-D/nrXTWpe1bPIjFy85sgiLHYqu+AeaC6v5/+KlA9PRg=",
         "owner": "nixos",
@@ -350,25 +303,6 @@
         "type": "github"
       }
     },
-    "passrs": {
-      "inputs": {
-        "naersk": "naersk",
-        "nixpkgs": "nixpkgs_6"
-      },
-      "locked": {
-        "lastModified": 1634363393,
-        "narHash": "sha256-AwMsh6BsPGC3tWTYAk/RW2NqiiiM/fcXAYh6TpB6TAo=",
-        "owner": "cole-h",
-        "repo": "passrs",
-        "rev": "c986f4ce8e397efe7016669a88dcaf07855c59d0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cole-h",
-        "repo": "passrs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "aarch-images": "aarch-images",
@@ -379,7 +313,6 @@
         "mail": "mail",
         "nix": "nix",
         "nixpkgs": "nixpkgs_4",
-        "passrs": "passrs",
         "wayland": "wayland"
       }
     },
@@ -401,7 +334,7 @@
     "wayland": {
       "inputs": {
         "cachix": "cachix",
-        "nixpkgs": "nixpkgs_7"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1634554747,

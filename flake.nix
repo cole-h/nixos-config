@@ -20,7 +20,6 @@
     impermanence = { url = "github:nix-community/impermanence"; };
     mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix = { url = "github:nixos/nix"; };
-    passrs = { url = "github:cole-h/passrs"; };
     wayland = { url = "github:colemickens/nixpkgs-wayland"; };
 
     # Not flakes
@@ -51,7 +50,6 @@
               # inherit (inputs) doom;
             })
             (final: prev: {
-              passrs = inputs.passrs.defaultPackage.${system};
               # neovim-unwrapped = inputs.neovim.defaultPackage.${system};
               agenix = inputs.agenix-cli.defaultPackage.${system};
               # pijul = inputs.pijul.defaultPackage.${system};

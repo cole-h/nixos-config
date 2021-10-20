@@ -50,8 +50,6 @@
         hydrus # booru-like image tagger
         mdloader # used to flash my Drop CTRL
         newsboat # rss/atom feed reader
-        pass-otp
-        passrs
         qimgv # image viewer
         thunderbird
         todo-txt-cli # todos tracker
@@ -60,6 +58,8 @@
         git-absorb
         vscode
         screen
+        _1password
+        _1password-gui
       ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
