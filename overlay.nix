@@ -18,6 +18,7 @@ in
   mdloader = callPackage ./drvs/mdloader { };
   sonarr = callPackage ./drvs/sonarr.nix { };
   bootloadHID = callPackage ./drvs/bootloadHID.nix { };
+  fuzzel = callPackage ./drvs/fuzzel.nix { };
 
   # small-ish overrides
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
@@ -65,8 +66,8 @@ in
     src = final.fetchFromGitHub {
       owner = "mawww";
       repo = "kakoune";
-      rev = "c68f85659f419a59a477c2dc7464a66ab6e67ec5";
-      sha256 = "rrB+QIMhNcy/2elSN4Y4HjVhVDEld+jF11ESgUEtY9A=";
+      rev = "689553c2e9b953a9d3822528d4ad858af95fb6a2";
+      sha256 = "L9/nTwL24YPJrlpI0eyLmqhu1xfbKoi1IwrIeiwVUaE=";
     };
   });
 
@@ -77,19 +78,4 @@ in
         --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
       ln -s ${prev.vscode}/share $out/share
     '';
-
-  wlroots = prev.wlroots.overrideAttrs ({ patches ? [ ], ... }: {
-    patches = patches ++ [
-      # fix hang due to "drmModeSetCursor failed" -- "DRM: Moving pinned object 00000000e0ba99fc!"
-      # https://github.com/swaywm/wlroots/issues/2991
-      (final.fetchpatch {
-        name = "drm-fix-cursor.patch";
-        url = "https://patch-diff.githubusercontent.com/raw/swaywm/wlroots/pull/3021.patch";
-        sha256 = "QhBXTI4h9+pwJNJaXex5Q3vBme/IdvUjZ6BwsnQikng=";
-      })
-    ];
-  });
-
-  # Flakes-based
-  doom-emacs = callPackage ./drvs/doom-emacs.nix { src = doom; };
 }
