@@ -3,7 +3,10 @@
 {
   networking.hostId = "1bb11552"; # Required for ZFS.
   networking.useDHCP = false;
-  networking.nameservers = [ "192.168.1.212" "1.1.1.1" ];
+  networking.nameservers = [
+    "1.1.1.1"
+    "8.8.8.8"
+  ];
   networking.defaultGateway = "192.168.1.1";
   networking.interfaces.enp5s0.ipv4 = {
     addresses = [
