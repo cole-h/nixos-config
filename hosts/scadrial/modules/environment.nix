@@ -21,7 +21,6 @@
       gcc
       gdb
       git
-      git-crypt
       gnome3.file-roller
       gnome3.nautilus # GUI file manager
       htop

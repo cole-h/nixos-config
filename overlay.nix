@@ -14,7 +14,6 @@ in
   # misc
   aerc = callPackage ./drvs/aerc { };
   foliate = callPackage ./drvs/foliate.nix { };
-  git-crypt = callPackage ./drvs/git-crypt.nix { };
   iosevka-custom = callPackage ./drvs/iosevka/iosevka-custom.nix { };
   mdloader = callPackage ./drvs/mdloader { };
   sonarr = callPackage ./drvs/sonarr.nix { };
