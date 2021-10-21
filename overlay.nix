@@ -78,4 +78,12 @@ in
         --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
       ln -s ${prev.vscode}/share $out/share
     '';
+
+  _1password-gui = runCommand "1password-gui"
+    { buildInputs = [ final.makeWrapper ]; }
+    ''
+      makeWrapper ${prev._1password-gui}/bin/1password $out/bin/1password \
+        --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+      ln -s ${prev._1password-gui}/share $out/share
+    '';
 }
