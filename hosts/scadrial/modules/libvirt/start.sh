@@ -29,19 +29,19 @@ echo 0 > /sys/class/vtconsole/vtcon1/bind
 echo ">>>> Unbound vtcon1"
 
 # Unbind the GPU from display driver
-virsh nodedev-detach pci_0000_09_00_0
+virsh nodedev-detach pci_0000_0b_00_0
 echo ">>>> Unbound GPU"
 
-virsh nodedev-detach pci_0000_09_00_1
+virsh nodedev-detach pci_0000_0b_00_1
 echo ">>>> Unbound HDMI audio"
 
 systemctl stop sonarr transmission jellyfin
 echo ">>>> Stopped torrents and media"
 
-virsh nodedev-detach pci_0000_0b_00_4
+virsh nodedev-detach pci_0000_0d_00_4
 echo ">>>> Unbound front panel audio"
 
-virsh nodedev-detach pci_0000_0b_00_3
+virsh nodedev-detach pci_0000_0d_00_3
 echo ">>>> Unbound USB devices (M+KBD)"
 
 virsh nodedev-detach pci_0000_06_00_3 # maybe problematic because of bluetooth?

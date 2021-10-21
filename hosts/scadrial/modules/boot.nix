@@ -9,7 +9,7 @@
     loader.efi.canTouchEfiVariables = true;
     loader.timeout = 1;
     supportedFilesystems = [ "zfs" "ntfs" ]; # allows r/w ntfs
-    initrd.kernelModules = [ "nouveau" ]; # load nouveau early for native res tty
+    # initrd.kernelModules = [ "nouveau" ]; # load nouveau early for native res tty
     tmpOnTmpfs = true;
     cleanTmpDir = true;
     # plymouth.enable = true; # requires https://github.com/NixOS/nixpkgs/pull/88789

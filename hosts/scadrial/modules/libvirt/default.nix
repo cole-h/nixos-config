@@ -44,10 +44,10 @@ in
     onShutdown = "shutdown";
   };
 
-  age.secrets.bios = {
-    file = ./bios;
-    path = "/var/lib/libvirt/vbios/patched-bios.rom";
-  };
+  # age.secrets.bios = {
+  #   file = ./bios;
+  #   path = "/var/lib/libvirt/vbios/patched-bios.rom";
+  # };
 
   systemd.services.libvirtd = {
     # scripts use binaries from these packages
@@ -71,7 +71,7 @@ in
       [ env ];
 
     preStart = ''
-      [ -f /var/lib/libvirt/vbios/patched-bios.rom ] || exit 1
+      # [ -f /var/lib/libvirt/vbios/patched-bios.rom ] || exit 1
 
       mkdir -p /var/lib/libvirt/hooks
       mkdir -p /var/lib/libvirt/hooks/qemu.d/windows10/prepare/begin

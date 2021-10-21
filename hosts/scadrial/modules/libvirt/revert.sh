@@ -5,10 +5,10 @@ virsh nodedev-reattach pci_0000_06_00_3
 virsh nodedev-reattach pci_0000_06_00_1
 echo ">>>> Rebound misc. USB devices"
 
-virsh nodedev-reattach pci_0000_0b_00_3
+virsh nodedev-reattach pci_0000_0d_00_3
 echo ">>>> Rebound USB devices (M+KBD)"
 
-virsh nodedev-reattach pci_0000_0b_00_4
+virsh nodedev-reattach pci_0000_0d_00_4
 echo ">>>> Rebound front panel audio"
 
 systemctl restart sonarr transmission jellyfin
@@ -19,10 +19,10 @@ doas -u vin \
   systemctl restart --user pipewire.socket pipewire-pulse.socket
 echo ">>>> Restarted user pulse"
 
-virsh nodedev-reattach pci_0000_09_00_1
+virsh nodedev-reattach pci_0000_0b_00_1
 echo ">>>> Rebound HDMI audio"
 
-virsh nodedev-reattach pci_0000_09_00_0
+virsh nodedev-reattach pci_0000_0b_00_0
 echo ">>>> Rebound GPU"
 
 # Wait 1 second to avoid possible race condition
