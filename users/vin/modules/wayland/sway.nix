@@ -107,7 +107,7 @@ let
   inherit (my) wallpaper;
 
   ## Workspaces
-  # output DP-2 (left)
+  # output DP-3 (left)
   ws1 = "1";
   ws2 = "2";
   ws3 = "3";
@@ -161,7 +161,7 @@ in
     config = {
       output = {
         "*".bg = "${wallpaper} fit";
-        "DP-2" = {
+        "DP-3" = {
           resolution = "1920x1080";
           position = "0,0";
           scale = "1";
@@ -617,16 +617,16 @@ in
 
     extraConfig = ''
       ## Workspaces
-      workspace ${ws1}  output DP-2
-      workspace ${ws2}  output DP-2
-      workspace ${ws3}  output DP-2
-      workspace ${ws4}  output DP-2
-      workspace ${ws5}  output DP-2
-      workspace ${ws6}  output DP-2
-      workspace ${ws7}  output DP-2
-      workspace ${ws8}  output DP-2
-      workspace ${ws9}  output DP-2
-      workspace ${ws10} output DP-2
+      workspace ${ws1}  output DP-3
+      workspace ${ws2}  output DP-3
+      workspace ${ws3}  output DP-3
+      workspace ${ws4}  output DP-3
+      workspace ${ws5}  output DP-3
+      workspace ${ws6}  output DP-3
+      workspace ${ws7}  output DP-3
+      workspace ${ws8}  output DP-3
+      workspace ${ws9}  output DP-3
+      workspace ${ws10} output DP-3
 
       workspace ${wsF1}  output HDMI-A-1
       workspace ${wsF2}  output HDMI-A-1
