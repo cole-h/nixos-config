@@ -60,35 +60,6 @@
           ];
         }
         {
-          name = "win10_snap";
-          type = "snap";
-          filesystems = {
-            "rpool/win10" = true;
-          };
-
-          snapshotting = {
-            type = "periodic";
-            interval = "4h";
-            prefix = "zrepl_win10_";
-          };
-
-          pruning.keep = [
-            {
-              # keep all non-zrepl snapshots
-              type = "regex";
-              negate = true;
-              regex = "^zrepl_.*";
-            }
-            {
-              type = "grid";
-              regex = "^zrepl_win10_.*";
-              grid = lib.concatStringsSep " | " [
-                "1x4h"
-              ];
-            }
-          ];
-        }
-        {
           name = "push_to_bpool";
           type = "push";
 
@@ -102,7 +73,6 @@
             "apool/ROOT/system<" = true;
             "apool/ROOT/user<" = true;
             "apool/ROOT/user/home/vin/Downloads" = false;
-            "rpool/win10" = true;
           };
 
           send.encrypted = true;
