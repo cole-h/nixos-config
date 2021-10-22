@@ -11,12 +11,6 @@ in
       path = "${vin.home}/.cargo/credentials";
     };
 
-    sshcontrol = {
-      owner = vin.name;
-      file = ./sshcontrol;
-      path = "${vin.home}/.gnupg/sshcontrol";
-    };
-
     sshconfig = {
       owner = vin.name;
       file = ./sshconfig;
