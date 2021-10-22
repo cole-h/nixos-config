@@ -9,6 +9,9 @@
   # https://tailscale.com/kb/1063/install-nixos
   services.tailscale.enable = true;
 
+  # Enable Gnome's SSH agent
+  services.gnome.gnome-keyring.enable = true;
+
   # ZFS snapshotting for stuff I want backed up.
   services.zrepl = {
     enable = true;

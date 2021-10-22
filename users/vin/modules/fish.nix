@@ -4,6 +4,7 @@ let
 in
 {
   home.sessionVariables.WLR_DRM_NO_MODIFIERS = 1;
+  home.sessionVariables.SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
 
   programs = {
     direnv.enable = true;
@@ -77,6 +78,8 @@ in
       '';
 
       interactiveShellInit = ''
+
+        eval (/run/wrappers/bin/gnome-keyring-daemon --start --components=ssh)
 
         set --append fish_user_paths $HOME/.cargo/bin
 
