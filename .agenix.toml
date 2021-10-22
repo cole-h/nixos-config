@@ -27,13 +27,6 @@ identities = [
 ]
 
 [[paths]]
-glob = "hosts/scar/*"
-identities = [
-  "cole-h",
-  "scar",
-]
-
-[[paths]]
 glob = "hosts/yolen/*"
 identities = [
   "cole-h",
