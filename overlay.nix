@@ -31,12 +31,6 @@ in
         --set "GDK_BACKEND" "x11"
     '';
 
-  passff-host = prev.passff-host.overrideAttrs ({ ... }: {
-    patchPhase = ''
-      sed -i 's@COMMAND = "pass"@COMMAND = "${final.pass-otp}/bin/pass"@' src/passff.py
-    '';
-  });
-
   element-desktop = runCommand "element-desktop"
     { buildInputs = [ final.makeWrapper ]; }
     ''
