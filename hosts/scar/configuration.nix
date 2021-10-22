@@ -15,6 +15,16 @@
     loader.grub.enable = false;
     loader.generic-extlinux-compatible.enable = true;
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelPatches = [
+      {
+        name = "fix-compile";
+        patch = null;
+        # https://github.com/NixOS/nixpkgs/pull/142015
+        extraConfig = ''
+          DRM_SIMPLEDRM n
+        '';
+      }
+    ];
   };
 
   security.doas.enable = true;
