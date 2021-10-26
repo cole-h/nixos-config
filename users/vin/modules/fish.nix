@@ -3,7 +3,6 @@ let
   cgitcAbbrs = (pkgs.callPackage my.drvs.cgitc { }).abbrs;
 in
 {
-  home.sessionVariables.WLR_DRM_NO_MODIFIERS = 1;
   home.sessionVariables.SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
 
   programs = {
