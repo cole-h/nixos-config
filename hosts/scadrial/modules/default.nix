@@ -21,5 +21,6 @@
 
       ./libvirt # configuration related to libvirt and vfio + pci passthrough
       ./wireguard # configuration related to wireguard
+      ./zrepl # configuration related to zrepl
     ];
 }
