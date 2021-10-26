@@ -105,6 +105,28 @@ in
           WantedBy = [ "sway-session.target" ];
         };
       };
+
+      # TODO: maybe this shouldn't be part of sway so that it can be used over
+      # ssh?
+      gnome-keyring-daemon = {
+        Unit = {
+          Description = "gnome-keyring-daemon";
+          Documentation = [ "man:gnome-keyring-daemon(1)" ];
+          PartOf = [ "sway-session.target" ];
+        };
+
+        Service = {
+          Type = "simple";
+          ExecStart = "/run/wrappers/bin/gnome-keyring-daemon --start --foreground";
+          ExecReload = "/run/wrappers/bin/gnome-keyring-daemon --replace --foreground";
+          RestartSec = 3;
+          Restart = "on-abort";
+        };
+
+        Install = {
+          WantedBy = [ "sway-session.target" ];
+        };
+      };
     };
   };
 }

@@ -79,8 +79,6 @@ in
 
       interactiveShellInit = ''
 
-        eval (/run/wrappers/bin/gnome-keyring-daemon --start --components=ssh)
-
         set --append fish_user_paths $HOME/.cargo/bin
 
         # For zoxide's fzf window
