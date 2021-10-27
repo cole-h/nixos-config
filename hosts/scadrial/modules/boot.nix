@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
   boot = {
     # Use the systemd-boot EFI boot loader.
@@ -9,7 +9,7 @@
     loader.efi.canTouchEfiVariables = true;
     loader.timeout = 1;
     supportedFilesystems = [ "zfs" "ntfs" ]; # allows r/w ntfs
-    # initrd.kernelModules = [ "nouveau" ]; # load nouveau early for native res tty
+    initrd.kernelModules = [ "amdgpu" ]; # load amdgpu early to prevent flickering
     tmpOnTmpfs = true;
     cleanTmpDir = true;
     # plymouth.enable = true; # requires https://github.com/NixOS/nixpkgs/pull/88789
@@ -17,8 +17,8 @@
     zfs.requestEncryptionCredentials = [ "apool/ROOT" "tank" ];
     zfs.forceImportRoot = false;
 
-    kernelPackages = pkgs.linuxPackages_zen;
-    extraModulePackages = [ pkgs.linuxPackages_zen.v4l2loopback ];
+    kernelPackages = pkgs.linuxPackages_latest;
+    extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
     extraModprobeConfig = ''
       options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"
     '';
