@@ -143,7 +143,7 @@
     after = [ "network.target" "zrepl.service" ];
     timerConfig = {
       Unit = "zrepl-replicate.service";
-      OnCalendar = "daily";
+      OnCalendar = "hourly";
       Persistent = true;
     };
   };
