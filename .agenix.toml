@@ -34,6 +34,14 @@ identities = [
 ]
 
 [[paths]]
+glob = "secrets/scadrial+scar/*"
+identities = [
+  "cole-h",
+  "scadrial",
+  "scar",
+]
+
+[[paths]]
 glob = "*"
 groups = [
   "all",

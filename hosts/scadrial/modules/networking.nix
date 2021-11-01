@@ -31,4 +31,8 @@
   networking.firewall.allowedUDPPorts = [
     21027 # syncthing
   ];
+
+  networking.extraHosts = ''
+    192.168.1.25 scar.local
+  '';
 }

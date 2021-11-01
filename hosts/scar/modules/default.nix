@@ -6,5 +6,6 @@
       ./programs.nix
       ./users.nix
       ./wireguard
+      ./zrepl
     ];
 }

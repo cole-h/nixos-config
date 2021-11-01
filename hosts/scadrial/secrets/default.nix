@@ -42,7 +42,7 @@ in
     };
 
     bpool = {
-      file = ./bpool;
+      file = ../../../secrets/scadrial+scar/bpool;
     };
 
     spotifyd = {
