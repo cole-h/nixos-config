@@ -134,6 +134,7 @@
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${pkgs.zrepl}/bin/zrepl --config /etc/zrepl/zrepl.yml signal wakeup scadrial_to_scar";
+      Restart = "on-failure";
     };
   };
 
