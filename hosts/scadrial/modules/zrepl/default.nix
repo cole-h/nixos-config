@@ -70,7 +70,7 @@
 
           connect = {
             type = "tls";
-            address = "scar.local:8888";
+            address = "scar:8888";
             ca = config.age.secrets.scar-crt.path;
             cert = config.age.secrets.scadrial-crt.path;
             key = config.age.secrets.scadrial-key.path;
@@ -126,6 +126,25 @@
           };
         }
       ];
+    };
+  };
+
+  systemd.services.zrepl-replicate = {
+    description = "Trigger zrepl replication for push_to_bpool";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.zrepl}/bin/zrepl --config /etc/zrepl/zrepl.yml signal wakeup scadrial_to_scar";
+    };
+  };
+
+  systemd.timers.zrepl-replicate = {
+    description = "Trigger zrepl replication for scadrial_to_scar";
+    wantedBy = [ "timers.target" ];
+    after = [ "network.target" "zrepl.service" ];
+    timerConfig = {
+      Unit = "zrepl-replicate.service";
+      OnCalendar = "daily";
+      Persistent = true;
     };
   };
 }
