@@ -15,11 +15,11 @@
   # http://localhost:9091/
   services.transmission = {
     enable = true;
-    port = 9091;
     user = "downloads";
     group = "downloads";
     home = "/var/lib/torrent";
     settings = {
+      rpc-port = 9091;
       download-dir = "/var/lib/torrent/current";
       rpc-whitelist = "127.0.0.1,192.168.*.*";
       ratio-limit = "0";
