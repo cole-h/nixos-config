@@ -25,11 +25,6 @@
     8888 # zrepl
   ];
 
-  # load key after boot
-  boot.zfs.extraPools = [ "bpool" ];
-  boot.zfs.requestEncryptionCredentials = [ "bpool" ];
-  boot.supportedFilesystems = [ "zfs" ];
-
   # Scrub the disk regularly to ensure integrity
   services.zfs.autoScrub.enable = true;
   services.zfs.autoScrub.interval = "weekly";

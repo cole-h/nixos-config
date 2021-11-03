@@ -6,8 +6,9 @@
   inputs = {
     # Flakes
     # nixpkgs.url = "git+file:///home/vin/workspace/vcs/nixpkgs/master";
-    # nixpkgs.url = "git+file:///home/vin/workspace/vcs/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "git+file:///home/vin/workspace/vcs/nixpkgs/nixos-unstable-small";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    pr144074.url = "github:nixos/nixpkgs/b5c4af744a76bd2b415f4e62dbd06801aa1687ad";
     # nixpkgs.url = "github:nixos/nixpkgs/2f47650c2f28d87f86ab807b8a339c684d91ec56";
     # nixpkgs.url = "github:nixos/nixpkgs/master";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";

@@ -273,11 +273,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1634782485,
-        "narHash": "sha256-psfh4OQSokGXG0lpq3zKFbhOo3QfoeudRcaUnwMRkQo=",
+        "lastModified": 1635792138,
+        "narHash": "sha256-D79GqaYrwgyM4wvOPbQeKveAHROnVh97F36iSGZO9uA=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "34ad3ffe08adfca17fcb4e4a47bb5f3b113687be",
+        "rev": "b165ce0c4efbb74246714b5c66b6bcdce8cde175",
         "type": "github"
       },
       "original": {
@@ -303,6 +303,22 @@
         "type": "github"
       }
     },
+    "pr144074": {
+      "locked": {
+        "lastModified": 1635779918,
+        "narHash": "sha256-kMOiFKXuzerl49AxFpDlo0KHtxVUKq213MQmNElGoeU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "b5c4af744a76bd2b415f4e62dbd06801aa1687ad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "b5c4af744a76bd2b415f4e62dbd06801aa1687ad",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "aarch-images": "aarch-images",
@@ -313,6 +329,7 @@
         "mail": "mail",
         "nix": "nix",
         "nixpkgs": "nixpkgs_4",
+        "pr144074": "pr144074",
         "wayland": "wayland"
       }
     },
