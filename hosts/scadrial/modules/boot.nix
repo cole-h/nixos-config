@@ -17,7 +17,7 @@
     zfs.requestEncryptionCredentials = [ "apool/ROOT" "tank" ];
     zfs.forceImportRoot = false;
 
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
     extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
     extraModprobeConfig = ''
       options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"
