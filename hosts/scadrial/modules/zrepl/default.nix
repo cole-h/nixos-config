@@ -75,6 +75,7 @@
             cert = config.age.secrets.scadrial-crt.path;
             key = config.age.secrets.scadrial-key.path;
             server_cn = "scar";
+            dial_timeout = "60s";
           };
 
           filesystems = {
