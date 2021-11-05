@@ -5,13 +5,10 @@
 # 4. follow setup
 # 5. TODO:
 {
-  # Don't prompt for bpool dataset keys
-  disabledModules = [ "tasks/filesystems/zfs.nix" ];
   imports =
     [
       ./hardware-configuration.nix
       ./modules
-      "${inputs.pr144074}/nixos/modules/tasks/filesystems/zfs.nix"
     ];
 
   boot = {
