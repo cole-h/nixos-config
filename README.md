@@ -181,3 +181,20 @@ doas virsh define ..../windows10.xml
 # copy chatterino stuff
 # copy todo stuff
 ```
+
+
+# Notes
+
+## Backup win10 disk to fresh zvol
+
+```sh
+# /dev/sda is the Windows disk
+# /dev/zd0 is the zvol's block device
+
+# Need to copy the GPT in order to make zd0pX devices available
+nix shell nixpkgs#gptfdisk
+  sgdisk /dev/sda -R /dev/zd0
+doas bash
+  nix shell nixpkgs#pv
+    pv /dev/sdaX >/dev/zd0pX
+```
