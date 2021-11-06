@@ -16,7 +16,6 @@ in
   foliate = callPackage ./drvs/foliate.nix { };
   iosevka-custom = callPackage ./drvs/iosevka/iosevka-custom.nix { };
   mdloader = callPackage ./drvs/mdloader { };
-  sonarr = callPackage ./drvs/sonarr.nix { };
   bootloadHID = callPackage ./drvs/bootloadHID.nix { };
   fuzzel = callPackage ./drvs/fuzzel.nix { };
 
