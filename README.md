@@ -78,8 +78,6 @@ zfs create \
     -o encryption=aes-256-gcm -o keyformat=passphrase \
     -o xattr=sa \
     -o acltype=posixacl \
-    # UTF-8 filenames only
-    # -o normalization=formD \
     apool/r
 
 # https://gist.github.com/LnL7/5701d70f46ea23276840a6b1c404597f
@@ -95,7 +93,7 @@ nomount apool/r/safe
 legacy apool/r/safe/state
 legacy -p apool/r/safe/state/home/vin/Downloads # create /home, /home/vin, and /home/vin/Downloads datasets
 nomount apool/alloc
-# zfs create -V 302G apool/r/win10
+# zfs create -s -V 400G apool/r/win10
 
 # keep space available in case it's ever needed
 # to free up the space, `zfs set refreservation=none apool/alloc`
@@ -173,10 +171,7 @@ doas virsh define ..../windows10.xml
 
 # update snapshot settings to use new dataset(s)
 # copy sonarr settings (watched shows, etc) from backup
-# fish_config for dracula colors
 # syncthing setup
-# copy weechat logs
-# emacs all-the-icons-install-fonts to ~/.local/share/fonts
 # copy authorized_keys
 # copy chatterino stuff
 # copy todo stuff
