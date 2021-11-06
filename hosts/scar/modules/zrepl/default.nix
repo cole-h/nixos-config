@@ -18,9 +18,6 @@
     };
   };
 
-  # https://tailscale.com/kb/1063/install-nixos
-  services.tailscale.enable = true;
-
   networking.firewall.allowedTCPPorts = [
     8888 # zrepl
   ];

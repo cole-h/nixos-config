@@ -10,6 +10,9 @@
       }
     ];
     defaultGateway = "192.168.1.1";
-    nameservers = [ "192.168.1.212" "1.1.1.1" ];
+    nameservers = [ "8.8.8.8" ];
   };
+
+  # https://tailscale.com/kb/1063/install-nixos
+  services.tailscale.enable = true;
 }
