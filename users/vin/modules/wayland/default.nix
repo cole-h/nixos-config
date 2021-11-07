@@ -24,9 +24,6 @@ in
     bemenu # dmenu launcher; [overlays]
     j4-dmenu-desktop # desktop files
     rofi # has rofi-emoji as a plugin; [overlays]
-    # TODO: TUI display manager for fanciness so I don't have to `systemctl --user import-environment`
-    # https://github.com/meatcar/dots/blob/6acc6d2075eb88b144a7fceb001044edbcac4d93/modules/ly.nix
-    # ly
   ];
 
   gtk = {

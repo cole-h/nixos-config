@@ -60,13 +60,6 @@ in
           # will never re-source when necessary)
           set -e __HM_SESS_VARS_SOURCED
 
-          # Start sway
-          if [ (tty) = "/dev/tty1" ]
-              systemctl --user unset-environment SWAYSOCK I3SOCK WAYLAND_DISPLAY DISPLAY \
-                        IN_NIX_SHELL __HM_SESS_VARS_SOURCED NIX_PATH SHLVL
-              exec env --unset=SHLVL systemd-cat -t sway -- sway --debug
-          end
-
           # Start windows VM
           if [ (tty) = "/dev/tty5" ]
             exec doas virsh start windows10
