@@ -21,4 +21,4 @@ users/*/modules/weechat/config/irc.conf
 **.weechattmp
 hosts/scadrial/modules/borg/config.json
 users/*/modules/kakoune/config/colors
-users/*/modules/kakoune/config/autoload
+users/*/modules/kakoune/config/plugins
