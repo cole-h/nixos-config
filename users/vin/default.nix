@@ -56,10 +56,14 @@
 
         element-desktop
         git-absorb
-        vscode
         screen
         _1password
         _1password-gui
+        (vscode-with-extensions.override {
+          vscodeExtensions = with vscode-extensions; [
+            ms-vsliveshare.vsliveshare
+          ];
+        })
       ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,

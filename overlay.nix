@@ -64,13 +64,16 @@ in
     };
   });
 
-  vscode = runCommand "vscode"
-    { buildInputs = [ final.makeWrapper ]; }
-    ''
-      makeWrapper ${prev.vscode}/bin/code $out/bin/code \
+  vscode = prev.vscode.overrideAttrs ({ buildInputs ? [ ], postFixup ? "", ... }: {
+    buildInputs = buildInputs ++ [
+      final.makeWrapper
+    ];
+
+    postFixup = postFixup + ''
+      wrapProgram $out/bin/code \
         --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
-      ln -s ${prev.vscode}/share $out/share
     '';
+  });
 
   _1password-gui = runCommand "1password-gui"
     { buildInputs = [ final.makeWrapper ]; }
