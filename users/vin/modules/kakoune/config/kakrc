@@ -10,7 +10,7 @@ evaluate-commands %sh{
 set-option global plug_always_ensure true
 set-option global plug_profile true
 
-# plugins
+# Plugins
 plug-chain "https://github.com/andreyorst/plug.kak" noload config %{
 } plug "https://github.com/alexherbo2/prelude.kak" config %{
 } plug "https://github.com/andreyorst/smarttab.kak" defer smarttab %{
@@ -28,7 +28,6 @@ plug-chain "https://github.com/andreyorst/plug.kak" noload config %{
 } plug "https://github.com/TeddyDD/kakoune-edit-or-dir" config %{
 } plug "https://github.com/Delapouite/kakoune-text-objects" config %{
 }
-
 
 # Options
 set-option global startup_info_version 20211106
