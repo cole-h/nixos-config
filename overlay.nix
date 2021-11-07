@@ -13,7 +13,6 @@ in
 {
   # misc
   aerc = callPackage ./drvs/aerc { };
-  foliate = callPackage ./drvs/foliate.nix { };
   iosevka-custom = callPackage ./drvs/iosevka/iosevka-custom.nix { };
   mdloader = callPackage ./drvs/mdloader { };
   bootloadHID = callPackage ./drvs/bootloadHID.nix { };
