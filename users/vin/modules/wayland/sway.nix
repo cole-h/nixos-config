@@ -97,7 +97,7 @@ let
   term = "${pkgs.foot}/bin/foot";
   # alacritty' = "${pkgs.alacritty}/bin/alacritty";
   kitty = "${pkgs.kitty}/bin/kitty";
-  fuzzel = "${pkgs.fuzzel}/bin/fuzzel --dmenu --no-icons --background-color '282828ff' --text-color 'ebdbb2ff' --match-color 'd65d0eff' --selection-color '3c3836ff' --border-color 'd65d0eff'";
+  fuzzel = "${pkgs.fuzzel}/bin/fuzzel --dmenu --no-icons --dpi-aware=no --background-color '282828ff' --text-color 'ebdbb2ff' --match-color 'd65d0eff' --selection-color '3c3836ff' --border-color 'd65d0eff'";
   menu = ''
     ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop \
         --usage-log=${config.xdg.cacheHome}/.j4_history \

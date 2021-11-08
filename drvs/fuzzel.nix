@@ -23,14 +23,14 @@
 
 stdenv.mkDerivation rec {
   pname = "fuzzel";
-  version = "1.6.4";
+  version = "2021-11-08-unstable";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "dnkl";
     repo = "fuzzel";
-    rev = version;
-    sha256 = "sha256-wl3dO6EwLXWf0XtAIml1NlNRIvpIQJuq1pxLmo/pAUE=";
+    rev = "817daecee60041ab18c36e8b068d915d73e3147e";
+    sha256 = "sha256-BCyqwS8Ev7Gy78dp4FZZnDAW7feJHz/hchYMduhTCVw=";
   };
 
   nativeBuildInputs = [
