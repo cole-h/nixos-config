@@ -62,6 +62,12 @@
         (vscode-with-extensions.override {
           vscodeExtensions = with vscode-extensions; [
             ms-vsliveshare.vsliveshare
+            matklad.rust-analyzer
+            hashicorp.terraform
+            golang.go
+            eamodio.gitlens
+            bbenoist.nix
+            # stkb.rewrap
           ];
         })
       ];
