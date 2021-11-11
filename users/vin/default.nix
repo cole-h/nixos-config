@@ -67,7 +67,7 @@
             golang.go
             eamodio.gitlens
             bbenoist.nix
-            # stkb.rewrap
+            stkb.rewrap
           ];
         })
       ];
