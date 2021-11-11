@@ -15,4 +15,17 @@
 
   # https://tailscale.com/kb/1063/install-nixos
   services.tailscale.enable = true;
+
+  services.adguardhome = {
+    enable = true;
+    openFirewall = true;
+  };
+
+  networking.firewall.allowedTCPPorts = [
+    53 # adguardhome dns
+  ];
+
+  networking.firewall.allowedUDPPorts = [
+    53 # adguardhome dns
+  ];
 }
