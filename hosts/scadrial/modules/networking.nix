@@ -4,6 +4,7 @@
   networking.hostId = "1bb11552"; # Required for ZFS.
   networking.useDHCP = false;
   networking.nameservers = [
+    "192.168.1.25"
     "1.1.1.1"
     "8.8.8.8"
   ];
