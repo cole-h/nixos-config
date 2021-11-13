@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    youtube-dl
+    yt-dlp
     streamlink
     jellyfin-mpv-shim
   ];
