@@ -20,7 +20,7 @@
     impermanence = { url = "github:nix-community/impermanence"; };
     mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix = { url = "github:nixos/nix"; };
-    wayland = { url = "github:colemickens/nixpkgs-wayland"; };
+    wayland = { url = "github:nix-community/nixpkgs-wayland"; };
 
     # Not flakes
     aarch-images = { url = "github:Mic92/nixos-aarch64-images"; flake = false; };

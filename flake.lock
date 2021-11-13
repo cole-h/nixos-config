@@ -337,15 +337,15 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1636252262,
-        "narHash": "sha256-c8IDWwyIZCRUNU6yFApTBgLmH0IsH6kHD6dYXznEl+Q=",
-        "owner": "colemickens",
+        "lastModified": 1636730729,
+        "narHash": "sha256-pIFHZ6nEQPvdbXsCslFWn7DcbiH1o06j8CKt+Rph1pY=",
+        "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "04b7b02f715e8cd221cea20542ce65a418ce4ea0",
+        "rev": "4643ca2a6b9099841643a48c55bd78fda93533b5",
         "type": "github"
       },
       "original": {
-        "owner": "colemickens",
+        "owner": "nix-community",
         "repo": "nixpkgs-wayland",
         "type": "github"
       }
