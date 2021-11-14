@@ -68,6 +68,7 @@
             eamodio.gitlens
             bbenoist.nix
             stkb.rewrap
+            usernamehw.errorlens
           ];
         })
       ];
