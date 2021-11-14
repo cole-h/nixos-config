@@ -1,54 +1,25 @@
 { pkgs, config, ... }:
-# https://github.com/etu/nixconfig/blob/master/hosts/fenchurch/services/jellyfin.nix
+let
+  sonarrPort = 8989;
+  transmissionPort = 9091;
+  jellyfinPort = 8096;
+in
 {
   users.groups.downloads.gid = 947;
   users.users.downloads = {
     isSystemUser = true;
-    group = "downloads";
+    group = config.users.groups.downloads.name;
     uid = 947;
-    inherit (config.services.transmission) home;
+    inherit (config.containers.downloads.config.services.transmission) home;
     createHome = true;
   };
 
   users.users.vin.extraGroups = [ "downloads" ];
 
-  # http://localhost:9091/
-  services.transmission = {
-    enable = true;
-    user = "downloads";
-    group = "downloads";
-    home = "/var/lib/torrent";
-    settings = {
-      rpc-port = 9091;
-      download-dir = "/var/lib/torrent/current";
-      rpc-whitelist = "127.0.0.1,192.168.*.*";
-      ratio-limit = "0";
-      ratio-limit-enabled = "true";
-      idle-seeding-limit = "1";
-      idle-seeding-limit-enabled = "true";
-    };
-  };
-
-  services.sonarr = {
-    enable = true;
-    user = "downloads";
-    group = "downloads";
-  };
-
-  services.jellyfin = {
-    enable = true;
-    user = "downloads";
-    group = "downloads";
-  };
-
   networking.firewall.allowedTCPPorts = [
-    8096 # jellyfin
-    8989 # sonarr
-    9091 # transmission
-    80
+    80 # nginx
   ];
 
-  # NOTE: Should also add rules in pihole so others can connect
   networking.extraHosts = ''
     127.0.0.1 sonarr.local
     127.0.0.1 torrents.local
@@ -61,80 +32,105 @@
       let
         onlyLan = ''
           allow 192.168.1.0/24;
-          allow 192.168.122.0/24;
           allow 127.0.0.1;
           deny all;
         '';
       in
       {
         "sonarr.local".locations."/" = {
-          proxyPass = "http://127.0.0.1:8989/";
+          proxyPass = "http://${config.containers.downloads.hostAddress}:${toString sonarrPort}/";
           extraConfig = onlyLan;
         };
         "torrents.local".locations."/" = {
-          proxyPass = "http://127.0.0.1:9091/";
+          proxyPass = "http://${config.containers.downloads.hostAddress}:${toString transmissionPort}/";
           extraConfig = onlyLan;
         };
         "jellyfin.local".locations."/" = {
-          proxyPass = "http://127.0.0.1:8096/";
+          proxyPass = "http://${config.containers.downloads.hostAddress}:${toString jellyfinPort}/";
           extraConfig = onlyLan;
         };
       };
   };
 
-  ## Seems to take up too many resources (I hear crackling when listening to
-  ## music). Maybe the music's fault, but meh. TODO: revisit once on SSD (maybe
-  ## because it was on an HDD?)
-  # containers.downloads = {
-  #   autoStart = true;
+  containers.downloads = {
+    autoStart = true;
+    privateNetwork = true;
+    hostAddress = "10.0.1.1";
+    localAddress = "10.0.1.2";
 
-  #   config = { config, pkgs, ... }: {
-  #     users.users.downloads = { group = "downloads"; uid = 947; };
-  #     users.groups.downloads.gid = 947;
+    forwardPorts = [
+      { containerPort = jellyfinPort; hostPort = jellyfinPort; protocol = "tcp"; }
+      { containerPort = sonarrPort; hostPort = sonarrPort; protocol = "tcp"; }
+      { containerPort = transmissionPort; hostPort = transmissionPort; protocol = "tcp"; }
+    ];
 
-  #     services.sonarr = {
-  #       enable = true;
-  #       user = "downloads";
-  #       group = "downloads";
-  #     };
+    bindMounts = {
+      "jellyfin" = {
+        mountPoint = "/var/lib/jellyfin";
+        hostPath = "/var/lib/jellyfin";
+        isReadOnly = false;
+      };
+      "sonarr" = {
+        mountPoint = "/var/lib/sonarr";
+        hostPath = "/var/lib/sonarr";
+        isReadOnly = false;
+      };
+      "torrent" = {
+        mountPoint = "/var/lib/torrent";
+        hostPath = "/var/lib/torrent";
+        isReadOnly = false;
+      };
+      "media" = {
+        mountPoint = "/media";
+        hostPath = "/media";
+        isReadOnly = false;
+      };
+    };
 
-  #     services.transmission = {
-  #       enable = true;
-  #       user = "downloads";
-  #       group = "downloads";
-  #       home = "/var/lib/torrent";
-  #       settings = {
-  #         download-dir = "/var/lib/torrent/current";
-  #         rpc-whitelist = "127.0.0.1,192.168.*.*";
-  #         ratio-limit = "0";
-  #         ratio-limit-enabled = "true";
-  #         idle-seeding-limit = "1";
-  #         idle-seeding-limit-enabled = "true";
-  #       };
-  #     };
-  #   };
+    config = { config, pkgs, ... }: {
+      users.groups.downloads.gid = 947;
+      users.users.downloads = {
+        isSystemUser = true;
+        group = config.users.groups.downloads.name;
+        uid = 947;
+        inherit (config.services.transmission) home;
+        createHome = true;
+      };
 
-  #   forwardPorts = [
-  #     { containerPort = 8989; hostPort = 8989; protocol = "tcp"; } # Sonarr
-  #     { containerPort = 9091; hostPort = 9091; protocol = "tcp"; } # Transmission
-  #   ];
+      networking.firewall.allowedTCPPorts = [
+        jellyfinPort
+        sonarrPort
+        transmissionPort
+      ];
 
-  #   bindMounts = {
-  #     "sonarr" = {
-  #       mountPoint = "/var/lib/sonarr";
-  #       hostPath = "/var/lib/sonarr";
-  #       isReadOnly = false;
-  #     };
-  #     "torrent" = {
-  #       mountPoint = "/var/lib/torrent";
-  #       hostPath = "/var/lib/torrent";
-  #       isReadOnly = false;
-  #     };
-  #     "media" = {
-  #       mountPoint = "/media";
-  #       hostPath = "/media";
-  #       isReadOnly = false;
-  #     };
-  #   };
-  # };
+      services.transmission = {
+        enable = true;
+        user = "downloads";
+        group = "downloads";
+        home = "/var/lib/torrent";
+        settings = {
+          rpc-port = transmissionPort;
+          rpc-bind-address = "0.0.0.0";
+          rpc-whitelist = "127.0.0.1,10.0.*.*";
+          download-dir = "${config.services.transmission.home}/current";
+          ratio-limit = "0";
+          ratio-limit-enabled = "true";
+          idle-seeding-limit = "1";
+          idle-seeding-limit-enabled = "true";
+        };
+      };
+
+      services.sonarr = {
+        enable = true;
+        user = "downloads";
+        group = "downloads";
+      };
+
+      services.jellyfin = {
+        enable = true;
+        user = "downloads";
+        group = "downloads";
+      };
+    };
+  };
 }
