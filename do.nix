@@ -1,11 +1,11 @@
 # Configuration for installing NixOS on a DigitalOcean droplet, using
 # https://nixos.wiki/wiki/Install_NixOS_on_a_Server_With_a_Different_Filesystem
 # !!!: Needs 4GB RAM droplet for kexec; can be downsized afterwards.
-{ channels
+{ inputs
 }:
 let
   system = "x86_64-linux";
-  do = import "${channels.pkgs}/nixos" {
+  do = import "${inputs.nixpkgs}/nixos" {
     inherit system;
     configuration = ({ pkgs, config, lib, modulesPath, ... }:
       {

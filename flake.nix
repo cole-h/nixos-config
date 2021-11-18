@@ -28,10 +28,6 @@
 
   outputs = inputs:
     let
-      channels = {
-        pkgs = inputs.nixpkgs;
-      };
-
       nameValuePair = name: value: { inherit name value; };
       genAttrs = names: f: builtins.listToAttrs (map (n: nameValuePair n (f n)) names);
 
@@ -61,12 +57,12 @@
       forAllSystems = f: genAttrs allSystems
         (system: f {
           inherit system;
-          pkgs = pkgsFor channels.pkgs system;
+          pkgs = pkgsFor inputs.nixpkgs system;
         });
 
       forOneSystem = system: f: f {
         inherit system;
-        pkgs = pkgsFor channels.pkgs system;
+        pkgs = pkgsFor inputs.nixpkgs system;
       };
 
       mkSystem =
@@ -100,7 +96,7 @@
 
                 nixpkgs = {
                   from = { id = "nixpkgs"; type = "indirect"; };
-                  flake = channels.pkgs;
+                  flake = inputs.nixpkgs;
                 };
               };
             };
@@ -138,7 +134,7 @@
             };
           };
         in
-        channels.pkgs.lib.nixosSystem {
+        inputs.nixpkgs.lib.nixosSystem {
           inherit system modules specialArgs pkgs;
         };
     in
@@ -150,7 +146,7 @@
         bootstrap =
           let
             system = "x86_64-linux";
-            pkgs = pkgsFor channels.pkgs system;
+            pkgs = pkgsFor inputs.nixpkgs system;
           in
           mkSystem {
             inherit system pkgs;
@@ -161,7 +157,7 @@
               }
             ];
           };
-      } // (import ./hosts { inherit pkgsFor channels mkSystem inputs; });
+      } // (import ./hosts { inherit pkgsFor mkSystem inputs; });
 
       packages = forAllSystems
         ({ system, ... }:
@@ -169,9 +165,9 @@
             (k: nameValuePair k inputs.self.nixosConfigurations.${k}.config.system.build.toplevel)
             (builtins.attrNames inputs.self.nixosConfigurations)
           )) // {
-            iso = import ./iso.nix { inherit channels; };
-            sd = import ./sd.nix { inherit pkgsFor inputs channels; };
-            do = import ./do.nix { inherit channels; };
+            iso = import ./iso.nix { inherit inputs; };
+            sd = import ./sd.nix { inherit pkgsFor inputs; };
+            do = import ./do.nix { inherit inputs; };
           });
 
       legacyPackages = forAllSystems

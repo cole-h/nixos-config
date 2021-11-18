@@ -3,7 +3,7 @@
 }:
 let
   system = "x86_64-linux";
-  iso = import "${channels.pkgs}/nixos" {
+  iso = import "${inputs.nixpkgs}/nixos" {
     inherit system;
     configuration = ({ pkgs, lib, modulesPath, ... }: {
       imports =

@@ -1,14 +1,13 @@
 # Configuration for (re)installing NixOS on aarch64.
 { pkgsFor
 , inputs
-, channels
 }:
 let
   system = "aarch64-linux";
-  pkgs = pkgsFor channels.pkgs system;
+  pkgs = pkgsFor inputs.nixpkgs system;
   buildImage = pkgs.callPackage "${inputs.aarch-images}/pkgs/build-image" { };
 
-  image = (import "${channels.pkgs}/nixos" {
+  image = (import "${inputs.nixpkgs}/nixos" {
     configuration = ({ pkgs, lib, modulesPath, ... }:
       {
         imports =

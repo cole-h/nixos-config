@@ -1,5 +1,4 @@
 { pkgsFor
-, channels
 , mkSystem
 , inputs
 }:
@@ -7,7 +6,7 @@
   scadrial =
     let
       system = "x86_64-linux";
-      pkgs = pkgsFor channels.pkgs system;
+      pkgs = pkgsFor inputs.nixpkgs system;
     in
     mkSystem {
       inherit system pkgs;
@@ -44,7 +43,7 @@
   scar =
     let
       system = "aarch64-linux";
-      pkgs = pkgsFor channels.pkgs system;
+      pkgs = pkgsFor inputs.nixpkgs system;
     in
     mkSystem {
       inherit system pkgs;
@@ -54,7 +53,7 @@
   yolen =
     let
       system = "x86_64-linux";
-      pkgs = pkgsFor channels.pkgs system;
+      pkgs = pkgsFor inputs.nixpkgs system;
     in
     mkSystem {
       inherit system pkgs;
