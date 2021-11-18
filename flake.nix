@@ -41,10 +41,7 @@
         import pkgs {
           inherit system config;
           overlays = [
-            (import ./overlay.nix {
-              doom = null;
-              # inherit (inputs) doom;
-            })
+            (import ./overlay.nix)
             (final: prev: {
               # neovim-unwrapped = inputs.neovim.defaultPackage.${system};
               agenix = inputs.agenix-cli.defaultPackage.${system};
@@ -174,7 +171,6 @@
         ({ pkgs, ... }: builtins.trace "Using <nixpkgs> compat wrapper..." (pkgs.recurseIntoAttrs pkgs));
 
       defaultPackage = forAllSystems
-        ({ system, ... }:
-          inputs.self.packages.${system}.scadrial);
+        ({ system, ... }: inputs.self.packages.${system}.scadrial);
     };
 }

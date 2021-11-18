@@ -1,41 +1,18 @@
-{ doom
-}:
 final: prev:
 let
   inherit (final)
     callPackage
-    libsForQt5
     runCommand
-
-    python3Packages
     ;
 in
 {
   # misc
-  aerc = callPackage ./drvs/aerc { };
-  iosevka-custom = callPackage ./drvs/iosevka/iosevka-custom.nix { };
   mdloader = callPackage ./drvs/mdloader { };
   bootloadHID = callPackage ./drvs/bootloadHID.nix { };
-  fuzzel = callPackage ./drvs/fuzzel.nix { };
 
   # small-ish overrides
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
-
-  discord = runCommand "discord"
-    { buildInputs = [ final.makeWrapper ]; }
-    ''
-      makeWrapper ${prev.discord}/bin/Discord $out/bin/discord \
-        --set "GDK_BACKEND" "x11"
-    '';
-
-  element-desktop = runCommand "element-desktop"
-    { buildInputs = [ final.makeWrapper ]; }
-    ''
-      makeWrapper ${prev.element-desktop}/bin/element-desktop $out/bin/element-desktop \
-        --add-flags '--enable-features=UseOzonePlatform --ozone-platform=wayland'
-      ln -s ${prev.element-desktop}/share $out/share
-    '';
 
   # python2 GTFO my closure
   neovim = prev.neovim.override {
@@ -44,6 +21,31 @@ in
     withRuby = false;
     withNodeJs = false;
   };
+
+  # larger overrides
+  discord = prev.discord.overrideAttrs
+    ({ buildInputs ? [ ], postFixup ? "", ... }: {
+      buildInputs = buildInputs ++ [
+        final.makeWrapper
+      ];
+
+      postFixup = postFixup + ''
+        makeWrapper $out/bin/Discord $out/bin/discord \
+          --set "GDK_BACKEND" "x11"
+      '';
+    });
+
+  element-desktop = prev.element-desktop.overrideAttrs
+    ({ buildInputs ? [ ], postFixup ? "", ... }: {
+      buildInputs = buildInputs ++ [
+        final.makeWrapper
+      ];
+
+      postFixup = postFixup + ''
+        wrapProgram $out/bin/element-desktop \
+          --add-flags '--enable-features=UseOzonePlatform --ozone-platform=wayland'
+      '';
+    });
 
   hydrus = prev.hydrus.overrideAttrs ({ ... }: {
     preFixup = ''
@@ -63,22 +65,27 @@ in
     };
   });
 
-  vscode = prev.vscode.overrideAttrs ({ buildInputs ? [ ], postFixup ? "", ... }: {
-    buildInputs = buildInputs ++ [
-      final.makeWrapper
-    ];
+  vscode = prev.vscode.overrideAttrs
+    ({ buildInputs ? [ ], postFixup ? "", ... }: {
+      buildInputs = buildInputs ++ [
+        final.makeWrapper
+      ];
 
-    postFixup = postFixup + ''
-      wrapProgram $out/bin/code \
-        --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
-    '';
-  });
+      postFixup = postFixup + ''
+        wrapProgram $out/bin/code \
+          --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+      '';
+    });
 
-  _1password-gui = runCommand "1password-gui"
-    { buildInputs = [ final.makeWrapper ]; }
-    ''
-      makeWrapper ${prev._1password-gui}/bin/1password $out/bin/1password \
-        --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
-      ln -s ${prev._1password-gui}/share $out/share
-    '';
+  _1password-gui = prev._1password-gui.overrideAttrs
+    ({ buildInputs ? [ ], postFixup ? "", ... }: {
+      buildInputs = buildInputs ++ [
+        final.makeWrapper
+      ];
+
+      postFixup = postFixup + ''
+        wrapProgram $out/bin/1password \
+          --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+      '';
+    });
 }
