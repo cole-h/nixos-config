@@ -147,45 +147,6 @@
       inputs = builtins.removeAttrs inputs [ "self" ];
 
       nixosConfigurations = {
-        scadrial =
-          let
-            system = "x86_64-linux";
-            pkgs = pkgsFor channels.pkgs system;
-          in
-          mkSystem {
-            inherit system pkgs;
-            hostname = "scadrial";
-            extraModules =
-              let
-                inherit (pkgs) lib;
-                inherit (lib) mkOption;
-                inherit (lib.types) attrsOf submoduleWith;
-                inherit (inputs.home.nixosModules) home-manager;
-
-                home = { config, ... }: {
-                  config.home-manager = {
-                    users = import ./users;
-                    useGlobalPkgs = true;
-                    useUserPackages = true;
-                    verbose = true;
-
-                    extraSpecialArgs = {
-                      inherit inputs;
-                      super = config;
-
-                      my = import ./my.nix {
-                        inherit lib;
-                      };
-                    };
-                  };
-                };
-              in
-              [
-                home-manager
-                home
-              ];
-          };
-
         bootstrap =
           let
             system = "x86_64-linux";
@@ -200,30 +161,7 @@
               }
             ];
           };
-
-        scar =
-          let
-            system = "aarch64-linux";
-            pkgs = pkgsFor channels.pkgs system;
-          in
-          mkSystem {
-            inherit system pkgs;
-            hostname = "scar"; # https://coppermind.net/wiki/Scar
-          };
-
-        yolen =
-          let
-            system = "x86_64-linux";
-            pkgs = pkgsFor channels.pkgs system;
-          in
-          mkSystem {
-            inherit system pkgs;
-            hostname = "yolen";
-            extraModules = [
-              inputs.mail.nixosModules.mailserver
-            ];
-          };
-      };
+      } // (import ./hosts { inherit pkgsFor channels mkSystem inputs; });
 
       packages = forAllSystems
         ({ system, ... }:
@@ -231,73 +169,16 @@
             (k: nameValuePair k inputs.self.nixosConfigurations.${k}.config.system.build.toplevel)
             (builtins.attrNames inputs.self.nixosConfigurations)
           )) // {
-            iso =
-              let
-                system = "x86_64-linux";
-                iso = import "${channels.pkgs}/nixos" {
-                  configuration = ./iso.nix;
-                  inherit system;
-                };
-              in
-              iso.config.system.build.isoImage;
-
-            sd =
-              let
-                system = "aarch64-linux";
-                pkgs = pkgsFor channels.pkgs system;
-                buildImage = pkgs.callPackage "${inputs.aarch-images}/pkgs/build-image" { };
-
-                image = (import "${channels.pkgs}/nixos" {
-                  configuration = ./sd.nix;
-                  inherit system;
-                }).config.system.build.sdImage;
-              in
-              pkgs.callPackage "${inputs.aarch-images}/images/rockchip.nix" {
-                inherit buildImage;
-                uboot = pkgs.ubootRock64;
-                aarch64Image = pkgs.stdenv.mkDerivation {
-                  name = "sd";
-                  src = image;
-
-                  phases = [ "installPhase" ];
-                  noAuditTmpdir = true;
-                  preferLocalBuild = true;
-
-                  installPhase = "ln -s $src/sd-image/*.img $out";
-                };
-              };
-
-            do =
-              let
-                system = "x86_64-linux";
-                do = import "${channels.pkgs}/nixos" {
-                  configuration = ./do.nix;
-                  inherit system;
-                };
-              in
-              do.config.system.build.kexec_tarball;
+            iso = import ./iso.nix { inherit channels; };
+            sd = import ./sd.nix { inherit pkgsFor inputs channels; };
+            do = import ./do.nix { inherit channels; };
           });
 
       legacyPackages = forAllSystems
-        ({ pkgs, ... }: builtins.trace "Using <nixpkgs> compat wrapper..." pkgs);
+        ({ pkgs, ... }: builtins.trace "Using <nixpkgs> compat wrapper..." (pkgs.recurseIntoAttrs pkgs));
 
       defaultPackage = forAllSystems
         ({ system, ... }:
           inputs.self.packages.${system}.scadrial);
-
-      devShell = forAllSystems
-        ({ system, pkgs, ... }:
-          with pkgs;
-
-          stdenv.mkDerivation {
-            name = "shell";
-
-            buildInputs =
-              [
-                git
-
-                agenix
-              ];
-          });
     };
 }

@@ -1,54 +1,68 @@
 # Configuration for (re)installing NixOS on aarch64.
-# nix build .#sd
-{ pkgs, lib, modulesPath, ... }:
-{
-  imports =
-    [
-      (modulesPath + "/installer/cd-dvd/sd-image-aarch64-new-kernel.nix")
-    ];
+{ pkgsFor
+, inputs
+, channels
+}:
+let
+  system = "aarch64-linux";
+  pkgs = pkgsFor channels.pkgs system;
+  buildImage = pkgs.callPackage "${inputs.aarch-images}/pkgs/build-image" { };
 
-  nix.package = pkgs.nixUnstable;
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-    builders-use-substitutes = true
-  '';
-
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableBrowserSocket = true;
-  #   enableExtraSocket = true;
-  #   enableSSHSupport = true;
-  #   pinentryFlavor = "curses";
-  # };
-
-  security.doas.enable = true;
-
-  environment.systemPackages = with pkgs;
-    [
-      git
-      git-crypt
-      neovim
-      kakoune
-      htop
-    ];
-
-  networking = {
-    usePredictableInterfaceNames = false;
-    interfaces.eth0.ipv4.addresses = [
+  image = (import "${channels.pkgs}/nixos" {
+    configuration = ({ pkgs, lib, modulesPath, ... }:
       {
-        address = "192.168.1.69";
-        prefixLength = 24;
-      }
-    ];
-    defaultGateway = "192.168.1.1";
-    nameservers = [ "192.168.1.212" "1.1.1.1" ];
+        imports =
+          [
+            (modulesPath + "/installer/cd-dvd/sd-image-aarch64-new-kernel.nix")
+          ];
+
+        nix.package = pkgs.nixUnstable;
+        nix.extraOptions = ''
+          experimental-features = nix-command flakes
+          builders-use-substitutes = true
+        '';
+
+        security.doas.enable = true;
+
+        environment.systemPackages = with pkgs;
+          [
+            git
+            git-crypt
+            neovim
+            kakoune
+            htop
+          ];
+
+        networking = {
+          usePredictableInterfaceNames = false;
+          interfaces.eth0.ipv4.addresses = [
+            { address = "192.168.1.69"; prefixLength = 24; }
+          ];
+          defaultGateway = "192.168.1.1";
+          nameservers = [ "1.1.1.1" ];
+        };
+
+        users.users.root.openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINMcTaqUZSwv6YW8lx/JhsAZTdNSSC2fR8Pgk8woeFKh vin@scadrial"
+        ];
+
+        sdImage.compressImage = false;
+        services.sshd.enable = true;
+      });
+    inherit system;
+  }).config.system.build.sdImage;
+in
+pkgs.callPackage "${inputs.aarch-images}/images/rockchip.nix" {
+  inherit buildImage;
+  uboot = pkgs.ubootRock64;
+  aarch64Image = pkgs.stdenv.mkDerivation {
+    name = "sd";
+    src = image;
+
+    phases = [ "installPhase" ];
+    noAuditTmpdir = true;
+    preferLocalBuild = true;
+
+    installPhase = "ln -s $src/sd-image/*.img $out";
   };
-
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH6wCrUu1DHKFqeiRxNvIvv41rE5zS9rdingyKtZX5gy openpgp:0xF208643A"
-  ];
-
-  sdImage.compressImage = false;
-  # systemd.services.sshd.wantedBy = lib.mkForce [ "multi-user.target" ];
-  services.sshd.enable = true;
 }
