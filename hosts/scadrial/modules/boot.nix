@@ -30,7 +30,6 @@
 
     kernelParams = [
       "udev.log_priority=3"
-      "systemd.unified_cgroup_hierarchy=1"
     ];
 
     # Allow emulated cross compilation for aarch64
