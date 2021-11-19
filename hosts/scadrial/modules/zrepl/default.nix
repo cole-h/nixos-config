@@ -54,7 +54,7 @@
               type = "grid";
               regex = "^zrepl_snap_.*";
               grid = lib.concatStringsSep " | " [
-                "3x5m"
+                "12x5m"
                 "16x15m"
                 "6x4h"
                 "7x1d"
