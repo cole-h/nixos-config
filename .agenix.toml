@@ -13,36 +13,36 @@ all = [
 ]
 
 [[paths]]
-glob = "hosts/scadrial/*"
+glob = "hosts/scadrial/**"
 identities = [
   "cole-h",
   "scadrial",
 ]
 
 [[paths]]
-glob = "hosts/scar/*"
+glob = "hosts/scar/**"
 identities = [
   "cole-h",
   "scar",
 ]
 
 [[paths]]
-glob = "hosts/yolen/*"
+glob = "hosts/yolen/**"
 identities = [
   "cole-h",
   "yolen",
 ]
 
 [[paths]]
-glob = "secrets/scadrial+scar/*"
+glob = "secrets/scadrial+scar/**"
 identities = [
   "cole-h",
   "scadrial",
   "scar",
 ]
 
-[[paths]]
-glob = "*"
-groups = [
-  "all",
-]
+# [[paths]]
+# glob = "*"
+# groups = [
+#   "all",
+# ]
