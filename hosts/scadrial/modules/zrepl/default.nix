@@ -14,6 +14,10 @@
     };
   };
 
+  networking.extraHosts = ''
+    192.168.1.25 scar.local
+  '';
+
   # ZFS snapshotting for stuff I want backed up.
   services.zrepl = {
     enable = true;
@@ -70,7 +74,7 @@
 
           connect = {
             type = "tls";
-            address = "scar:8888";
+            address = "scar.local:8888";
             ca = config.age.secrets.scar-crt.path;
             cert = config.age.secrets.scadrial-crt.path;
             key = config.age.secrets.scadrial-key.path;
