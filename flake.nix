@@ -14,7 +14,7 @@
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
 
     agenix-cli = { url = "github:cole-h/agenix-cli"; };
-    agenix = { url = "github:cole-h/agenix/symlink"; };
+    agenix = { url = "github:ryantm/agenix"; };
     home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     # TODO: actually set up impermanence
     impermanence = { url = "github:nix-community/impermanence"; };
