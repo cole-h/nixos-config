@@ -146,7 +146,7 @@
   systemd.timers.zrepl-replicate = {
     description = "Trigger zrepl replication for scadrial_to_scar";
     wantedBy = [ "timers.target" ];
-    after = [ "network.target" "zrepl.service" "tailscaled.service" ];
+    after = [ "default.target" "network.target" "zrepl.service" "tailscaled.service" ];
     timerConfig = {
       Unit = "zrepl-replicate.service";
       OnCalendar = "hourly";
