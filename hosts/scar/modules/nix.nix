@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-  nix.package = pkgs.nixUnstable;
   nix.distributedBuilds = true;
 
   nix.binaryCaches = [
