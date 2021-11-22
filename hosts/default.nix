@@ -33,10 +33,15 @@
               };
             };
           };
+
+          nix = { lib, ... }: {
+            nix.package = lib.mkForce inputs.nix.defaultPackage.${system};
+          };
         in
         [
           home-manager
           home
+          nix
         ];
     };
 

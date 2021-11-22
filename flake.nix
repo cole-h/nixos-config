@@ -75,8 +75,6 @@
 
           nix = { ... }: {
             nix = {
-              package = lib.mkForce inputs.nix.defaultPackage.${system};
-
               # print-build-logs = true
               # log-format = bar-with-logs
               extraOptions = ''
