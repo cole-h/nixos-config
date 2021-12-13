@@ -31,21 +31,21 @@
       nameValuePair = name: value: { inherit name value; };
       genAttrs = names: f: builtins.listToAttrs (map (n: nameValuePair n (f n)) names);
 
-      config = {
-        allowAliases = false;
-        allowUnfree = true;
-        android_sdk.accept_license = true;
-      };
 
       pkgsFor = pkgs: system:
         import pkgs {
-          inherit system config;
+          inherit system;
+
+          config = {
+            allowAliases = false;
+            allowUnfree = true;
+            android_sdk.accept_license = true;
+          };
+
           overlays = [
             (import ./overlay.nix)
             (final: prev: {
-              # neovim-unwrapped = inputs.neovim.defaultPackage.${system};
               agenix = inputs.agenix-cli.defaultPackage.${system};
-              # pijul = inputs.pijul.defaultPackage.${system};
             })
           ];
         };
