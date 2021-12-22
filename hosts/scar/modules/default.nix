@@ -6,5 +6,6 @@
       ./users.nix
       ./wireguard
       ./zrepl
+      ./samba.nix
     ];
 }
