@@ -29,7 +29,6 @@
     [
       git
       htop
-      kakoune
       wol
     ];
 
