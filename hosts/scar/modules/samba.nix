@@ -1,26 +1,33 @@
-{ ... }:
 {
+  fileSystems."/shares/media" = {
+    device = "bpool/media";
+    fsType = "zfs";
+  };
+
   services.samba = {
-    enable = false;
+    enable = true;
     openFirewall = true;
     securityType = "user";
+
     extraConfig = ''
-      workgroup = WORKGROUP  
-      server string = smbnix  
+      workgroup = COSMERE
+      server string = smbnix
       server role = standalone server
+      map to guest = bad user
     '';
+
     shares = {
       media = {
-        path = "/home/taln/test";
+        path = "/shares/media";
         comment = "scar shared media";
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "no";
-        "create mask" = "0644";
-        "directory mask" = "0755";
+        "create mask" = "0771";
+        "directory mask" = "0775";
         # NOTE: need to `doas smbpasswd -a username` to be able to log in
         "force user" = "taln";
-        "force group" = "users";
+        "force group" = "downloads";
       };
     };
   };
