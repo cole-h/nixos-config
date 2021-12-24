@@ -153,4 +153,12 @@
       Persistent = true;
     };
   };
+
+  # I don't care how it died, it must live.
+  systemd.services.zrepl = {
+    # Removes the limiter on number of restarts -- will continue to restart
+    # until it succeeds.
+    unitConfig.StartLimitIntervalSec = lib.mkForce 0;
+    serviceConfig.Restart = lib.mkForce "always";
+  };
 }
