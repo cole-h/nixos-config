@@ -48,11 +48,6 @@
       fsType = "vfat";
     };
 
-  fileSystems."/media" =
-    { device = "tank/system/media";
-      fsType = "zfs";
-    };
-
   swapDevices =
     [ { device = "/dev/disk/by-uuid/6ffb5a36-79fd-4a70-9ffb-b8984643c8de"; }
     ];

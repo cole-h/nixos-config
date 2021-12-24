@@ -22,7 +22,7 @@
   home.file."scripts".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/flake/scripts";
   home.file."Music".source =
-    config.lib.file.mkOutOfStoreSymlink "/media/Music";
+    config.lib.file.mkOutOfStoreSymlink "/shares/media/Music";
 
   # Finally, a cursor theme that displays hands on clickable objects
   xsession.pointerCursor = {

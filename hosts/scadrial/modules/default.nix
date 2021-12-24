@@ -7,7 +7,6 @@
       # ./gnome.nix # configuration related to GNOME
 
       ./boot.nix # configuration related to boot
-      ./downloads.nix # configuration related to torrenting
       ./environment.nix # configuration related to environment.*
       ./fonts.nix # configuration related to fonts
       ./hardware.nix # configuration related to hardware
@@ -18,6 +17,7 @@
       ./services.nix # misc, short service settings
       ./users.nix # configuration related to users
 
+      ./downloads # configuration related to torrenting
       ./libvirt # configuration related to libvirt and vfio + pci passthrough
       ./wireguard # configuration related to wireguard
       ./zrepl # configuration related to zrepl

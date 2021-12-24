@@ -92,7 +92,6 @@ legacy apool/r/local/var # /var
 nomount apool/r/safe
 legacy apool/r/safe/state
 legacy -p apool/r/safe/state/home/vin/Downloads # create /home, /home/vin, and /home/vin/Downloads datasets
-nomount apool/alloc
 # zfs create -s -V 400G apool/r/win10
 
 # keep space available in case it's ever needed
@@ -111,14 +110,13 @@ zfs load-key -L file:///tmp/sys/tank-key tank
 alias zmnt='mount -t zfs'
 zmnt apool/r/local/root /mnt
 cp /tmp/sys/tank-key /mnt
-mkdir -p /mnt/{boot,var,media,nix,state/home/vin/Downloads,mnt}
+mkdir -p /mnt/{boot,var,nix,state/home/vin/Downloads,mnt,shares/media}
 zmnt apool/r/local/var /mnt/var
 zmnt apool/r/local/nix /mnt/nix
 zmnt apool/r/safe/state /mnt/state
 zmnt apool/r/safe/state/home /mnt/state/home
 zmnt apool/r/safe/state/home/vin /mnt/state/home/vin
 zmnt apool/r/safe/state/home/vin/Downloads /mnt/state/home/vin/Downloads
-zmnt tank/system/media /mnt/media
 mount $DISK-part1 /mnt/boot
 ```
 
