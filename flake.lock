@@ -41,11 +41,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1638563796,
-        "narHash": "sha256-syuJtJf3OEb02qsZ3zTeavH31X2fVGMjgV4GnhuthwE=",
+        "lastModified": 1640369392,
+        "narHash": "sha256-J0wS3BY+kD1QotA/wjWsL2eKZ9T83s/nq6MPUovrzbs=",
         "owner": "cole-h",
         "repo": "agenix-cli",
-        "rev": "0bfd2f38a6640bc33b31c4c2b841715736851b27",
+        "rev": "73e07332451acc465bc59785db259b0b0e81dc8f",
         "type": "github"
       },
       "original": {
