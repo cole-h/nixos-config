@@ -14,7 +14,7 @@
     cleanTmpDir = true;
     # plymouth.enable = true; # requires https://github.com/NixOS/nixpkgs/pull/88789
 
-    zfs.requestEncryptionCredentials = [ "apool/ROOT" "tank" ];
+    zfs.requestEncryptionCredentials = [ "apool/ROOT" ];
     zfs.forceImportRoot = false;
 
     kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;

@@ -102,14 +102,8 @@ nomount -o refreservation=1G apool/alloc
 zfs snapshot -r apool/r@blank
 # roll back with `zfs rollback -r apool/r@blank`
 
-mkdir -p /tmp/sys
-zpool import rpool tank
-mount -t zfs rpool/system/root /tmp/sys
-zfs load-key -L file:///tmp/sys/tank-key tank
-
 alias zmnt='mount -t zfs'
 zmnt apool/r/local/root /mnt
-cp /tmp/sys/tank-key /mnt
 mkdir -p /mnt/{boot,var,nix,state/home/vin/Downloads,mnt,shares/media}
 zmnt apool/r/local/var /mnt/var
 zmnt apool/r/local/nix /mnt/nix
