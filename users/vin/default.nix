@@ -53,6 +53,7 @@
         qimgv # image viewer
         thunderbird
         todo-txt-cli # todos tracker
+        calibre # ebook manager
 
         element-desktop
         git-absorb
