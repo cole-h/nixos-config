@@ -1,5 +1,5 @@
 # Configuration for (re)installing NixOS.
-{ channels
+{ inputs
 }:
 let
   system = "x86_64-linux";
