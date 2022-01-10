@@ -11,6 +11,11 @@
 
   users.users.taln.extraGroups = [ "downloads" ];
 
+  systemd.tmpfiles.rules = [
+    "d /shares/torrents/current 0777 downloads downloads - -"
+    "d /shares/torrents/incomplete 0777 downloads downloads - -"
+  ];
+
   services.transmission = {
     enable = true;
     user = "downloads";
@@ -19,7 +24,8 @@
     downloadDirPermissions = "770";
     settings = {
       rpc-port = 9091;
-      download-dir = "/var/lib/torrent/current";
+      download-dir = "/shares/torrents/current";
+      incomplete-dir = "/shares/torrents/incomplete";
       rpc-whitelist = "127.0.0.1,192.168.*.*";
       ratio-limit = "0";
       ratio-limit-enabled = "true";
