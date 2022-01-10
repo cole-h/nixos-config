@@ -70,6 +70,7 @@
             bbenoist.nix
             stkb.rewrap
             usernamehw.errorlens
+            editorconfig.editorconfig
           ];
         })
       ];
