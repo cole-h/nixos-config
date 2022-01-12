@@ -4,12 +4,10 @@
   # Enable sound.
   sound.enable = true;
 
-  # Use pipewire for sound.
-  services.pipewire = {
+  # Use pulseaudio for sound.
+  hardware.pulseaudio = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+    package = pkgs.pulseaudioFull;
   };
 
   # Enable OpenGL.
