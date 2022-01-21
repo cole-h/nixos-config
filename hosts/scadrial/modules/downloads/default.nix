@@ -41,7 +41,7 @@
 
   networking.extraHosts = ''
     192.168.1.25 sonarr.local
-    192.168.1.25 torrents.local
+    192.168.1.25 flood.local
     127.0.0.1 jellyfin.local
   '';
 
