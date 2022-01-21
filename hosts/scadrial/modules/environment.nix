@@ -14,6 +14,7 @@
       # cryptsetup # for borgbackup
       dnsutils
       e2fsprogs
+      efibootmgr
       evince
       ffmpeg
       file
