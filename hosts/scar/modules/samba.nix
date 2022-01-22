@@ -1,9 +1,4 @@
 {
-  fileSystems."/shares/media" = {
-    device = "bpool/media";
-    fsType = "zfs";
-  };
-
   services.samba = {
     enable = true;
     openFirewall = true;
