@@ -1,10 +1,9 @@
 { ... }:
 {
   imports = [
-    ./flood.nix
-    ./torrent.nix
-    ./sonarr.nix
     ./qbittorrent.nix
+    ./sonarr.nix
+    ./torrent.nix
   ];
 
   users.groups.downloads.gid = 947;
