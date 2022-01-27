@@ -11,6 +11,20 @@
     ];
     defaultGateway = "192.168.1.1";
     nameservers = [ "8.8.8.8" ];
+
+    firewall = {
+      # Needed for Mullvad: https://github.com/NixOS/nixpkgs/issues/113589
+      checkReversePath = "loose";
+
+      allowedTCPPorts = [
+        53 # adguardhome dns
+        80
+      ];
+
+      allowedUDPPorts = [
+        53 # adguardhome dns
+      ];
+    };
   };
 
   # https://tailscale.com/kb/1063/install-nixos
@@ -20,15 +34,6 @@
     enable = true;
     openFirewall = true;
   };
-
-  networking.firewall.allowedTCPPorts = [
-    53 # adguardhome dns
-    80
-  ];
-
-  networking.firewall.allowedUDPPorts = [
-    53 # adguardhome dns
-  ];
 
   services.nginx = {
     enable = true;
