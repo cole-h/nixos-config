@@ -5,9 +5,10 @@
   networking.nat.enable = true;
   networking.nat.externalInterface = "eth0";
   networking.nat.internalInterfaces = builtins.attrNames config.networking.wireguard.interfaces;
-  networking.firewall = {
-    allowedUDPPorts = [ config.networking.wireguard.interfaces.wg0.listenPort ];
-  };
+  networking.firewall.allowedUDPPorts =
+    map
+      (i: config.networking.wireguard.interfaces.${i}.listenPort)
+      (builtins.attrNames config.networking.wireguard.interfaces);
 
   age.secrets = {
     wg0-priv = {
