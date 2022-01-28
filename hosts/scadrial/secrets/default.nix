@@ -44,10 +44,5 @@ in
     bpool = {
       file = ../../../secrets/scadrial+scar/bpool;
     };
-
-    spotifyd = {
-      owner = vin.name;
-      file = ./spotifyd;
-    };
   };
 }
