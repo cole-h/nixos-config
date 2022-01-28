@@ -5,6 +5,7 @@
     cantata # gui
     ncmpcpp # tui
     playerctl
+    # tidal-hifi
   ];
 
   services = {

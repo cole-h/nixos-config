@@ -9,6 +9,7 @@ in
   # misc
   mdloader = callPackage ./drvs/mdloader { };
   bootloadHID = callPackage ./drvs/bootloadHID.nix { };
+  tidal-hifi = callPackage ./drvs/tidal-hifi.nix { };
 
   # small-ish overrides
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
