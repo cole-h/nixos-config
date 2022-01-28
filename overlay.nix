@@ -36,17 +36,17 @@ in
       '';
     });
 
-  element-desktop = prev.element-desktop.overrideAttrs
-    ({ buildInputs ? [ ], postFixup ? "", ... }: {
-      buildInputs = buildInputs ++ [
-        final.makeWrapper
-      ];
+  # element-desktop = prev.element-desktop.overrideAttrs
+  #   ({ buildInputs ? [ ], postFixup ? "", ... }: {
+  #     buildInputs = buildInputs ++ [
+  #       final.makeWrapper
+  #     ];
 
-      postFixup = postFixup + ''
-        wrapProgram $out/bin/element-desktop \
-          --add-flags '--enable-features=UseOzonePlatform --ozone-platform=wayland'
-      '';
-    });
+  #     postFixup = postFixup + ''
+  #       wrapProgram $out/bin/element-desktop \
+  #         --add-flags '--enable-features=UseOzonePlatform --ozone-platform=wayland'
+  #     '';
+  #   });
 
   hydrus = prev.hydrus.overrideAttrs ({ ... }: {
     preFixup = ''
@@ -66,27 +66,27 @@ in
     };
   });
 
-  vscode = prev.vscode.overrideAttrs
-    ({ buildInputs ? [ ], postFixup ? "", ... }: {
-      buildInputs = buildInputs ++ [
-        final.makeWrapper
-      ];
+  # vscode = prev.vscode.overrideAttrs
+  #   ({ buildInputs ? [ ], postFixup ? "", ... }: {
+  #     buildInputs = buildInputs ++ [
+  #       final.makeWrapper
+  #     ];
 
-      postFixup = postFixup + ''
-        wrapProgram $out/bin/code \
-          --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
-      '';
-    });
+  #     postFixup = postFixup + ''
+  #       wrapProgram $out/bin/code \
+  #         --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+  #     '';
+  #   });
 
-  _1password-gui = prev._1password-gui.overrideAttrs
-    ({ buildInputs ? [ ], postFixup ? "", ... }: {
-      buildInputs = buildInputs ++ [
-        final.makeWrapper
-      ];
+  # _1password-gui = prev._1password-gui.overrideAttrs
+  #   ({ buildInputs ? [ ], postFixup ? "", ... }: {
+  #     buildInputs = buildInputs ++ [
+  #       final.makeWrapper
+  #     ];
 
-      postFixup = postFixup + ''
-        wrapProgram $out/bin/1password \
-          --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
-      '';
-    });
+  #     postFixup = postFixup + ''
+  #       wrapProgram $out/bin/1password \
+  #         --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+  #     '';
+  #   });
 }
