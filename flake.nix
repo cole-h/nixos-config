@@ -119,6 +119,7 @@
             misc
             age
             impermanence
+            ./modules
           ];
 
           specialArgs = {
