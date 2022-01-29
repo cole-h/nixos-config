@@ -26,4 +26,10 @@
     enable = true;
     package = pkgs.mullvad;
   };
+
+  # scar is headless; I always need to be able to SSH into it.
+  systemd.services."mullvad-daemon".postStart = ''
+    while ! ${pkgs.mullvad}/bin/mullvad status >/dev/null; do sleep 1; done
+    ${pkgs.mullvad}/bin/mullvad lan set allow
+  '';
 }
