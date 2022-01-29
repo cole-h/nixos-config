@@ -13,9 +13,6 @@
     nameservers = [ "8.8.8.8" ];
 
     firewall = {
-      # Needed for Mullvad: https://github.com/NixOS/nixpkgs/issues/113589
-      checkReversePath = "loose";
-
       allowedTCPPorts = [
         53 # adguardhome dns
         80

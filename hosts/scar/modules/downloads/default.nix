@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./sonarr.nix
@@ -21,4 +21,9 @@
   ];
 
   services.nginx.enable = true;
+
+  services.mullvad-vpn = {
+    enable = true;
+    package = pkgs.mullvad;
+  };
 }
