@@ -47,7 +47,6 @@
         # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
         firefox-bin
         foliate
-        hydrus # booru-like image tagger
         mdloader # used to flash my Drop CTRL
         newsboat # rss/atom feed reader
         qimgv # image viewer

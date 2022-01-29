@@ -50,15 +50,6 @@ in
   #     '';
   #   });
 
-  hydrus = prev.hydrus.overrideAttrs ({ ... }: {
-    preFixup = ''
-      makeWrapperArgs+=(
-        "''${qtWrapperArgs[@]}"
-        "--add-flags" "--db_dir ''${XDG_DATA_HOME:-\$HOME/.local/share}/hydrus/db"
-      )
-    '';
-  });
-
   kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs ({ ... }: {
     src = final.fetchFromGitHub {
       owner = "mawww";
