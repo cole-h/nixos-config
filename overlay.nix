@@ -11,6 +11,8 @@ in
   bootloadHID = callPackage ./drvs/bootloadHID.nix { };
   tidal-hifi = callPackage ./drvs/tidal-hifi.nix { };
 
+  inherit (callPackage ./drvs/mullvad { }) mullvad;
+
   # small-ish overrides
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
