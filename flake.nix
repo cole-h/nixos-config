@@ -12,6 +12,7 @@
     # nixpkgs.url = "github:nixos/nixpkgs/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
+    fixpkgs.url = "github:nixos/nixpkgs/fd8f6de4b8415fe4dcea3a9cbb9ab9eebd37b53a";
 
     agenix-cli = { url = "github:cole-h/agenix-cli"; };
     agenix = { url = "github:ryantm/agenix"; };
@@ -46,6 +47,7 @@
             (import ./overlay.nix)
             (final: prev: {
               agenix = inputs.agenix-cli.defaultPackage.${system};
+              swaylock-effects = prev.swaylock-effects.override { inherit (inputs.fixpkgs.legacyPackages.${system}) pam; };
             })
           ];
         };

@@ -85,6 +85,22 @@
         "type": "github"
       }
     },
+    "fixpkgs": {
+      "locked": {
+        "lastModified": 1643405624,
+        "narHash": "sha256-RgyD1KriXCQCXLcKI+FM1rRn1tZct910/AZjsnhBEbc=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "fd8f6de4b8415fe4dcea3a9cbb9ab9eebd37b53a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "fd8f6de4b8415fe4dcea3a9cbb9ab9eebd37b53a",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1638122382,
@@ -321,6 +337,7 @@
         "aarch-images": "aarch-images",
         "agenix": "agenix",
         "agenix-cli": "agenix-cli",
+        "fixpkgs": "fixpkgs",
         "home": "home",
         "impermanence": "impermanence",
         "mail": "mail",
