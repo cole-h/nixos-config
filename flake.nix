@@ -14,13 +14,13 @@
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
     fixpkgs.url = "github:nixos/nixpkgs/fd8f6de4b8415fe4dcea3a9cbb9ab9eebd37b53a";
 
-    agenix-cli = { url = "github:cole-h/agenix-cli"; };
-    agenix = { url = "github:ryantm/agenix"; };
+    agenix-cli = { url = "github:cole-h/agenix-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
+    agenix = { url = "github:ryantm/agenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     # TODO: actually set up impermanence
-    impermanence = { url = "github:nix-community/impermanence"; };
+    impermanence = { url = "github:nix-community/impermanence"; inputs.nixpkgs.follows = "nixpkgs"; };
     mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nix = { url = "github:nixos/nix"; };
+    nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     # Not flakes
     aarch-images = { url = "github:Mic92/nixos-aarch64-images"; flake = false; };
@@ -30,7 +30,6 @@
     let
       nameValuePair = name: value: { inherit name value; };
       genAttrs = names: f: builtins.listToAttrs (map (n: nameValuePair n (f n)) names);
-
 
       pkgsFor = pkgs: system:
         import pkgs {
