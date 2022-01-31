@@ -40,8 +40,6 @@ let
   inherit (my.scripts)
     # alacritty
     imgur
-    passmenu
-    otpmenu
     ;
 
   # term = alacritty;
