@@ -124,21 +124,6 @@
         "type": "github"
       }
     },
-    "impermanence": {
-      "locked": {
-        "lastModified": 1642362310,
-        "narHash": "sha256-/ZkAKJpvAFG9Nd0kOUUmqLb1pKOa0cpU832khuxUAUo=",
-        "owner": "nix-community",
-        "repo": "impermanence",
-        "rev": "ff2240b04ffb9322241b9f6374305cbf6a98a285",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "impermanence",
-        "type": "github"
-      }
-    },
     "lowdown-src": {
       "flake": false,
       "locked": {
@@ -269,7 +254,6 @@
         "agenix-cli": "agenix-cli",
         "fixpkgs": "fixpkgs",
         "home": "home",
-        "impermanence": "impermanence",
         "mail": "mail",
         "nix": "nix",
         "nixpkgs": "nixpkgs"

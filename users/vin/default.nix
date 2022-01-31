@@ -3,7 +3,6 @@
 {
   imports =
     [
-      "${inputs.impermanence}/home-manager.nix"
       ./modules
     ];
 

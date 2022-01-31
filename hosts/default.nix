@@ -1,21 +1,21 @@
-{ pkgsFor
-, mkSystem
-, inputs
+{ inputs
 }:
+let
+  inherit (inputs.self.lib)
+    pkgsFor
+    mkSystem
+    ;
+in
 {
   scadrial =
     let
       system = "x86_64-linux";
-      pkgs = pkgsFor inputs.nixpkgs system;
     in
-    mkSystem {
-      inherit system pkgs;
-      hostname = "scadrial";
+    {
+      inherit system;
+
       extraModules =
         let
-          inherit (pkgs) lib;
-          inherit (inputs.home.nixosModules) home-manager;
-
           home = { config, ... }: {
             config.home-manager = {
               users = import ../users;
@@ -28,7 +28,7 @@
                 super = config;
 
                 my = import ../my.nix {
-                  inherit lib;
+                  inherit (inputs.nixpkgs) lib;
                 };
               };
             };
@@ -39,32 +39,22 @@
           };
         in
         [
-          home-manager
+          inputs.home.nixosModules.home-manager
+
           home
           nix
         ];
     };
 
-  scar =
-    let
-      system = "aarch64-linux";
-      pkgs = pkgsFor inputs.nixpkgs system;
-    in
-    mkSystem {
-      inherit system pkgs;
-      hostname = "scar"; # https://coppermind.net/wiki/Scar
-    };
+  # https://coppermind.net/wiki/Scar
+  scar = {
+    system = "aarch64-linux";
+  };
 
-  yolen =
-    let
-      system = "x86_64-linux";
-      pkgs = pkgsFor inputs.nixpkgs system;
-    in
-    mkSystem {
-      inherit system pkgs;
-      hostname = "yolen";
-      extraModules = [
-        inputs.mail.nixosModules.mailserver
-      ];
-    };
+  yolen = {
+    system = "x86_64-linux";
+    extraModules = [
+      inputs.mail.nixosModules.mailserver
+    ];
+  };
 }

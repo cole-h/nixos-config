@@ -41,8 +41,8 @@ in
 
       drvs = builtins.listToAttrs (
         map
-          (file: lib.nameValuePair (stripExtension file) (./drvs + "/${file}"))
-          (builtins.attrNames (builtins.readDir ./drvs))
+          (file: lib.nameValuePair (stripExtension file) (./nix/drvs + "/${file}"))
+          (builtins.attrNames (builtins.readDir ./nix/drvs))
       );
     in
     drvs;
