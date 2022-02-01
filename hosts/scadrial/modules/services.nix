@@ -76,4 +76,9 @@
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
   };
+
+  services.mullvad-vpn = {
+    enable = true;
+    package = pkgs.mullvad;
+  };
 }
