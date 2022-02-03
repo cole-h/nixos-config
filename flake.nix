@@ -41,39 +41,22 @@
 
       lib = import ./nix/lib.nix { inherit inputs; };
 
-      nixosConfigurations = {
-        bootstrap =
-          let
-            system = "x86_64-linux";
-            pkgs = pkgsFor {
-              inherit inputs system;
-              inherit (inputs) nixpkgs;
-            };
-          in
-          mkSystem {
-            inherit system pkgs;
-            hostname = "scadrial";
-            extraModules = [
-              {
-                # age.sshKeyPaths = [ "/tmp/host/ed25519" ];
-              }
-            ];
-          };
-      } // builtins.mapAttrs
-        (flip ({ system, extraModules ? [ ] }: hostname:
-          mkSystem {
-            pkgs = pkgsFor {
-              inherit inputs system;
-              inherit (inputs) nixpkgs;
-            };
+      nixosConfigurations =
+        builtins.mapAttrs
+          (flip
+            ({ system, modules ? [ ] }: hostname:
+              mkSystem {
+                inherit
+                  system
+                  modules
+                  ;
 
-            inherit
-              hostname
-              system
-              extraModules
-              ;
-          }))
-        (import ./hosts { inherit inputs; });
+                pkgs = pkgsFor {
+                  inherit inputs system;
+                  inherit (inputs) nixpkgs;
+                };
+              }))
+          (import ./hosts { inherit inputs; });
 
       packages = forAllSystems
         ({ ... }:

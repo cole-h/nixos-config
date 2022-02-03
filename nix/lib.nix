@@ -49,23 +49,8 @@ rec {
   mkSystem =
     { system
     , pkgs
-    , hostname
-    , extraModules ? [ ]
+    , modules
     }:
-    let
-      defaultModules =
-        [
-          { networking.hostName = hostname; }
-          { _module.args = specialArgs; }
-          { nixpkgs.pkgs = pkgs; }
-
-          ../modules
-          (../hosts + "/${hostname}/configuration.nix")
-          inputs.agenix.nixosModules.age
-        ];
-
-      modules = defaultModules ++ extraModules;
-    in
     inputs.nixpkgs.lib.nixosSystem {
       inherit system modules specialArgs pkgs;
     };
