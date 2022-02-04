@@ -35,8 +35,7 @@
         ;
     in
     {
-      # for use with update.sh script
-      inputs = builtins.removeAttrs inputs [ "self" ];
+      inherit inputs;
 
       lib = import ./nix/lib.nix { inherit inputs; };
 
