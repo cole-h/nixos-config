@@ -2,18 +2,16 @@
 {
   nix.distributedBuilds = true;
 
-  nix.binaryCaches = [
+  nix.settings.substituters = [
     "ssh-ng://builder"
   ];
 
-  nix.binaryCachePublicKeys = [
+  nix.settings.trusted-public-keys = [
     "scadrial:3FwW08DNiVlNfDWCuBMesZDLISmsgutOLdUt111uvU4="
   ];
 
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-    builders-use-substitutes = true
-  '';
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.builders-use-substitutes = true;
 
   nix.buildMachines = [
     {
