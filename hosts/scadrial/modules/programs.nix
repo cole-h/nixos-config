@@ -3,6 +3,7 @@
 {
   documentation.dev.enable = true;
   documentation.man.enable = true;
+  documentation.man.generateCaches = false;
   # documentation.nixos.includeAllModules = true;
 
   # Needed for "Running GNOME programs outside of GNOME" (see:
