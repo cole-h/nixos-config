@@ -12,10 +12,27 @@
     ];
   };
 
-  security.doas.extraRules = [
-    # { groups = [ "deploy" ]; noPass = true; cmd = "sh"; }
-    { groups = [ "deploy" ]; noPass = true; cmd = "sh"; args = [ "-c" ''"readlink -e /nix/var/nix/profiles/system || readlink -e /run/current-system"'' ]; }
-    { groups = [ "deploy" ]; noPass = true; cmd = "nix-store"; }
-    { groups = [ "deploy" ]; noPass = true; cmd = "nix-env"; }
+  security.sudo.extraRules = [
+    {
+      groups = [ "deploy" ];
+      commands = [
+        {
+          command = "/nix/store/*/bin/switch-to-configuration";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/run/current-system/sw/bin/nix-store";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/run/current-system/sw/bin/nix-env";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = ''/bin/sh -c "readlink -e /nix/var/nix/profiles/system || readlink -e /run/current-system"'';
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
   ];
 }
