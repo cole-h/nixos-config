@@ -72,5 +72,7 @@
 
       defaultPackage = forAllSystems
         ({ system, ... }: inputs.self.packages.${system}.scadrial);
+
+      colmena = import ./hive.nix { inherit inputs; };
     };
 }
