@@ -24,7 +24,6 @@ rec {
         (import ./overlay.nix)
         (final: prev: {
           agenix = inputs.agenix-cli.defaultPackage.${system};
-          swaylock-effects = prev.swaylock-effects.override { inherit (inputs.fixpkgs.legacyPackages.${system}) pam; };
         })
       ];
     };
