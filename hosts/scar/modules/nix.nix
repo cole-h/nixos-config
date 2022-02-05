@@ -6,10 +6,6 @@
     "ssh-ng://builder"
   ];
 
-  nix.settings.trusted-public-keys = [
-    "scadrial:3FwW08DNiVlNfDWCuBMesZDLISmsgutOLdUt111uvU4="
-  ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.builders-use-substitutes = true;
 

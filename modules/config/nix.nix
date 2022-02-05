@@ -1,16 +1,17 @@
 { inputs, ... }:
 {
   nix = {
-    # print-build-logs = true
-    # log-format = bar-with-logs
-    extraOptions = ''
-      flake-registry = /etc/nix/registry.json
-    '';
-
     nixPath = [
       "nixpkgs=${inputs.self}/compat"
       "nixos-config=${inputs.self}/compat/nixos"
     ];
+
+    settings = {
+      flake-registry = "/etc/nix/registry.json";
+      trusted-public-keys = [
+        "scadrial:3FwW08DNiVlNfDWCuBMesZDLISmsgutOLdUt111uvU4="
+      ];
+    };
 
     registry = {
       self.flake = inputs.self;
