@@ -4,10 +4,12 @@
   networking.hostId = "1bb11552"; # Required for ZFS.
   networking.useDHCP = false;
   networking.nameservers = [
+    "100.100.100.100" # tailscale
     "192.168.1.25"
     "1.1.1.1"
     "8.8.8.8"
   ];
+  networking.search = [ "example.com.beta.tailscale.net" ];
   networking.defaultGateway = "192.168.1.1";
   networking.interfaces.enp5s0.ipv4 = {
     addresses = [
