@@ -27,6 +27,9 @@
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
 
+  # https://tailscale.com/kb/1063/install-nixos
+  services.tailscale.enable = true;
+
   users.mutableUsers = false;
   users.users = {
     hoid = {
