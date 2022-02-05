@@ -32,6 +32,10 @@
           command = ''/bin/sh -c "readlink -e /nix/var/nix/profiles/system || readlink -e /run/current-system"'';
           options = [ "NOPASSWD" ];
         }
+        {
+          command = "/run/current-system/sw/bin/nix-collect-garbage";
+          options = [ "NOPASSWD" ];
+        }
       ];
     }
   ];
