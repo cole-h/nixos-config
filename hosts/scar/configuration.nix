@@ -4,6 +4,10 @@
 # 3. Boot Rock64 with SD, connect everything
 # 4. follow setup
 # 5. TODO:
+#
+# NOTE: "Default" memory trainings may lead to memory corruption; see
+# https://github.com/NixOS/nixpkgs/pull/145506#issuecomment-979585121 and the
+# rest of that PR thread for more information.
 {
   imports =
     [
