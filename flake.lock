@@ -108,6 +108,22 @@
         "type": "github"
       }
     },
+    "kak": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1643761541,
+        "narHash": "sha256-0IJu/EhNG/7qye67vkCX2I9uI0J6W3I0/bjD2TO5O9c=",
+        "owner": "mawww",
+        "repo": "kakoune",
+        "rev": "0b29fcf32ac756dc54ec5c52db63340c9b3692e9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mawww",
+        "repo": "kakoune",
+        "type": "github"
+      }
+    },
     "lowdown-src": {
       "flake": false,
       "locked": {
@@ -237,6 +253,7 @@
         "agenix": "agenix",
         "agenix-cli": "agenix-cli",
         "home": "home",
+        "kak": "kak",
         "mail": "mail",
         "nix": "nix",
         "nixpkgs": "nixpkgs"
