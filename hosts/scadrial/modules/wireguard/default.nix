@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # enable NAT
@@ -6,9 +6,9 @@
   networking.nat.externalInterface = "enp5s0";
   networking.nat.internalInterfaces = builtins.attrNames config.networking.wireguard.interfaces;
   networking.firewall.allowedUDPPorts =
-    map
-      (i: config.networking.wireguard.interfaces.${i}.listenPort)
-      (builtins.attrNames config.networking.wireguard.interfaces);
+    lib.mapAttrsToList
+      (name: value: value.listenPort)
+      config.networking.wireguard.interfaces;
 
   age.secrets = {
     wg0-priv = {
