@@ -30,7 +30,7 @@ plug-chain "https://github.com/andreyorst/plug.kak" noload config %{
 }
 
 # Options
-set-option global startup_info_version 20211106
+set-option global startup_info_version 20220209
 set-option global grepcmd 'rg --no-heading --line-number --column --sort path'
 set-option global ui_options terminal_set_title=false terminal_assistant=off
 set-option global indentwidth 2
