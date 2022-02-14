@@ -13,7 +13,6 @@
     extraConfig = ''
       # {{{ general
       set -ga terminal-overrides ",*256col*:Tc"
-      set -g default-shell /run/current-system/sw/bin/fish
       set -s escape-time 0
       set -sg repeat-time 600
       set -s focus-events on
