@@ -24,16 +24,16 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "mullvad";
-  version = "2021.6";
+  version = "2022.1-beta1";
 
   src = fetchFromGitHub {
     owner = "mullvad";
     repo = "mullvadvpn-app";
-    rev = "f9d58942f2ee7830beda6829a936bd980ff6eeb9";
-    sha256 = "sha256-5Qi9xOayLLyGuJzjLKPg4UEhUT7rshMHSLB8DPMIMpg=";
+    rev = version;
+    sha256 = "sha256-s/gKItWyzb/5JhxHhc3nBRQ3B36QEDQBS+hF/nYakhc=";
   };
 
-  cargoSha256 = "sha256-7U9x1r7oXyYweFecWfQpAreVduKSbEXSfyu+X0QQPu4=";
+  cargoSha256 = "sha256-HMUjB9Gq73zB2yYvvYe+/l/8SQuCilG6yMJlr2qk09Y=";
 
   nativeBuildInputs = [
     pkg-config
