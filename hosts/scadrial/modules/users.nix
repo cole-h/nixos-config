@@ -9,7 +9,7 @@
       vin = {
         isNormalUser = true;
         uid = 1000;
-        shell = pkgs.fish;
+        shell = pkgs.zsh;
         extraGroups = map (k: config.users.groups.${k}.name or k) [
           "wheel"
           "audio"

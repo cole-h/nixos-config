@@ -10,7 +10,7 @@
   # https://nixos.wiki/wiki/GNOME#Running_GNOME_programs_outside_of_GNOME)
   programs.dconf.enable = true;
 
-  programs.fish.enable = true;
+  programs.zsh.enable = true;
 
   programs.command-not-found.enable = false;
 
