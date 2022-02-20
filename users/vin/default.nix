@@ -10,6 +10,7 @@
   home.homeDirectory = "/home/vin";
 
   programs.home-manager.enable = true;
+  programs.bash.enable = true;
 
   services = {
     syncthing.enable = true;
