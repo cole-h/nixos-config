@@ -3,7 +3,7 @@
 {
   # enable NAT
   networking.nat.enable = true;
-  networking.nat.externalInterface = "enp5s0";
+  networking.nat.externalInterface = "enp6s0";
   networking.nat.internalInterfaces = builtins.attrNames config.networking.wireguard.interfaces;
   networking.firewall.allowedUDPPorts =
     lib.mapAttrsToList
