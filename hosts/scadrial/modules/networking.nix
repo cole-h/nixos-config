@@ -7,9 +7,9 @@
     "192.168.1.25"
     "1.1.1.1"
     "8.8.8.8"
-    "100.100.100.100" # tailscale
+    # "100.100.100.100" # tailscale
   ];
-  networking.search = [ "example.com.beta.tailscale.net" ];
+  # networking.search = [ "example.com.beta.tailscale.net" ];
   networking.defaultGateway = "192.168.1.1";
   networking.interfaces.enp6s0.ipv4 = {
     addresses = [
