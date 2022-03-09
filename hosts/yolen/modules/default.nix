@@ -1,6 +1,8 @@
 {
   imports =
     [
+      ./postgres.nix
+
       ./mail
     ];
 }
