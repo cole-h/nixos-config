@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   services.postgresql = {
-    enable = true;
+    enable = false;
     package = pkgs.postgresql_13;
     enableTCPIP = true;
     port = 52022;
