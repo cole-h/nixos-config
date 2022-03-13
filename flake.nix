@@ -13,7 +13,8 @@
 
     agenix-cli = { url = "github:cole-h/agenix-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
     agenix = { url = "github:ryantm/agenix"; inputs.nixpkgs.follows = "nixpkgs"; };
-    home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
+    # NOTE: they moved env stuff to .zshenv, which is used by z4h; pin to previous rev
+    home = { url = "github:nix-community/home-manager/11c0e5d188ab9db2204f25201483d51ad5131e1d"; inputs.nixpkgs.follows = "nixpkgs"; };
     mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "nixpkgs"; };
     mullvad = { url = "github:nixos/nixpkgs?ref=refs/pull/157207/head"; };
