@@ -162,6 +162,22 @@
         "type": "gitlab"
       }
     },
+    "mullvad": {
+      "locked": {
+        "lastModified": 1646254993,
+        "narHash": "sha256-cNsgB2JiA9LpFvi9/6VrA3Zc/Ji9GtHxk/w6p7025Fo=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "10c9fd061d8f8e7345f64ad0522185f42c090514",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "refs/pull/157207/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nix": {
       "inputs": {
         "lowdown-src": "lowdown-src",
@@ -223,6 +239,7 @@
         "home": "home",
         "kak": "kak",
         "mail": "mail",
+        "mullvad": "mullvad",
         "nix": "nix",
         "nixpkgs": "nixpkgs"
       }
