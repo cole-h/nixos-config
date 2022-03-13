@@ -134,10 +134,11 @@ in
       # fonts = [ "IPAexGothic 11" "Iosevka Custom Book Extended 10" ];
 
       input = {
-        "6940:6931:Corsair_Corsair_K70_RGB_Gaming_Keyboard__Keyboard" = {
-          xkb_capslock = "disabled";
+        "1133:49297:Logitech_G903_LIGHTSPEED_Wireless_Gaming_Mouse_w\/_HERO" = {
+          accel_profile = "flat";
+          pointer_accel = "0";
         };
-        "1133:16487:Logitech_G903" = {
+        "1133:16519:Logitech_G903_LS" = {
           accel_profile = "flat";
           pointer_accel = "0";
         };
