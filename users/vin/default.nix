@@ -59,6 +59,7 @@
         screen
         _1password
         _1password-gui
+        vault
         (vscode-with-extensions.override {
           vscodeExtensions = with vscode-extensions; [
             ms-vsliveshare.vsliveshare
