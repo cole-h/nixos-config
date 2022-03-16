@@ -1,16 +1,5 @@
 { config, lib, pkgs, my, ... }:
-let
-  gdbinit = pkgs.fetchFromGitHub
-    {
-      owner = "cyrus-and";
-      repo = "gdb-dashboard";
-      rev = "b656071f4a2688045f3bd697bcb7885e99d89918";
-      sha256 = "1rad11grnndh18bwa17m50i9bm2lnjhld8my9w0njsq6lq66myvx";
-    } + "/.gdbinit";
-in
 {
-  home.file.".gdbinit".source = gdbinit;
-
   xdg.configFile = {
     "git/ignore".text = ''
       .gdb_history
