@@ -21,4 +21,6 @@
   programs.adb.enable = true;
 
   programs.iotop.enable = true;
+
+  programs._1password-gui.enable = true;
 }
