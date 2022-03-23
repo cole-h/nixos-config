@@ -1,8 +1,10 @@
 { ... }:
 
 {
-  networking.hostId = "1bb11552"; # Required for ZFS.
+  networking.useNetworkd = true;
   networking.useDHCP = false;
+
+  networking.hostId = "1bb11552"; # Required for ZFS.
   networking.nameservers = [
     "192.168.1.25"
     "1.1.1.1"
