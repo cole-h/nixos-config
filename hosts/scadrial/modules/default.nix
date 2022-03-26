@@ -16,6 +16,7 @@
       ./security.nix # configuration related to general security
       ./services.nix # misc, short service settings
       ./users.nix # configuration related to users
+      ./virtualisation.nix # configuration related to virtualisation
 
       ./downloads # configuration related to torrenting
       ./libvirt # configuration related to libvirt and vfio + pci passthrough
