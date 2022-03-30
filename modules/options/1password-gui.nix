@@ -7,6 +7,8 @@ let
 
 in
 {
+  disabledModules = [ "programs/_1password-gui.nix" ];
+
   options = {
     programs._1password-gui = {
       enable = mkEnableOption "The 1Password Desktop application with browser integration";
