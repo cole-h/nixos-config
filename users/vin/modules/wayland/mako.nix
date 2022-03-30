@@ -19,6 +19,9 @@
         width=400
         default-timeout=15000
         icon-path=${homeIcons}:${systemIcons}:${homePixmaps}:${systemPixmaps}
+
+        [mode=dnd]
+        invisible=1
       '';
   };
 }
