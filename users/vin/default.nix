@@ -53,6 +53,7 @@
         thunderbird
         todo-txt-cli # todos tracker
         calibre # ebook manager
+        lutris # games
 
         element-desktop
         git-absorb
