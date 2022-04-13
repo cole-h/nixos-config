@@ -44,5 +44,9 @@ in
     bpool = {
       file = ../../../secrets/scadrial+scar/bpool;
     };
+
+    "wgkiji.conf" = {
+      file = ./kiji;
+    };
   };
 }
