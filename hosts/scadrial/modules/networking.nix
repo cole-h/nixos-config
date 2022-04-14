@@ -31,6 +31,7 @@
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22000 # syncthing
+    4646 # XIV QuickLauncher
   ];
 
   networking.firewall.allowedUDPPorts = [
