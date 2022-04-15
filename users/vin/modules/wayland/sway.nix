@@ -514,6 +514,14 @@ in
             criteria = { title = "Firefox — Sharing Indicator"; };
             command = "floating enable, nofocus";
           }
+          {
+            criteria = { class = "ffxiv_dx11.exe"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { class = "xivlauncher.exe"; };
+            command = "floating enable";
+          }
         ];
       };
 
@@ -522,6 +530,10 @@ in
           { title = "twitch.tv/.* - mpv"; }
           { class = "chatterino"; }
           { app_id = "chatterino"; }
+        ];
+        "${wsF9}" = [
+          { class = "ffxiv_dx11.exe"; }
+          { class = "xivlauncher.exe"; }
         ];
       };
 
