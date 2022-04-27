@@ -17,7 +17,6 @@
     home = { url = "github:nix-community/home-manager/11c0e5d188ab9db2204f25201483d51ad5131e1d"; inputs.nixpkgs.follows = "nixpkgs"; };
     mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "nixpkgs"; };
-    mullvad = { url = "github:nixos/nixpkgs?ref=refs/pull/157207/head"; };
 
     # Not flakes
     aarch-images = { url = "github:Mic92/nixos-aarch64-images"; flake = false; };

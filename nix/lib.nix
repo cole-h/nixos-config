@@ -24,7 +24,6 @@ rec {
         (import ./overlay.nix)
         (final: prev: {
           agenix = inputs.agenix-cli.defaultPackage.${system};
-          mullvad = inputs.mullvad.legacyPackages.${final.system}.mullvad;
 
           kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs ({ ... }: {
             version = inputs.kak.shortRev;
