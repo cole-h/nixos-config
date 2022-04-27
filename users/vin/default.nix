@@ -54,6 +54,7 @@
         todo-txt-cli # todos tracker
         calibre # ebook manager
         lutris # games
+        atuin # shell history
 
         element-desktop
         git-absorb
