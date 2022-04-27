@@ -23,11 +23,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1646845404,
-        "narHash": "sha256-JENXFCI2HVqi0whBzt7MAW9PX3ziEaYqBhMux+4g+VM=",
+        "lastModified": 1648942457,
+        "narHash": "sha256-i29Z1t3sVfCNfpp+KAfeExvpqHQSbLO1KWylTtfradU=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "764c975e74bce2f89a5106b68ec48e2b586f893c",
+        "rev": "0d5e59ed645e4c7b60174bc6f6aac6a203dc0b01",
         "type": "github"
       },
       "original": {
@@ -95,28 +95,27 @@
         ]
       },
       "locked": {
-        "lastModified": 1643926450,
-        "narHash": "sha256-8rjKGATv1UEgwzdTrQ1WHWaL4d50UbAN+TnlWDZZXmo=",
+        "lastModified": 1651007090,
+        "narHash": "sha256-C/OoQRzTUOWEr1sd3xTKA2GudA1YG1XB3MlL6KfTchg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "11c0e5d188ab9db2204f25201483d51ad5131e1d",
+        "rev": "778af87a981eb2bfa3566dff8c3fb510856329ef",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "11c0e5d188ab9db2204f25201483d51ad5131e1d",
         "type": "github"
       }
     },
     "kak": {
       "flake": false,
       "locked": {
-        "lastModified": 1646521994,
-        "narHash": "sha256-NhRJjiHgUc6huMFkZbzeE6wgSJbepIKaziW7JzHcB04=",
+        "lastModified": 1650879108,
+        "narHash": "sha256-XxMcjXBlg0iOJyiW9W4yyRG2A+GWXdWPSNVzapxXnSw=",
         "owner": "mawww",
         "repo": "kakoune",
-        "rev": "1d6476d32959d47ff3340c5b9ec9951f0d7497ff",
+        "rev": "ceaac1c400588404ea45c20d5466681b5378aaba",
         "type": "github"
       },
       "original": {
@@ -150,33 +149,17 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1646481600,
-        "narHash": "sha256-TBJu0BjWpp9737sqC5E4Iz48t3AatDUcBtXKuVJEQVg=",
+        "lastModified": 1650133068,
+        "narHash": "sha256-biHmW4DyRjydDUJ9bTqvUgVSSE/MzzAseQERT5yPjWI=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "75728d2686dec5ef2a73cdf80174311587413392",
+        "rev": "4ce864f52ae7e1733582a32d66c1f94ee11a52c8",
         "type": "gitlab"
       },
       "original": {
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
         "type": "gitlab"
-      }
-    },
-    "mullvad": {
-      "locked": {
-        "lastModified": 1646254993,
-        "narHash": "sha256-cNsgB2JiA9LpFvi9/6VrA3Zc/Ji9GtHxk/w6p7025Fo=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "10c9fd061d8f8e7345f64ad0522185f42c090514",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "refs/pull/157207/head",
-        "repo": "nixpkgs",
-        "type": "github"
       }
     },
     "nix": {
@@ -188,11 +171,11 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1647033596,
-        "narHash": "sha256-7rQSktGC8+DmeyGOnzFMy1QwAYnw4JJphv+lEwFCwfU=",
+        "lastModified": 1651001193,
+        "narHash": "sha256-hP8afsC88YLkvcvkmBJ+MZh/nK4gp3ijcpFr/yV5PY0=",
         "owner": "nixos",
         "repo": "nix",
-        "rev": "d5322698a2abbc6d141e1d244e17b0d226a2f18b",
+        "rev": "35393dc2c65765acb6cc99d6a976eab62c28a51d",
         "type": "github"
       },
       "original": {
@@ -203,11 +186,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1647938585,
-        "narHash": "sha256-1fZpfivab7VJJLl/uorI/IZkRlpx7/DCLkhtiSgJxTg=",
+        "lastModified": 1651074620,
+        "narHash": "sha256-fdLzFuRs5CihrOEz6N36wmc2TgnQwHJORjRMKEt+k9k=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5dbd4b2b27e24eaed6a79603875493b15b999d4b",
+        "rev": "28b155323e95059ed6ba3f67361e6bb6ca85bdfe",
         "type": "github"
       },
       "original": {
@@ -240,7 +223,6 @@
         "home": "home",
         "kak": "kak",
         "mail": "mail",
-        "mullvad": "mullvad",
         "nix": "nix",
         "nixpkgs": "nixpkgs"
       }
