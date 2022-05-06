@@ -25,7 +25,7 @@
     config.lib.file.mkOutOfStoreSymlink "/shares/media/Music";
 
   # Finally, a cursor theme that displays hands on clickable objects
-  xsession.pointerCursor = {
+  home.pointerCursor = {
     package = pkgs.gnome.adwaita-icon-theme;
     name = "Adwaita";
     size = 24;
