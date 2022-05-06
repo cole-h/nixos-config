@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   documentation.dev.enable = true;
@@ -22,5 +22,14 @@
 
   programs.iotop.enable = true;
 
-  programs._1password-gui.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    gid = 5000;
+    polkitPolicyOwners = [ config.users.users.vin.name ];
+  };
+
+  programs._1password = {
+    enable = true;
+    gid = 5001;
+  };
 }
