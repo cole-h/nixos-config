@@ -4,6 +4,11 @@
   networking.useNetworkd = true;
   networking.useDHCP = false;
 
+  systemd.network.wait-online.ignoredInterfaces = [
+    "wg0"
+    "tailscale0"
+  ];
+
   networking.hostId = "1bb11552"; # Required for ZFS.
   networking.nameservers = [
     "192.168.1.25"
