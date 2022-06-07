@@ -36,6 +36,12 @@ in
       '';
     });
 
+  # https://github.com/NixOS/nixpkgs/issues/176288
+  jellyfin-web = prev.jellyfin-web.overrideAttrs
+    ({ ... }: {
+      preBuild = "export HOME=$(mktemp -d)";
+    });
+
   # element-desktop = prev.element-desktop.overrideAttrs
   #   ({ buildInputs ? [ ], postFixup ? "", ... }: {
   #     buildInputs = buildInputs ++ [
