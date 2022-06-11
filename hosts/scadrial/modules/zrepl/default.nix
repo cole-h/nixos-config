@@ -15,7 +15,7 @@
   };
 
   networking.extraHosts = ''
-    192.168.1.25 scar.local
+    192.168.1.55 scar.local
   '';
 
   # ZFS snapshotting for stuff I want backed up.

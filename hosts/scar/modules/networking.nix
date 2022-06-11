@@ -5,7 +5,7 @@
     usePredictableInterfaceNames = false;
     interfaces.eth0.ipv4.addresses = [
       {
-        address = "192.168.1.25";
+        address = "192.168.1.55";
         prefixLength = 24;
       }
     ];

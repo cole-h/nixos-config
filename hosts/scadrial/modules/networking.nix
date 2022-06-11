@@ -11,7 +11,7 @@
 
   networking.hostId = "1bb11552"; # Required for ZFS.
   networking.nameservers = [
-    "192.168.1.25"
+    "192.168.1.55"
     "1.1.1.1"
     "8.8.8.8"
     # "100.100.100.100" # tailscale
@@ -21,7 +21,7 @@
   networking.interfaces.enp6s0.ipv4 = {
     addresses = [
       {
-        address = "192.168.1.23";
+        address = "192.168.1.53";
         prefixLength = 24;
       }
     ];

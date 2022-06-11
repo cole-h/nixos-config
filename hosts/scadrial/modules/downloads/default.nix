@@ -3,7 +3,7 @@
   age.secrets.smb.file = ./smb-creds;
 
   fileSystems."/shares/media" = {
-    device = "//192.168.1.25/media";
+    device = "//192.168.1.55/media";
     fsType = "cifs";
     options = [
       "credentials=${config.age.secrets.smb.path}"
@@ -40,8 +40,8 @@
   ];
 
   networking.extraHosts = ''
-    192.168.1.25 sonarr.local
-    192.168.1.25 flood.local
+    192.168.1.55 sonarr.local
+    192.168.1.55 flood.local
     127.0.0.1 jellyfin.local
   '';
 
