@@ -7,7 +7,6 @@
     [
       age
       agenix
-      bc
       binutils
       # borgbackup
       cachix
@@ -29,6 +28,7 @@
       imagemagick
       kakoune
       libressl.nc # netcat-openbsd
+      libqalculate
       lsof
       man-pages
       man-pages-posix
