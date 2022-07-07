@@ -7,11 +7,12 @@
   systemd.network.wait-online.ignoredInterfaces = [
     "wg0"
     "tailscale0"
+    "wlp5s0"
   ];
 
   networking.hostId = "1bb11552"; # Required for ZFS.
   networking.nameservers = [
-    "192.168.1.55"
+    # "192.168.1.55"
     "1.1.1.1"
     "8.8.8.8"
     # "100.100.100.100" # tailscale
