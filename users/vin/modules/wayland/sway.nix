@@ -24,6 +24,8 @@ let
   # Logo key
   modifier = "Mod4";
   huh = "Ctrl+Alt+${modifier}";
+  meh = "Ctrl+Alt+Shift";
+  hyper = "Ctrl+Alt+Shift+${modifier}";
   # Alt key
   meta = "Mod1";
   # Home row direction keys, like vim
@@ -212,26 +214,16 @@ in
         "${modifier}+8" = "workspace ${ws8}";
         "${modifier}+9" = "workspace ${ws9}";
         "${modifier}+0" = "workspace ${ws10}";
-        "${modifier}+F1" = "workspace ${wsF1}";
-        "${modifier}+F2" = "workspace ${wsF2}";
-        "${modifier}+F3" = "workspace ${wsF3}";
-        "${modifier}+F4" = "workspace ${wsF4}";
-        "${modifier}+F5" = "workspace ${wsF5}";
-        "${modifier}+F6" = "workspace ${wsF6}";
-        "${modifier}+F7" = "workspace ${wsF7}";
-        "${modifier}+F8" = "workspace ${wsF8}";
-        "${modifier}+F9" = "workspace ${wsF9}";
-        "${modifier}+F10" = "workspace ${wsF10}";
-        "${huh}+1" = "workspace ${wsF1}";
-        "${huh}+2" = "workspace ${wsF2}";
-        "${huh}+3" = "workspace ${wsF3}";
-        "${huh}+4" = "workspace ${wsF4}";
-        "${huh}+5" = "workspace ${wsF5}";
-        "${huh}+6" = "workspace ${wsF6}";
-        "${huh}+7" = "workspace ${wsF7}";
-        "${huh}+8" = "workspace ${wsF8}";
-        "${huh}+9" = "workspace ${wsF9}";
-        "${huh}+0" = "workspace ${wsF10}";
+        "${meh}+1" = "workspace ${wsF1}";
+        "${meh}+2" = "workspace ${wsF2}";
+        "${meh}+3" = "workspace ${wsF3}";
+        "${meh}+4" = "workspace ${wsF4}";
+        "${meh}+5" = "workspace ${wsF5}";
+        "${meh}+6" = "workspace ${wsF6}";
+        "${meh}+7" = "workspace ${wsF7}";
+        "${meh}+8" = "workspace ${wsF8}";
+        "${meh}+9" = "workspace ${wsF9}";
+        "${meh}+0" = "workspace ${wsF10}";
         # move focused container to workspace
         "${modifier}+Shift+1" = "move container to workspace ${ws1}";
         "${modifier}+Shift+2" = "move container to workspace ${ws2}";
@@ -243,26 +235,16 @@ in
         "${modifier}+Shift+8" = "move container to workspace ${ws8}";
         "${modifier}+Shift+9" = "move container to workspace ${ws9}";
         "${modifier}+Shift+0" = "move container to workspace ${ws10}";
-        "${modifier}+Shift+F1" = "move container to workspace ${wsF1}";
-        "${modifier}+Shift+F2" = "move container to workspace ${wsF2}";
-        "${modifier}+Shift+F3" = "move container to workspace ${wsF3}";
-        "${modifier}+Shift+F4" = "move container to workspace ${wsF4}";
-        "${modifier}+Shift+F5" = "move container to workspace ${wsF5}";
-        "${modifier}+Shift+F6" = "move container to workspace ${wsF6}";
-        "${modifier}+Shift+F7" = "move container to workspace ${wsF7}";
-        "${modifier}+Shift+F8" = "move container to workspace ${wsF8}";
-        "${modifier}+Shift+F9" = "move container to workspace ${wsF9}";
-        "${modifier}+Shift+F10" = "move container to workspace ${wsF10}";
-        "${huh}+Shift+1" = "move container to workspace ${wsF1}";
-        "${huh}+Shift+2" = "move container to workspace ${wsF2}";
-        "${huh}+Shift+3" = "move container to workspace ${wsF3}";
-        "${huh}+Shift+4" = "move container to workspace ${wsF4}";
-        "${huh}+Shift+5" = "move container to workspace ${wsF5}";
-        "${huh}+Shift+6" = "move container to workspace ${wsF6}";
-        "${huh}+Shift+7" = "move container to workspace ${wsF7}";
-        "${huh}+Shift+8" = "move container to workspace ${wsF8}";
-        "${huh}+Shift+9" = "move container to workspace ${wsF9}";
-        "${huh}+Shift+0" = "move container to workspace ${wsF10}";
+        "${hyper}+1" = "move container to workspace ${wsF1}";
+        "${hyper}+2" = "move container to workspace ${wsF2}";
+        "${hyper}+3" = "move container to workspace ${wsF3}";
+        "${hyper}+4" = "move container to workspace ${wsF4}";
+        "${hyper}+5" = "move container to workspace ${wsF5}";
+        "${hyper}+6" = "move container to workspace ${wsF6}";
+        "${hyper}+7" = "move container to workspace ${wsF7}";
+        "${hyper}+8" = "move container to workspace ${wsF8}";
+        "${hyper}+9" = "move container to workspace ${wsF9}";
+        "${hyper}+0" = "move container to workspace ${wsF10}";
         # move to next/prev workspace
         "Ctrl+${modifier}+Left " = "workspace prev";
         "Ctrl+${modifier}+Right" = "workspace next";
