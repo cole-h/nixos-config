@@ -80,8 +80,8 @@
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
     # otherwise sessionVariables won't be sourced in new shells
     sessionVariables = {
-      EDITOR = "kak";
-      VISUAL = "kak";
+      EDITOR = "hx";
+      VISUAL = "hx";
 
       CARGO_HOME = "${config.home.homeDirectory}/.cargo";
 
