@@ -24,11 +24,6 @@ rec {
         (import ./overlay.nix)
         (final: prev: {
           agenix = inputs.agenix-cli.defaultPackage.${system};
-
-          kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs ({ ... }: {
-            version = inputs.kak.shortRev;
-            src = inputs.kak;
-          });
         })
       ];
     };

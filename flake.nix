@@ -19,7 +19,7 @@
 
     # Not flakes
     aarch-images = { url = "github:Mic92/nixos-aarch64-images"; flake = false; };
-    kak = { url = "github:mawww/kakoune"; flake = false; };
+    # kak = { url = "github:mawww/kakoune"; flake = false; };
   };
 
   outputs = inputs:

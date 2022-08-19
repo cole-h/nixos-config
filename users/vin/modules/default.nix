@@ -12,7 +12,7 @@
       ./zsh.nix # zsh config
 
       # ./emacs # doom + emacs setup
-      ./kakoune # kakoune setup
+      # ./kakoune # kakoune setup
       ./wayland # sway, etc config
     ];
 }
