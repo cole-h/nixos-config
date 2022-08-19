@@ -50,7 +50,7 @@
       usbutils
       wireguard-tools
       xdg-utils
-      zathura
+      # zathura # fails to build: https://github.com/NixOS/nixpkgs/issues/187305
 
       bat # cat but better
       bottom # fancy top
