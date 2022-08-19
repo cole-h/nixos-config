@@ -1,13 +1,12 @@
 {
   imports =
     [
-      ./fish.nix # fish config
+      # ./fish.nix # fish config
       ./git.nix # git config
-      ./mail.nix # maildir config
+      # ./mail.nix # maildir config
       ./mpv.nix # mpv config
       ./music.nix # music config
-      ./neovim.nix # neovim config
-      ./rust.nix # rust-related
+      # ./neovim.nix # neovim config
       ./tmux.nix # tmux config
       ./zsh.nix # zsh config
 

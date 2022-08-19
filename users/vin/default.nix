@@ -11,11 +11,7 @@
 
   programs.home-manager.enable = true;
   programs.bash.enable = true;
-
-  services = {
-    syncthing.enable = true;
-    lorri.enable = true;
-  };
+  services.syncthing.enable = true;
 
   xdg.enable = true;
 
@@ -37,29 +33,27 @@
 
     packages = with pkgs;
       [
-        # aerc # terminal email reader; TODO: add config to secrets/
-        # amfora # gemini:// browser
-        # android-studio # android apps
+        _1password
+        _1password-gui
+        atuin # shell history
+        calibre # ebook manager
+        cargo-edit
         chatterino2 # Twitch chat client
         dfmt # par + fmt but better
         discord
         # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
+        element-desktop
         firefox-bin
-        foliate
-        # newsboat # rss/atom feed reader
+        # foliate
+        git-absorb
+        lutris # games
         qimgv # image viewer
+        rust-analyzer
+        rustup
         thunderbird
         todo-txt-cli # todos tracker
-        calibre # ebook manager
-        lutris # games
-        atuin # shell history
-
-        element-desktop
-        git-absorb
-        screen
-        _1password
-        _1password-gui
         vault
+
         (vscode-with-extensions.override {
           vscodeExtensions = with vscode-extensions; [
             ms-vsliveshare.vsliveshare

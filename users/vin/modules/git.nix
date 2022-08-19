@@ -40,9 +40,9 @@
 
       url = {
         "https://github.com/".insteadOf = "gh:";
-        "ssh://git@github.com".pushInsteadOf = "gh:";
+        "ssh://git@github.com:".pushInsteadOf = "gh:";
         "https://gitlab.com/".insteadOf = "gl:";
-        "ssh://git@gitlab.com".pushInsteadOf = "gl:";
+        "ssh://git@gitlab.com:".pushInsteadOf = "gl:";
       };
     };
   };
