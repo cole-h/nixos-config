@@ -7,21 +7,10 @@ let
 in
 {
   # misc
-  mdloader = callPackage ./drvs/mdloader { };
-  bootloadHID = callPackage ./drvs/bootloadHID.nix { };
-  tidal-hifi = callPackage ./drvs/tidal-hifi.nix { };
 
   # small-ish overrides
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
-
-  # python2 GTFO my closure
-  neovim = prev.neovim.override {
-    withPython = false;
-    withPython3 = false;
-    withRuby = false;
-    withNodeJs = false;
-  };
 
   # larger overrides
   discord = prev.discord.overrideAttrs
@@ -34,12 +23,6 @@ in
         makeWrapper $out/bin/Discord $out/bin/discord \
           --set "GDK_BACKEND" "x11"
       '';
-    });
-
-  # https://github.com/NixOS/nixpkgs/issues/176288
-  jellyfin-web = prev.jellyfin-web.overrideAttrs
-    ({ ... }: {
-      preBuild = "export HOME=$(mktemp -d)";
     });
 
   # element-desktop = prev.element-desktop.overrideAttrs

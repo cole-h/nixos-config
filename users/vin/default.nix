@@ -37,18 +37,16 @@
 
     packages = with pkgs;
       [
-        aerc # terminal email reader; TODO: add config to secrets/
-        amfora # gemini:// browser
+        # aerc # terminal email reader; TODO: add config to secrets/
+        # amfora # gemini:// browser
         # android-studio # android apps
-        bootloadHID # used to flash my QMK numpad
         chatterino2 # Twitch chat client
         dfmt # par + fmt but better
         discord
         # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
         firefox-bin
         foliate
-        mdloader # used to flash my Drop CTRL
-        newsboat # rss/atom feed reader
+        # newsboat # rss/atom feed reader
         qimgv # image viewer
         thunderbird
         todo-txt-cli # todos tracker
