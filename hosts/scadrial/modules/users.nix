@@ -11,14 +11,15 @@
         uid = 1000;
         shell = pkgs.zsh;
         extraGroups = map (k: config.users.groups.${k}.name or k) [
-          "wheel"
-          "audio"
-          "input"
-          "avahi"
-          "realtime"
-          "dialout" # for mdloader
           "adbusers"
+          "audio"
+          "avahi"
+          "dialout" # for mdloader
+          "input"
           "keys"
+          "kvm"
+          "realtime"
+          "wheel"
         ];
         # mkpasswd -m sha-512
         hashedPassword = "$6$FaEHrjGo$OaEd7FMHnY4UviCjWbuWS5vG4QNg0CPc5lcYCRjscDOxBA1ss43l8ZYzamCtmjCdxjVanElx45FtYzQ3abP/j0";

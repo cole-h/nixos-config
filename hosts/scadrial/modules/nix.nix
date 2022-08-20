@@ -2,9 +2,7 @@
 
 {
   nix = {
-    package = pkgs.nixUnstable;
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
       builders-use-substitutes = true;
       secret-key-files = "/root/cache-priv-key.pem";
 

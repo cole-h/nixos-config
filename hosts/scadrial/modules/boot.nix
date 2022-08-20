@@ -8,10 +8,15 @@
     loader.systemd-boot.memtest86.enable = true;
     loader.efi.canTouchEfiVariables = true;
     loader.timeout = 1;
-    supportedFilesystems = [ "zfs" "ntfs" ]; # allows r/w ntfs
     initrd.kernelModules = [ "amdgpu" ]; # load amdgpu early to prevent flickering
     tmpOnTmpfs = true;
     cleanTmpDir = true;
+
+    supportedFilesystems = [
+      "zfs"
+      "ntfs" # allows r/w ntfs
+    ];
+
     # plymouth.enable = true; # requires https://github.com/NixOS/nixpkgs/pull/88789
 
     zfs.requestEncryptionCredentials = [ "apool/ROOT" ];
@@ -33,6 +38,7 @@
     ];
 
     # Allow emulated cross compilation for aarch64
+    # TODO: make aarch64 emulation a specialisation...?
     binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 

@@ -24,7 +24,6 @@ in
 
   users.users.vin.extraGroups = [
     "libvirtd"
-    "kvm"
   ];
 
   boot.kernelModules = [ "vfio-pci" ];

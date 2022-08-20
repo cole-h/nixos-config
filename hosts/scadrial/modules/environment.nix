@@ -5,62 +5,54 @@
   environment.enableDebugInfo = true;
   environment.systemPackages = with pkgs;
     [
-      age
-      agenix
-      binutils
+      age # secrets
+      agenix # secrets
+      bat # cat but better
+      binutils # ld, strip
       # borgbackup
-      cachix
+      bottom # fancy top
+      # cachix
       # cntr # used for breakpointHook
       # cryptsetup # for borgbackup
       dnsutils
-      e2fsprogs
+      dogdns # dig but better
       efibootmgr
-      evince
-      ffmpeg
-      file
-      # filezilla # for switch
-      gcc
-      gdb
-      git
-      gnome.file-roller
-      gnome.nautilus # GUI file manager
-      htop
-      imagemagick
-      kakoune
-      libressl.nc # netcat-openbsd
-      libqalculate
-      lsof
-      man-pages
-      man-pages-posix
-      minisign
-      ncdu
-      neovim
-      nix-index
-      nixpkgs-fmt
-      nix-prefetch
-      nix-prefetch-scripts
-      nix-top
-      openssl
-      par # nice paragraph formatter
-      pavucontrol
-      pciutils
-      psmisc
-      rsync
-      strace
-      usbutils
-      wireguard-tools
-      xdg-utils
-      # zathura # fails to build: https://github.com/NixOS/nixpkgs/issues/187305
-
-      bat # cat but better
-      bottom # fancy top
+      evince # pdf viewer
       exa # ls but better
       fd # find files
+      ffmpeg # video conversion and stuff
+      file # check file types
+      # filezilla # for switch
+      gdb # debugging
+      gitFull # ...git
+      gnome.file-roller # gui archive manager
+      gnome.nautilus # GUI file manager
       hexyl # hex viewer
+      htop # top but better
+      imagemagick # cli image manipulation
+      libqalculate # greatest cli calculator ever, with conversions too
       # libreoffice # Office but worse
+      libressl.nc # netcat-openbsd
+      man-pages # man-pages stuff
+      man-pages-posix # posix man pages
+      ncdu # friendlier du
+      nix-index # nix-locate
+      nixpkgs-fmt # the better formatter
+      nix-top # see what's building
       # openconnect # for school VPN, if needed
+      openssl # playing with tls and more
+      par # nice paragraph formatter
+      pavucontrol # volume gui
+      pciutils # lspci, etc
+      psmisc # ps
       ripgrep # grep but better; [overlays]
+      rsync # send files over ssh
+      strace # trace syscalls and stuff
       # tmate # "Instant Terminal Sharing"
       tokei # code metrics
+      usbutils # lsusb
+      wireguard-tools # wg, etc.
+      xdg-utils # xdg-mime, xdg-open
+      # zathura # fails to build: https://github.com/NixOS/nixpkgs/issues/187305
     ];
 }
