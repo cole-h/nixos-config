@@ -6,8 +6,8 @@ let
       {
         owner = "simnalamburt";
         repo = "cgitc";
-        rev = "1eb3fc0c29b94a79c421c25c53ef9fa8ee4153a1";
-        sha256 = "hetDm58ozVB72TTPLlTyUZswqNYPJWmzMxdzsuvXc28=";
+        rev = "7141621f64e82e828f5197c7ae43166b745d8d57";
+        sha256 = "sha256-Zb8P0paRCsSAsIseVJYSbicecp8pqPP+vHdW5kbI6zc=";
       } + "/abbreviations");
 
   filterComments = abbrString:

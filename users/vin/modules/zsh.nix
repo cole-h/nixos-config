@@ -1,9 +1,21 @@
 { config, pkgs, lib, my, ... }:
 {
-  home.packages = [ pkgs.sqlite ]; # zsh-histdb
-
+  # TODO: yoink the keybinding stuff from z4h
+  # I don't like that ^W deletes "~/.config|" if my cursor is at | -- it should only delete `.config` and leave me with `~/`
+  # TODO: yoink the cwd stuff from z4h -- so Ctrl-Shift-N works
   programs.zsh = {
     enable = true;
+    enableAutosuggestions = true;
+    enableVteIntegration = true;
+
+    autocd = true;
+
+    history = {
+      extended = true;
+      save = 1000000;
+      size = 1000000;
+    };
+
     shellAliases = {
       t = "todo.sh";
       nix-locate = "command nix-locate --top-level";
@@ -12,13 +24,54 @@
 
     initExtraFirst = ''
       zmodload zsh/zprof
+      export ATUIN_NOBIND=true
+
+      path+=(
+        $HOME/.cargo/bin
+      )
     '';
 
     initExtra = ''
-      source ~/.z4h.zsh
-    '';
-  };
+      zle -N _atuinr_widget _atuinr
+      _atuinr() {
+          LBUFFER="$(atuin history list --cmd-only | uniq -u | fzf --tac)"
+          zle redisplay
+      }
+      bindkey '^r' _atuinr_widget
 
+      source $HOME/.keys.zsh
+      source $HOME/.abbrs.zsh
+
+      unsetopt extendedglob
+      setopt inc_append_history
+
+      typeset -ga ZSH_HIGHLIGHT_DIRS_BLACKLIST
+      export ZSH_HIGHLIGHT_DIRS_BLACKLIST=(/nix/store)
+      export WORDCHARS=''${WORDCHARS//[\/~]}
+    '';
+
+    plugins = [
+      {
+        name = "zsh-history-substring-search";
+        src = pkgs.fetchFromGitHub {
+          owner = "zsh-users";
+          repo = "zsh-history-substring-search";
+          rev = "4abed97b6e67eb5590b39bcd59080aa23192f25d";
+          sha256 = "sha256-8kiPBtgsjRDqLWt0xGJ6vBBLqCWEIyFpYfd+s1prHWk=";
+        };
+      }
+      {
+        name = "fast-syntax-highlighting";
+        src = pkgs.fetchFromGitHub {
+          owner = "zdharma-continuum";
+          repo = "fast-syntax-highlighting";
+          rev = "13dd94ba828328c18de3f216ec4a746a9ad0ef55";
+          sha256 = "sha256-Vc/i0W+beKphNisGFS435r+9IL6BhQsYeGAFRlP8+tA=";
+        };
+      }
+    ];
+  };
+  
   home.file.".abbrs.zsh".text = ''
     ## based off of https://github.com/zigius/expand-ealias.plugin.zsh and https://github.com/olets/zsh-abbr/
     typeset -g -A abbrs

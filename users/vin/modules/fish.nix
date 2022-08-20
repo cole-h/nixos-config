@@ -3,22 +3,7 @@ let
   cgitcAbbrs = (pkgs.callPackage my.drvs.cgitc { }).abbrs;
 in
 {
-  home.sessionVariables.SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
-
   programs = {
-    direnv.enable = true;
-
-    # https://www.youtube.com/watch?v=Oyg5iFddsJI
-    zoxide.enable = true;
-
-    fzf = {
-      enable = true;
-      enableFishIntegration = true;
-      defaultCommand = "fd --type file --follow"; # FZF_DEFAULT_COMMAND
-      defaultOptions = [ "--height 20%" ]; # FZF_DEFAULT_OPTS
-      fileWidgetCommand = "fd --type file --follow"; # FZF_CTRL_T_COMMAND
-    };
-
     fish = {
       enable = true;
 

@@ -10,12 +10,12 @@
   home.homeDirectory = "/home/vin";
 
   programs = {
-    home-manager.enable = true;
+    atuin.enable = true;
     bash.enable = true;
     direnv.enable = true;
-
-    # https://www.youtube.com/watch?v=Oyg5iFddsJI
-    zoxide.enable = true;
+    home-manager.enable = true; # TODO: remove?
+    starship.enable = true;
+    zoxide.enable = true; # https://www.youtube.com/watch?v=Oyg5iFddsJI
 
     fzf = {
       enable = true;
@@ -49,7 +49,6 @@
       [
         _1password
         _1password-gui
-        atuin # shell history
         calibre # ebook manager
         cargo-edit
         chatterino2 # Twitch chat client
@@ -90,8 +89,9 @@
       VISUAL = "hx";
 
       CARGO_HOME = "${config.home.homeDirectory}/.cargo";
+      SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh"; # gnome-keyring
 
-      MPD_HOST = "127.0.0.1";
+      _ZO_FZF_OPTS="--no-sort --reverse --border --height 40%"; # zoxide fzf options
     };
 
     # This value determines the Home Manager release that your

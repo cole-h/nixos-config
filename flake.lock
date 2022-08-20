@@ -96,15 +96,15 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1660581598,
-        "narHash": "sha256-lbU2ANQS+aHUZc2H4Jj0lxKj7cGkM4tTxKELnh00lMs=",
-        "owner": "jwiegley",
+        "lastModified": 1660574517,
+        "narHash": "sha256-Lp5D2pAPrM3iAc1eeR0iGwz5rM+SYOWzVxI3p17nlrU=",
+        "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f25264087251c0aaf8f48a9163fd8a7f909fef60",
+        "rev": "688e5c85b7537f308b82167c8eb4ecfb70a49861",
         "type": "github"
       },
       "original": {
-        "owner": "jwiegley",
+        "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
       }
