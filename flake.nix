@@ -13,7 +13,7 @@
 
     agenix-cli = { url = "github:cole-h/agenix-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
     agenix = { url = "github:ryantm/agenix"; inputs.nixpkgs.follows = "nixpkgs"; };
-    home = { url = "github:jwiegley/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
+    home = { url = "github:jwiegley/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; }; # TODO: switch off of z4h so that we can go back to upstream
     mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "nixpkgs"; };
 
