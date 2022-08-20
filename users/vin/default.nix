@@ -9,8 +9,22 @@
   home.username = "vin";
   home.homeDirectory = "/home/vin";
 
-  programs.home-manager.enable = true;
-  programs.bash.enable = true;
+  programs = {
+    home-manager.enable = true;
+    bash.enable = true;
+    direnv.enable = true;
+
+    # https://www.youtube.com/watch?v=Oyg5iFddsJI
+    zoxide.enable = true;
+
+    fzf = {
+      enable = true;
+      defaultCommand = "fd --type file --follow"; # FZF_DEFAULT_COMMAND
+      defaultOptions = [ "--height 20%" ]; # FZF_DEFAULT_OPTS
+      fileWidgetCommand = "fd --type file --follow"; # FZF_CTRL_T_COMMAND
+    };
+  };
+
   services.syncthing.enable = true;
 
   xdg.enable = true;
