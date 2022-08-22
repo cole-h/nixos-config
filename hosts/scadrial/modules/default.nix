@@ -19,7 +19,7 @@
       ./virtualisation.nix # configuration related to virtualisation
 
       ./downloads # configuration related to torrenting
-      # ./libvirt # configuration related to libvirt and vfio + pci passthrough
+      ./libvirt # configuration related to libvirt and vfio + pci passthrough
       ./wireguard # configuration related to wireguard
       ./zrepl # configuration related to zrepl
     ];
