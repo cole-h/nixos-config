@@ -50,7 +50,6 @@
         _1password
         _1password-gui
         calibre # ebook manager
-        cargo-edit
         chatterino2 # Twitch chat client
         dfmt # par + fmt but better
         discord
