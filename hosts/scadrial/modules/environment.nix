@@ -5,8 +5,8 @@
   environment.enableDebugInfo = true;
   environment.systemPackages = with pkgs;
     [
-      age # secrets
       agenix # secrets
+      age # secrets
       bat # cat but better
       binutils # ld, strip
       # borgbackup
@@ -23,6 +23,7 @@
       ffmpeg # video conversion and stuff
       file # check file types
       # filezilla # for switch
+      gcc # compilation, but also for rust
       gdb # debugging
       gitFull # ...git
       gnome.file-roller # gui archive manager
