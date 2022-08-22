@@ -33,6 +33,21 @@
       fsType = "zfs";
     };
 
+  fileSystems."/home/vin/Downloads" =
+    { device = "apool/ROOT/user/home/vin/Downloads";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/vin/Games" =
+    { device = "apool/ROOT/user/home/vin/Games";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/vin/workspace/detsys" =
+    { device = "apool/ROOT/user/home/vin/workspace/detsys";
+      fsType = "zfs";
+    };
+
   fileSystems."/var" =
     { device = "apool/ROOT/system/var";
       fsType = "zfs";
