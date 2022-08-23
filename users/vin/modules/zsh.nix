@@ -32,13 +32,6 @@
     '';
 
     initExtra = ''
-      zle -N _atuinr_widget _atuinr
-      _atuinr() {
-          LBUFFER="$(atuin history list --cmd-only | uniq -u | fzf --tac)"
-          zle redisplay
-      }
-      bindkey '^r' _atuinr_widget
-
       source $HOME/.keys.zsh
       source $HOME/.abbrs.zsh
 
@@ -48,6 +41,13 @@
       typeset -ga ZSH_HIGHLIGHT_DIRS_BLACKLIST
       export ZSH_HIGHLIGHT_DIRS_BLACKLIST=(/nix/store)
       export WORDCHARS=''${WORDCHARS//[\/~]}
+
+      zle -N _atuinr_widget _atuinr
+      _atuinr() {
+          LBUFFER="$(atuin history list --cmd-only | uniq -u | fzf --tac)"
+          zle redisplay
+      }
+      bindkey '^r' _atuinr_widget
     '';
 
     plugins = [
