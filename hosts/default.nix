@@ -55,13 +55,6 @@ let
       system = "aarch64-linux";
     };
 
-    yolen = {
-      system = "x86_64-linux";
-      extraModules = [
-        inputs.mail.nixosModules.mailserver
-      ];
-    };
-
     bootstrap = {
       system = "x86_64-linux";
       hostname = "scadrial";

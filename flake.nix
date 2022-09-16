@@ -14,7 +14,6 @@
     agenix-cli = { url = "github:cole-h/agenix-cli"; inputs.nixpkgs.follows = "nixpkgs"; };
     agenix = { url = "github:ryantm/agenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
-    mail = { url = "gitlab:simple-nixos-mailserver/nixos-mailserver"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     # Not flakes

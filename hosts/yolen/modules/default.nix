@@ -1,8 +1,0 @@
-{
-  imports =
-    [
-      ./postgres.nix
-
-      ./mail
-    ];
-}
