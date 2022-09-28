@@ -10,7 +10,7 @@
   home.homeDirectory = "/home/vin";
 
   programs = {
-    atuin.enable = true;
+    # atuin.enable = true;
     bash.enable = true;
     direnv.enable = true;
     home-manager.enable = true; # TODO: remove?

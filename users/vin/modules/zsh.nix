@@ -24,7 +24,7 @@
 
     initExtraFirst = ''
       zmodload zsh/zprof
-      export ATUIN_NOBIND=true
+      # export ATUIN_NOBIND=true
 
       path+=(
         $HOME/.cargo/bin
@@ -42,12 +42,12 @@
       export ZSH_HIGHLIGHT_DIRS_BLACKLIST=(/nix/store)
       export WORDCHARS=''${WORDCHARS//[\/~]}
 
-      zle -N _atuinr_widget _atuinr
-      _atuinr() {
-          LBUFFER="$(atuin history list --cmd-only | uniq -u | fzf --tac)"
-          zle redisplay
-      }
-      bindkey '^r' _atuinr_widget
+      # zle -N _atuinr_widget _atuinr
+      # _atuinr() {
+      #     LBUFFER="$(atuin history list --cmd-only | uniq -u | fzf --tac)"
+      #     zle redisplay
+      # }
+      # bindkey '^r' _atuinr_widget
     '';
 
     plugins = [
