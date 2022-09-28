@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
   nix = {
     nixPath = [
@@ -14,11 +14,19 @@
     };
 
     registry = {
-      self.flake = inputs.self;
+      self = {
+        to = { type = "path"; path = "${inputs.self}"; }
+          // lib.filterAttrs
+          (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
+          inputs.self;
+      };
 
       nixpkgs = {
         from = { id = "nixpkgs"; type = "indirect"; };
-        flake = inputs.nixpkgs;
+        to = { type = "path"; path = "${inputs.nixpkgs}"; }
+          // lib.filterAttrs
+          (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
+          inputs.nixpkgs;
       };
     };
   };
