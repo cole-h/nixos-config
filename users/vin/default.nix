@@ -65,6 +65,7 @@
         thunderbird
         todo-txt-cli # todos tracker
         vault
+        xivlauncher
 
         (vscode-with-extensions.override {
           vscodeExtensions = with vscode-extensions; [

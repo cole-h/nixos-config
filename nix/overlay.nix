@@ -7,6 +7,7 @@ let
 in
 {
   # misc
+  xivlauncher = callPackage ./drvs/xivlauncher { };
 
   # small-ish overrides
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
