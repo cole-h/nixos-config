@@ -13,7 +13,7 @@ let
     path'';
 in
 {
-  wallpaper = toString ./wallpaper.png;
+  wallpaper = ./wallpaper.png;
 
   # TODO: find out why I wrote this lol
   toStringHack = root: path:
