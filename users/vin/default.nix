@@ -59,6 +59,7 @@
         # foliate
         git-absorb
         lutris # games
+        obsidian # notes zettelkasten type thing
         qimgv # image viewer
         rust-analyzer
         rustup
