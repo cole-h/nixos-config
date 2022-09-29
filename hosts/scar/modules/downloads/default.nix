@@ -21,11 +21,7 @@
   ];
 
   services.nginx.enable = true;
-
-  services.mullvad-vpn = {
-    enable = true;
-    package = pkgs.mullvad;
-  };
+  services.mullvad.enable = true;
 
   # scar is headless; I always need to be able to SSH into it.
   systemd.services."mullvad-daemon".postStart = ''

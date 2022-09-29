@@ -1,6 +1,6 @@
 {
   imports = [
-    ./mullvad-vpn.nix
+    ./mullvad.nix
     ./qbittorrent.nix
   ];
 }

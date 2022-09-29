@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.services.mullvad-vpn;
+  cfg = config.services.mullvad;
 
   inherit (lib)
     mkOption
@@ -9,9 +9,7 @@ let
     ;
 in
 {
-  disabledModules = [ "services/networking/mullvad-vpn.nix" ];
-
-  options.services.mullvad-vpn = {
+  options.services.mullvad = {
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -23,8 +21,8 @@ in
 
     package = mkOption {
       type = types.package;
-      default = pkgs.mullvad-vpn;
-      defaultText = "pkgs.mullvad-vpn";
+      default = pkgs.mullvad;
+      defaultText = "pkgs.mullvad";
       description = ''
         The Mullvad package to use.
         The daemon must be accessable at $package/bin/mullvad-daemon.
