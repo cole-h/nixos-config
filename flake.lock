@@ -4,7 +4,6 @@
       "flake": false,
       "locked": {
         "lastModified": 1643255329,
-        "narHash": "sha256-kiQ04esFDPGQBo3A5K2Jcoa6mlbQ7/VDHy+drgoBM/g=",
         "owner": "Mic92",
         "repo": "nixos-aarch64-images",
         "rev": "c29e786f552a5c38e1dcdceb552412ad488e45d3",
@@ -24,7 +23,6 @@
       },
       "locked": {
         "lastModified": 1664140963,
-        "narHash": "sha256-pFxDtOLduRFlol0Y4ShE+soRQX4kbhaCNBtDOvx7ykw=",
         "owner": "ryantm",
         "repo": "agenix",
         "rev": "6acb1fe5f8597d5ce63fc82bc7fcac7774b1cdf0",
@@ -45,7 +43,6 @@
       },
       "locked": {
         "lastModified": 1641404293,
-        "narHash": "sha256-0+QVY1sDhGF4hAN6m2FdKZgm9V1cuGGjY4aitRBnvKg=",
         "owner": "cole-h",
         "repo": "agenix-cli",
         "rev": "77fccec4ed922a0f5f55ed964022b0db7d99f07d",
@@ -80,11 +77,10 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1664286632,
-        "narHash": "sha256-fKENvLanhmBENlIbmDAVB8SKSbwdLLBYKu6B7oJ0rLc=",
+        "lastModified": 1664449551,
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "6dc8a43f397c92afbc3f771385ac803d96d5eeb5",
+        "rev": "864ff685fe6443101a0a8f3950d21bcb4330e56a",
         "type": "github"
       },
       "original": {
@@ -118,11 +114,10 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1664377276,
-        "narHash": "sha256-mLjMTPM30MEdt5z5Pm81gT1kknAAmdThl2kzicqHAys=",
+        "lastModified": 1664460896,
         "owner": "edolstra",
         "repo": "nix",
-        "rev": "c3c068284276d8dbea7bfdd2439ee13e3cef8413",
+        "rev": "cbade16f9ef1e06b40b379863556157b6222a13b",
         "type": "github"
       },
       "original": {
@@ -135,7 +130,6 @@
     "nixpkgs": {
       "locked": {
         "lastModified": 1664281702,
-        "narHash": "sha256-haixZ4TJLu1Dciow54wrHrHvlGDVr5sW6MTeAV/ZLuI=",
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "7e52b35fe98481a279d89f9c145f8076d049d2b9",
