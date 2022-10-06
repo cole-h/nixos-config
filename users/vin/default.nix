@@ -66,6 +66,7 @@
         todo-txt-cli # todos tracker
         vault
         xivlauncher
+        zellij # better than tmux
 
         (vscode-with-extensions.override {
           vscodeExtensions = with vscode-extensions; [

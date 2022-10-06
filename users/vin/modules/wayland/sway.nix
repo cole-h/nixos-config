@@ -525,7 +525,7 @@ in
         # }
         {
           # command = "alacritty --class SCRATCHTERM -e tmux -L scratch new-session -A";
-          command = "foot --app-id=SCRATCHTERM tmux -L scratch new-session -A";
+          command = "foot --app-id=SCRATCHTERM zellij attach -c scratch";
         }
         {
           command = ''
