@@ -9,7 +9,7 @@
       vin = {
         isNormalUser = true;
         uid = 1000;
-        shell = pkgs.zsh;
+        shell = pkgs.fish;
         extraGroups = map (k: config.users.groups.${k}.name or k) [
           "adbusers"
           "audio"

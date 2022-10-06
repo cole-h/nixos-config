@@ -16,7 +16,7 @@ in
         t = "todo.sh $argv";
         win10 = "doas virsh start windows10";
         fish_greeting = "";
-        fish_user_key_bindings = "bind \\cw backward-kill-word";
+        # fish_user_key_bindings = "bind \\cw backward-kill-word";
       };
 
       shellAbbrs = {
@@ -33,7 +33,6 @@ in
         "....." = "../../../..";
         "......" = "../../../../..";
         "......." = "../../../../../..";
-        weechat = "tmux -L weechat attach";
       } // cgitcAbbrs;
 
       loginShellInit = ''
@@ -64,8 +63,8 @@ in
         # Miscellaneous exports
         set --global --export LS_COLORS 'ow=36:di=1;34;40:fi=32:ex=31:ln=35:'
 
-        t ls
-        printf '\n'
+        # t ls
+        # printf '\n'
       '';
     };
   };
