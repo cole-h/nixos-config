@@ -11,6 +11,7 @@
   programs.dconf.enable = true;
 
   programs.zsh.enable = true;
+  programs.fish.enable = true;
 
   programs.command-not-found.enable = false;
 
