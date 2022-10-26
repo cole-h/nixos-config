@@ -65,7 +65,6 @@
           ) // {
             iso = import ./nix/iso.nix { inherit inputs; };
             sd = import ./nix/sd.nix { inherit inputs; };
-            do = import ./nix/do.nix { inherit inputs; };
           });
 
       legacyPackages = forAllSystems
