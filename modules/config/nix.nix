@@ -6,8 +6,10 @@
       "nixos-config=${inputs.self}/compat/nixos"
     ];
 
+    distributedBuilds = true; # necessary for settings.builders to not be defined in the nix-daemon upstream module
     settings = {
       flake-registry = "/etc/nix/registry.json";
+      builders = [ "@/etc/nix/machines" ];
       trusted-public-keys = [
         "scadrial:3FwW08DNiVlNfDWCuBMesZDLISmsgutOLdUt111uvU4="
       ];
