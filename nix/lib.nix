@@ -15,9 +15,8 @@ rec {
       inherit system;
 
       config = {
-        # allowAliases = false;
+        allowAliases = false;
         allowUnfree = true;
-        android_sdk.accept_license = true;
       };
 
       overlays = [

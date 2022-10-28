@@ -18,7 +18,7 @@
 
       noto-fonts-emoji # emoji font
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       ttf_bitstream_vera
       # dejavu_fonts
       jetbrains-mono # code font
