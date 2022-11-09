@@ -76,6 +76,7 @@ in
     swayidle
     swaylock-effects
     foot
+    wezterm
     fuzzel
   ];
 
