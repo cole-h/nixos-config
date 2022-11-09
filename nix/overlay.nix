@@ -8,6 +8,7 @@ in
 {
   # misc
   xivlauncher = callPackage ./drvs/xivlauncher { };
+  wezterm = callPackage ./drvs/wezterm { };
 
   # small-ish overrides
   ripgrep = prev.ripgrep.override { withPCRE2 = true; };
