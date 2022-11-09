@@ -30,6 +30,17 @@
   services.adguardhome = {
     enable = true;
     openFirewall = true;
+    settings = {
+      dns = {
+        bind_hosts = [ "127.0.0.1" ];
+        bootstrap_dns = [
+          "8.8.8.8"
+          "8.8.4.4"
+          "2001:4860:4860::8888"
+          "2001:4860:4860::8844"
+        ];
+      };
+    };
   };
 
   services.nginx = {
