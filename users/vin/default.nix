@@ -51,6 +51,7 @@
         _1password-gui
         calibre # ebook manager
         chatterino2 # Twitch chat client
+        colmena # deployment
         dfmt # par + fmt but better
         discord
         # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
