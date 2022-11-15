@@ -34,7 +34,7 @@ let
     ;
 
   # term = alacritty;
-  term = "${pkgs.foot}/bin/foot";
+  term = "${pkgs.wezterm}/bin/wezterm";
   # alacritty' = "${pkgs.alacritty}/bin/alacritty";
   kitty = "${pkgs.kitty}/bin/kitty";
   dmenu = "${pkgs.fuzzel}/bin/fuzzel --dmenu --no-icons --dpi-aware=no --background-color '282828ff' --text-color 'ebdbb2ff' --match-color 'd65d0eff' --selection-color '3c3836ff' --border-color 'd65d0eff'";
@@ -460,6 +460,17 @@ in
             criteria = { app_id = "SCRATCHTERM"; };
             command = "move scratchpad, border pixel, sticky enable";
           }
+          {
+            # wezterm displays its configuration errors in a separate terminal,
+            # but it inherits the class / app_id, so if it was spawned with
+            # app_id SCRATCHTERM, all of the windows it spawns will also go to
+            # the scratchpad. Instead, I have some configuration that sets the
+            # window title to include the workspace the terminal currently has
+            # focused -- move it to the scratchpad if it's in the `scratch`
+            # workspace.
+            criteria = { app_id = "org.wezfurlong.wezterm"; title = ".*\(scratch\)"; };
+            command = "move scratchpad, border pixel, sticky enable";
+          }
           # set opacity to 0 so that we don't see the flicker as a result of being
           # unable to specify alacritty's size in pixels
           {
@@ -479,7 +490,7 @@ in
             command = "sticky enable";
           }
           {
-            criteria = { app_id = "foot"; };
+            criteria = { app_id = "org.wezfurlong.wezterm"; };
             command = "border pixel 2";
           }
           {
@@ -514,8 +525,11 @@ in
         #   command = "${pkgs.cadence}/bin/cadence-session-start --system-start";
         # }
         {
-          # command = "alacritty --class SCRATCHTERM -e tmux -L scratch new-session -A";
-          command = "foot --app-id=SCRATCHTERM zellij attach -c scratch";
+          # I have wezterm create the scratch workspace whenever a mux starts
+          # up; connecting to the `unix` mux socket will spawn this in the
+          # `scratch` workspace, which will in turn have sway move it to the
+          # scratchpad.
+          command = "wezterm connect unix";
         }
         {
           command = ''
