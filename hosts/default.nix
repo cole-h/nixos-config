@@ -26,13 +26,8 @@ let
                 useUserPackages = true;
                 verbose = true;
 
-                extraSpecialArgs = {
-                  inherit inputs;
+                extraSpecialArgs = specialArgs // {
                   super = config;
-
-                  my = import ../my.nix {
-                    inherit (inputs.nixpkgs) lib;
-                  };
                 };
               };
             };
