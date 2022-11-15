@@ -6,6 +6,7 @@ let
 
   inherit (inputs.self.lib)
     pkgsFor
+    specialArgs
     ;
 
   hosts = builtins.removeAttrs
@@ -14,9 +15,10 @@ let
 in
 {
   meta = {
+    inherit specialArgs;
+
     nixpkgs = {
       inherit lib;
-      path = inputs.nixpkgs;
     };
 
     nodeNixpkgs = builtins.mapAttrs
@@ -25,6 +27,9 @@ in
           inherit inputs;
           inherit (value) system;
           inherit (inputs) nixpkgs;
+        } // {
+          # For whatever reason, `system` doesn't get set...?
+          inherit (value) system;
         })
       hosts;
   };
