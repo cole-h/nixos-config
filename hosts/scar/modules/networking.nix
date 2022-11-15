@@ -31,6 +31,7 @@
     enable = true;
     openFirewall = true;
     settings = {
+      clients = { };
       dns = {
         bind_hosts = [ "127.0.0.1" ];
         bootstrap_dns = [
