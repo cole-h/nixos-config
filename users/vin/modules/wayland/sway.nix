@@ -468,7 +468,7 @@ in
             # window title to include the workspace the terminal currently has
             # focused -- move it to the scratchpad if it's in the `scratch`
             # workspace.
-            criteria = { app_id = "org.wezfurlong.wezterm"; title = ".*\(scratch\)"; };
+            criteria = { app_id = "org\.wezfurlong\.wezterm"; title = ".*\[scratch\].*\(unix\)"; };
             command = "move scratchpad, border pixel, sticky enable";
           }
           # set opacity to 0 so that we don't see the flicker as a result of being
@@ -529,7 +529,7 @@ in
           # up; connecting to the `unix` mux socket will spawn this in the
           # `scratch` workspace, which will in turn have sway move it to the
           # scratchpad.
-          command = "wezterm connect unix";
+          command = "wezterm connect --workspace scratch unix";
         }
         {
           command = ''
