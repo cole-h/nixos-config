@@ -35,24 +35,6 @@ in
         "......." = "../../../../../..";
       } // cgitcAbbrs;
 
-      loginShellInit = ''
-
-        # tmux counts as a login shell
-        if [ -z $TMUX ]
-          # If terminal is login, unset __HM_SESS_VARS_SOURCED, because the
-          # graphical session will inherit this (which means child applications
-          # will never re-source when necessary)
-          set -e __HM_SESS_VARS_SOURCED
-
-          # Start windows VM
-          if [ (tty) = "/dev/tty5" ]
-            exec doas virsh start windows10
-          end
-
-          exit
-        end
-      '';
-
       interactiveShellInit = ''
 
         set --append fish_user_paths $HOME/.cargo/bin
