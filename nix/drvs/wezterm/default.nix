@@ -25,17 +25,17 @@
 rustPlatform.buildRustPackage rec {
   pname = "wezterm";
   # git -c core.abbrev=8 show -s --format=%cd-%h --date=format:%Y%m%d-%H%M%S | wl-copy -n
-  version = "20221115-153845-35fd69b0";
+  version = "20221118-100349-1f7a34f8";
 
   src = fetchFromGitHub {
     owner = "wez";
     repo = pname;
-    rev = "35fd69b0d5ae8d8e2d6e0f4e806b75ef7c5a7faf";
-    sha256 = "sha256-+v9g9o06O/Yk6D0oxtLSbfh8ukgZV5zXaog49gneM+s=";
+    rev = "1f7a34f8b259c58387392e358f5fe54c733e193a";
+    sha256 = "2fqhkClLpZWbxMDPxdo8ViJxBQQZpLaRv/d0gEYJL24=";
     fetchSubmodules = true;
   };
 
-  cargoSha256 = "sha256-Pv3i2c9DCIRA0chzkPigitpSJv3voHeq6a12xlbuDtU=";
+  cargoSha256 = "sha256-S75ixk5chB4lRYrwnBS8udA1NMGTiTYfLPnSyigXYRk=";
 
   # Rust 1.65 does better at enum packing (according to
   # 40e08fafe2f6e5b0c70d55996a0814d6813442ef), but Nixpkgs doesn't have 1.65
