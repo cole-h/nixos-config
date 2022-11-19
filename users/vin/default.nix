@@ -14,7 +14,7 @@
     bash.enable = true;
     direnv.enable = true;
     home-manager.enable = true; # TODO: remove?
-    starship.enable = true;
+    # starship.enable = true;
     zoxide.enable = true; # https://www.youtube.com/watch?v=Oyg5iFddsJI
 
     fzf = {
