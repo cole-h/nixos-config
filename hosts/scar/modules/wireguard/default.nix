@@ -53,14 +53,4 @@
           value = { serviceConfig.SupplementaryGroups = [ config.users.groups.keys.name ]; };
         })
         (builtins.attrNames config.networking.wireguard.interfaces));
-
-  systemd.timers.update-duckdns = {
-    wantedBy = [ "timers.target" ];
-    after = [ "home-manager-vin.service" "network.target" ];
-    timerConfig = {
-      Unit = "update-duckdns.service";
-      OnCalendar = "hourly";
-      Persistent = true;
-    };
-  };
 }
