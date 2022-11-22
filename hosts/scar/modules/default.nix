@@ -7,7 +7,7 @@
       ./users.nix
 
       ./downloads
-      ./wireguard
+      # ./wireguard
       ./zrepl
     ];
 }
