@@ -4,11 +4,7 @@
   networking.useNetworkd = true;
   networking.useDHCP = false;
 
-  systemd.network.wait-online.ignoredInterfaces = [
-    "wg0"
-    "tailscale0"
-    "wlp5s0"
-  ];
+  systemd.network.wait-online.anyInterface = true;
 
   networking.hostId = "1bb11552"; # Required for ZFS.
   networking.nameservers = [
