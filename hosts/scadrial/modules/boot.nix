@@ -9,7 +9,6 @@
     loader.efi.canTouchEfiVariables = true;
     loader.timeout = 1;
     initrd.kernelModules = [ "amdgpu" ]; # load amdgpu early to prevent flickering
-    tmpOnTmpfs = true;
     cleanTmpDir = true;
 
     supportedFilesystems = [
