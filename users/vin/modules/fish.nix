@@ -25,8 +25,6 @@ in
         ll = "exa -l";
         ls = "exa";
         tree = "exa -T";
-        vim = "nvim";
-        vi = "nvim";
         "cd.." = "cd ..";
         "..." = "../..";
         "...." = "../../..";
