@@ -78,4 +78,6 @@
   };
 
   services.mullvad.enable = true;
+
+  services.nscd.enableNsncd = true;
 }
