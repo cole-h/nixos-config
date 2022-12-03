@@ -468,7 +468,7 @@ in
             # window title to include the workspace the terminal currently has
             # focused -- move it to the scratchpad if it's in the `scratch`
             # workspace.
-            criteria = { app_id = "org\.wezfurlong\.wezterm"; title = ".*\[scratch\].*\(unix\)"; };
+            criteria = { app_id = "org\.wezfurlong\.wezterm"; title = ".*\[scratch\].*"; };
             command = "move scratchpad, border pixel, sticky enable";
           }
           # set opacity to 0 so that we don't see the flicker as a result of being
@@ -525,11 +525,7 @@ in
         #   command = "${pkgs.cadence}/bin/cadence-session-start --system-start";
         # }
         {
-          # I have wezterm create the scratch workspace whenever a mux starts
-          # up; connecting to the `unix` mux socket will spawn this in the
-          # `scratch` workspace, which will in turn have sway move it to the
-          # scratchpad.
-          command = "wezterm connect --workspace scratch unix";
+          command = "wezterm start --workspace scratch --always-new-process";
         }
         {
           command = ''
