@@ -35,6 +35,7 @@
       merge.conflictstyle = "diff3";
       init.defaultBranch = "main";
       absorb.maxStack = "100";
+      commit.verbose = true;
 
       diff."nodiff".command = "${pkgs.coreutils}/bin/true";
 
