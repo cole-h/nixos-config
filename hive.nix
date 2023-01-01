@@ -38,7 +38,7 @@ in
     {
       deployment = {
         privilegeEscalationCommand = [ "sudo" ];
-        targetHost = hostname;
+        targetHost = "${hostname}.local";
         targetUser = "deploy";
       };
 
