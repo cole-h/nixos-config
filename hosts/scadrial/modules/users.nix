@@ -33,7 +33,7 @@
         hashedPassword = null;
 
         openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC4WeCfgpkFajmCijQBDXPEOLrBPaXDOaV/Mq31g9RDz root@scar"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFAeiXhkOQykUjLz5bbotpWdwtmRTOzv4ZyWnGPzUyIn root@cultivation"
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINMcTaqUZSwv6YW8lx/JhsAZTdNSSC2fR8Pgk8woeFKh vin@scadrial"
         ];
       };

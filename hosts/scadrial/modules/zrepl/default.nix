@@ -2,20 +2,20 @@
 {
   age.secrets = {
     scadrial-key = {
-      file = ../../../../secrets/scadrial+scar/zrepl/scadrial.key;
+      file = ../../../../secrets/scadrial+cultivation/zrepl/scadrial.key;
     };
 
     scadrial-crt = {
-      file = ../../../../secrets/scadrial+scar/zrepl/scadrial.crt;
+      file = ../../../../secrets/scadrial+cultivation/zrepl/scadrial.crt;
     };
 
-    scar-crt = {
-      file = ../../../../secrets/scadrial+scar/zrepl/scar.crt;
+    cultivation-crt = {
+      file = ../../../../secrets/scadrial+cultivation/zrepl/cultivation.crt;
     };
   };
 
   networking.extraHosts = ''
-    192.168.1.55 scar.local
+    192.168.1.55 cultivation.local
   '';
 
   # ZFS snapshotting for stuff I want backed up.
@@ -69,16 +69,16 @@
           ];
         }
         {
-          name = "scadrial_to_scar";
+          name = "scadrial_to_cultivation";
           type = "push";
 
           connect = {
             type = "tls";
-            address = "scar.local:8888";
-            ca = config.age.secrets.scar-crt.path;
+            address = "cultivation.local:8888";
+            ca = config.age.secrets.cultivation-crt.path;
             cert = config.age.secrets.scadrial-crt.path;
             key = config.age.secrets.scadrial-key.path;
-            server_cn = "scar";
+            server_cn = "cultivation";
             dial_timeout = "60s";
           };
 
@@ -138,13 +138,13 @@
     description = "Trigger zrepl replication for push_to_bpool";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.zrepl}/bin/zrepl --config /etc/zrepl/zrepl.yml signal wakeup scadrial_to_scar";
+      ExecStart = "${pkgs.zrepl}/bin/zrepl --config /etc/zrepl/zrepl.yml signal wakeup scadrial_to_cultivation";
       Restart = "on-failure";
     };
   };
 
   systemd.timers.zrepl-replicate = {
-    description = "Trigger zrepl replication for scadrial_to_scar";
+    description = "Trigger zrepl replication for scadrial_to_cultivation";
     wantedBy = [ "timers.target" ];
     after = [ "default.target" "network.target" "zrepl.service" "tailscaled.service" ];
     timerConfig = {
