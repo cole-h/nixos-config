@@ -63,20 +63,20 @@ in
 builtins.mapAttrs
   (flip
     ({ extraModules ? [ ], hostname ? null, ... }@value: hostname':
-      builtins.removeAttrs value [ "extraModules" "hostname" ] // {
-        modules =
-          let
-            host = if hostname != null then hostname else hostname';
-          in
-          [
-            inputs.agenix.nixosModules.age
+    builtins.removeAttrs value [ "extraModules" "hostname" ] // {
+      modules =
+        let
+          host = if hostname != null then hostname else hostname';
+        in
+        [
+          inputs.agenix.nixosModules.age
 
-            { _module.args = specialArgs; }
-            ({ lib, ... }: { networking.hostName = lib.mkDefault host; })
+          { _module.args = specialArgs; }
+          ({ lib, ... }: { networking.hostName = lib.mkDefault host; })
 
-            ../modules
-            (./. + "/${host}/configuration.nix")
-          ]
-          ++ extraModules;
-      }))
+          ../modules
+          (./. + "/${host}/configuration.nix")
+        ]
+        ++ extraModules;
+    }))
   machines
