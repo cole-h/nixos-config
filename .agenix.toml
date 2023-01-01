@@ -1,14 +1,12 @@
 [identities]
 cole-h = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINMcTaqUZSwv6YW8lx/JhsAZTdNSSC2fR8Pgk8woeFKh"
 scadrial = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILcskrV03RenqOdkvVFP2iPBaAlY3XR8QqWbK5Ckeb4I"
-yolen = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP8S2yfK1ENqpkfEQ8w7ISyOBOV7bGNvQUnhQtMcdbEO"
 cultivation = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFAeiXhkOQykUjLz5bbotpWdwtmRTOzv4ZyWnGPzUyIn root@cultivation"
 
 [groups]
 all = [
   "cole-h",
   "scadrial",
-  "yolen",
   "cultivation",
 ]
 
@@ -17,13 +15,6 @@ glob = "hosts/scadrial/**"
 identities = [
   "cole-h",
   "scadrial",
-]
-
-[[paths]]
-glob = "hosts/yolen/**"
-identities = [
-  "cole-h",
-  "yolen",
 ]
 
 [[paths]]
