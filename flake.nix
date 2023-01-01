@@ -58,12 +58,12 @@
           (import ./hosts { inherit inputs; });
 
       packages = forAllSystems
-        ({ ... }:
+        ({ system, ... }:
           (builtins.mapAttrs
             (hostname: conf: conf.config.system.build.toplevel)
             inputs.self.nixosConfigurations
           ) // {
-            iso = import ./nix/iso.nix { inherit inputs; };
+            iso = import ./nix/iso.nix { inherit inputs system; };
             sd = import ./nix/sd.nix { inherit inputs; };
           });
 

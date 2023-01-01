@@ -1,8 +1,8 @@
 # Configuration for (re)installing NixOS.
 { inputs
+, system
 }:
 let
-  system = "x86_64-linux";
   iso = import "${inputs.nixpkgs}/nixos" {
     inherit system;
     configuration = ({ pkgs, lib, modulesPath, ... }: {
@@ -13,13 +13,14 @@ let
         ];
 
       nix.package = pkgs.nixUnstable;
+      nix.settings.extra-experimental-features = [ "nix-command flakes" ];
 
       security.doas.enable = true;
 
       environment.systemPackages = with pkgs;
         [
           git
-          kakoune
+          helix
           htop
         ];
 
