@@ -40,13 +40,5 @@ in
       file = ./streamlink;
       path = "${vin.home}/.config/streamlink/config";
     };
-
-    bpool = {
-      file = ../../../secrets/scadrial+scar/bpool;
-    };
-
-    "wgkiji.conf" = {
-      file = ./kiji;
-    };
   };
 }
