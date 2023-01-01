@@ -1,7 +1,6 @@
 [identities]
 cole-h = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINMcTaqUZSwv6YW8lx/JhsAZTdNSSC2fR8Pgk8woeFKh"
 scadrial = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILcskrV03RenqOdkvVFP2iPBaAlY3XR8QqWbK5Ckeb4I"
-scar = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIB49A+yOs8RgOwDRKOw555IcXDvWy3YtyRR7r9c4Zge"
 yolen = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP8S2yfK1ENqpkfEQ8w7ISyOBOV7bGNvQUnhQtMcdbEO"
 cultivation = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFAeiXhkOQykUjLz5bbotpWdwtmRTOzv4ZyWnGPzUyIn root@cultivation"
 
@@ -9,7 +8,6 @@ cultivation = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFAeiXhkOQykUjLz5bbotpWdwtmRT
 all = [
   "cole-h",
   "scadrial",
-  "scar",
   "yolen",
   "cultivation",
 ]
@@ -19,13 +17,6 @@ glob = "hosts/scadrial/**"
 identities = [
   "cole-h",
   "scadrial",
-]
-
-[[paths]]
-glob = "hosts/scar/**"
-identities = [
-  "cole-h",
-  "scar",
 ]
 
 [[paths]]
@@ -40,14 +31,6 @@ glob = "hosts/cultivation/**"
 identities = [
   "cole-h",
   "cultivation",
-]
-
-[[paths]]
-glob = "secrets/scadrial+scar/**"
-identities = [
-  "cole-h",
-  "scadrial",
-  "scar",
 ]
 
 [[paths]]

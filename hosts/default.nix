@@ -45,11 +45,6 @@ let
           ];
       };
 
-    # https://coppermind.net/wiki/Scar
-    scar = {
-      system = "aarch64-linux";
-    };
-
     cultivation = {
       system = "x86_64-linux";
     };
