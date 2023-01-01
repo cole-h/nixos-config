@@ -3,7 +3,7 @@
   imports =
     [
       ./networking.nix
-      ./nix.nix
+      # ./nix.nix
       ./samba.nix
       ./users.nix
 
