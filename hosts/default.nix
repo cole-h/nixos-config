@@ -50,6 +50,10 @@ let
       system = "aarch64-linux";
     };
 
+    cultivation = {
+      system = "x86_64-linux";
+    };
+
     bootstrap = {
       system = "x86_64-linux";
       hostname = "scadrial";
