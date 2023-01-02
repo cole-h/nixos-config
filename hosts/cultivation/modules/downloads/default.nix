@@ -4,6 +4,7 @@
     ./mullvad.nix
     ./sonarr.nix
     ./torrent.nix
+    ./jellyfin.nix
   ];
 
   users.groups.downloads.gid = 947;

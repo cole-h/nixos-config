@@ -28,39 +28,8 @@
 
   users.users.vin.extraGroups = [ "downloads" ];
 
-  services.jellyfin = {
-    enable = true;
-    user = "downloads";
-    group = "downloads";
-  };
-
-  networking.firewall.allowedTCPPorts = [
-    8096 # jellyfin
-    80
-  ];
-
   networking.extraHosts = ''
     192.168.1.55 sonarr.local
-    192.168.1.55 flood.local
-    127.0.0.1 jellyfin.local
+    192.168.1.55 jellyfin.local
   '';
-
-  services.nginx = {
-    enable = true;
-    virtualHosts =
-      let
-        onlyLan = ''
-          allow 192.168.1.0/24;
-          allow 192.168.122.0/24;
-          allow 127.0.0.1;
-          deny all;
-        '';
-      in
-      {
-        "jellyfin.local".locations."/" = {
-          proxyPass = "http://127.0.0.1:8096/";
-          extraConfig = onlyLan;
-        };
-      };
-  };
 }

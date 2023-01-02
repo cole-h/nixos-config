@@ -7,7 +7,6 @@
   # TODO: is there a way to only make it create the path if all its parents exist?
   # systemd.tmpfiles.rules = [
   #   "d ${config.services.qbittorrent.dataDir} 0777 ${config.services.qbittorrent.user} ${config.services.qbittorrent.group} - -"
-  #   "d ${config.services.flood.downloadDir} 0777 ${config.services.qbittorrent.user} ${config.services.qbittorrent.group} - -"
   # ];
 
   services.nginx.virtualHosts = {
