@@ -66,7 +66,7 @@
         thunderbird
         todo-txt-cli # todos tracker
         vault
-        xivlauncher
+        # xivlauncher
         zellij # better than tmux
 
         (vscode-with-extensions.override {
