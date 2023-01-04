@@ -80,4 +80,6 @@
   services.mullvad.enable = true;
 
   services.nscd.enableNsncd = true;
+
+  services.safeeyes.enable = true;
 }
