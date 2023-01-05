@@ -74,7 +74,8 @@ in
   home.packages = with pkgs; [
     swaybg
     swayidle
-    swaylock-effects
+    # swaylock-effects
+    swaylock
     foot
     wezterm
     fuzzel
@@ -149,7 +150,8 @@ in
       floating.modifier = "${modifier}";
 
       keybindings = {
-        "Ctrl+Alt+l" = "exec swaylock --clock --indicator -f -i ${wallpaper} --scaling fill";
+        "Ctrl+Alt+l" = "exec swaylock -f -i ${wallpaper} --scaling fill";
+        # "Ctrl+Alt+l" = "exec swaylock --clock --indicator -f -i ${wallpaper} --scaling fill";
 
         ## Basics
         # start a terminal
@@ -318,7 +320,8 @@ in
 
         # set $system (l) lock, (e) logout, (s) suspend
         "${system}" = {
-          l = "exec swaylock --clock --indicator -f -i ${wallpaper} --scaling fill, mode default";
+          l = "exec swaylock -f -i ${wallpaper} --scaling fill";
+          # l = "exec swaylock --clock --indicator -f -i ${wallpaper} --scaling fill, mode default";
           e = "exec 'swaymsg exit; systemctl --user stop sway-session.target'"; # exit
           s = "exec --no-startup-id systemctl suspend, mode default";
           # return to default mode
