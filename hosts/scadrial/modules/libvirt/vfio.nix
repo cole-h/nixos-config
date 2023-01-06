@@ -18,8 +18,14 @@ in
 {
   boot.kernelModules = [ "vfio-pci" ];
   boot.kernelParams = [
-    "amd_iommu=on"
-    "amd_iommu=pt"
+    # TODO:
+    # If intel_iommu=on or amd_iommu=on works, you can try replacing them with
+    # iommu=pt or amd_iommu=pt. The pt option only enables IOMMU for devices
+    # used in passthrough and will provide better host performance. However, the
+    # option may not be supported on all hardware. Revert to previous option if
+    # the pt option doesn't work for your host.
+    # https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.1/html/installation_guide/appe-configuring_a_hypervisor_host_for_pci_passthrough
+    "intel_iommu=on"
     "iommu=pt"
     "kvm.ignore_msrs=1"
     "kvm.report_ignored_msrs=0"

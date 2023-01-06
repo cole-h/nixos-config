@@ -89,7 +89,6 @@ in
     wrapperFeatures = { gtk = true; };
 
     extraSessionCommands = ''
-      # export WLR_DRM_NO_ATOMIC=1
       export MOZ_ENABLE_WAYLAND=1
       # export QT_QPA_PLATFORM=wayland
       # export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
@@ -98,6 +97,11 @@ in
       # export GDK_BACKEND=wayland
       export _JAVA_AWT_WM_NONREPARENTING=1
       export XDG_CURRENT_DESKTOP=sway
+
+      export GBM_BACKEND=nvidia-drm
+      export __GLX_VENDOR_LIBRARY_NAME=nvidia
+      export WLR_NO_HARDWARE_CURSORS=1 # :sunglassesIGuess:
+      # export WLR_DRM_NO_ATOMIC=1
     '';
 
     # TODO: swayidle+swaylock command

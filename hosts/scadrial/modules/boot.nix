@@ -8,7 +8,6 @@
     loader.systemd-boot.memtest86.enable = true;
     loader.efi.canTouchEfiVariables = true;
     loader.timeout = 1;
-    initrd.kernelModules = [ "amdgpu" ]; # load amdgpu early to prevent flickering
     cleanTmpDir = true;
 
     supportedFilesystems = [
