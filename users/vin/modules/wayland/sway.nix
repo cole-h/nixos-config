@@ -114,6 +114,7 @@ in
           scale = "1";
         };
         "DP-3" = {
+          adaptive_sync = "on";
           resolution = "2560x1440@165Hz";
           position = "1920,0";
           scale = "1";
