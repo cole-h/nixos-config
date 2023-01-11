@@ -58,7 +58,7 @@ let
   ws8 = "8";
   ws9 = "9";
   ws10 = "10";
-  # output DP-3 (right)
+  # output DP-1 (right)
   wsF1 = "11";
   wsF2 = "12";
   wsF3 = "13";
@@ -113,7 +113,7 @@ in
           position = "0,180";
           scale = "1";
         };
-        "DP-3" = {
+        "DP-1" = {
           adaptive_sync = "on";
           resolution = "2560x1440@165Hz";
           position = "1920,0";
@@ -580,16 +580,16 @@ in
       workspace ${ws9}  output HDMI-A-1
       workspace ${ws10} output HDMI-A-1
 
-      workspace ${wsF1}  output DP-3
-      workspace ${wsF2}  output DP-3
-      workspace ${wsF3}  output DP-3
-      workspace ${wsF4}  output DP-3
-      workspace ${wsF5}  output DP-3
-      workspace ${wsF6}  output DP-3
-      workspace ${wsF7}  output DP-3
-      workspace ${wsF8}  output DP-3
-      workspace ${wsF9}  output DP-3
-      workspace ${wsF10} output DP-3
+      workspace ${wsF1}  output DP-1
+      workspace ${wsF2}  output DP-1
+      workspace ${wsF3}  output DP-1
+      workspace ${wsF4}  output DP-1
+      workspace ${wsF5}  output DP-1
+      workspace ${wsF6}  output DP-1
+      workspace ${wsF7}  output DP-1
+      workspace ${wsF8}  output DP-1
+      workspace ${wsF9}  output DP-1
+      workspace ${wsF10} output DP-1
 
       seat * hide_cursor 5000
       seat * keyboard_grouping none
