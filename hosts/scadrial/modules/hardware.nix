@@ -24,11 +24,6 @@
   # Don't wait for udev to finish processing events.
   systemd.services.systemd-udev-settle.serviceConfig.ExecStart = [ "" "${pkgs.coreutils}/bin/true" ];
 
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.powerManagement.enable = false;
-  boot.kernelParams = [ "module_blacklist=i915" ];
-
   system.replaceRuntimeDependencies = [
     {
       original = pkgs.alsa-ucm-conf;

@@ -17,6 +17,7 @@
       ./services.nix # misc, short service settings
       ./users.nix # configuration related to users
       ./virtualisation.nix # configuration related to virtualisation
+      ./rtx4090-compat.nix # configuration related to making my 4090 + nouveau work
 
       ./downloads # configuration related to torrenting
       ./libvirt # configuration related to libvirt and vfio + pci passthrough
