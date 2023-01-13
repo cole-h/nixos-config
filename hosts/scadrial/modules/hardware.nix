@@ -26,6 +26,7 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.powerManagement.enable = false;
   boot.kernelParams = [ "module_blacklist=i915" ];
 
   system.replaceRuntimeDependencies = [
