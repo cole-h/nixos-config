@@ -98,8 +98,8 @@ in
       export _JAVA_AWT_WM_NONREPARENTING=1
       export XDG_CURRENT_DESKTOP=sway
 
-      export GBM_BACKEND=nvidia-drm
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
+      # export GBM_BACKEND=nvidia-drm
+      # export __GLX_VENDOR_LIBRARY_NAME=nvidia
       export WLR_NO_HARDWARE_CURSORS=1 # :sunglassesIGuess:
       # export WLR_DRM_NO_ATOMIC=1
     '';
