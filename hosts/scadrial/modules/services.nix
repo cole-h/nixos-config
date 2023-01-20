@@ -18,6 +18,7 @@
 
   # Automount USB
   services.gvfs.enable = true;
+  services.gvfs.package = pkgs.gvfs.override { gnomeSupport = false; };
 
   # Hide the "help" message
   services.getty.helpLine = lib.mkForce "";

@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     yt-dlp
     streamlink
-    jellyfin-mpv-shim
+    # jellyfin-mpv-shim
   ];
 
   xdg.configFile = with pkgs; {

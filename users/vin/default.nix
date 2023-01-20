@@ -49,7 +49,7 @@
       [
         _1password
         _1password-gui
-        calibre # ebook manager
+        # calibre # ebook manager
         chatterino2 # Twitch chat client
         colmena # deployment
         dfmt # par + fmt but better
