@@ -27,7 +27,7 @@
     }
   ];
 
-  hardware.opengl.package = (pkgs.mesa.overrideAttrs ({ mesonFlags ? [ ], ... }: {
+  hardware.opengl.package = ((pkgs.mesa.overrideAttrs ({ mesonFlags ? [ ], ... }: {
     version = "23.0.0-devel";
     src = pkgs.fetchgit {
       url = "https://gitlab.freedesktop.org/skeggsb/mesa.git";
@@ -36,8 +36,8 @@
     };
 
     # xvmc isn't supported in mesa 23
-    mesonFlags = lib.filter (flag: null == (builtins.match "-Dxvmc.*" flag)) mesonFlags;
-  })).drivers;
+    # mesonFlags = lib.filter (flag: null == (builtins.match "-Dxvmc.*" flag)) mesonFlags;
+  })).override { enableOpenCL = false; }).drivers;
 
   hardware.firmware = [
     (pkgs.stdenv.mkDerivation {

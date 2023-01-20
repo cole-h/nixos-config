@@ -63,4 +63,10 @@ in
   #         --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
   #     '';
   #   });
+
+  mullvad = prev.mullvad.overrideAttrs ({ nativeBuildInputs ? [ ], ... }: {
+    nativeBuildInputs = nativeBuildInputs ++ [
+      final.git
+    ];
+  });
 }

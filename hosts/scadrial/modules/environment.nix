@@ -15,7 +15,7 @@
       # cntr # used for breakpointHook
       # cryptsetup # for borgbackup
       dnsutils
-      dogdns # dig but better
+      # dogdns # dig but better # broken build atm
       efibootmgr
       evince # pdf viewer
       exa # ls but better
