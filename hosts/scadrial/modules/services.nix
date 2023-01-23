@@ -25,7 +25,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
+  services.openssh.settings.PasswordAuthentication = false;
 
   # Enable CUPS to print documents.
   services.printing = {
