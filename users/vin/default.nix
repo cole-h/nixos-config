@@ -63,7 +63,6 @@
         qimgv # image viewer
         rust-analyzer
         rustup
-        thunderbird
         todo-txt-cli # todos tracker
         vault
         # xivlauncher
