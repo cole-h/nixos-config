@@ -15,7 +15,7 @@
     agenix = { url = "github:ryantm/agenix"; inputs.nixpkgs.follows = "nixpkgs"; };
     home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     # nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nix = { url = "github:edolstra/nix/lazy-trees"; /*inputs.nixpkgs.follows = "nixpkgs";*/ };
+    nix = { url = "github:edolstra/nix/lazy-trees"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     # Not flakes
     aarch-images = { url = "github:Mic92/nixos-aarch64-images"; flake = false; };
