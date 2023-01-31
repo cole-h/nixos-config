@@ -1,6 +1,5 @@
 { lib, pkgs, ... }:
 {
-  boot.zfs.enableUnstable = true;
   boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_1;
   boot.kernelParams = [
     "module_blacklist=i915"
