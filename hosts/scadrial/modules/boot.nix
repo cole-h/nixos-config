@@ -46,4 +46,21 @@
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
+
+  # Clean up /tmp and other systemd-tmpfiles-controlled places before shutting down.
+  systemd.services."cleanup-tmp-before-poweroff" = {
+    enable = false;
+    before = [ "final.target" ];
+    # after = [ "final.target" ];
+    wantedBy = [ "final.target" ];
+
+    unitConfig = {
+      DefaultDependencies = false;
+    };
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${config.systemd.package}/bin/systemd-tmpfiles --clean";
+    };
+  };
 }
