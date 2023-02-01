@@ -49,7 +49,6 @@
 
   # Clean up /tmp and other systemd-tmpfiles-controlled places before shutting down.
   systemd.services."cleanup-tmp-before-poweroff" = {
-    enable = false;
     before = [ "final.target" ];
     # after = [ "final.target" ];
     wantedBy = [ "final.target" ];
