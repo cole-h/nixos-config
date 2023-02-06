@@ -25,12 +25,11 @@ let
 
   ## Modes
   system = "(l) lock, (e) logout, (s) suspend";
-  screenie = "(a) area, (m) monitor, (w) window, (A) to clipboard, (M) to clipboard, (W) to clipboard";
+  screenie = "(A) to clipboard, (M) to clipboard, (W) to clipboard";
 
   ## Executables
   inherit (my.scripts)
     # alacritty
-    imgur
     ;
 
   # term = alacritty;
@@ -334,30 +333,8 @@ in
           Escape = "mode default";
         };
 
-        # set $screenie (a) area, (m) monitor, (w) window, (A) to clipboard, (M) to clipboard, (W) to clipboard
+        # set $screenie (A) to clipboard, (M) to clipboard, (W) to clipboard
         "${screenie}" = {
-          # capture the specified screen area and upload to paste.rs
-          a = ''
-            exec ${pkgs.slurp}/bin/slurp \
-              | ${pkgs.grim}/bin/grim -g - - \
-              | ${imgur}; mode default
-          '';
-          # capture the focused monitor and upload to paste.rs
-          m = ''
-            exec swaymsg -t get_outputs \
-              | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' \
-              | tail -1 \
-              | ${pkgs.grim}/bin/grim -g - - \
-              | ${imgur}; mode default
-          '';
-          # capture the focused window and upload to paste.rs
-          w = ''
-            exec swaymsg -t get_tree \
-              | ${pkgs.jq}/bin/jq -r '.. | (.nodes? // empty)[] | if (.pid and .focused) then select(.pid and .focused) | .rect | "\(.x),\(.y) \(.width)x\(.height)" else (.floating_nodes? // empty)[] | select(.pid and .visible) | .rect | "\(.x),\(.y) \(.width)x\(.height)" end' \
-              | tail -1 \
-              | ${pkgs.grim}/bin/grim -g - - \
-              | ${imgur}; mode default
-          '';
           # capture the specified screen area to clipboard
           "Shift+a" = ''
             exec ${pkgs.slurp}/bin/slurp \
