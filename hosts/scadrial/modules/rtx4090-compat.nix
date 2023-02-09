@@ -34,8 +34,7 @@
       sha256 = "sha256-e+ReIIcLr2DHgJNbPJrWbYSQZmWGLs0raBNHsdTCS80=";
     };
 
-    # xvmc isn't supported in mesa 23
-    # mesonFlags = lib.filter (flag: null == (builtins.match "-Dxvmc.*" flag)) mesonFlags;
+    mesonFlags = lib.lists.remove "-Dintel-clc=enabled" mesonFlags;
   })).override { enableOpenCL = false; }).drivers;
 
   hardware.firmware = [
