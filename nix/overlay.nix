@@ -59,16 +59,16 @@ in
       # https://github.com/alsa-project/alsa-ucm-conf/pull/267
       (final.writeText "support-my-mobo.patch" ''
         diff --git a/ucm2/USB-Audio/USB-Audio.conf b/ucm2/USB-Audio/USB-Audio.conf
-        index 325d48c..a028eb1 100644
+        index 90a88d4..4894b80 100644
         --- a/ucm2/USB-Audio/USB-Audio.conf
         +++ b/ucm2/USB-Audio/USB-Audio.conf
-        @@ -41,7 +41,8 @@ If.realtek-alc4080 {
-         		# 0db0:1feb MSI Edge Wifi Z690
-         		# 0db0:419c MSI MPG X570S Carbon Max Wifi
-         		# 0db0:a073 MSI MAG X570S Torpedo Max
-        -		Regex "USB((0b05:(1996|1a2[07]))|(0db0:(1feb|419c|a073)))"
-        +		# 0db0:6c09 MSI MPG Z790 Cargon Wifi
-        +		Regex "USB((0b05:(1996|1a2[07]))|(0db0:(1feb|419c|a073|6c09)))"
+        @@ -50,7 +50,8 @@ If.realtek-alc4080 {
+         		# 0db0:a47c MSI MEG X570S Ace Max
+         		# 0db0:b202 MSI MAG Z690 Tomahawk Wifi
+         		# 0db0:d6e7 MSI MPG X670E Carbon Wifi
+        -		Regex "USB((0414:a00e)|(0b05:(1996|1a(16|2[07])))|(0db0:(005a|151f|1feb|419c|82c7|a073|a47c|b202|d6e7)))"
+        +		# 0db0:6c09 MSI MPG Z790 Carbon Wifi
+        +		Regex "USB((0414:a00e)|(0b05:(1996|1a(16|2[07])))|(0db0:(6c09|005a|151f|1feb|419c|82c7|a073|a47c|b202|d6e7)))"
          	}
          	True.Define.ProfileName "Realtek/ALC4080"
          }
