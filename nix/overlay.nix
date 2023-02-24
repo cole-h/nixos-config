@@ -11,7 +11,6 @@ in
   wezterm = callPackage ./drvs/wezterm { };
 
   # small-ish overrides
-  ripgrep = prev.ripgrep.override { withPCRE2 = true; };
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
   bash-preexec = prev.bash-preexec.overrideAttrs ({ ... }: { doCheck = false; });
 
