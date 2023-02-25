@@ -12,21 +12,8 @@ in
 
   # small-ish overrides
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
-  bash-preexec = prev.bash-preexec.overrideAttrs ({ ... }: { doCheck = false; });
 
   # larger overrides
-  discord = prev.discord.overrideAttrs
-    ({ buildInputs ? [ ], postFixup ? "", ... }: {
-      buildInputs = buildInputs ++ [
-        final.makeWrapper
-      ];
-
-      postFixup = postFixup + ''
-        makeWrapper $out/bin/Discord $out/bin/discord \
-          --set "GDK_BACKEND" "x11"
-      '';
-    });
-
   # element-desktop = prev.element-desktop.overrideAttrs
   #   ({ buildInputs ? [ ], postFixup ? "", ... }: {
   #     buildInputs = buildInputs ++ [
@@ -62,12 +49,6 @@ in
   #         --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
   #     '';
   #   });
-
-  mullvad = prev.mullvad.overrideAttrs ({ nativeBuildInputs ? [ ], ... }: {
-    nativeBuildInputs = nativeBuildInputs ++ [
-      final.git
-    ];
-  });
 
   alsa-ucm-conf = prev.alsa-ucm-conf.overrideAttrs ({ patches ? [ ], ... }: {
     patches = patches ++ [
