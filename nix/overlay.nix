@@ -1,3 +1,4 @@
+{ inputs }:
 final: prev:
 let
   inherit (final)
@@ -8,7 +9,10 @@ in
 {
   # misc
   xivlauncher = callPackage ./drvs/xivlauncher { };
-  wezterm = callPackage ./drvs/wezterm { };
+  wezterm = callPackage ./drvs/wezterm {
+    wezterm-flake = inputs.wezterm;
+    naersk = final.callPackage inputs.naersk { };
+  };
 
   # small-ish overrides
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };

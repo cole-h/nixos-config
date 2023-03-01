@@ -16,10 +16,11 @@
     home = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     # nix = { url = "github:nixos/nix"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix = { url = "github:edolstra/nix/lazy-trees"; inputs.nixpkgs.follows = "nixpkgs"; };
+    naersk= { url = "github:nix-community/naersk/pr-274"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     # Not flakes
     aarch-images = { url = "github:Mic92/nixos-aarch64-images"; flake = false; };
-    # kak = { url = "github:mawww/kakoune"; flake = false; };
+    wezterm = { url = "git+https://github.com/wez/wezterm.git?submodules=1"; flake = false; };
   };
 
   outputs = inputs:

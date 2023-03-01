@@ -132,6 +132,27 @@
         "type": "github"
       }
     },
+    "naersk": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1677328511,
+        "narHash": "sha256-XtZpaVxgD0htRAT2GlorXLCO9Ehqc1wG59Ljfp527Os=",
+        "owner": "nix-community",
+        "repo": "naersk",
+        "rev": "caf38e2e9eb85c9daf7598b04d33bd10f61001e0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "pr-274",
+        "repo": "naersk",
+        "type": "github"
+      }
+    },
     "nix": {
       "inputs": {
         "lowdown-src": "lowdown-src",
@@ -193,8 +214,10 @@
         "agenix": "agenix",
         "agenix-cli": "agenix-cli",
         "home": "home",
+        "naersk": "naersk",
         "nix": "nix",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "wezterm": "wezterm"
       }
     },
     "utils": {
@@ -210,6 +233,24 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "type": "github"
+      }
+    },
+    "wezterm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677476008,
+        "narHash": "sha256-NuCcgd1HC+EaFK5t/Npi+BNvIY2V85jw+FuBoJfjtFU=",
+        "ref": "refs/heads/main",
+        "rev": "0ac1cbc47cff8b456070098a32e54d969b4e6c95",
+        "revCount": 6736,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/wez/wezterm.git"
+      },
+      "original": {
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/wez/wezterm.git"
       }
     }
   },

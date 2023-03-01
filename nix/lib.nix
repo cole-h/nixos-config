@@ -20,7 +20,7 @@ rec {
       };
 
       overlays = [
-        (import ./overlay.nix)
+        (import ./overlay.nix { inherit inputs; })
         (final: prev: {
           agenix = inputs.agenix-cli.defaultPackage.${system};
         })
