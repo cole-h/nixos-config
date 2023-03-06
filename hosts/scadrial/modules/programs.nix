@@ -31,4 +31,8 @@
   programs._1password = {
     enable = true;
   };
+
+  programs.steam = {
+    enable = true;
+  };
 }
