@@ -86,6 +86,7 @@
             "apool/ROOT/system<" = true;
             "apool/ROOT/user<" = true;
             "apool/ROOT/user/home/vin/Downloads" = false;
+            "apool/ROOT/user/home/vin/Games" = false;
           };
 
           send.encrypted = true;
