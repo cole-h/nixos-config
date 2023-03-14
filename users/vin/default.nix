@@ -93,6 +93,7 @@
       SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh"; # gnome-keyring
 
       _ZO_FZF_OPTS="--no-sort --reverse --border --height 40%"; # zoxide fzf options
+      NIXOS_OZONE_WL = "1"; # enable Ozone Wayland for Electron apps
     };
 
     # This value determines the Home Manager release that your
