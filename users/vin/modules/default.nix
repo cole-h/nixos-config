@@ -5,12 +5,8 @@
       ./git.nix # git config
       ./mpv.nix # mpv config
       ./music.nix # music config
-      # ./neovim.nix # neovim config
-      # ./tmux.nix # tmux config
       # ./zsh.nix # zsh config
 
-      # ./emacs # doom + emacs setup
-      # ./kakoune # kakoune setup
       ./wayland # sway, etc config
     ];
 }
