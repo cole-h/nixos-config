@@ -64,14 +64,11 @@
             (hostname: conf: conf.config.system.build.toplevel)
             inputs.self.nixosConfigurations
           ) // {
+            default = inputs.self.packages.${system}.scadrial;
             iso = import ./nix/iso.nix { inherit inputs system; };
-            sd = import ./nix/sd.nix { inherit inputs; };
           });
 
       legacyPackages = forAllSystems
         ({ pkgs, ... }: builtins.trace "Using <nixpkgs> compat wrapper..." (pkgs.recurseIntoAttrs pkgs));
-
-      defaultPackage = forAllSystems
-        ({ system, ... }: inputs.self.packages.${system}.scadrial);
     };
 }
