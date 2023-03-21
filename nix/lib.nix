@@ -17,6 +17,7 @@ rec {
       config = {
         allowAliases = false;
         allowUnfree = true;
+        allowBroken = true; # for zfsUnstable
       };
 
       overlays = [
