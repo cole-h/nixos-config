@@ -79,6 +79,9 @@
       # Frame-step
       ">" = "frame-step";
       "<" = "frame-back-step";
+
+      # Seek to timestamp
+      "ctrl+t" = ''script-message-to console type "set time-pos "'';
     };
   };
 }
