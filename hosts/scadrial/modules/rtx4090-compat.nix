@@ -26,16 +26,15 @@
     }
   ];
 
-  hardware.opengl.package = ((pkgs.mesa.overrideAttrs ({ mesonFlags ? [ ], ... }: {
-    version = "23.0.0-devel";
-    src = pkgs.fetchgit {
-      url = "https://gitlab.freedesktop.org/skeggsb/mesa.git";
-      rev = "57081b4692a1d871c8e24c92afdbeb0cfc29d32b"; # branch "02.00-ad10x"
-      sha256 = "sha256-e+ReIIcLr2DHgJNbPJrWbYSQZmWGLs0raBNHsdTCS80=";
-    };
-
-    mesonFlags = lib.lists.remove "-Dintel-clc=enabled" mesonFlags;
-  })).override { enableOpenCL = false; }).drivers;
+  hardware.opengl.mesaPackage = ((pkgs.mesa_23.overrideAttrs ({ mesonFlags ? [ ], patches ? [ ], ... }: {
+    patches = patches ++ [
+      (pkgs.fetchpatch {
+        name = "nvc0-recognise-ada.patch";
+        url = "https://gitlab.freedesktop.org/skeggsb/mesa/-/commit/57081b4692a1d871c8e24c92afdbeb0cfc29d32b.patch";
+        sha256 = "sha256-6bX5LBmVe8f9jQTydF0WfFEt8ptYCcf30PaL10A8w0A=";
+      })
+    ];
+  }))).drivers;
 
   hardware.firmware = [
     (pkgs.stdenv.mkDerivation {
