@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     tidal-hifi
+    youtube-music
   ];
 
   # XXX: super duper ultra hack to make my FiiO K3 DAC not suspend when
@@ -21,7 +22,7 @@
         toString script;
     };
     Unit = {
-      After = [ "pipewire-pulse.service" ];
+      After = [ "pipewire-pulse.service" "sway-session.target" ];
       Requires = [ "pipewire-pulse.service" ];
     };
   };
