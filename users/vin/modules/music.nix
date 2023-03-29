@@ -16,6 +16,7 @@
       ExecStart =
         let
           script = pkgs.writeShellScript "fiio-k3-hack" ''
+            while ! echo | ${pkgs.pulseaudio}/bin/pacat -v; do sleep 1; done
             ${pkgs.coreutils}/bin/sleep infinity | ${pkgs.pulseaudio}/bin/pacat -v
           '';
         in
