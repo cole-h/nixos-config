@@ -3,6 +3,8 @@
 let
   inherit (inputs.self.lib)
     specialArgs
+    nixpkgsConfig
+    nixpkgsOverlays
     ;
 
   inherit (inputs.nixpkgs.lib)
@@ -20,7 +22,7 @@ let
         extraModules =
           let
             home = { config, ... }: {
-              config.home-manager = {
+              home-manager = {
                 users = import ../users;
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -71,7 +73,11 @@ builtins.mapAttrs
         [
           inputs.agenix.nixosModules.age
 
-          { _module.args = specialArgs; }
+          {
+            _module.args = specialArgs;
+            nixpkgs.config = nixpkgsConfig;
+            nixpkgs.overlays = nixpkgsOverlays;
+          }
           ({ lib, ... }: { networking.hostName = lib.mkDefault host; })
 
           ../modules

@@ -27,7 +27,6 @@
       inherit (inputs.self.lib)
         forAllSystems
         nameValuePair
-        pkgsFor
         mkSystem
         ;
 
@@ -49,11 +48,6 @@
                   system
                   modules
                   ;
-
-                pkgs = pkgsFor {
-                  inherit inputs system;
-                  inherit (inputs) nixpkgs;
-                };
               }))
           (import ./hosts { inherit inputs; });
 

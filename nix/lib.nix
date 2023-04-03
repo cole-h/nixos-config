@@ -6,32 +6,33 @@ rec {
   nameValuePair = name: value: { inherit name value; };
   genAttrs = names: f: builtins.listToAttrs (map (n: nameValuePair n (f n)) names);
 
+  nixpkgsConfig = {
+    allowAliases = false;
+    allowUnfree = true;
+  };
+
+  nixpkgsOverlays = [
+    (import ./overlay.nix { inherit inputs; })
+    (final: prev: {
+      agenix = inputs.agenix-cli.defaultPackage.${final.stdenv.system};
+    })
+  ];
+
   pkgsFor =
-    { inputs
-    , nixpkgs
+    { nixpkgs
     , system
     }:
     import nixpkgs {
       inherit system;
-
-      config = {
-        allowAliases = false;
-        allowUnfree = true;
-      };
-
-      overlays = [
-        (import ./overlay.nix { inherit inputs; })
-        (final: prev: {
-          agenix = inputs.agenix-cli.defaultPackage.${system};
-        })
-      ];
+      config = nixpkgsConfig;
+      overlays = nixpkgsOverlays;
     };
 
   forAllSystems = f: genAttrs allSystems
     (system: f {
       inherit system;
       pkgs = pkgsFor {
-        inherit inputs system;
+        inherit system;
         inherit (inputs) nixpkgs;
       };
     });
@@ -46,10 +47,9 @@ rec {
 
   mkSystem =
     { system
-    , pkgs
     , modules
     }:
     inputs.nixpkgs.lib.nixosSystem {
-      inherit system modules specialArgs pkgs;
+      inherit system modules specialArgs;
     };
 }
