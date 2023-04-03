@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "aarch-images": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1643255329,
-        "narHash": "sha256-kiQ04esFDPGQBo3A5K2Jcoa6mlbQ7/VDHy+drgoBM/g=",
-        "owner": "Mic92",
-        "repo": "nixos-aarch64-images",
-        "rev": "c29e786f552a5c38e1dcdceb552412ad488e45d3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "repo": "nixos-aarch64-images",
-        "type": "github"
-      }
-    },
     "agenix": {
       "inputs": {
         "darwin": "darwin",
@@ -226,7 +210,6 @@
     },
     "root": {
       "inputs": {
-        "aarch-images": "aarch-images",
         "agenix": "agenix",
         "agenix-cli": "agenix-cli",
         "home": "home",
