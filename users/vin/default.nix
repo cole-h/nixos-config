@@ -71,7 +71,7 @@
         (vscode-with-extensions.override {
           vscodeExtensions = with vscode-extensions; [
             ms-vsliveshare.vsliveshare
-            matklad.rust-analyzer
+            rust-lang.rust-analyzer
             hashicorp.terraform
             golang.go
             eamodio.gitlens
