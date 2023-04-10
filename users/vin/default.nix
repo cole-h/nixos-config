@@ -94,6 +94,12 @@
 
       _ZO_FZF_OPTS="--no-sort --reverse --border --height 40%"; # zoxide fzf options
       NIXOS_OZONE_WL = "1"; # enable Ozone Wayland for Electron apps
+
+      # I only want NIX_PATH available for my user, not for the entire system.
+      NIX_PATH = builtins.concatStringsSep ":" [
+        "nixpkgs=${inputs.self}/compat"
+        "nixos-config=${inputs.self}/compat/nixos"
+      ];
     };
 
     # This value determines the Home Manager release that your

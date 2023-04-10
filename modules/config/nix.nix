@@ -1,11 +1,7 @@
 { inputs, lib, ... }:
 {
   nix = {
-    nixPath = [
-      "nixpkgs=${inputs.self}/compat"
-      "nixos-config=${inputs.self}/compat/nixos"
-    ];
-
+    nixPath = [ ];
     distributedBuilds = true; # necessary for settings.builders to not be defined in the nix-daemon upstream module
     settings = {
       flake-registry = "/etc/nix/registry.json";
