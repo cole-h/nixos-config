@@ -29,8 +29,6 @@
 
   xdg.enable = true;
 
-  home.file."scripts".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/flake/scripts";
   home.file."Music".source =
     config.lib.file.mkOutOfStoreSymlink "/shares/media/Music";
 
@@ -47,13 +45,9 @@
 
     packages = with pkgs;
       [
-        _1password
-        _1password-gui
         # calibre # ebook manager
-        chatterino2 # Twitch chat client
         colmena # deployment
         dfmt # par + fmt but better
-        discord
         # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
         element-desktop
         firefox-bin
@@ -61,9 +55,8 @@
         git-absorb
         obsidian # notes zettelkasten type thing
         qimgv # image viewer
-        rust-analyzer
+        rust-analyzer # until rustup 1.26 is released, which includes the rust-analyzer proxy
         rustup
-        todo-txt-cli # todos tracker
         vault
         # xivlauncher
         zellij # better than tmux

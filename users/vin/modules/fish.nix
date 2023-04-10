@@ -1,6 +1,6 @@
-{ config, lib, pkgs, my, ... }:
+{ config, lib, pkgs, ... }:
 let
-  cgitcAbbrs = (pkgs.callPackage my.drvs.cgitc { }).abbrs;
+  cgitcAbbrs = pkgs.cgitc.abbrs;
 in
 {
   programs = {

@@ -3,9 +3,6 @@
 {
   imports =
     [
-      # ./borg # configuration related to running an ofborg instance
-      # ./gnome.nix # configuration related to GNOME
-
       ./boot.nix # configuration related to boot
       ./environment.nix # configuration related to environment.*
       ./fonts.nix # configuration related to fonts
@@ -16,13 +13,11 @@
       ./security.nix # configuration related to general security
       ./services.nix # misc, short service settings
       ./users.nix # configuration related to users
-      ./virtualisation.nix # configuration related to virtualisation
       ./rtx4090-compat.nix # configuration related to making my 4090 + nouveau work
       ./ime.nix # configuration related to setting up an ime
 
       ./downloads # configuration related to torrenting
       ./libvirt # configuration related to libvirt and vfio + pci passthrough
-      # ./wireguard # configuration related to wireguard
       ./zrepl # configuration related to zrepl
     ];
 }

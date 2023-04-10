@@ -1,15 +1,13 @@
 { config, pkgs, ... }:
 let
-  cursorTheme = "Adwaita";
-  cursorSize = 24;
+  cursorTheme = config.home.pointerCursor.name;
+  cursorSize = config.home.pointerCursor.size;
 in
 {
   imports =
     [
       ./sway.nix # sway config
       ./mako.nix # mako config
-      # ./waybar.nix # waybar config
-      # ./japanese.nix # JP config
     ];
 
   home.packages = with pkgs; [
@@ -17,11 +15,10 @@ in
     grim # screenshot
     slurp # select region
     wl-clipboard # clipboard
-    alacritty # [drvs]
+    wezterm # terminal again
     kitty # alt terminal as backup
     libnotify # notifications part 2: electric boogaloo
     wlsunset # blue-light filter
-    bemenu # dmenu launcher; [overlays]
     j4-dmenu-desktop # desktop files
     rofi # has rofi-emoji as a plugin; [overlays]
   ];
@@ -46,25 +43,6 @@ in
 
   systemd.user = {
     services = {
-      mako = {
-        Unit = {
-          Description = "mako";
-          Documentation = [ "man:mako(1)" ];
-          PartOf = [ "sway-session.target" ];
-        };
-
-        Service = {
-          Type = "simple";
-          ExecStart = "${pkgs.mako}/bin/mako";
-          RestartSec = 3;
-          Restart = "always";
-        };
-
-        Install = {
-          WantedBy = [ "sway-session.target" ];
-        };
-      };
-
       polkit = {
         Unit = {
           Description = "polkit-gnome";

@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  environment.pathsToLink = [ "/share/zsh" ];
   environment.enableDebugInfo = true;
   environment.systemPackages = with pkgs;
     [

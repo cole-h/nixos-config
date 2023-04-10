@@ -15,8 +15,6 @@
       "ntfs" # allows r/w ntfs
     ];
 
-    # plymouth.enable = true; # requires https://github.com/NixOS/nixpkgs/pull/88789
-
     zfs.requestEncryptionCredentials = [ "apool/ROOT" ];
     zfs.forceImportRoot = false;
 
@@ -36,7 +34,6 @@
     ];
 
     # Allow emulated cross compilation for aarch64
-    # TODO: make aarch64 emulation a specialisation...?
     binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
@@ -50,7 +47,6 @@
   # Clean up /tmp and other systemd-tmpfiles-controlled places before shutting down.
   systemd.services."cleanup-tmp-before-poweroff" = {
     before = [ "final.target" ];
-    # after = [ "final.target" ];
     wantedBy = [ "final.target" ];
 
     unitConfig = {

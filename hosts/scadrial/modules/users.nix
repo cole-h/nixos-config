@@ -14,7 +14,6 @@
           "adbusers"
           "audio"
           "avahi"
-          "dialout" # for mdloader
           "input"
           "keys"
           "kvm"
