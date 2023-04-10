@@ -26,7 +26,7 @@
     }
   ];
 
-  hardware.opengl.mesaPackage = ((pkgs.mesa_23.overrideAttrs ({ mesonFlags ? [ ], patches ? [ ], ... }: {
+  hardware.opengl.package = ((pkgs.mesa_23.overrideAttrs ({ mesonFlags ? [ ], patches ? [ ], ... }: {
     patches = patches ++ [
       (pkgs.fetchpatch {
         name = "nvc0-recognise-ada.patch";
