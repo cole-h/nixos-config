@@ -29,12 +29,12 @@ in
             set --local mins (math --scale=0 $ms/60000 % 60)
             set --local hours (math --scale=0 $ms/3600000)
 
-            test $hours -gt 0 && set --local --append out $hours"h"
-            test $mins -gt 0 && set --local --append out $mins"m"
-            test $secs -gt 0 && set --local --append out $secs"s"
+            test $hours -gt 0 && set --local --append __out $hours"h"
+            test $mins -gt 0 && set --local --append __out $mins"m"
+            test $secs -gt 0 && set --local --append __out $secs"s"
 
-            if set --query out
-                string replace --all " " "" $out || :
+            if set --query __out
+                string replace --all " " "" $__out || :
             else
                 echo $ms"ms"
             end
