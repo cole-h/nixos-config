@@ -13,8 +13,6 @@ in
         nix-locate = "command nix-locate --top-level $argv";
         ssh = "env TERM=xterm-256color ssh $argv";
         # std = "rustup doc --std";
-        t = "todo.sh $argv";
-        win10 = "doas virsh start windows10";
         fish_greeting = "";
         fish_user_key_bindings = "bind \\cw backward-kill-word";
 
