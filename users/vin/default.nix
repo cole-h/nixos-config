@@ -46,7 +46,6 @@
     packages = with pkgs;
       [
         # calibre # ebook manager
-        colmena # deployment
         dfmt # par + fmt but better
         # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
         element-desktop
