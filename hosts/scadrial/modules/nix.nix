@@ -11,7 +11,7 @@
         # "https://cache.qyliss.net"
         # "https://cole-h.cachix.org"
         # "https://nixpkgs-wayland.cachix.org"
-        "https://nix-community.cachix.org"
+        # "https://nix-community.cachix.org"
       ];
 
       trusted-public-keys = [
