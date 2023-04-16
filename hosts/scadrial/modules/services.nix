@@ -57,7 +57,7 @@
           "--greeting"
           "${greeting}"
           "--cmd"
-          ''"systemd-cat -t sway -- sway --debug --unsupported-gpu"''
+          ''"systemd-cat -t sway -- sway"''
         ];
       in
       {
