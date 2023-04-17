@@ -444,7 +444,7 @@ in
             # window title to include the workspace the terminal currently has
             # focused -- move it to the scratchpad if it's in the `scratch`
             # workspace.
-            criteria = { app_id = "org\.wezfurlong\.wezterm"; title = "^.+\[scratch\].+\(local\)$"; };
+            criteria = { app_id = "org\\.wezfurlong\\.wezterm"; title = "^.+\\[scratch\\].+\\(local\\)$"; };
             command = "move scratchpad, sticky enable";
           }
           # set opacity to 0 so that we don't see the flicker as a result of being
