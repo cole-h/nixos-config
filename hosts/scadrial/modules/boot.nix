@@ -8,7 +8,7 @@
     loader.systemd-boot.memtest86.enable = true;
     loader.efi.canTouchEfiVariables = true;
     loader.timeout = 1;
-    cleanTmpDir = true;
+    tmp.cleanOnBoot = true;
 
     supportedFilesystems = [
       "zfs"
