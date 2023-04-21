@@ -6,7 +6,6 @@
     "ssh-ng://builder"
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.builders-use-substitutes = true;
 
   nix.buildMachines = [

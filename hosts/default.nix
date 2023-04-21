@@ -36,7 +36,6 @@ let
 
             nix = { lib, ... }: {
               nix.package = lib.mkForce inputs.nix.packages.${system}.default;
-              nix.settings.experimental-features = [ "nix-command" "flakes" ];
             };
           in
           [
