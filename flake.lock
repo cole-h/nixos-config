@@ -161,16 +161,15 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1680772372,
-        "owner": "edolstra",
+        "lastModified": 1682057698,
+        "owner": "nixos",
         "repo": "nix",
-        "rev": "791e222171d6eb24ae6b148390ccd3fd9cb77629",
-        "treeHash": "ce4c4d8a5ac08f36752b71ba33b47c2891f3aa77",
+        "rev": "7474a90db69813d051ab1bef35c7d0ab958d9ccd",
+        "treeHash": "708acdb2945c7a9645135a04a8151686be8ecc2f",
         "type": "github"
       },
       "original": {
-        "owner": "edolstra",
-        "ref": "lazy-trees",
+        "owner": "nixos",
         "repo": "nix",
         "type": "github"
       }
