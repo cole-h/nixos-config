@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  programs.fish.enable = true;
+
   users = {
     mutableUsers = false;
 
