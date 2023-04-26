@@ -71,7 +71,13 @@ in
               set -l prompt_status (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
               set -l last_command_time (humantime $CMD_DURATION)
 
+              test "$__ksi_prompt_state" != prompt-start
+              and printf "\e]133;D\a"
+              set --global __ksi_prompt_state prompt-start
+              printf "\e]133;A\a"
+              printf "\e]133;P\a"
               echo -n -s (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status " "$last_command_time $suffix " "
+              printf "\e]133;B\a"
           '';
         };
       };
@@ -91,7 +97,6 @@ in
       } // cgitcAbbrs;
 
       interactiveShellInit = ''
-
         set --append fish_user_paths $HOME/.cargo/bin
 
         # For zoxide's fzf window
@@ -100,8 +105,18 @@ in
         # Miscellaneous exports
         set --global --export LS_COLORS 'ow=36:di=1;34;40:fi=32:ex=31:ln=35:'
 
-        # t ls
-        # printf '\n'
+        # wezterm integration
+        if not set -q __ksi_prompt_state
+          function __ksi_mark_output_start --on-event fish_preexec
+              set --global __ksi_prompt_state pre-exec
+              printf "\e]133;C\a"
+          end
+
+          function __ksi_mark_output_end --on-event fish_postexec
+              set --global __ksi_prompt_state post-exec
+              printf "\e]133;D;$status\a"
+          end
+        end
       '';
     };
   };
