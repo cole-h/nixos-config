@@ -38,6 +38,7 @@ https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
     - apool/r/local (none) -- shouldn't be backed up
     - apool/r/local/root (legacy)
     - apool/r/local/nix (legacy)
+    - apool/r/local/tmp (legacy)
     - apool/r/local/var (legacy)
     - apool/r/safe (none) -- "safe" to back up
     - apool/r/safe/state/home (legacy)
@@ -87,6 +88,7 @@ alias legacy='zfs create -o mountpoint=legacy'
 nomount apool/r
 nomount apool/r/local
 legacy apool/r/local/root # /
+legacy apool/r/local/tmp # /tmp
 legacy apool/r/local/nix # /nix
 legacy apool/r/local/var # /var
 nomount apool/r/safe
