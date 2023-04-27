@@ -1,6 +1,18 @@
 { lib, pkgs, ... }:
 {
-  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_1;
+  boot.kernelPackages = lib.mkForce
+    (pkgs.linuxPackagesFor
+      (pkgs.linuxKernel.packages.linux_6_1.kernel.override {
+        argsOverride = rec {
+          version = "6.1.23";
+          modDirVersion = version;
+          src = pkgs.fetchurl {
+            url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+            sha256 = "sha256-dFg3LodQr+N/0aw+erPCLyxgGPdg+BNAVaA/VKuj6+s=";
+          };
+        };
+      }));
+
   boot.kernelParams = [
     "module_blacklist=i915"
   ];
