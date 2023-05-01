@@ -19,5 +19,7 @@
       ./downloads # configuration related to torrenting
       ./libvirt # configuration related to libvirt and vfio + pci passthrough
       ./zrepl # configuration related to zrepl
+
+      ./test # temporary testing configuration
     ];
 }
