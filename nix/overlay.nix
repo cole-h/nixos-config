@@ -42,15 +42,15 @@ in
   #     '';
   #   });
 
-  # _1password-gui = prev._1password-gui.overrideAttrs
-  #   ({ buildInputs ? [ ], postFixup ? "", ... }: {
-  #     buildInputs = buildInputs ++ [
-  #       final.makeWrapper
-  #     ];
+  _1password-gui = prev._1password-gui.overrideAttrs
+    ({ buildInputs ? [ ], postFixup ? "", ... }: {
+      buildInputs = buildInputs ++ [
+        final.makeWrapper
+      ];
 
-  #     postFixup = postFixup + ''
-  #       wrapProgram $out/bin/1password \
-  #         --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
-  #     '';
-  #   });
+      postFixup = postFixup + ''
+        wrapProgram $out/bin/1password \
+          --unset NIXOS_OZONE_WL
+      '';
+    });
 }
