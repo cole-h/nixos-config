@@ -1,4 +1,0 @@
-# sign entire git history
-git rebase -i --root --exec 'git commit --amend --no-edit --no-verify -S'
-
-# vim: ft=sh
