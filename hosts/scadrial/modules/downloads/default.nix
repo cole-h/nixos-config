@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 {
   age.secrets.smb.file = ./smb-creds;
 
@@ -16,17 +16,6 @@
       "x-systemd.mount-timeout=5s"
     ];
   };
-
-  users.groups.downloads.gid = 947;
-  users.users.downloads = {
-    isSystemUser = true;
-    group = "downloads";
-    uid = 947;
-    home = "/var/lib/torrent";
-    createHome = true;
-  };
-
-  users.users.vin.extraGroups = [ "downloads" ];
 
   networking.extraHosts = ''
     192.168.1.55 sonarr.local
