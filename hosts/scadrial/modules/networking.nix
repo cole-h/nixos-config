@@ -9,8 +9,8 @@
   networking.hostId = "1bb11552"; # Required for ZFS.
   networking.nameservers = [
     # "192.168.1.55"
-    "1.1.1.1"
     "8.8.8.8"
+    "1.1.1.1"
     # "100.100.100.100" # tailscale
   ];
   # networking.search = [ "example.com.beta.tailscale.net" ];
