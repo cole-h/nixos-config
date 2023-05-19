@@ -38,6 +38,7 @@
     settings = {
       clients = { };
       dns = {
+        edns_client_subnet.enabled = false;
         bind_hosts = [ "127.0.0.1" ];
         bootstrap_dns = [
           "8.8.8.8"
