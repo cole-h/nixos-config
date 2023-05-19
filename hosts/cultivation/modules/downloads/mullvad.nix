@@ -7,7 +7,7 @@
     while ! ${pkgs.mullvad}/bin/mullvad status >/dev/null; do sleep 1; done
     ${pkgs.mullvad}/bin/mullvad lan set allow
     ${pkgs.mullvad}/bin/mullvad auto-connect set on
-    ${pkgs.mullvad}/bin/mullvad always-require-vpn set on
+    ${pkgs.mullvad}/bin/mullvad lockdown-mode set on
   '';
 
   networking.firewall.extraCommands =
