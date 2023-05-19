@@ -1,5 +1,10 @@
 { ... }:
 {
+  networking.useNetworkd = true;
+  networking.useDHCP = false;
+
+  systemd.network.wait-online.anyInterface = true;
+
   networking = {
     hostId = "31dfb58b"; # for zfs
     usePredictableInterfaceNames = false;
