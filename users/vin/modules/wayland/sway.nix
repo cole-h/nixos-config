@@ -471,15 +471,7 @@ in
           # }
           {
             criteria = { title = "Firefox — Sharing Indicator"; };
-            command = "floating enable, nofocus";
-          }
-          {
-            criteria = { class = "ffxiv_dx11.exe"; };
-            command = "floating enable";
-          }
-          {
-            criteria = { class = "xivlauncher.exe"; };
-            command = "floating enable";
+            command = "floating enable, nofocus, border pixel";
           }
         ];
       };
