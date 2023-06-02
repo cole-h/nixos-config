@@ -18,6 +18,7 @@
 
         openssh.authorizedKeys.keys = config.users.users.root.openssh.authorizedKeys.keys ++ [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO0cqQLClwMANrKjuC9nKWSjHLS2rcDjW90y/2PqZ0vb u0_a357@localhost"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICXXPhHuL/ZNGU5XabPZWt3MG1tUIseF2Z7yKPgK1a/I vin@catacendre"
         ];
       };
 

@@ -10,6 +10,7 @@
     # nixpkgs.url = "github:nixos/nixpkgs/master";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
+    # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     agenix-cli = {
       url = "github:cole-h/agenix-cli";
@@ -18,6 +19,7 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "darwin";
     };
     home = {
       url = "github:nix-community/home-manager";
@@ -30,6 +32,10 @@
     # nix = { url = "github:edolstra/nix/lazy-trees"; inputs.nixpkgs.follows = "nixpkgs"; };
     naersk = {
       url = "github:nix-community/naersk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    darwin = {
+      url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -46,6 +52,7 @@
         forAllSystems
         nameValuePair
         mkNixosSystem
+        mkDarwinSystem
         ;
 
       inherit (inputs.nixpkgs.lib)
@@ -68,6 +75,18 @@
                   ;
               }))
           (import ./nixos { inherit inputs; });
+
+      darwinConfigurations =
+        builtins.mapAttrs
+          (flip
+            ({ system, modules ? [ ] }: hostname:
+              mkDarwinSystem {
+                inherit
+                  system
+                  modules
+                  ;
+              }))
+          (import ./darwin { inherit inputs; });
 
       packages = forAllSystems
         ({ system, ... }:
