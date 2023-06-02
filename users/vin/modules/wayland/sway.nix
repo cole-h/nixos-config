@@ -471,7 +471,7 @@ in
           # }
           {
             criteria = { title = "Firefox — Sharing Indicator"; };
-            command = "floating enable, nofocus, border pixel";
+            command = "floating enable, nofocus, border pixel 2";
           }
         ];
       };
