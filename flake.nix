@@ -55,7 +55,7 @@
     {
       inherit inputs;
 
-      lib = import ./nix/lib.nix { inherit inputs; };
+      lib = import ./lib/lib.nix { inherit inputs; };
 
       nixosConfigurations =
         builtins.mapAttrs
