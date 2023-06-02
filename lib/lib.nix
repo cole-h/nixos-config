@@ -52,4 +52,12 @@ rec {
     inputs.nixpkgs.lib.nixosSystem {
       inherit system modules specialArgs;
     };
+
+  mkDarwinSystem =
+    { system
+    , modules
+    }:
+    inputs.darwin.lib.darwinSystem {
+      inherit system modules specialArgs;
+    };
 }
