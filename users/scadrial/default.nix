@@ -1,0 +1,3 @@
+{
+  vin = import ./vin;
+}

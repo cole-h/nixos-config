@@ -1,3 +1,3 @@
 {
-  vin = import ./vin;
+  scadrial = import ./scadrial;
 }
