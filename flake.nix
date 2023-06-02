@@ -27,7 +27,7 @@
       inherit (inputs.self.lib)
         forAllSystems
         nameValuePair
-        mkSystem
+        mkNixosSystem
         ;
 
       inherit (inputs.nixpkgs.lib)
@@ -43,13 +43,13 @@
         builtins.mapAttrs
           (flip
             ({ system, modules ? [ ] }: hostname:
-              mkSystem {
+              mkNixosSystem {
                 inherit
                   system
                   modules
                   ;
               }))
-          (import ./hosts { inherit inputs; });
+          (import ./nixos { inherit inputs; });
 
       packages = forAllSystems
         ({ system, ... }:

@@ -45,7 +45,7 @@ rec {
     };
   };
 
-  mkSystem =
+  mkNixosSystem =
     { system
     , modules
     }:
