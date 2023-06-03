@@ -17,7 +17,6 @@
       nix-top # see what's building
       openssl # playing with tls and more
       par # nice paragraph formatter
-      psmisc # ps
       ripgrep # grep but better
       rsync # send files over ssh
       tokei # code metrics

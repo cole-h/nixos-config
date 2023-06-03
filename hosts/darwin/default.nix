@@ -38,7 +38,7 @@ let
             };
 
             nix = { lib, ... }: {
-              nix.package = lib.mkForce inputs.nix.packages.${system}.default;
+              # nix.package = lib.mkForce inputs.nix.packages.${system}.default;
             };
           in
           [

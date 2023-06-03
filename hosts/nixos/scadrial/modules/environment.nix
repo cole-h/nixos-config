@@ -20,6 +20,7 @@
       musl.dev # for musl-gcc, static compilation of rust programs
       pavucontrol # volume gui
       pciutils # lspci, etc
+      psmisc # ps
       strace # trace syscalls and stuff
       usbutils # lsusb
       wireguard-tools # wg, etc.
