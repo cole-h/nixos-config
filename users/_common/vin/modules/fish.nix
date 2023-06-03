@@ -100,12 +100,6 @@ in
       interactiveShellInit = ''
         set --append fish_user_paths $HOME/.cargo/bin
 
-        # For zoxide's fzf window
-        set --global --export _ZO_FZF_OPTS '--no-sort --reverse --border --height 40%'
-
-        # Miscellaneous exports
-        set --global --export LS_COLORS 'ow=36:di=1;34;40:fi=32:ex=31:ln=35:'
-
         # wezterm integration
         if not set -q __ksi_prompt_state
           function __ksi_mark_output_start --on-event fish_preexec
