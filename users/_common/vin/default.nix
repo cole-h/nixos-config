@@ -35,7 +35,6 @@
         # calibre # ebook manager
         dfmt # par + fmt but better
         # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
-        firefox-bin
         # foliate
         git-absorb
         jq # json fiddling
@@ -48,20 +47,6 @@
         # xivlauncher
         yt-dlp # youtube-dl but better
         zellij # better than tmux
-
-        (vscode-with-extensions.override {
-          vscodeExtensions = with vscode-extensions; [
-            ms-vsliveshare.vsliveshare
-            rust-lang.rust-analyzer
-            hashicorp.terraform
-            golang.go
-            eamodio.gitlens
-            bbenoist.nix
-            stkb.rewrap
-            usernamehw.errorlens
-            editorconfig.editorconfig
-          ];
-        })
       ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
