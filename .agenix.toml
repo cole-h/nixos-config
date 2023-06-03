@@ -1,7 +1,7 @@
 [identities]
 cole-h = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINMcTaqUZSwv6YW8lx/JhsAZTdNSSC2fR8Pgk8woeFKh"
 scadrial = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILcskrV03RenqOdkvVFP2iPBaAlY3XR8QqWbK5Ckeb4I"
-cultivation = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFAeiXhkOQykUjLz5bbotpWdwtmRTOzv4ZyWnGPzUyIn root@cultivation"
+cultivation = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFAeiXhkOQykUjLz5bbotpWdwtmRTOzv4ZyWnGPzUyIn"
 
 [groups]
 all = [
