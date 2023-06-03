@@ -86,7 +86,7 @@
                   modules
                   ;
               }))
-          (import ./darwin { inherit inputs; });
+          (import ./hosts/darwin { inherit inputs; });
 
       packages = forAllSystems
         ({ system, ... }:

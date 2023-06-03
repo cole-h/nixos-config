@@ -26,7 +26,7 @@ let
           let
             home = { config, ... }: {
               home-manager = {
-                users = import ../users/catacendre;
+                users = import ../../users/catacendre;
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 verbose = true;
@@ -61,9 +61,8 @@ builtins.mapAttrs
           host = if hostname != null then hostname else hostname';
         in
         [
-          inputs.agenix.darwinModules.age
+          # inputs.agenix.darwinModules.age
 
-          # TODO: validate
           {
             _module.args = specialArgs;
             nixpkgs.config = nixpkgsConfig;
@@ -71,7 +70,7 @@ builtins.mapAttrs
           }
           ({ lib, ... }: { networking.hostName = lib.mkDefault host; })
 
-          ../modules
+          # ./_modules
           (./. + "/${host}/configuration.nix")
         ]
         ++ extraModules;
