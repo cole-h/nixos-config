@@ -1,16 +1,16 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, secretsPath, ... }:
 {
   age.secrets = {
     scadrial-key = {
-      file = ../../../../secrets/scadrial+cultivation/zrepl/scadrial.key;
+      file = "${secretsPath}/scadrial+cultivation/zrepl/scadrial.key";
     };
 
     scadrial-crt = {
-      file = ../../../../secrets/scadrial+cultivation/zrepl/scadrial.crt;
+      file = "${secretsPath}/scadrial+cultivation/zrepl/scadrial.crt";
     };
 
     cultivation-crt = {
-      file = ../../../../secrets/scadrial+cultivation/zrepl/cultivation.crt;
+      file = "${secretsPath}/scadrial+cultivation/zrepl/cultivation.crt";
     };
   };
 

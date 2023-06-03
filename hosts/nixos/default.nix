@@ -23,7 +23,7 @@ let
           let
             home = { config, ... }: {
               home-manager = {
-                users = import ../users/scadrial;
+                users = import ../../users/scadrial;
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 verbose = true;

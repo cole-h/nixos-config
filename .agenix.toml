@@ -11,14 +11,14 @@ all = [
 ]
 
 [[paths]]
-glob = "nixos/scadrial/**"
+glob = "hosts/nixos/scadrial/**"
 identities = [
   "cole-h",
   "scadrial",
 ]
 
 [[paths]]
-glob = "nixos/cultivation/**"
+glob = "hosts/nixos/cultivation/**"
 identities = [
   "cole-h",
   "cultivation",

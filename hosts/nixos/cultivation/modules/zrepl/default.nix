@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, secretsPath, ... }:
 {
   age.secrets = {
     /*
@@ -9,19 +9,19 @@
         -out $name.crt -addext "subjectAltName = DNS:$name" -subj "/CN=$name"; end
     */
     cultivation-key = {
-      file = ../../../../secrets/scadrial+cultivation/zrepl/cultivation.key;
+      file = "${secretsPath}/scadrial+cultivation/zrepl/cultivation.key";
     };
 
     cultivation-crt = {
-      file = ../../../../secrets/scadrial+cultivation/zrepl/cultivation.crt;
+      file = "${secretsPath}/scadrial+cultivation/zrepl/cultivation.crt";
     };
 
     scadrial-crt = {
-      file = ../../../../secrets/scadrial+cultivation/zrepl/scadrial.crt;
+      file = "${secretsPath}/scadrial+cultivation/zrepl/scadrial.crt";
     };
 
     bpool = {
-      file = ../../../../secrets/scadrial+cultivation/bpool;
+      file = "${secretsPath}/scadrial+cultivation/bpool";
     };
   };
 

@@ -74,7 +74,7 @@
                   modules
                   ;
               }))
-          (import ./nixos { inherit inputs; });
+          (import ./hosts/nixos { inherit inputs; });
 
       darwinConfigurations =
         builtins.mapAttrs

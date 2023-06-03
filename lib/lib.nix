@@ -43,6 +43,8 @@ rec {
     my = import ../my.nix {
       inherit (inputs.nixpkgs) lib;
     };
+
+    secretsPath = ../secrets;
   };
 
   mkNixosSystem =
