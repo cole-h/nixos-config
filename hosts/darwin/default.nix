@@ -70,6 +70,7 @@ builtins.mapAttrs
           }
           ({ lib, ... }: { networking.hostName = lib.mkDefault host; })
 
+          ../_common
           # ./_modules
           (./. + "/${host}/configuration.nix")
         ]
