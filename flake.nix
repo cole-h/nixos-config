@@ -20,6 +20,7 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "darwin";
+      inputs.home-manager.follows = "home";
     };
     home = {
       url = "github:nix-community/home-manager";
