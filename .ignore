@@ -1,6 +1,2 @@
 secrets/
-users/vin/modules/weechat/config/
-users/vin/modules/emacs/config/
 *.xml
-hosts/scadrial/modules/borg/src/
-drvs/iosevka/node-packages.nix
