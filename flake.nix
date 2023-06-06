@@ -90,15 +90,11 @@
               }))
           (import ./hosts/darwin { inherit inputs; });
 
-      packages = forAllSystems
-        ({ system, ... }:
-          (builtins.mapAttrs
-            (hostname: conf: conf.config.system.build.toplevel)
-            inputs.self.nixosConfigurations
-          ) // {
-            default = inputs.self.packages.${system}.scadrial;
-            iso = import ./nix/iso.nix { inherit inputs system; };
-          });
+      packages = {
+        aarch64-darwin.catacendre = inputs.self.darwinConfigurations.catacendre.config.system.build.toplevel;
+        x86_64-linux.scadrial = inputs.self.nixosConfigurations.x86_64-linux.scadrial.config.system.build.toplevel;
+        x86_64-linux.iso = import ./lib/iso.nix { system = "x86_64-linux"; inherit inputs; };
+      };
 
       legacyPackages = forAllSystems
         ({ pkgs, ... }: builtins.trace "Using <nixpkgs> compat wrapper..." (pkgs.recurseIntoAttrs pkgs));

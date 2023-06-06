@@ -1,7 +1,9 @@
 { inputs
 }:
 rec {
-  allSystems = [ "x86_64-linux" ];
+  linuxSystems = [ "x86_64-linux" ];
+  darwinSystems = [ "aarch64-darwin" ];
+  allSystems = linuxSystems ++ darwinSystems;
 
   nameValuePair = name: value: { inherit name value; };
   genAttrs = names: f: builtins.listToAttrs (map (n: nameValuePair n (f n)) names);
