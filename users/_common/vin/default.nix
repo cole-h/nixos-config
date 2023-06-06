@@ -41,7 +41,6 @@
         libnotify # notifications part 2: electric boogaloo
         obsidian # notes zettelkasten type thing
         # TODO: still necessary?
-        rust-analyzer # until rustup 1.26 is released, which includes the rust-analyzer proxy
         rustup
         vault
         # xivlauncher
