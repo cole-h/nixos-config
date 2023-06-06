@@ -1,4 +1,7 @@
 {
+  # NOTE: Required for a proper setup (e.g. home-manager stuff wasn't added before I added this)
+  programs.zsh.enable = true;
+
   programs.fish.enable = true;
   programs.fish.loginShellInit = ''
     for p in (string split " " $NIX_PROFILES)
