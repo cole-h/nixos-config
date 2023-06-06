@@ -1,6 +1,7 @@
 {
   imports =
     [
+      ./modules
       ../../_common/vin
     ];
 
