@@ -1,47 +1,43 @@
 { config, pkgs, lib, ... }:
 {
-  boot = {
-    # Use the systemd-boot EFI boot loader.
-    loader.systemd-boot.enable = true;
-    loader.systemd-boot.configurationLimit = 128;
-    loader.systemd-boot.consoleMode = "max"; # 1920x1080? poggers
-    loader.systemd-boot.memtest86.enable = true;
-    loader.efi.canTouchEfiVariables = true;
-    loader.timeout = 1;
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 128;
+  boot.loader.systemd-boot.consoleMode = "max"; # 1920x1080? poggers
+  boot.loader.systemd-boot.memtest86.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 1;
 
-    supportedFilesystems = [
-      "zfs"
-      "ntfs" # allows r/w ntfs
-    ];
+  boot.supportedFilesystems = [
+    "zfs"
+    "ntfs" # allows r/w ntfs
+  ];
 
-    zfs.requestEncryptionCredentials = [ "apool/ROOT" ];
-    zfs.forceImportRoot = false;
+  boot.zfs.requestEncryptionCredentials = [ "apool/ROOT" ];
+  boot.zfs.forceImportRoot = false;
 
-    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-    extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
-    extraModprobeConfig = ''
-      options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"
-    '';
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"
+  '';
 
-    kernel.sysctl = {
-      "kernel.sysrq" = 1;
-      "kernel.printk" = "3 4 3 3"; # don't let logging bleed into TTY
-    };
-
-    kernelParams = [
-      "udev.log_priority=3"
-    ];
-
-    # Allow emulated cross compilation for aarch64
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.kernel.sysctl = {
+    "kernel.sysrq" = 1;
+    "kernel.printk" = "3 4 3 3"; # don't let logging bleed into TTY
   };
+
+  boot.kernelParams = [
+    "udev.log_priority=3"
+  ];
+
+  # Allow emulated cross compilation for aarch64
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "us";
-  };
+  console.font = "Lat2-Terminus16";
+  console.keyMap = "us";
 
   # Clean up /tmp and other systemd-tmpfiles-controlled places before shutting down.
   systemd.services."cleanup-tmp-before-poweroff" = {
