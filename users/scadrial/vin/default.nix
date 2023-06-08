@@ -45,7 +45,7 @@
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
     # otherwise sessionVariables won't be sourced in new shells
     sessionVariables = {
-      SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh"; # gnome-keyring
+      SSH_AUTH_SOCK = "${config.home.homeDirectory}/.1password/agent.sock";
       NIXOS_OZONE_WL = "1"; # enable Ozone Wayland for Electron apps
     };
 
