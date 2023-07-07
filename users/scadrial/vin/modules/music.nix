@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     youtube-music
+    spotify
   ];
 
   # XXX: super duper ultra hack to make my FiiO K3 DAC not suspend when
