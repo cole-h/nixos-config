@@ -36,8 +36,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     darwin = {
-      # url = "github:LnL7/nix-darwin";
-      url = "github:cole-h/nix-darwin/auto-uid";
+      url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
