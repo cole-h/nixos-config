@@ -42,7 +42,7 @@
 
     # Not flakes
     wezterm = {
-      url = "git+https://github.com/wez/wezterm.git?submodules=1";
+      url = "git+https://github.com/wez/wezterm.git?submodules=1&rev=afb485eb4748381fc28abb6aae151872a114c9cc";
       flake = false;
     };
   };
