@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     ttf_bitstream_vera
     font-awesome_4
     unifont
