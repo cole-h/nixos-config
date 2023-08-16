@@ -32,7 +32,7 @@
     };
     # nix = { url = "github:edolstra/nix/lazy-trees"; inputs.nixpkgs.follows = "nixpkgs"; };
     naersk = {
-      url = "github:nix-community/naersk";
+      url = "github:nix-community/naersk/d9a33d69a9c421d64c8d925428864e93be895dcc";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     darwin = {
