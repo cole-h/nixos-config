@@ -18,6 +18,13 @@
   # Update microcode to address "Firmware Bug" messages on startup.
   hardware.cpu.intel.updateMicrocode = true;
 
+  # Enable RAS event logging.
+  hardware.rasdaemon.enable = true;
+  hardware.rasdaemon.record = true;
+  hardware.rasdaemon.extraModules = [
+    "i7core_edac"
+  ];
+
   # Use schedutil governor.
   powerManagement.cpuFreqGovernor = "schedutil";
 
