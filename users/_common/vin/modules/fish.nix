@@ -84,11 +84,11 @@ in
       };
 
       shellAbbrs = {
-        l = "exa";
-        la = "exa -la";
-        ll = "exa -l";
-        ls = "exa";
-        tree = "exa -T";
+        l = "eza";
+        la = "eza -la";
+        ll = "eza -l";
+        ls = "eza";
+        tree = "eza -T";
         "cd.." = "cd ..";
         "..." = "../..";
         "...." = "../../..";

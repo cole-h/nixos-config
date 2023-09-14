@@ -4,7 +4,7 @@
     [
       bottom # fancy top
       dnsutils # dig, nslookup
-      exa # ls but better
+      eza # ls but better
       fd # find files
       ffmpeg # video conversion and stuff
       file # check file types
