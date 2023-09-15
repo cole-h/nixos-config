@@ -5,7 +5,7 @@
     font-awesome_4
     unifont
 
-    noto-fonts-emoji # emoji font
+    noto-fonts-color-emoji # emoji font
     noto-fonts
     noto-fonts-cjk-sans
     ttf_bitstream_vera
