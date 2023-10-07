@@ -1,17 +1,36 @@
 { lib, pkgs, ... }:
 {
-  boot.kernelPackages = lib.mkForce
-    (pkgs.linuxPackagesFor
-      (pkgs.linuxKernel.packages.linux_6_1.kernel.override {
-        argsOverride = rec {
-          version = "6.1.23";
-          modDirVersion = version;
-          src = pkgs.fetchurl {
-            url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-            sha256 = "sha256-dFg3LodQr+N/0aw+erPCLyxgGPdg+BNAVaA/VKuj6+s=";
+  boot.kernelPackages =
+    let
+      kernelPackage = pkgs.linuxKernel.packages.linux_6_1.kernel;
+    in
+    lib.mkForce
+      (pkgs.linuxPackagesFor
+        (kernelPackage.override {
+          kernelPatches =
+            lib.subtractLists
+              [
+                # This Dell XPS patch doesn't apply to 6.1.23
+                # Caused by: https://github.com/NixOS/nixpkgs/pull/255824
+                pkgs.linuxKernel.kernelPatches.dell_xps_regression
+              ]
+              kernelPackage.kernelPatches;
+
+          # X86_PLATFORM_DRIVERS_HP option is unused on 6.1.23
+          # Caused by: https://github.com/NixOS/nixpkgs/pull/255846
+          structuredExtraConfig = {
+            X86_PLATFORM_DRIVERS_HP = lib.mkForce lib.kernel.unset;
           };
-        };
-      }));
+
+          argsOverride = rec {
+            version = "6.1.23";
+            modDirVersion = version;
+            src = pkgs.fetchurl {
+              url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+              sha256 = "sha256-dFg3LodQr+N/0aw+erPCLyxgGPdg+BNAVaA/VKuj6+s=";
+            };
+          };
+        }));
 
   boot.kernelParams = [
     "module_blacklist=i915"
