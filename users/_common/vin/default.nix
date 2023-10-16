@@ -42,6 +42,7 @@
         obsidian # notes zettelkasten type thing
         # TODO: still necessary?
         rustup
+        sd # sed but more intuitive
         vault
         # xivlauncher
         yt-dlp # youtube-dl but better
