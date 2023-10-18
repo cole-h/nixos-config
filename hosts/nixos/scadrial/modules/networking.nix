@@ -1,5 +1,7 @@
 { ... }:
-
+let
+  interface = "enp6s0";
+in
 {
   networking.useNetworkd = true;
   networking.useDHCP = false;
@@ -14,8 +16,9 @@
     # "100.100.100.100" # tailscale
   ];
   # networking.search = [ "example.com.beta.tailscale.net" ];
-  networking.defaultGateway = "192.168.1.1";
-  networking.interfaces.enp6s0.ipv4 = {
+  networking.defaultGateway.address = "192.168.1.1";
+  networking.defaultGateway.interface = interface;
+  networking.interfaces.${interface}.ipv4 = {
     addresses = [
       {
         address = "192.168.1.53";
