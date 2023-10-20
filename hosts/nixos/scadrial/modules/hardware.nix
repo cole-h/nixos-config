@@ -12,6 +12,11 @@
     pulse.enable = true;
   };
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings.General = {
+    ControllerMode = "bredr";
+  };
+
   # Enable OpenGL.
   hardware.opengl.enable = true;
 
