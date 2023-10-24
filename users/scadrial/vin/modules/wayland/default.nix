@@ -92,8 +92,8 @@ in
 
         Service = {
           Type = "simple";
-          ExecStart = "/run/wrappers/bin/gnome-keyring-daemon --start --foreground";
-          ExecReload = "/run/wrappers/bin/gnome-keyring-daemon --replace --foreground";
+          ExecStart = "/run/wrappers/bin/gnome-keyring-daemon --start --foreground --components=pkcs11,secrets";
+          ExecReload = "/run/wrappers/bin/gnome-keyring-daemon --replace --foreground --components=pkcs11,secrets";
           RestartSec = 3;
           Restart = "on-abort";
         };
