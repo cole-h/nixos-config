@@ -57,7 +57,7 @@
           "--greeting"
           "${greeting}"
           "--cmd"
-          ''"systemd-cat -t sway -- sway"''
+          ''"env __HM_SESS_VARS_SOURCED= systemd-cat -t sway -- sway"''
         ];
       in
       {
