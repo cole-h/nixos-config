@@ -42,6 +42,9 @@
         obsidian # notes zettelkasten type thing
         # TODO: still necessary?
         rustup
+        cargo-limit # deal with errors one at a time
+        cargo-temp # create temporary cargo projects
+        cargo-watch # watch rust projects for changes
         sd # sed but more intuitive
         vault
         # xivlauncher
