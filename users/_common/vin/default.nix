@@ -37,6 +37,7 @@
         # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
         # foliate
         git-absorb
+        gh # GitHub cli
         jq # json fiddling
         libnotify # notifications part 2: electric boogaloo
         obsidian # notes zettelkasten type thing
