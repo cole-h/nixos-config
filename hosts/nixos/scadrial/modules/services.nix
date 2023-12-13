@@ -35,7 +35,7 @@
   # Necessary for discovering network printers.
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
   };
 
   # services.udev.packages for packages with udev rules
@@ -68,10 +68,9 @@
       };
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
-  };
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+  xdg.portal.config.common.default = "*";
 
   services.mullvad.enable = true;
 
