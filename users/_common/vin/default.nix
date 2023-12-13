@@ -40,7 +40,6 @@
         gh # GitHub cli
         jq # json fiddling
         libnotify # notifications part 2: electric boogaloo
-        obsidian # notes zettelkasten type thing
         # TODO: still necessary?
         rustup
         cargo-limit # deal with errors one at a time
