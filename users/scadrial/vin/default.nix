@@ -11,9 +11,6 @@
 
   services.syncthing.enable = true;
 
-  home.file."Music".source =
-    config.lib.file.mkOutOfStoreSymlink "/shares/media/Music";
-
   # Finally, a cursor theme that displays hands on clickable objects
   home.pointerCursor = {
     package = pkgs.gnome.adwaita-icon-theme;
