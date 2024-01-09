@@ -14,6 +14,10 @@ in
     naersk = callPackage inputs.naersk { };
   };
 
+  # HACK: gocode was removed from Nixpkgs, but wasn't completely cleaned up
+  # https://github.com/NixOS/nixpkgs/pull/279217
+  gocode = final.hello;
+
   # small-ish overrides
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
 
