@@ -47,15 +47,6 @@
     }
   ];
 
-  # FIXME: can drop the override once mesa 23.3.1 is merged (currently 23.1.9, in case 23.3.1 breaks things)
-  hardware.opengl.package = (
-    (pkgs.mesa.overrideAttrs ({ mesonFlags ? [ ], patches ? [ ], ... }: {
-      patches = patches ++ [
-        ./nvc0-recognize-ada.patch
-      ];
-    }))
-  ).drivers;
-
   hardware.firmware = [
     (pkgs.stdenv.mkDerivation {
       pname = "nvidia-gsp-firmware";
