@@ -52,6 +52,8 @@
       pname = "nvidia-gsp-firmware";
       version = "525.60.11";
       # FIXME: will be 535.113.01 in linux 6.7 -- grep the linux source for `ad102_gsps` to find the version in case it changes
+      # https://elixir.bootlin.com/linux/latest/A/ident/ad102_gsps ("as a variable")
+      # Currently defined in: drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ad102.c
       src = pkgs.fetchurl {
         url = "https://us.download.nvidia.com/XFree86/Linux-x86_64/525.60.11/NVIDIA-Linux-x86_64-525.60.11.run";
         sha256 = "sha256-gW7mwuCBPMw9SnlY9x/EmjfGDv4dUdYUbBznJAOYPV0=";
