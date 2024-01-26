@@ -37,6 +37,7 @@
         git-absorb
         gh # GitHub cli
         jq # json fiddling
+        pgcli # much better than psql
         libnotify # notifications part 2: electric boogaloo
         rustup
         cargo-limit # deal with errors one at a time
