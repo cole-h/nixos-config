@@ -29,25 +29,21 @@
     enableDebugInfo = true;
     extraOutputsToInstall = [ "man" ];
 
-    # TODO: update skhd in nixpkgs
     packages = with pkgs;
       [
         # calibre # ebook manager
         dfmt # par + fmt but better
-        # (dwarf-fortress-packages.dwarf-fortress-full.override { enableSound = false; enableFPS = true; })
         # foliate
         git-absorb
         gh # GitHub cli
         jq # json fiddling
         libnotify # notifications part 2: electric boogaloo
-        # TODO: still necessary?
         rustup
         cargo-limit # deal with errors one at a time
         cargo-temp # create temporary cargo projects
         cargo-watch # watch rust projects for changes
         sd # sed but more intuitive
         vault
-        # xivlauncher
         yt-dlp # youtube-dl but better
         zellij # better than tmux
       ];
