@@ -44,6 +44,7 @@
         cargo-temp # create temporary cargo projects
         cargo-watch # watch rust projects for changes
         sd # sed but more intuitive
+        jujutsu # git-ish-thing
         vault
         yt-dlp # youtube-dl but better
         zellij # better than tmux
