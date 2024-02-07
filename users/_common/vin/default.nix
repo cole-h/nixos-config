@@ -32,19 +32,19 @@
     packages = with pkgs;
       [
         # calibre # ebook manager
-        dfmt # par + fmt but better
-        # foliate
-        git-absorb
-        gh # GitHub cli
-        jq # json fiddling
-        pgcli # much better than psql
-        libnotify # notifications part 2: electric boogaloo
-        rustup
         cargo-limit # deal with errors one at a time
         cargo-temp # create temporary cargo projects
         cargo-watch # watch rust projects for changes
-        sd # sed but more intuitive
+        dfmt # par + fmt but better
+        # foliate
+        gh # GitHub cli
+        git-absorb
+        jq # json fiddling
         jujutsu # git-ish-thing
+        libnotify # notifications part 2: electric boogaloo
+        pgcli # much better than psql
+        rustup
+        sd # sed but more intuitive
         vault
         yt-dlp # youtube-dl but better
         zellij # better than tmux
