@@ -30,4 +30,7 @@
 
   # Don't wait for udev to finish processing events.
   systemd.services.systemd-udev-settle.serviceConfig.ExecStart = [ "" "${pkgs.coreutils}/bin/true" ];
+
+  # Better swap behavior?
+  zramSwap.enable = true;
 }
