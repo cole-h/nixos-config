@@ -1,5 +1,12 @@
 { config, pkgs, lib, ... }:
 {
+  imports = [
+    ./remote-unlock.nix
+  ];
+
+  # Systemd initrd
+  boot.initrd.systemd.enable = true;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 128;
@@ -27,16 +34,11 @@
     "kernel.printk" = "3 4 3 3"; # don't let logging bleed into TTY
   };
 
-  boot.kernelParams = [
-    "udev.log_priority=3"
-  ];
-
   # Allow emulated cross compilation for aarch64
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  console.font = "Lat2-Terminus16";
   console.keyMap = "us";
 
   # Clean up /tmp and other systemd-tmpfiles-controlled places before shutting down.

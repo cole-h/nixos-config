@@ -12,9 +12,6 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback apool/ROOT/local/tmp@blank
-  '';
 
   fileSystems."/" =
     { device = "apool/ROOT/system/root";

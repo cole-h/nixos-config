@@ -25,7 +25,6 @@
 
         openssh.authorizedKeys.keys = config.users.users.root.openssh.authorizedKeys.keys ++ [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO0cqQLClwMANrKjuC9nKWSjHLS2rcDjW90y/2PqZ0vb u0_a357@localhost"
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICXXPhHuL/ZNGU5XabPZWt3MG1tUIseF2Z7yKPgK1a/I vin@catacendre"
         ];
       };
 
@@ -35,6 +34,7 @@
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFAeiXhkOQykUjLz5bbotpWdwtmRTOzv4ZyWnGPzUyIn root@cultivation"
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINMcTaqUZSwv6YW8lx/JhsAZTdNSSC2fR8Pgk8woeFKh vin@scadrial"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICXXPhHuL/ZNGU5XabPZWt3MG1tUIseF2Z7yKPgK1a/I vin@catacendre"
         ];
       };
     };

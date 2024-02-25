@@ -3,7 +3,6 @@
 {
   imports =
     [
-      ./boot.nix # configuration related to boot
       ./environment.nix # configuration related to environment.*
       ./fonts.nix # configuration related to fonts
       ./hardware.nix # configuration related to hardware
@@ -16,6 +15,7 @@
       ./rtx4090-compat.nix # configuration related to making my 4090 + nouveau work
       ./ime.nix # configuration related to setting up an ime
 
+      ./boot # configuration related to boot
       ./downloads # configuration related to torrenting
       ./libvirt # configuration related to libvirt and vfio + pci passthrough
       ./zrepl # configuration related to zrepl
