@@ -17,14 +17,6 @@ in
   # small-ish overrides
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
 
-  # Fix build with GCC13
-  # https://github.com/NixOS/nixpkgs/pull/281288
-  j4-dmenu-desktop = prev.j4-dmenu-desktop.overrideAttrs ({ env ? { }, ... }: {
-    env = env // {
-      CXXFLAGS = "-include cstdint";
-    };
-  });
-
   # larger overrides
   # element-desktop = prev.element-desktop.overrideAttrs
   #   ({ buildInputs ? [ ], postFixup ? "", ... }: {

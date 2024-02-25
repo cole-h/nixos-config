@@ -19,7 +19,6 @@ in
     kitty # alt terminal as backup
     libnotify # notifications part 2: electric boogaloo
     wlsunset # blue-light filter
-    j4-dmenu-desktop # desktop files
     rofi # has rofi-emoji as a plugin; [overlays]
   ];
 

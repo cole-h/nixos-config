@@ -32,11 +32,9 @@ let
   term = "${pkgs.wezterm}/bin/wezterm";
   # alacritty' = "${pkgs.alacritty}/bin/alacritty";
   kitty = "${pkgs.kitty}/bin/kitty";
-  dmenu = "${pkgs.fuzzel}/bin/fuzzel --dmenu --no-icons --dpi-aware=no --background-color '282828ff' --text-color 'ebdbb2ff' --match-color 'd65d0eff' --selection-color '3c3836ff' --border-color 'd65d0eff'";
+  dmenu = "${pkgs.fuzzel}/bin/fuzzel --no-icons --dpi-aware=no --background-color '282828ff' --text-color 'ebdbb2ff' --match-color 'd65d0eff' --selection-color '3c3836ff' --border-color 'd65d0eff'";
   menu = ''
-    ${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop \
-        --usage-log=${config.xdg.cacheHome}/.j4_history \
-        --dmenu="${dmenu}"
+    ${dmenu}
   '';
 
   inherit (my) wallpaper;
