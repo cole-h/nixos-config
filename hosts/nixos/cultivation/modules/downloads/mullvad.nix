@@ -14,16 +14,18 @@
     let
       # Allow all tailscale IPs to connect, in case something goes REALLY wrong
       # and I can't access it over LAN.
+      # https://github.com/mullvad/mullvadvpn-app/pull/5011#issue-1850704976
       ts = pkgs.writeText "tailscale.rules" ''
-        table inet excludeTraffic {
-          chain excludeOutgoing {
-            type route hook output priority -100; policy accept;
-            ip daddr 100.64.0.0/10 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
+        table inet mullvad-ts {
+          chain prerouting {
+            type filter hook prerouting priority -100; policy accept;
+            ip saddr 100.64.0.0/10 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
           }
 
-          chain excludeIncoming {
-            type filter hook input priority -100; policy accept;
-            ip saddr 100.64.0.0/10 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
+          chain outgoing {
+            type route hook output priority -100; policy accept;
+            meta mark 0x80000 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
+            ip daddr 100.64.0.0/10 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
           }
         }
       '';

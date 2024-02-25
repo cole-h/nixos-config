@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 let
   interface = "eth0";
 in
@@ -24,4 +24,12 @@ in
 
   # https://tailscale.com/kb/1063/install-nixos
   services.tailscale.enable = true;
+  services.tailscale.openFirewall = true;
+  systemd.services.tailscaled.serviceConfig.ExecStartPost = "${config.services.tailscale.package}/bin/tailscale up --advertise-routes=192.168.1.0/24";
+
+  # Enable IP forwarding for tailscale's subnet routing
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
 }
