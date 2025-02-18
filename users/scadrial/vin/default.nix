@@ -27,7 +27,8 @@
         (vscode-with-extensions.override {
           vscodeExtensions = with vscode-extensions; [
             ms-vsliveshare.vsliveshare
-            rust-lang.rust-analyzer
+            # https://github.com/NixOS/nixpkgs/pull/383049
+            # rust-lang.rust-analyzer
             hashicorp.terraform
             golang.go
             eamodio.gitlens
