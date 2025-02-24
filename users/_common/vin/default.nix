@@ -41,7 +41,6 @@
         git-absorb
         hyperfine # runtime performance measuring
         jq # json fiddling
-        jujutsu # git-ish-thing
         libnotify # notifications part 2: electric boogaloo
         pgcli # much better than psql
         rustup
