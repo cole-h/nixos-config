@@ -13,6 +13,7 @@
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
+  time.hardwareClockInLocalTime = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
