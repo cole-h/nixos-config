@@ -101,6 +101,10 @@ in
       interactiveShellInit = ''
         set --append fish_user_paths $HOME/.cargo/bin
 
+        if command -sq jj
+          COMPLETE=fish jj | source
+        end
+
         # wezterm integration
         if not set -q __ksi_prompt_state
           function __ksi_mark_output_start --on-event fish_preexec
