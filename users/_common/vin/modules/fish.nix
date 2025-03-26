@@ -46,6 +46,25 @@ in
           body = ''
               set -l last_pipestatus $pipestatus
               set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
+
+              set -l last_cmd "$history[1]"
+              set -l last_exe (string split ' ' -- $last_cmd)[1]
+
+              # NOTE: jj exits with code 3[1] when e.g. its pager sees a SIGPIPE (i.e. when it exits before
+              # consuming the entire pipe). However, when e.g. git's pager sees a SIGPIPE, it exits with that
+              # signal (at some point...?), and fish will reinterpret it as status 141 (128 + signal 13 for
+              # SIGPIPE) and then ignore it in `__fish_print_pipestatus`[2], since SIGPIPE is usually not an
+              # error. Blanket ignoring an exit code of 3 is probably a bad idea (since it's not a
+              # standardized exit code), so let's follow what git does and fake the status to 141.
+              # 
+              # [1]: https://github.com/jj-vcs/jj/blob/ffad6fe96f1c6415715f9aa58e3764f4a3429af2/cli/src/command_error.rs#L893
+              # [2]: https://github.com/fish-shell/fish-shell/blob/360cfdb7ae7af9a73cc3f357a78bd35b5b12e829/share/functions/__fish_print_pipestatus.fish#L22-L24
+              if test "$last_exe" = jj; and test "$__fish_last_status" = 3
+                  # 128 + SIGPIPE (13)
+                  set last_pipestatus 141
+                  set __fish_last_status 141
+              end
+
               set -l normal (set_color normal)
               set -q fish_color_status
               or set -g fish_color_status red
