@@ -18,6 +18,14 @@ in
         fish_greeting = "";
         fish_user_key_bindings = "bind \\cw backward-kill-word";
 
+        jj = {
+          body = ''
+            set -x TMPDIR /tmp/jj
+            test -e $TMPDIR || mkdir -p $TMPDIR
+            command jj $argv
+          '';
+        };
+
         # https://github.com/jorgebucaran/humantime.fish/blob/53b2adb4c6aff0da569c931a3cc006efcd0e7219/functions/humantime.fish
         humantime = {
           argumentNames = [ "ms" ];
