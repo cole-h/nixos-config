@@ -99,13 +99,14 @@ in
               set -l statusb_color (set_color $bold_flag $fish_color_status)
               set -l prompt_status (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
               set -l last_command_time (humantime $CMD_DURATION)
+              set -l cur_date (date '+%H:%M:%S %d %b %Y')
 
               test "$__ksi_prompt_state" != prompt-start
               and printf "\e]133;D\a"
               set --global __ksi_prompt_state prompt-start
               printf "\e]133;A\a"
               printf "\e]133;P\a"
-              echo -n -s (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status " "$last_command_time $suffix " "
+              echo -e -n -s (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status " "(set_color cyan)$cur_date $normal " "$last_command_time "\n" $suffix " "
               printf "\e]133;B\a"
           '';
         };
