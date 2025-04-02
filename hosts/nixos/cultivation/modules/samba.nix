@@ -2,16 +2,16 @@
   services.samba = {
     enable = true;
     openFirewall = true;
-    securityType = "user";
 
-    extraConfig = ''
-      workgroup = COSMERE
-      server string = smbnix
-      server role = standalone server
-      map to guest = bad user
-    '';
+    settings = {
+      global = {
+        "security" = "user";
+        "workgroup" = "COSMERE";
+        "server string" = "smbnix";
+        "server role" = "standalone server";
+        "map to guest" = "bad user";
+      };
 
-    shares = {
       media = {
         path = "/shares/media";
         comment = "cultivation shared media";
