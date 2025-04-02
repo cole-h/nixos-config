@@ -16,13 +16,43 @@ in
         sshno = "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $argv";
         # std = "rustup doc --std";
         fish_greeting = "";
-        fish_user_key_bindings = "bind \\cw backward-kill-word";
-
         jj = {
           body = ''
             set -x TMPDIR /tmp/jj
             test -e $TMPDIR || mkdir -p $TMPDIR
             command jj $argv
+          '';
+        };
+
+        maybe_fg_or_exec = {
+          description = "If the command you're about to run is backgrounded, foreground it instead of starting a new one";
+          body = ''
+            set -l cmd (commandline -b)
+
+            for line in (jobs)
+                set -l trimmed (string trim "$line")
+                set trimmed (string replace -a \t " " "$trimmed")
+                set -l parts (string split " " "$trimmed")
+                set -l job_id "$parts[1]"
+                set -l cmdline "$parts[5..-1]"
+
+                test -z "$cmdline" && continue
+
+                if test "$cmdline" = "$cmd"
+                    commandline -r "fg %$job_id"
+                    commandline -f execute
+                    return
+                end
+            end
+
+            commandline -f execute
+          '';
+        };
+
+        fish_user_key_bindings = {
+          body = ''
+            bind \\cw backward-kill-word
+            bind enter maybe_fg_or_exec
           '';
         };
 
