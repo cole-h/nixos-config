@@ -13,7 +13,7 @@
     ];
 
   boot = {
-    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_13;
     supportedFilesystems = [ "zfs" ];
     zfs.extraPools = [ "bpool" ];
     zfs.requestEncryptionCredentials = [ "bpool" ];
