@@ -18,7 +18,7 @@ in
         fish_greeting = "";
         jj = {
           body = ''
-            set -x TMPDIR /tmp/jj
+            set -l TMPDIR /tmp/jj
             test -e $TMPDIR || mkdir -p $TMPDIR
             command jj $argv
           '';
