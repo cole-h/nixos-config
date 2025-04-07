@@ -100,12 +100,12 @@ in
         "*".bg = "${wallpaper} fit";
         "DP-2" = {
           resolution = "1920x1080";
-          position = "0,180";
+          position = "2560,180";
           scale = "1";
         };
         "DP-3" = {
           resolution = "2560x1440@165Hz";
-          position = "1920,0";
+          position = "0,0";
           scale = "1";
         };
       };
