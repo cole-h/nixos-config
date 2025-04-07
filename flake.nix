@@ -27,7 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix = {
-      url = "github:nixos/nix";
+      url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
       # url = "github:edolstra/nix/lazy-trees";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
