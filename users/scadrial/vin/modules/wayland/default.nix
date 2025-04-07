@@ -20,6 +20,7 @@ in
     libnotify # notifications part 2: electric boogaloo
     wlsunset # blue-light filter
     rofi # has rofi-emoji as a plugin; [overlays]
+    niri # [overlays]
   ];
 
   gtk = {

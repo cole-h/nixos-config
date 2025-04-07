@@ -15,6 +15,7 @@ in
   };
 
   # small-ish overrides
+  niri = inputs.niri.packages.${final.stdenv.system}.default;
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
   mpv-unwrapped = prev.mpv-unwrapped.override { cddaSupport = true; };
 
