@@ -10,4 +10,6 @@ in
       rev = self.shortRev or "dirty";
     in
     lib.mkForce ".${date}.${rev}-cosmere";
+
+  system.switch.enableNg = true;
 }
