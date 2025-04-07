@@ -57,7 +57,11 @@
   };
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+  xdg.portal.extraPortals = with pkgs; [
+    xdg-desktop-portal-wlr
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-gnome
+   ];
   xdg.portal.config.common.default = "*";
 
   services.mullvad.enable = true;
