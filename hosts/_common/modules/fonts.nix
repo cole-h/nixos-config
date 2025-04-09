@@ -3,6 +3,7 @@
   fonts.packages = with pkgs; [
     ttf_bitstream_vera
     font-awesome_4
+    nerd-fonts.symbols-only
     unifont
 
     noto-fonts-color-emoji # emoji font
