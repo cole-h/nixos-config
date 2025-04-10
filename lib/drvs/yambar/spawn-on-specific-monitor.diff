@@ -1,0 +1,112 @@
+diff --git a/config.c b/config.c
+index 0f80364756..3f0d084715 100644
+--- a/config.c
++++ b/config.c
+@@ -282,7 +282,7 @@
+ }
+
+ struct bar *
+-conf_to_bar(const struct yml_node *bar, enum bar_backend backend)
++conf_to_bar(const struct yml_node *bar, enum bar_backend backend, const char *monitor_str)
+ {
+     if (!conf_verify_bar(bar))
+         return NULL;
+@@ -311,7 +311,9 @@
+      */
+
+     const struct yml_node *monitor = yml_get_value(bar, "monitor");
+-    if (monitor != NULL)
++    if (monitor_str != NULL)
++        conf.monitor = monitor_str;
++    else if (monitor != NULL)
+         conf.monitor = yml_value_as_string(monitor);
+
+     const struct yml_node *layer = yml_get_value(bar, "layer");
+diff --git a/config.h b/config.h
+index 86c2f4e769..c7b2d6656b 100644
+--- a/config.h
++++ b/config.h
+@@ -9,7 +9,7 @@
+ struct particle;
+
+ bool conf_verify_bar(const struct yml_node *bar);
+-struct bar *conf_to_bar(const struct yml_node *bar, enum bar_backend backend);
++struct bar *conf_to_bar(const struct yml_node *bar, enum bar_backend backend, const char *monitor);
+
+ /*
+  * Utility functions, for e.g. modules
+diff --git a/main.c b/main.c
+index c355843c97..643edd20dd 100644
+--- a/main.c
++++ b/main.c
+@@ -85,7 +85,7 @@
+ }
+
+ static struct bar *
+-load_bar(const char *config_path, enum bar_backend backend)
++load_bar(const char *config_path, enum bar_backend backend, const char *monitor)
+ {
+     FILE *conf_file = fopen(config_path, "re");
+     if (conf_file == NULL) {
+@@ -108,7 +108,7 @@
+         goto out;
+     }
+
+-    bar = conf_to_bar(bar_conf, backend);
++    bar = conf_to_bar(bar_conf, backend, monitor);
+     if (bar == NULL) {
+         LOG_ERR("%s: failed to load configuration", config_path);
+         goto out;
+@@ -128,6 +128,7 @@
+     printf("\n");
+     printf("Options:\n");
+     printf("  -b,--backend={xcb,wayland,auto}          backend to use (default: auto)\n"
++           "  -m,--monitor=NAME                        monitor name\n"
+            "  -c,--config=FILE                         alternative configuration file\n"
+            "  -C,--validate                            verify configuration then quit\n"
+            "  -p,--print-pid=FILE|FD                   print PID to file or FD\n"
+@@ -178,6 +179,7 @@
+ {
+     static const struct option longopts[] = {
+         {"backend", required_argument, 0, 'b'},
++        {"monitor", required_argument, 0, 'm'},
+         {"config", required_argument, 0, 'c'},
+         {"validate", no_argument, 0, 'C'},
+         {"print-pid", required_argument, 0, 'p'},
+@@ -194,6 +196,7 @@
+
+     bool verify_config = false;
+     char *config_path = NULL;
++    char *monitor = NULL;
+     enum bar_backend backend = BAR_BACKEND_AUTO;
+
+     enum log_class log_level = LOG_CLASS_WARNING;
+@@ -201,7 +204,7 @@
+     bool log_syslog = true;
+
+     while (true) {
+-        int c = getopt_long(argc, argv, ":b:c:Cp:d:l::svh", longopts, NULL);
++        int c = getopt_long(argc, argv, ":b:m:c:Cp:d:l::svh", longopts, NULL);
+         if (c == -1)
+             break;
+
+@@ -217,6 +220,10 @@
+             }
+             break;
+
++        case 'm':
++            monitor = strdup(optarg);
++            break;
++
+         case 'c': {
+             struct stat st;
+             if (stat(optarg, &st) == -1) {
+@@ -319,7 +326,7 @@
+         }
+     }
+
+-    struct bar *bar = load_bar(config_path, backend);
++    struct bar *bar = load_bar(config_path, backend, monitor);
+     free(config_path);
+
+     if (bar == NULL) {

@@ -42,6 +42,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-erWbwhVj97JGdxwnPICmwAM2GeWyqUteI0VPhqzKWt4=";
   };
 
+  patches = [
+    ./spawn-on-specific-monitor.diff
+  ];
+
   outputs = [
     "out"
     "man"
