@@ -10,7 +10,6 @@ in
 {
   # misc
   cgitc = callPackage ./drvs/cgitc.nix { };
-  yambar = callPackage ./drvs/yambar { };
 
   # small-ish overrides
   niri = inputs.niri.packages.${final.stdenv.system}.default;

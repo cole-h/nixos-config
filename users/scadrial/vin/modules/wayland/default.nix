@@ -23,7 +23,7 @@ in
 
     # niri
     niri # [overlays]
-    yambar # [overlays]
+    waybar
     xwayland-satellite # for xwayland in niri
   ];
 
