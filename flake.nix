@@ -44,13 +44,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "";
     };
+    wezterm = {
+      url = "github:wez/wezterm?dir=nix";
+    };
     flake-compat.url = "github:edolstra/flake-compat";
 
     # Not flakes
-    wezterm = {
-      url = "git+https://github.com/wez/wezterm.git?submodules=1";
-      flake = false;
-    };
   };
 
   outputs = inputs:
