@@ -47,7 +47,7 @@ in
         Unit = {
           Description = "polkit-gnome";
           Documentation = [ "man:polkit(8)" ];
-          PartOf = [ "sway-session.target" ];
+          PartOf = [ "graphical-session.target" ];
         };
 
         Service = {
@@ -58,7 +58,7 @@ in
         };
 
         Install = {
-          WantedBy = [ "sway-session.target" ];
+          WantedBy = [ "graphical-session.target" ];
         };
       };
 
@@ -66,7 +66,7 @@ in
         Unit = {
           Description = "wlsunset";
           Documentation = [ "man:wlsunset(1)" ];
-          PartOf = [ "sway-session.target" ];
+          PartOf = [ "graphical-session.target" ];
         };
 
         Service = {
@@ -77,7 +77,7 @@ in
         };
 
         Install = {
-          WantedBy = [ "sway-session.target" ];
+          WantedBy = [ "graphical-session.target" ];
         };
       };
 
@@ -87,7 +87,7 @@ in
         Unit = {
           Description = "gnome-keyring-daemon";
           Documentation = [ "man:gnome-keyring-daemon(1)" ];
-          PartOf = [ "sway-session.target" ];
+          PartOf = [ "graphical-session.target" ];
         };
 
         Service = {
@@ -99,7 +99,7 @@ in
         };
 
         Install = {
-          WantedBy = [ "sway-session.target" ];
+          WantedBy = [ "graphical-session.target" ];
         };
       };
     };
