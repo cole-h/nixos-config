@@ -62,7 +62,6 @@
     xdg-desktop-portal-gtk
     xdg-desktop-portal-gnome
    ];
-  xdg.portal.config.common.default = "*";
 
   services.mullvad.enable = true;
 
