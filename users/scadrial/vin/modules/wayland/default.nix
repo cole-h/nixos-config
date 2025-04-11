@@ -22,7 +22,6 @@ in
     rofi # has rofi-emoji as a plugin; [overlays]
 
     # niri
-    niri # [overlays]
     waybar
     xwayland-satellite # for xwayland in niri
   ];

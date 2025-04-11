@@ -30,4 +30,6 @@
   programs.steam = {
     enable = true;
   };
+
+  programs.niri.enable = true;
 }
