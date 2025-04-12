@@ -45,7 +45,8 @@
           "--greeting"
           "${greeting}"
           "--cmd"
-          ''"env __HM_SESS_VARS_SOURCED= systemd-cat -t sway -- sway"''
+          "niri-session"
+          # ''"env __HM_SESS_VARS_SOURCED= systemd-cat -t sway -- sway"''
         ];
       in
       {
