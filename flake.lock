@@ -327,16 +327,18 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1744427264,
-        "narHash": "sha256-yzm5x2eFM1m3S47D/1k/dmMIV+457j3wOAeH6Uyte3E=",
-        "rev": "a706827799eef0e75a9b7fbed24b96696804f087",
-        "revCount": 20093,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/nix-src/3.3.1/01962812-e57c-7020-b84f-921e36b52cdf/source.tar.gz"
+        "lastModified": 1744984879,
+        "narHash": "sha256-nePxSc9wT9t/r6Vyp41d8yTkkncWOhhavxq3FPiKVhs=",
+        "owner": "DeterminateSystems",
+        "repo": "nix-src",
+        "rev": "43a26916c25fff151698a1721793e0097251d07b",
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/DeterminateSystems/nix-src/%2A"
+        "owner": "DeterminateSystems",
+        "ref": "lazy-trees-v2",
+        "repo": "nix-src",
+        "type": "github"
       }
     },
     "nix-filter": {
