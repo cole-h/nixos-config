@@ -1,0 +1,110 @@
+{
+  "layer": "top",
+  "position": "top",
+  "modules-center": [
+    "niri/window",
+  ],
+  "modules-left": [
+    "niri/workspaces",
+    "disk",
+    "memory",
+    "cpu",
+  ],
+  "modules-right": [
+    "tray",
+    "idle_inhibitor",
+    "bluetooth",
+    "custom/notification",
+    "pulseaudio",
+    "clock",
+  ],
+  "reload_style_on_change": true,
+
+  "niri/workspaces": {
+    // "format": "{icon}",
+    // "format-icons": {
+    //   "active": "", // 
+    //   "default": "" // 
+    // },
+    "enable-bar-scroll": true,
+    // "on-scroll-up": "niri msg action focus-workspace-up",
+    // "on-scroll-down": "niri msg action focus-workspace-down",
+  },
+
+  "niri/window": {
+    "format": "<span color='#ff6060ff'>{app_id}</span>: {title}",
+    "separate-outputs": true,
+    "icon": true,
+  },
+
+  "idle_inhibitor": {
+    "format": "<span font='12'>{icon}</span>",
+    "format-icons": {
+      "activated": "󰈈",
+      "deactivated": "󰈉"
+    }
+  },
+
+  "clock": {
+    "format": "{:%d %B %Y %X}",
+    "interval": 1,
+  },
+
+  "bluetooth": {
+    "format-on": "",
+    "format-off": "",
+    "format-disabled": "󰂲",
+    "format-connected": "󰂴",
+    "format-connected-battery": "{device_battery_percentage}% 󰂴",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    "on-click": "blueman-manager"
+  },
+
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "",
+      "none": "",
+      "dnd-notification": "",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+
+  // FIXME: custom script cuz zfs
+  "disk": {
+    "interval": 30,
+    "format": "  {percentage_used}%",
+    "path": "/"
+  },
+
+  "cpu": {
+    "interval": 1,
+    "format": " {usage}%",
+    "min-length": 6,
+    "max-length": 6,
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+  },
+
+  "memory": {
+    "format": " {percentage}%"
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 10
+  },
+}

@@ -6,6 +6,8 @@ in
 {
   imports =
     [
+      ./niri # niri config
+
       ./sway.nix # sway config
     ];
 
