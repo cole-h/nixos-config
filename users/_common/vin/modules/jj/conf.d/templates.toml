@@ -1,0 +1,38 @@
+[templates]
+# https://github.com/jj-vcs/jj/issues/1946#issuecomment-2572986485
+draft_commit_description = '''
+concat(
+  description,
+  surround(
+    "\nJJ: This commit contains the following changes:\n", "",
+    indent("JJ:     ", diff.stat(72)),
+  ),
+  "\n",
+  "JJ: ignore-rest\n",
+  diff.git(),
+)
+'''
+
+# Thanks to ilyagr on Discord!
+# https://discord.com/channels/968932220549103686/968932220549103689/1359268612430627099
+# Add empty set to default. Alternatives: ∅◌
+log_node = '''
+coalesce(
+  if(!self, label("elided", "~")),
+  label(
+    separate(" ",
+      if(current_working_copy, "working_copy"),
+      if(immutable, "immutable"),
+      if(conflict, "conflict"),
+    ),
+    coalesce(
+      if(current_working_copy, "@"),
+      if(immutable, "◆"),
+      if(conflict, "×"),
+      if(empty, "◌"),
+      "○",
+    )
+  )
+)
+'''
+

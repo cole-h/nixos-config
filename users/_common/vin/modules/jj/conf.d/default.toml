@@ -1,0 +1,34 @@
+[core]
+fsmonitor = "watchman"
+# watchman.register-snapshot-trigger = true
+
+[user]
+name = "Cole Helbling"
+email = "cole.e.helbling@outlook.com"
+
+[ui]
+pager = "less -FRX"
+default-command = "log"
+diff-editor = ":builtin"
+# show-cryptographic-signatures = true
+
+[signing]
+backend = "ssh"
+key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINMcTaqUZSwv6YW8lx/JhsAZTdNSSC2fR8Pgk8woeFKh"
+behavior = "drop" # don't sign commits until push (see git.sign-on-push)
+# backends.ssh.allowed-signers = "~/.config/jj/allowed-signers"
+
+[git]
+sign-on-push = true
+push-bookmark-prefix = "cole-h/push-"
+write-change-id-header = true
+
+[revset-aliases]
+'TRUNK' = 'trunk()'
+# Useful for abandoning branches off of trunk that are making the jj log too long
+'abm(r)' = '::fork_point(r) & mutable()'
+
+# 'immutable_heads()' = 'builtin_immutable_heads() | (trunk().. & ~mine())'
+
+[aliases]
+n = ["new"]

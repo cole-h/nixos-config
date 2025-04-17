@@ -1,0 +1,31 @@
+[revset-aliases]
+# https://gist.github.com/thoughtpolice/8f2fd36ae17cd11b8e7bd93a70e31ad6/
+# stack(x, n) is the set of mutable commits reachable from 'x', with 'n'
+# parents. 'n' is often useful to customize the display and return set for
+# certain operations. 'x' can be used to target the set of 'roots' to traverse,
+# e.g. @ is the current stack.
+'stack()' = 'stack(@)'
+'stack(x)' = 'stack(x, 2)'
+'stack(x, n)' = 'ancestors(reachable(x, mutable()), n)'
+
+# The current set of "open" works. It is defined as:
+#
+# - given the set of commits not in trunk, that are written by me,
+# - calculate the given stack() for each of those commits
+#
+# n = 1, meaning that nothing from `trunk()` is included, so all resulting
+# commits are mutable by definition.
+'open()' = 'stack(trunk().. & mine(), 1)'
+
+# https://github.com/jj-vcs/jj/discussions/5669#discussioncomment-12178856
+'why_immutable(r)' = '(r & immutable()) | roots(r:: & immutable_heads())'
+
+[aliases]
+# https://gist.github.com/thoughtpolice/8f2fd36ae17cd11b8e7bd93a70e31ad6/
+# Retrunk a series. Typically used as `jj retrunk -s ...`, and notably can be
+# used with open:
+# - jj retrunk -s 'all:roots(open())'
+retrunk = ["rebase", "-d", "trunk()"]
+
+# Retrunk the current stack of work.
+reheat = ["rebase", "-d", "trunk()", "-s", "all:roots(trunk()..stack(@))"]

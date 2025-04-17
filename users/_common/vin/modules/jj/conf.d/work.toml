@@ -1,0 +1,4 @@
+--when.repositories = ["~/workspace/detsys"]
+
+[user]
+email = "cole.helbling@determinate.systems"
