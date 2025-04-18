@@ -25,7 +25,7 @@ push-bookmark-prefix = "cole-h/push-"
 write-change-id-header = true
 
 [revset-aliases]
-'TRUNK' = 'trunk()'
+'T' = 'trunk()'
 # Useful for abandoning branches off of trunk that are making the jj log too long
 'abm(r)' = '::fork_point(r) & mutable()'
 
