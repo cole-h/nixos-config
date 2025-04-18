@@ -27,5 +27,7 @@
 # - jj retrunk -s 'all:roots(open())'
 retrunk = ["rebase", "-d", "trunk()"]
 
+retrunk-all = ["retrunk", "-s", "all:roots(open())"]
+
 # Retrunk the current stack of work.
 reheat = ["rebase", "-d", "trunk()", "-s", "all:roots(trunk()..stack(@))"]
