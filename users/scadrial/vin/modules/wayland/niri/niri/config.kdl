@@ -659,3 +659,8 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 }
+
+debug {
+    // Prevent flickering while screen casting I think?
+    wait-for-frame-completion-before-queueing
+}
