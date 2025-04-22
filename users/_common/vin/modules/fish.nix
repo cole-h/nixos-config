@@ -88,7 +88,7 @@ in
             end
 
             # Are we in a jj repo?
-            if not jj root --ignore-working-copy --quiet &>/dev/null
+            if not jj root &>/dev/null
                 return 1
             end
 
