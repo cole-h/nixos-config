@@ -95,9 +95,7 @@ output "DP-3" {
     // for the resolution.
     // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
-    mode "2560x1440@165.080" // FIXME: 165Hz causes massive lag
-    // mode "2560x1440@119.998"
-    // mode "2560x1440@143.912"
+    mode "2560x1440@165.080"
 
     variable-refresh-rate on-demand=true
 
@@ -427,6 +425,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T { spawn "wezterm"; }
     Mod+Return { spawn "wezterm"; }
+    Mod+Shift+Return { spawn "kitty"; }
     Mod+D { spawn "fuzzel"; }
     Ctrl+Alt+L { spawn "sh" "-c" "swaylock --clock --indicator -f -i /flake/wallpaper.png --scaling fill"; }
 
