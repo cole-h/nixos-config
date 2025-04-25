@@ -297,15 +297,14 @@
         "rust-overlay": []
       },
       "locked": {
-        "lastModified": 1745436098,
+        "lastModified": 1745584182,
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "0421d0b0dc699f45614fe692883d37c60d367a6b",
+        "rev": "62d47d77d5b75789e8b6b7ec318d604bb918b530",
         "type": "github"
       },
       "original": {
         "owner": "YaLTeR",
-        "ref": "pull/1440/head",
         "repo": "niri",
         "type": "github"
       }
