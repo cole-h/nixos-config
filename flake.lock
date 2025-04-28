@@ -14,10 +14,10 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1736955230,
+        "lastModified": 1745630506,
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "e600439ec4c273cf11e06fe4d9d906fb98fa097c",
+        "rev": "96e078c646b711aee04b82ba01aefbff87004ded",
         "type": "github"
       },
       "original": {
@@ -54,10 +54,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1744478979,
+        "lastModified": 1745816321,
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "43975d782b418ebf4969e9ccba82466728c2851b",
+        "rev": "4515dacafb0ccd42e5395aacc49fd58a43027e01",
         "type": "github"
       },
       "original": {
@@ -240,10 +240,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1745439012,
+        "lastModified": 1745851658,
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "d31710fb2cd536b1966fee2af74e99a0816a61a8",
+        "rev": "69c60b035e6bb51a4c5607f184bf64312c294139",
         "type": "github"
       },
       "original": {
@@ -297,10 +297,10 @@
         "rust-overlay": []
       },
       "locked": {
-        "lastModified": 1745584182,
+        "lastModified": 1745831155,
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "62d47d77d5b75789e8b6b7ec318d604bb918b530",
+        "rev": "9bb292ec82682c901b29e1da8e3dd0c19c5b75bb",
         "type": "github"
       },
       "original": {
@@ -319,10 +319,10 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1745409209,
+        "lastModified": 1745609945,
         "owner": "DeterminateSystems",
         "repo": "nix-src",
-        "rev": "182edb4dee637f37edfc1a027f1b95f30c66bc00",
+        "rev": "ae5ac8acc115de6235aeba97c5912e0fb142f14f",
         "type": "github"
       },
       "original": {
@@ -397,10 +397,10 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1745234285,
+        "lastModified": 1745526057,
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c11863f1e964833214b767f4a369c6e6a7aba141",
+        "rev": "f771eb401a46846c1aebd20552521b233dd7e18b",
         "type": "github"
       },
       "original": {
@@ -518,10 +518,10 @@
       },
       "locked": {
         "dir": "nix",
-        "lastModified": 1745073452,
+        "lastModified": 1745557788,
         "owner": "wez",
         "repo": "wezterm",
-        "rev": "3bfe6df191af37bc33fe5fe6de12a40f7067f101",
+        "rev": "1439661dc9a8b565a8d9d23aee27d43a9864f676",
         "type": "github"
       },
       "original": {
