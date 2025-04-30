@@ -240,10 +240,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1745851658,
+        "lastModified": 1745987135,
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "69c60b035e6bb51a4c5607f184bf64312c294139",
+        "rev": "d2b3e6c83d457aa0e7f9344c61c3fed32bad0f7e",
         "type": "github"
       },
       "original": {
@@ -276,10 +276,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1743800763,
+        "lastModified": 1745925850,
         "owner": "nix-community",
         "repo": "naersk",
-        "rev": "ed0232117731a4c19d3ee93aa0c382a8fe754b01",
+        "rev": "38bc60bbc157ae266d4a0c96671c6c742ee17a5f",
         "type": "github"
       },
       "original": {
@@ -297,10 +297,10 @@
         "rust-overlay": []
       },
       "locked": {
-        "lastModified": 1745831155,
+        "lastModified": 1746002765,
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "9bb292ec82682c901b29e1da8e3dd0c19c5b75bb",
+        "rev": "af080a03cda3bd960a0817920f9814086ae9ad36",
         "type": "github"
       },
       "original": {
@@ -397,10 +397,10 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1745526057,
+        "lastModified": 1745930157,
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f771eb401a46846c1aebd20552521b233dd7e18b",
+        "rev": "46e634be05ce9dc6d4db8e664515ba10b78151ae",
         "type": "github"
       },
       "original": {
