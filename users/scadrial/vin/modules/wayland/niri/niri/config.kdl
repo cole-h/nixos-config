@@ -42,7 +42,7 @@ input {
         // drag true
         // drag-lock
         natural-scroll
-        accel-speed -0.05
+        // accel-speed -0.05
         // accel-profile "flat"
         // scroll-method "two-finger"
         scroll-factor 0.75
