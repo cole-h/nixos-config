@@ -11,6 +11,7 @@ pager = "less -FRX"
 default-command = "log"
 diff-editor = ":builtin"
 graph.style = "square"
+bookmark-list-sort-keys = ["committer-date-", "author-date-", "name"]
 # show-cryptographic-signatures = true
 
 [signing]
