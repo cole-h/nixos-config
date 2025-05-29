@@ -27,7 +27,6 @@
     ];
 
     extraConfig = {
-      git.autocrlf = "input";
       tag.forceSignAnnotated = true;
       pull.rebase = true;
       push.default = "current";
