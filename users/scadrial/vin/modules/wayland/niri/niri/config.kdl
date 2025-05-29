@@ -12,6 +12,7 @@ spawn-at-startup "xwayland-satellite"
 spawn-at-startup "sh" "-c" "swaybg --image /flake/wallpaper.png --mode fill"
 spawn-at-startup "1password"
 spawn-at-startup "swaync"
+spawn-at-startup "sh" "-c" "swayidle -w timeout 900 'swaylock --clock --indicator -f -i /flake/wallpaper.png --scaling fill' timeout 1200 'swaymsg \"output * dpms off\"' resume 'swaymsg \"output * dpms on\"' before-sleep 'swaylock --clock --indicator -f -i /flake/wallpaper.png --scaling fill'"
 
 cursor {
     hide-after-inactive-ms 5000
