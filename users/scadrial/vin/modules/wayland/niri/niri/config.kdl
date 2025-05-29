@@ -347,6 +347,9 @@ animations {
     }
 }
 
+workspace "vid" {
+    open-on-output "DP-3"
+}
 workspace "ff" {
     open-on-output "DP-3"
 }
