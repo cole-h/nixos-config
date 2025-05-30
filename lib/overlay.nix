@@ -33,6 +33,7 @@ in
     in
     wezterm-flake.packages.${final.stdenv.system}.default.overrideAttrs ({ ... }: {
       version = "${date}-${time}-${rev}";
+      __intentionallyOverridingVersion = true;
     });
 
   # element-desktop = prev.element-desktop.overrideAttrs
