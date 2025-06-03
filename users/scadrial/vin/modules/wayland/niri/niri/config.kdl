@@ -86,7 +86,7 @@ input {
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
-output "DP-3" {
+output "Dell Inc. DELL S2721DGF CPYJZN3" {
     // Uncomment this line to disable this output.
     // off
 
@@ -119,7 +119,7 @@ output "DP-3" {
     position x=0 y=0
 }
 
-output "DP-2" {
+output "ASUSTek COMPUTER INC VZ249 J9LMRS026930" {
     // Uncomment this line to disable this output.
     // off
 
@@ -348,13 +348,13 @@ animations {
 }
 
 workspace "vid" {
-    open-on-output "DP-3"
+    open-on-output "Dell Inc. DELL S2721DGF CPYJZN3"
 }
 workspace "ff" {
-    open-on-output "DP-3"
+    open-on-output "Dell Inc. DELL S2721DGF CPYJZN3"
 }
 workspace "1p" {
-    open-on-output "DP-2"
+    open-on-output "ASUSTek COMPUTER INC VZ249 J9LMRS026930"
 }
 
 // Window rules let you adjust behavior for individual windows.
