@@ -6,3 +6,8 @@
 [aliases]
 hop = ["bookmark", "move", "--from", "closest_bookmark(@)", "--to", "closest_pushable(@)"]
 
+nudge = ["util", "exec", "--", "sh", "-c", """
+set -e
+jj hop
+jj git push
+""", ""]
