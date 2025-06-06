@@ -18,6 +18,7 @@ in
     wl-clipboard # clipboard
     wezterm # terminal again
     kitty # alt terminal as backup
+    ghostty # alt terminal as backup 2
     libnotify # notifications part 2: electric boogaloo
     wlsunset # blue-light filter
     rofi # has rofi-emoji as a plugin; [overlays]

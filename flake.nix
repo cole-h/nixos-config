@@ -45,6 +45,9 @@
     wezterm = {
       url = "github:wez/wezterm?dir=nix";
     };
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
     flake-compat.url = "github:edolstra/flake-compat";
 
     # Not flakes
