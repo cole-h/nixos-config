@@ -8,10 +8,8 @@
       experimental-features = [ "nix-command" "flakes" ];
       flake-registry = "/etc/nix/registry.json";
       builders = [ "@/etc/nix/machines" ];
-      extra-substituters = ["https://ghostty.cachix.org"];
       extra-trusted-public-keys = [
         "scadrial:3FwW08DNiVlNfDWCuBMesZDLISmsgutOLdUt111uvU4="
-        "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
       ];
     };
 
