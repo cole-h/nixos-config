@@ -54,10 +54,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749012745,
+        "lastModified": 1749194393,
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "fa6120c32f10bd2aac9e8c9a6e71528a9d9d823b",
+        "rev": "19346808c445f23b08652971be198b9df6c33edc",
         "type": "github"
       },
       "original": {
@@ -228,10 +228,10 @@
         "zon2nix": "zon2nix"
       },
       "locked": {
-        "lastModified": 1749239963,
+        "lastModified": 1749650083,
         "owner": "ghostty-org",
         "repo": "ghostty",
-        "rev": "269d29624bb91066ee75558a81c0cac609d080e6",
+        "rev": "c3d65d3975f91773f10fb19e10911e0f4d6463aa",
         "type": "github"
       },
       "original": {
@@ -293,10 +293,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749131129,
+        "lastModified": 1749657191,
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "13a45ede6c17b5e923dfc18a40a3f646436f4809",
+        "rev": "faeab32528a9360e9577ff4082de2d35c6bbe1ce",
         "type": "github"
       },
       "original": {
@@ -350,10 +350,10 @@
         "rust-overlay": []
       },
       "locked": {
-        "lastModified": 1749112952,
+        "lastModified": 1749634836,
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "242ebf294514cc22f4f9d83c0566c8ffe1cb8d8a",
+        "rev": "07080a0431d86d64efed6fa557c2a02cb9041e93",
         "type": "github"
       },
       "original": {
@@ -461,10 +461,10 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1748929857,
+        "lastModified": 1749285348,
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c2a03962b8e24e669fb37b7df10e7c79531ff1a4",
+        "rev": "3e3afe5174c561dee0df6f2c2b2236990146329f",
         "type": "github"
       },
       "original": {
