@@ -20,5 +20,6 @@
       rsync # send files over ssh
       tokei # code metrics
       nix-output-monitor # nix output monitor
+      nvd # nix version diff
     ];
 }
