@@ -9,5 +9,5 @@ hop = ["bookmark", "move", "--from", "closest_bookmark(@)", "--to", "closest_pus
 nudge = ["util", "exec", "--", "sh", "-c", """
 set -e
 jj hop
-jj git push
+jj git push "$@"
 """, ""]

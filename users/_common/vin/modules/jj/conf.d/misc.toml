@@ -20,6 +20,10 @@
 # https://github.com/jj-vcs/jj/discussions/5669#discussioncomment-12178856
 'why_immutable(r)' = '(r & immutable()) | roots(r:: & immutable_heads())'
 
+# WIP: try to get the commit immediately after forking off of trunk()
+# useful when trying to squash an entire branch with `jj squash --from 'base(x)+::' --into 'base(x)'` and just put in any change on that branch as x
+'base(x)' = 'fork_point(trunk()..x)+ & ::x'
+
 [aliases]
 # https://gist.github.com/thoughtpolice/8f2fd36ae17cd11b8e7bd93a70e31ad6/
 # Retrunk a series. Typically used as `jj retrunk -s ...`, and notably can be
