@@ -10,4 +10,4 @@ nudge = ["util", "exec", "--", "sh", "-c", """
 set -e
 jj hop
 jj git push "$@"
-""", ""]
+""", "jj-nudge"]
