@@ -9,7 +9,6 @@ let
 in
 {
   # misc
-  cgitc = callPackage ./drvs/cgitc.nix { };
 
   # small-ish overrides
   niri = inputs.niri.packages.${final.stdenv.system}.default;

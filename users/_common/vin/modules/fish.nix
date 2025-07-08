@@ -1,7 +1,4 @@
 { config, lib, pkgs, ... }:
-let
-  cgitcAbbrs = pkgs.cgitc.abbrs;
-in
 {
   programs = {
     fish = {
@@ -192,7 +189,7 @@ in
         "....." = "../../../..";
         "......" = "../../../../..";
         "......." = "../../../../../..";
-      } // cgitcAbbrs;
+      };
 
       interactiveShellInit = ''
         set --append fish_user_paths $HOME/.cargo/bin
