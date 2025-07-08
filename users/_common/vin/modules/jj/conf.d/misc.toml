@@ -37,7 +37,10 @@ retrunk-all = ["retrunk", "-s", "all:roots(open())"]
 reheat = ["rebase", "-d", "trunk()", "-s", "all:roots(trunk()..stack(@))"]
 
 renew = ["util", "exec", "--", "sh", "-c", """
-set -e
+set -eu
+
+new_base="${1:-trunk()}"
+
 jj git fetch
-jj new 'trunk()'
+jj new ${new_base}
 """, "jj-renew"]
