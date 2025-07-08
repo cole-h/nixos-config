@@ -8,7 +8,7 @@ email = "cole.e.helbling@outlook.com"
 
 [ui]
 pager = "less -FRX"
-default-command = "log"
+default-command = ["log", "-r", "cur_branch"]
 diff-editor = ":builtin"
 graph.style = "square"
 bookmark-list-sort-keys = ["committer-date-", "author-date-", "name"]
@@ -29,6 +29,9 @@ write-change-id-header = true
 'T' = 'trunk()'
 # Useful for abandoning branches off of trunk that are making the jj log too long
 'abm(r)' = '::fork_point(r) & mutable()'
+
+# https://github.com/jj-vcs/jj/discussions/4941
+cur_branch = 'ancestors(reachable(@, mutable()), 2)'
 
 # 'immutable_heads()' = 'builtin_immutable_heads() | (trunk().. & ~mine())'
 
