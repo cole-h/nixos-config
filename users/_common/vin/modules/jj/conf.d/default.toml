@@ -24,6 +24,7 @@ behavior = "drop" # don't sign commits until push (see git.sign-on-push)
 sign-on-push = true
 push-bookmark-prefix = "cole-h/push-"
 write-change-id-header = true
+fetch = "glob:*"
 
 [revset-aliases]
 'T' = 'trunk()'
