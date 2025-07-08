@@ -35,3 +35,9 @@ retrunk-all = ["retrunk", "-s", "all:roots(open())"]
 
 # Retrunk the current stack of work.
 reheat = ["rebase", "-d", "trunk()", "-s", "all:roots(trunk()..stack(@))"]
+
+renew = ["util", "exec", "--", "sh", "-c", """
+set -e
+jj git fetch
+jj new 'trunk()'
+""", "jj-renew"]
