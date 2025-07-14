@@ -44,3 +44,5 @@ new_base="${1:-trunk()}"
 jj git fetch
 jj new ${new_base}
 """, "jj-renew"]
+
+gcl = ["git", "clone", "--colocate"]
