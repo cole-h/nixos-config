@@ -22,9 +22,11 @@ behavior = "drop" # don't sign commits until push (see git.sign-on-push)
 
 [git]
 sign-on-push = true
-push-bookmark-prefix = "cole-h/push-"
 write-change-id-header = true
 fetch = "glob:*"
+
+[templates]
+git_push_bookmark = '"cole-h/push-" ++ change_id.short()'
 
 [revset-aliases]
 'T' = 'trunk()'
