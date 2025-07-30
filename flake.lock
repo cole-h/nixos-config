@@ -395,16 +395,17 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1753066555,
-        "narHash": "sha256-/WmweOcc4DfQPfGkNxllsuEVgTwX3RVROOy3e/mAvr0=",
-        "rev": "47281531ec83e22a1bb0249db5a6e4d0d854f0a5",
-        "revCount": 21541,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/nix-src/3.8.4/01982aff-6f3f-7bcc-85c8-b0d4e0cb35d8/source.tar.gz"
+        "lastModified": 1753724199,
+        "narHash": "sha256-xXrsAJ85fVawIxjtSe0f1P8AthEVnhCE4MFsx6bn/RA=",
+        "owner": "DeterminateSystems",
+        "repo": "nix-src",
+        "rev": "203fb72da4bbfd96bb5b2348c64f866812c883a7",
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/DeterminateSystems/nix-src/%2A"
+        "owner": "DeterminateSystems",
+        "repo": "nix-src",
+        "type": "github"
       }
     },
     "nixpkgs": {

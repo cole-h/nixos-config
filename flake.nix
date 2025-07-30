@@ -27,7 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix = {
-      url = "https://flakehub.com/f/DeterminateSystems/nix-src/*";
+      url = "github:DeterminateSystems/nix-src";
     };
     naersk = {
       url = "github:nix-community/naersk";
