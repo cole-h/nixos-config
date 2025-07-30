@@ -7,7 +7,6 @@
       functions = {
         cprmusic = "mpv http://playerservices.streamtheworld.com/pls/KXPR.pls";
         mpv = "command mpv --player-operation-mode=pseudo-gui $argv";
-        nix-locate = "command nix-locate --top-level $argv";
         which = "realpath (command which $argv)";
         ssh = "env TERM=xterm-256color ssh $argv";
         sshno = "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $argv";
