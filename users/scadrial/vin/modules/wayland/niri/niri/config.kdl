@@ -663,11 +663,6 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
-debug {
-    // Prevent flickering while screen casting I think?
-    wait-for-frame-completion-before-queueing
-}
-
 overview {
     zoom 0.25
 }
