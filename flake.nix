@@ -27,7 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix = {
-      url = "github:DeterminateSystems/nix-src";
+      url = "github:DeterminateSystems/nix-src/multithreaded-eval-v2";
     };
     naersk = {
       url = "github:nix-community/naersk";
