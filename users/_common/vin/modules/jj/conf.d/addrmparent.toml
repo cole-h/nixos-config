@@ -1,0 +1,16 @@
+# https://github.com/jj-vcs/jj/issues/6612#issuecomment-2971953935
+
+[aliases]
+# Usage: jj addparent <child aka mergerev> <newparent>
+#
+# jj rebase -s <mergerev> -d all:<mergerev>- -d <newparent>
+addparent = ["util", "exec", "--", "bash", "-c", '''
+    jj rebase -s $1 -d "all:$1-" -d $2
+''', "jj-addparent"]
+
+# Usage: jj rmparent <child aka mergerev> <oldparent>
+#
+# jj rebase -s <mergerev> -d "all:<mergerev>- ~ <oldparent>"
+rmparent = ["util", "exec", "--", "bash", "-c", '''
+    jj rebase -s $1 -d "all:$1- ~ $2"
+''', "jj-rmparent"]
