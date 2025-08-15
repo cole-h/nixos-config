@@ -40,3 +40,4 @@ cur_branch = 'ancestors(reachable(@, mutable()), 2)'
 
 [aliases]
 n = ["new"]
+jj = []
