@@ -34,7 +34,8 @@ git_push_bookmark = '"cole-h/push-" ++ change_id.short()'
 'abm(r)' = '::fork_point(r) & mutable()'
 
 # https://github.com/jj-vcs/jj/discussions/4941
-cur_branch = 'ancestors(reachable(@, mutable()), 2)'
+cur_branch = 'branch_hist(@)'
+'branch_hist(r)' = 'ancestors(reachable(r, mutable()), 2)'
 
 # 'immutable_heads()' = 'builtin_immutable_heads() | (trunk().. & ~mine())'
 
