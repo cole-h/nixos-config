@@ -38,7 +38,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     niri = {
-      url = "github:YaLTeR/niri";
+      # https://github.com/YaLTeR/niri/pull/2244
+      url = "github:YaLTeR/niri/0d2ff45c4b8b41e4b3dbe1491d5cead0b04d566a";
+      # url = "github:YaLTeR/niri";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "";
     };
