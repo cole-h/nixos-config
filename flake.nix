@@ -6,9 +6,9 @@
     # nixpkgs.url = "git+file:///home/vin/workspace/vcs/nixpkgs/master";
     # nixpkgs.url = "git+file:///home/vin/workspace/vcs/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs/2f47650c2f28d87f86ab807b8a339c684d91ec56";
+    nixpkgs.url = "github:nixos/nixpkgs/5b09dc45f24cf32316283e62aec81ffee3c3e376";
     # nixpkgs.url = "github:nixos/nixpkgs/master";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
