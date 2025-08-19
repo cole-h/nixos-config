@@ -13,13 +13,12 @@
       libqalculate # greatest cli calculator ever, with conversions too
       ncdu # friendlier du
       nix-index # nix-locate
-      nixpkgs-fmt # the better formatter
+      nixfmt
       openssl # playing with tls and more
       par # nice paragraph formatter
       ripgrep # grep but better
       rsync # send files over ssh
       tokei # code metrics
       nix-output-monitor # nix output monitor
-      nvd # nix version diff
     ];
 }
