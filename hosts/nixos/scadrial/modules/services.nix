@@ -40,7 +40,7 @@
       let
         greeting = lib.escapeShellArg ''"There's always another secret."'';
         command = lib.concatStringsSep " " [
-          "${pkgs.tuigreet}/bin/tuigreet"
+          "${pkgs.greetd.tuigreet}/bin/tuigreet"
           "--time"
           "--greeting"
           "${greeting}"
