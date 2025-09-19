@@ -77,7 +77,7 @@ in
   boot.initrd.systemd.services.poweroff-on-unlock-fail = {
     description = "Poweroff if unlocking the root disk failed";
     unitConfig.DefaultDependencies = "no";
-    serviceConfig.type = "oneshot";
+    serviceConfig.Type = "oneshot";
     serviceConfig.ExecStart = "systemctl poweroff";
   };
 
