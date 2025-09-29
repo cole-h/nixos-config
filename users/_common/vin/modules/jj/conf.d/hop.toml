@@ -1,13 +1,25 @@
 # https://github.com/jj-vcs/jj/discussions/5568#discussioncomment-12674748
 [revset-aliases]
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'
-'closest_pushable(to)' = 'heads(::to & ~description(exact:"") & (~empty() | merges()))'
+'closest_pushable(to)' = 'heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()))'
 
 [aliases]
-hop = ["bookmark", "move", "--from", "closest_bookmark(@)", "--to", "closest_pushable(@)"]
+hop = ["util", "exec", "--", "sh", "-c", """
+if [ "x$1" = "x" ]; then
+  jj bookmark move --from "closest_bookmark(@)" --to "closest_pushable(@)"
+else
+  jj bookmark move --to "closest_pushable(@)" "$@"
+fi
+""", "jj-hop"]
 
 nudge = ["util", "exec", "--", "sh", "-c", """
 set -e
 jj hop
 jj git push "$@"
 """, "jj-nudge"]
+
+
+# https://andre.arko.net/2025/09/28/stupid-jj-tricks/
+pr = ["util", "exec", "--", "bash", "-c", """
+gh pr create --head "$(jj log -r 'closest_bookmark(@)' -T 'bookmarks' --no-graph)"
+""", "jj-pr"]
