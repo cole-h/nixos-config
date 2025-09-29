@@ -40,6 +40,7 @@
         gh # GitHub cli
         git-absorb
         hyperfine # runtime performance measuring
+        ijq # interactive json fiddling
         jq # json fiddling
         libnotify # notifications part 2: electric boogaloo
         watchman # for jujutsu
