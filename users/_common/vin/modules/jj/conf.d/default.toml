@@ -1,5 +1,5 @@
 [fsmonitor]
-backend = "watchman"
+# backend = "watchman"
 # watchman.register-snapshot-trigger = true
 
 [user]
