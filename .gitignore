@@ -22,3 +22,4 @@ users/*/modules/weechat/config/irc.conf
 hosts/scadrial/modules/borg/config.json
 users/*/modules/kakoune/config/colors
 users/*/modules/kakoune/config/plugins
+.stfolder
