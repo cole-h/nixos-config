@@ -1,0 +1,14 @@
+# https://isaaccorbrey.com/notes/jujutsu-megamerges-for-fun-and-profit
+
+[revset-aliases]
+"closest_merge(to)" = "heads(::to & merges())"
+
+[aliases]
+# `jj stack <revset>` to include specific revs
+stack = ["rebase", "-A", "trunk()", "-B", "closest_merge(@)", "-r"]
+
+# `jj stage` to include the whole stack after the megamerge
+stage = ["stack", "closest_merge(@)+:: ~ empty()"]
+
+# `jj restack` to rebase your changes onto `trunk()`
+restack = ["rebase", "-d", "trunk()", "-s", "roots(trunk()..) & stack()"]
