@@ -4,7 +4,6 @@
     nixPath = [ ];
     distributedBuilds = true; # necessary for settings.builders to not be defined in the nix-daemon upstream module
     settings = {
-      lazy-trees = true;
       extra-experimental-features = [ "nix-command" "flakes" ];
       flake-registry = "/etc/nix/registry.json";
       builders = [ "@/etc/nix/machines" ];
