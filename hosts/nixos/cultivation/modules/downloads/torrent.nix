@@ -11,16 +11,16 @@
 
   services.nginx.virtualHosts = {
     "torrents.local".locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString config.services.qbittorrent.port}/";
+      proxyPass = "http://127.0.0.1:${toString config.services.qbittorrent.webuiPort}/";
     };
   };
 
   services.qbittorrent = {
     enable = true;
     openFirewall = true;
-    port = 50000;
+    webuiPort = 50000;
     user = "downloads";
     group = "downloads";
-    dataDir = "/shares/torrents/qbittorrent";
+    profileDir = "/shares/torrents/qbittorrent/.config";
   };
 }
