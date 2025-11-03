@@ -17,6 +17,14 @@
 # commits are mutable by definition.
 'open()' = 'stack(trunk().. & mine(), 1)'
 
+# https://github.com/thoughtpolice/a/blob/dcf37f55a467e16f357995466ddb64dd64b20f8f/tilde/aseipp/dotfiles/jj/config.toml#L96C1-L100C36
+# Private and WIP commits that should never be pushed anywhere. Often part of
+# work-in-progress merge stacks.
+# 'wip()' = 'description(glob-i:"wip:*") | description(glob-i:"[[]WIP[]]*")'
+'wip()' = 'none()'
+'private()' = 'description(glob-i:"private:*") | description(glob-i:"[[]PRIVATE[]]*")'
+'denylist()' = 'wip() | private()'
+
 # https://github.com/jj-vcs/jj/discussions/5669#discussioncomment-12178856
 'why_immutable(r)' = '(r & immutable()) | roots(r:: & immutable_heads())'
 

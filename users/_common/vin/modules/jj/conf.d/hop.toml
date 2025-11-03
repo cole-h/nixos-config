@@ -1,7 +1,7 @@
 # https://github.com/jj-vcs/jj/discussions/5568#discussioncomment-12674748
 [revset-aliases]
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'
-'closest_pushable(to)' = 'heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()))'
+'closest_pushable(to)' = 'heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()) ~ denylist())'
 
 [aliases]
 hop = ["util", "exec", "--", "sh", "-c", """
