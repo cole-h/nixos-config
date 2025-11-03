@@ -23,6 +23,7 @@
       [
         firefox-bin
         qimgv # image viewer
+        nh
 
         (vscode-with-extensions.override {
           vscodeExtensions = with vscode-extensions; [
