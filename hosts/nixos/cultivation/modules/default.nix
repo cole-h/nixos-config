@@ -13,7 +13,7 @@
     ];
 
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_15;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_17;
     supportedFilesystems = [ "zfs" ];
     zfs.extraPools = [ "bpool" ];
     zfs.requestEncryptionCredentials = [ "bpool" ];

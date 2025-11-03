@@ -46,7 +46,7 @@
         watchman # for jujutsu
         pgcli # much better than psql
         rustup
-        llvmPackages_17.bintools # includes lld linker for rust
+        llvmPackages_20.bintools # includes lld linker for rust
         sd # sed but more intuitive
         vault
         yt-dlp # youtube-dl but better

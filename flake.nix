@@ -5,8 +5,8 @@
     # Flakes
     # nixpkgs.url = "git+file:///home/vin/workspace/vcs/nixpkgs/master";
     # nixpkgs.url = "git+file:///home/vin/workspace/vcs/nixpkgs/nixos-unstable-small";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/5b09dc45f24cf32316283e62aec81ffee3c3e376";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/5b09dc45f24cf32316283e62aec81ffee3c3e376";
     # nixpkgs.url = "github:nixos/nixpkgs/master";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-20.09";
@@ -38,9 +38,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     niri = {
-      # https://github.com/YaLTeR/niri/pull/2244
-      url = "github:YaLTeR/niri/0d2ff45c4b8b41e4b3dbe1491d5cead0b04d566a";
-      # url = "github:YaLTeR/niri";
+      url = "github:YaLTeR/niri";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "";
     };
@@ -66,6 +64,7 @@
 
       inherit (inputs.nixpkgs.lib)
         flip
+        recurseIntoAttrs
         ;
     in
     {
@@ -102,6 +101,6 @@
       };
 
       legacyPackages = forAllSystems
-        ({ pkgs, ... }: builtins.trace "Using <nixpkgs> compat wrapper..." (pkgs.recurseIntoAttrs pkgs));
+        ({ pkgs, ... }: builtins.trace "Using <nixpkgs> compat wrapper..." (recurseIntoAttrs pkgs));
     };
 }

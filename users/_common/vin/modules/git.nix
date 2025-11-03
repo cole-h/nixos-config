@@ -11,9 +11,6 @@
     enable = true;
     package = pkgs.gitFull;
 
-    userEmail = "cole.e.helbling@outlook.com";
-    userName = "Cole Helbling";
-
     includes = [
       # includes github auth token, etc
       { path = "gitauth.inc"; }
@@ -26,7 +23,10 @@
       }
     ];
 
-    extraConfig = {
+    settings = {
+      user.email = "cole.e.helbling@outlook.com";
+      user.name = "Cole Helbling";
+
       tag.forceSignAnnotated = true;
       pull.rebase = true;
       push.default = "current";
