@@ -41,3 +41,6 @@ git_push_bookmark = '"cole-h/push-" ++ change_id.short()'
 [aliases]
 n = ["new"]
 jj = []
+
+[revsets]
+log-graph-prioritize = 'coalesce(merges(), trunk())'
