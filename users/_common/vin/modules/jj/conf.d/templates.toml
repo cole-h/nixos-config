@@ -1,3 +1,6 @@
+[colors]
+"node private".fg = "yellow"
+
 [templates]
 # https://github.com/jj-vcs/jj/issues/1946#issuecomment-2572986485
 draft_commit_description = '''
@@ -24,12 +27,14 @@ coalesce(
       if(current_working_copy, "working_copy"),
       if(immutable, "immutable"),
       if(conflict, "conflict"),
+      if(self.contained_in('private()'), "private"),
     ),
     coalesce(
       if(current_working_copy, "@"),
       if(immutable, "◆"),
       if(conflict, "×"),
       if(empty, "◌"),
+      if(self.contained_in('private()'), "◇"),
       "○",
     )
   )
