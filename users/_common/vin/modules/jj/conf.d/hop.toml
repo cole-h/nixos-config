@@ -2,7 +2,7 @@
 [revset-aliases]
 'closest_untracked_bookmarks(to)' = 'heads(::to & remote_bookmarks() ~ bookmarks())'
 'closest_bookmarks(to)' = 'heads(::to & bookmarks())'
-'closest_pushables(to)' = 'heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()) ~ denylist())'
+'closest_pushables(to)' = 'heads(::to & mutable() & ~description(exact:"") ~ (empty() | merges() | denylist()))'
 
 'closest_untracked_bookmark(to)' = 'exactly(closest_untracked_bookmarks(to), 1)'
 'closest_bookmark(to)' = 'exactly(closest_bookmarks(to), 1)'
