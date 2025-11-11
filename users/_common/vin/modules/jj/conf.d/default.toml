@@ -24,9 +24,7 @@ behavior = "drop" # don't sign commits until push (see git.sign-on-push)
 sign-on-push = true
 write-change-id-header = true
 fetch = "glob:*"
-
-# Prevent pushing anything explicitly labeled "private"
-private-commits = "description(glob:'private:*')"
+private-commits = "denylist()"
 
 [templates]
 git_push_bookmark = '"cole-h/push-" ++ change_id.short()'
