@@ -2,3 +2,6 @@
 
 [user]
 email = "cole.helbling@determinate.systems"
+
+[revset-aliases]
+'closest_bookmarks(to)' = 'heads(::to & bookmarks() ~ trunk())'

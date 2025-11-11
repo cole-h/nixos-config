@@ -1,7 +1,7 @@
 # https://github.com/jj-vcs/jj/discussions/5568#discussioncomment-12674748
 [revset-aliases]
 'closest_untracked_bookmarks(to)' = 'heads(::to & remote_bookmarks() ~ bookmarks())'
-'closest_bookmarks(to)' = 'heads(::to & bookmarks() ~ trunk())'
+'closest_bookmarks(to)' = 'heads(::to & bookmarks())'
 'closest_pushables(to)' = 'heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()) ~ denylist())'
 
 'closest_untracked_bookmark(to)' = 'exactly(closest_untracked_bookmarks(to), 1)'
