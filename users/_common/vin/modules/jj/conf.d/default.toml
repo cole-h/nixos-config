@@ -37,7 +37,7 @@ git_push_bookmark = '"cole-h/push-" ++ change_id.short()'
 # 'immutable_heads()' = 'builtin_immutable_heads() | (trunk().. & ~mine())'
 
 [aliases]
-n = ["new"]
+n = ["new", "-A"]
 jj = []
 
 [revsets]
