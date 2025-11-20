@@ -33,6 +33,9 @@ git_push_bookmark = '"cole-h/push-" ++ change_id.short()'
 'T' = 'trunk()'
 # Useful for abandoning branches off of trunk that are making the jj log too long
 'abm(r)' = '::fork_point(r) & mutable()'
+# The default log revset, so it can be referred to in the short-prefixes revset below
+# https://github.com/jj-vcs/jj/blob/bb3b61d7e17a3df09baa07bad3c565fb177ab696/cli/src/config/revsets.toml#L10C8-L10C73
+'log()' = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())"
 
 # 'immutable_heads()' = 'builtin_immutable_heads() | (trunk().. & ~mine())'
 
@@ -43,3 +46,4 @@ drop = ["abandon", "--retain-bookmarks"]
 
 [revsets]
 log-graph-prioritize = 'coalesce(merges(), trunk())'
+short-prefixes = "log() ~ (@ & description(exact:''))"
