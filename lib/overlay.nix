@@ -25,18 +25,6 @@ in
   ghostty = inputs.ghostty.packages.${final.stdenv.hostPlatform.system}.default;
 
   # larger overrides
-  wezterm =
-    let
-      wezterm-flake = inputs.wezterm;
-      date = lib.substring 0 8 wezterm-flake.lastModifiedDate; # YYYYMMDD
-      time = lib.substring 8 14 wezterm-flake.lastModifiedDate; # HHMMSS
-      rev = lib.substring 0 8 wezterm-flake.rev;
-    in
-    wezterm-flake.packages.${final.stdenv.system}.default.overrideAttrs ({ ... }: {
-      version = "${date}-${time}-${rev}";
-      __intentionallyOverridingVersion = true;
-    });
-
   # element-desktop = prev.element-desktop.overrideAttrs
   #   ({ buildInputs ? [ ], postFixup ? "", ... }: {
   #     buildInputs = buildInputs ++ [

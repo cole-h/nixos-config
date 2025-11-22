@@ -196,19 +196,6 @@
         if command -sq jj
           COMPLETE=fish jj | source
         end
-
-        # wezterm integration
-        if not set -q __ksi_prompt_state
-          function __ksi_mark_output_start --on-event fish_preexec
-              set --global __ksi_prompt_state pre-exec
-              printf "\e]133;C\a"
-          end
-
-          function __ksi_mark_output_end --on-event fish_postexec
-              set --global __ksi_prompt_state post-exec
-              printf "\e]133;D;$status\a"
-          end
-        end
       '';
     };
   };

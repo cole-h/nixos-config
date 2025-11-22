@@ -42,9 +42,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "";
     };
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-    };
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
