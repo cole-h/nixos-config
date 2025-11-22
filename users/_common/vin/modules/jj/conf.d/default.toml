@@ -36,6 +36,12 @@ git_push_bookmark = '"cole-h/push-" ++ change_id.short()'
 # https://github.com/jj-vcs/jj/blob/bb3b61d7e17a3df09baa07bad3c565fb177ab696/cli/src/config/revsets.toml#L10C8-L10C73
 'log()' = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())"
 
+'user(x)' = 'author(x) | committer(x)'
+'mine()' = '''
+user("cole.e.helbling@outlook.com")
+| user("cole.helbling@determinate.systems")
+'''
+
 # 'immutable_heads()' = 'builtin_immutable_heads() | (trunk().. & ~mine())'
 
 [aliases]
