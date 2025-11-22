@@ -117,6 +117,10 @@ output "Dell Inc. DELL S2721DGF CPYJZN3" {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=0 y=0
+
+    hot-corners {
+        top-right
+    }
 }
 
 output "ASUSTek COMPUTER INC VZ249 J9LMRS026930" {
@@ -148,6 +152,10 @@ output "ASUSTek COMPUTER INC VZ249 J9LMRS026930" {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=2560 y=180
+
+    hot-corners {
+        off
+    }
 }
 
 // Settings that influence how windows are positioned and sized.
