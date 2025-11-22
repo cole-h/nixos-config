@@ -7,8 +7,6 @@ in
   imports =
     [
       ./niri # niri config
-
-      ./sway.nix # sway config
     ];
 
   home.packages = with pkgs; [
@@ -27,6 +25,10 @@ in
     waybar
     xwayland-satellite # for xwayland in niri
     swaynotificationcenter # alternative to mako
+    swaybg
+    swayidle
+    swaylock-effects
+    fuzzel
   ];
 
   gtk = {
