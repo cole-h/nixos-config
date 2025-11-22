@@ -10,7 +10,6 @@ email = "cole.e.helbling@outlook.com"
 pager = "less -FRX"
 default-command = ["log", "-r", "stack()"]
 diff-editor = ":builtin"
-graph.style = "square"
 bookmark-list-sort-keys = ["committer-date-", "author-date-", "name"]
 # show-cryptographic-signatures = true
 
