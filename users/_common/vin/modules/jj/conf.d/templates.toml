@@ -1,5 +1,6 @@
 [colors]
 "node private".fg = "yellow"
+"mark".fg = "bright black"
 
 [templates]
 # https://github.com/jj-vcs/jj/issues/1946#issuecomment-2572986485
@@ -23,17 +24,12 @@ log_node = '''
 coalesce(
   if(!self, label("elided", "~")),
   label(
-    separate(" ",
-      if(current_working_copy, "working_copy"),
-      if(immutable, "immutable"),
-      if(conflict, "conflict"),
-      if(self.contained_in('private()'), "private"),
-    ),
+    log_labels_for(self),
     coalesce(
-      if(current_working_copy, "@"),
-      if(immutable, "◆"),
-      if(conflict, "×"),
-      if(empty, "◌"),
+      if(self.current_working_copy(), "@"),
+      if(self.immutable(), "◆"),
+      if(self.conflict(), "×"),
+      if(self.empty(), "◌"),
       if(self.contained_in('private()'), "◇"),
       "○",
     )
@@ -41,3 +37,83 @@ coalesce(
 )
 '''
 
+log = "this_is_my_log_template"
+
+[template-aliases]
+# Greatly inspired by + lifted from:
+# https://github.com/bryceberger/config/blob/122b20a34c40dc6d151ceb94a2d0b84eb4ba0d83/home/jj/config.toml#L253-L259
+this_is_my_log_template = '''
+label(
+  log_labels_for(self),
+  separate(
+    label("mark", " "),
+    format_short_change_id_with_hidden_and_divergent_info(self),
+    padded_description(self),
+    commit_id.shortest(8),
+  )
+  ++ " "
+  ++ author.timestamp().ago()
+  ++ if(!empty && !description, "\n" ++ diff.summary())
+)
+'''
+
+"log_labels_for(x)" = '''
+separate(
+  " ",
+  if(x.current_working_copy(), "working_copy"),
+  if(x.immutable(), "immutable"),
+  if(x.conflict(), "conflict"),
+  if(x.contained_in('private()'), "private"),
+)
+'''
+
+
+"format_short_change_id_with_hidden_and_divergent_info(commit)" = '''
+label(
+  separate(
+    " ",
+    if(commit.hidden(), "hidden"),
+    if(commit.divergent(), "divergent"),
+  ),
+  format_short_change_id(commit.change_id()),
+)
+'''
+
+"brief_description(x)" = '''
+if(
+  x.description().first_line().starts_with("Merge pull request #"),
+  label(
+    "mark",
+    x.description().first_line().replace(
+      regex:"Merge pull request #(\\d+)[^\\d]*",
+      "Merge pull request #$1"
+    )
+  ),
+  truncate_end(72, x.description().first_line(), "…")
+)
+'''
+
+"padded_description(x)" = '''
+separate(
+  " ",
+  if(
+    x.empty(),
+    label("empty", "(empty)"),
+  ),
+  if(
+    x.description(),
+    brief_description(x),
+    if(!x.empty(), label("description placeholder", "(no description)"))
+  ),
+  label("ellipsis", info_of(x)),
+)
+'''
+
+"info_of(x)" = '''
+separate(
+  " ",
+  x.tags(),
+  x.bookmarks(),
+  if(!x.contained_in("mine()"), x.author().name()),
+)
+'''
