@@ -1,5 +1,6 @@
 [revset-aliases]
-# https://gist.github.com/thoughtpolice/8f2fd36ae17cd11b8e7bd93a70e31ad6/
+# https://github.com/thoughtpolice/a/blob/f1a88bacc4e9a3ec0d6913caf3c32f042226dc10/tilde/aseipp/dotfiles/jj/config.toml
+
 # stack(x, n) is the set of mutable commits reachable from 'x', with 'n'
 # parents. 'n' is often useful to customize the display and return set for
 # certain operations. 'x' can be used to target the set of 'roots' to traverse,
@@ -8,16 +9,12 @@
 'stack(x)' = 'stack(x, 2)'
 'stack(x, n)' = 'ancestors(reachable(x, mutable()), n)'
 
-# The current set of "open" works. It is defined as:
-#
-# - given the set of commits not in trunk, that are written by me,
-# - calculate the given stack() for each of those commits
-#
+# The current set of "open" works. It is defined as: all stacks that are
+# reachable from my working copy, or any other commit I wrote.
 # n = 1, meaning that nothing from `trunk()` is included, so all resulting
 # commits are mutable by definition.
-'open()' = 'stack(trunk().. & mine(), 1)'
+'open()' = 'stack(mine() | @, 1)'
 
-# https://github.com/thoughtpolice/a/blob/dcf37f55a467e16f357995466ddb64dd64b20f8f/tilde/aseipp/dotfiles/jj/config.toml#L96C1-L100C36
 # Private and WIP commits that should never be pushed anywhere. Often part of
 # work-in-progress merge stacks.
 # 'wip()' = 'description(glob-i:"wip:*") | description(glob-i:"[[]WIP[]]*")'
