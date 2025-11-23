@@ -22,6 +22,35 @@
 'private()' = 'description(glob-i:"private:*") | description(glob-i:"[[]PRIVATE[]]*")'
 'denylist()' = 'wip() | private()'
 
+# Find the megamerge. Mostly useful in combination with other aliases, primarily
+# 'sandwich'. Normally when there's only one megamerge, sandwich works perfectly
+# fine and is basically "magic". However, there are more complex cases; consider
+# something like this which represents a forked repository of an upstream:
+#
+#
+#    ----> P1 ... Pn -----------\
+#   /                            \
+#  /---> X --\           (main)   \
+# B          M1 --> T1 ... Tn --> M2 --> @
+#  \---> Y --/
+#
+# X and Y are typical features on top of base B, combined inside megamerge M1.
+# However, we may want changes T1...Tn to go on top of M1, because (in my case)
+# they're custom and will never go upstream, but are correctly published as part
+# of the fork; Tn is where the main bookmark points. Finally, we have changes P1
+# ... Pn which are private and should never be pushed upstream at all.
+#
+# In this case, sandwich will work poorly because 'reachable(stack(), merges())'
+# will resolve to {M1, M2}, which is not what we want for 'rebase -B'. So to
+# handle that case, we allow the user to specify the merge via literal tag
+# "megamerge". In this case if we 'bookmark set megamerge -r M1' then sandwich
+# will always work correctly.
+'megamerge()' = '''coalesce(
+  present(megamerge),
+  reachable(stack(), merges())
+)
+'''
+
 # https://github.com/jj-vcs/jj/discussions/5669#discussioncomment-12178856
 'why_immutable(r)' = '(r & immutable()) | roots(r:: & immutable_heads())'
 

@@ -50,5 +50,5 @@ jj = []
 drop = ["abandon", "--retain-bookmarks"]
 
 [revsets]
-log-graph-prioritize = 'coalesce(merges(), trunk())'
+log-graph-prioritize = 'coalesce(megamerge(), trunk())'
 short-prefixes = "log() ~ (@ & description(exact:''))"
