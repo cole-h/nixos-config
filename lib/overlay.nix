@@ -24,6 +24,8 @@ in
 
   ghostty = inputs.ghostty.packages.${final.stdenv.hostPlatform.system}.default;
 
+  deploy-rs = inputs.deploy-rs.packages.${final.stdenv.hostPlatform.system}.default;
+
   # larger overrides
   # element-desktop = prev.element-desktop.overrideAttrs
   #   ({ buildInputs ? [ ], postFixup ? "", ... }: {

@@ -45,6 +45,9 @@
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+    };
     flake-compat.url = "github:edolstra/flake-compat";
 
     # Not flakes
@@ -92,6 +95,36 @@
                   ;
               }))
           (import ./hosts/darwin { inherit inputs; });
+
+      deploy.nodes = {
+        scadrial = {
+          hostname = "scadrial";
+
+          fastConnection = true;
+          # autoRollback = false;
+          # magicRollback = false;
+          remoteBuild = false;
+
+          profiles.system = {
+            sshUser = "root";
+            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.scadrial;
+          };
+        };
+
+        cultivation = {
+          hostname = "cultivation";
+
+          fastConnection = true;
+          # autoRollback = false;
+          # magicRollback = false;
+          remoteBuild = false;
+
+          profiles.system = {
+            sshUser = "root";
+            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.cultivation;
+          };
+        };
+      };
 
       packages = {
         x86_64-linux.iso = import ./lib/iso.nix { system = "x86_64-linux"; inherit inputs; };

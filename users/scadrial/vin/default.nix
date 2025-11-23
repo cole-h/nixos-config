@@ -24,6 +24,7 @@
         firefox-bin
         qimgv # image viewer
         nh
+        deploy-rs
 
         (vscode-with-extensions.override {
           vscodeExtensions = with vscode-extensions; [
