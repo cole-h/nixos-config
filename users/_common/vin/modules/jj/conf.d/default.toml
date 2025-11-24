@@ -38,8 +38,8 @@ git_push_bookmark = '"cole-h/push-" ++ change_id.short()'
 
 'user(x)' = 'author(x) | committer(x)'
 'mine()' = '''
-user("cole.e.helbling@outlook.com")
-| user("cole.helbling@determinate.systems")
+author("cole.e.helbling@outlook.com")
+| author("cole.helbling@determinate.systems")
 '''
 
 # 'immutable_heads()' = 'builtin_immutable_heads() | (trunk().. & ~mine())'
