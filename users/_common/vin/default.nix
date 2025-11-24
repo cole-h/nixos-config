@@ -12,6 +12,7 @@
   programs = {
     bash.enable = true;
     direnv.enable = true;
+    direnv.nix-direnv.enable = true;
     home-manager.enable = true; # TODO: remove?
     zoxide.enable = true; # https://www.youtube.com/watch?v=Oyg5iFddsJI
 
