@@ -85,7 +85,7 @@ if(
   label(
     "mark",
     x.description().first_line().replace(
-      regex:"Merge pull request #(\\d+)[^\\d]*",
+      regex:"Merge pull request #(\\d+).*",
       "Merge pull request #$1"
     )
   ),
