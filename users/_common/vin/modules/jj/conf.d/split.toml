@@ -1,0 +1,4 @@
+# Make helix go to the second line so I can immediately start typing the commit message
+--when.commands = ["split"]
+[ui]
+editor = ["hx", "+2"]
