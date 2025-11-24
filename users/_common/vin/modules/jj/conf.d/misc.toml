@@ -20,7 +20,10 @@
 # 'wip()' = 'description(glob-i:"wip:*") | description(glob-i:"[[]WIP[]]*")'
 'wip()' = 'none()'
 'private()' = 'description(glob-i:"private:*") | description(glob-i:"[[]PRIVATE[]]*")'
-'denylist()' = 'wip() | private()'
+'denylist()' = '''
+wip() | (descendants(wip()) ~ descendants(merges() ~ ancestors(trunk())))
+| private() | (descendants(private()) ~ descendants(merges() ~ ancestors(trunk())))
+'''
 
 # Find the megamerge. Mostly useful in combination with other aliases, primarily
 # 'sandwich'. Normally when there's only one megamerge, sandwich works perfectly

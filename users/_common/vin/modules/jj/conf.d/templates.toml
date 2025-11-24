@@ -63,7 +63,7 @@ separate(
   if(x.current_working_copy(), "working_copy"),
   if(x.immutable(), "immutable"),
   if(x.conflict(), "conflict"),
-  if(x.contained_in('private()'), "private"),
+  if(x.contained_in('denylist()'), "private"),
 )
 '''
 
