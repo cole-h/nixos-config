@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 {
   boot.kernelParams = [
-    "module_blacklist=i915"
+    "module_blacklist=i915,xe"
   ];
 
   services.xserver.videoDrivers = [ "nvidia" ];
