@@ -119,7 +119,7 @@ output "Dell Inc. DELL S2721DGF CPYJZN3" {
     position x=0 y=0
 
     hot-corners {
-        top-right
+        off
     }
 }
 
@@ -154,7 +154,7 @@ output "ASUSTek COMPUTER INC VZ249 J9LMRS026930" {
     position x=2560 y=180
 
     hot-corners {
-        off
+        top-right
     }
 }
 
