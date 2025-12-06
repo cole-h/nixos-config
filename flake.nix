@@ -46,7 +46,8 @@
       url = "github:ghostty-org/ghostty";
     };
     deploy-rs = {
-      url = "github:serokell/deploy-rs";
+      # https://github.com/serokell/deploy-rs/pull/353
+      url = "github:serokell/deploy-rs/8c9e56106ac5f1fbbd160c95f90ab5a28d386804";
     };
     flake-compat.url = "github:edolstra/flake-compat";
 
