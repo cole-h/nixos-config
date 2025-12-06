@@ -11,7 +11,7 @@ let
   mask = 
     let
       pow = base: exponent:
-        if exponent == 0 then 1 else lib.fold (x: y: y * base) base (lib.range 2 exponent);
+        if exponent == 0 then 1 else lib.foldr (x: y: y * base) base (lib.range 2 exponent);
 
       encode = num:
         lib.concatStringsSep "." (map (x: toString (lib.mod (num / x) 256))
