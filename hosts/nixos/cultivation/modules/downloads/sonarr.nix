@@ -14,5 +14,11 @@
     openFirewall = true;
     user = "downloads";
     group = "downloads";
+
+    environmentFiles = [
+      (builtins.toFile "sonarr-env" ''
+        SONARR__AUTH__TRUSTCGNATIPADDRESSES=true
+      '')
+    ];
   };
 }
