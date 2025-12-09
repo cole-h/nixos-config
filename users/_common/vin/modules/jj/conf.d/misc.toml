@@ -61,7 +61,15 @@ wip() | (descendants(wip()) ~ descendants(merges() ~ ancestors(trunk())))
 # useful when trying to squash an entire branch with `jj squash --from 'base(x)+::' --into 'base(x)'` and just put in any change on that branch as x
 'base(x)' = 'fork_point(trunk()..x)+ & ::x'
 
+'tip(x)' = 'exactly(heads(x::) ~ empty(), 1)'
+
 [aliases]
+tip = ["util", "exec", "--", "sh", "-c", """
+set -eu
+
+jj new "tip($1)"
+""", "jj-tip"]
+
 # https://gist.github.com/thoughtpolice/8f2fd36ae17cd11b8e7bd93a70e31ad6/
 # Retrunk a series. Typically used as `jj retrunk -s ...`, and notably can be
 # used with open:

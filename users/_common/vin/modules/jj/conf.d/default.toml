@@ -50,6 +50,8 @@ n = ["new", "-A"]
 jj = []
 drop = ["abandon", "--retain-bookmarks"]
 
+# jj rebase -b 'at_operation(@-, main)+' -d main
+
 [revsets]
-log-graph-prioritize = 'coalesce(megamerge(), trunk())'
+log-graph-prioritize = 'coalesce(megamerge(), present(@))'
 short-prefixes = "log() ~ (@ & description(exact:''))"
