@@ -54,7 +54,8 @@
     # Not flakes
   };
 
-  outputs = inputs:
+  outputs =
+    inputs:
     let
       inherit (inputs.self.lib)
         forAllSystems
@@ -73,29 +74,33 @@
 
       lib = import ./lib/lib.nix { inherit inputs; };
 
-      nixosConfigurations =
-        builtins.mapAttrs
-          (flip
-            ({ system, modules ? [ ] }: hostname:
-              mkNixosSystem {
-                inherit
-                  system
-                  modules
-                  ;
-              }))
-          (import ./hosts/nixos { inherit inputs; });
+      nixosConfigurations = builtins.mapAttrs (flip (
+        {
+          system,
+          modules ? [ ],
+        }:
+        hostname:
+        mkNixosSystem {
+          inherit
+            system
+            modules
+            ;
+        }
+      )) (import ./hosts/nixos { inherit inputs; });
 
-      darwinConfigurations =
-        builtins.mapAttrs
-          (flip
-            ({ system, modules ? [ ] }: hostname:
-              mkDarwinSystem {
-                inherit
-                  system
-                  modules
-                  ;
-              }))
-          (import ./hosts/darwin { inherit inputs; });
+      darwinConfigurations = builtins.mapAttrs (flip (
+        {
+          system,
+          modules ? [ ],
+        }:
+        hostname:
+        mkDarwinSystem {
+          inherit
+            system
+            modules
+            ;
+        }
+      )) (import ./hosts/darwin { inherit inputs; });
 
       deploy.nodes = {
         scadrial = {
@@ -128,10 +133,16 @@
       };
 
       packages = {
-        x86_64-linux.iso = import ./lib/iso.nix { system = "x86_64-linux"; inherit inputs; };
+        x86_64-linux.iso = import ./lib/iso.nix {
+          system = "x86_64-linux";
+          inherit inputs;
+        };
       };
 
-      legacyPackages = forAllSystems
-        ({ pkgs, ... }: builtins.trace "Using <nixpkgs> compat wrapper..." (recurseIntoAttrs pkgs));
+      legacyPackages = forAllSystems (
+        { pkgs, ... }: builtins.trace "Using <nixpkgs> compat wrapper..." (recurseIntoAttrs pkgs)
+      );
+
+      formatter = forAllSystems ({ pkgs, ... }: pkgs.nixfmt);
     };
 }

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   # It fails nowadays due to "Read event structure of invalid size.",
   # dunno why, but I don't need it.
@@ -62,7 +67,7 @@
     xdg-desktop-portal-wlr
     xdg-desktop-portal-gtk
     xdg-desktop-portal-gnome
-   ];
+  ];
 
   services.mullvad.enable = true;
 

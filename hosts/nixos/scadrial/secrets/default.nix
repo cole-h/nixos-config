@@ -1,7 +1,8 @@
 { config, ... }:
 let
   inherit (config.users.users)
-    vin;
+    vin
+    ;
 in
 {
   age.secrets = {

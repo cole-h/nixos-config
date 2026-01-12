@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   programs = {
     fish = {
@@ -116,62 +121,62 @@
         fish_prompt = {
           description = "Write out the prompt";
           body = ''
-              set -l last_pipestatus $pipestatus
-              set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
+            set -l last_pipestatus $pipestatus
+            set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
 
-              set -l last_cmd "$history[1]"
-              set -l last_exe (string split ' ' -- $last_cmd)[1]
+            set -l last_cmd "$history[1]"
+            set -l last_exe (string split ' ' -- $last_cmd)[1]
 
-              # NOTE: jj exits with code 3[1] when e.g. its pager sees a SIGPIPE (i.e. when it exits before
-              # consuming the entire pipe). However, when e.g. git's pager sees a SIGPIPE, it exits with that
-              # signal (at some point...?), and fish will reinterpret it as status 141 (128 + signal 13 for
-              # SIGPIPE) and then ignore it in `__fish_print_pipestatus`[2], since SIGPIPE is usually not an
-              # error. Blanket ignoring an exit code of 3 is probably a bad idea (since it's not a
-              # standardized exit code), so let's follow what git does and fake the status to 141.
-              # 
-              # [1]: https://github.com/jj-vcs/jj/blob/ffad6fe96f1c6415715f9aa58e3764f4a3429af2/cli/src/command_error.rs#L893
-              # [2]: https://github.com/fish-shell/fish-shell/blob/360cfdb7ae7af9a73cc3f357a78bd35b5b12e829/share/functions/__fish_print_pipestatus.fish#L22-L24
-              if test "$last_exe" = jj; and test "$__fish_last_status" = 3
-                  # 128 + SIGPIPE (13)
-                  set last_pipestatus 141
-                  set __fish_last_status 141
-              end
+            # NOTE: jj exits with code 3[1] when e.g. its pager sees a SIGPIPE (i.e. when it exits before
+            # consuming the entire pipe). However, when e.g. git's pager sees a SIGPIPE, it exits with that
+            # signal (at some point...?), and fish will reinterpret it as status 141 (128 + signal 13 for
+            # SIGPIPE) and then ignore it in `__fish_print_pipestatus`[2], since SIGPIPE is usually not an
+            # error. Blanket ignoring an exit code of 3 is probably a bad idea (since it's not a
+            # standardized exit code), so let's follow what git does and fake the status to 141.
+            # 
+            # [1]: https://github.com/jj-vcs/jj/blob/ffad6fe96f1c6415715f9aa58e3764f4a3429af2/cli/src/command_error.rs#L893
+            # [2]: https://github.com/fish-shell/fish-shell/blob/360cfdb7ae7af9a73cc3f357a78bd35b5b12e829/share/functions/__fish_print_pipestatus.fish#L22-L24
+            if test "$last_exe" = jj; and test "$__fish_last_status" = 3
+                # 128 + SIGPIPE (13)
+                set last_pipestatus 141
+                set __fish_last_status 141
+            end
 
-              set -l normal (set_color normal)
-              set -q fish_color_status
-              or set -g fish_color_status red
+            set -l normal (set_color normal)
+            set -q fish_color_status
+            or set -g fish_color_status red
 
-              # Color the prompt differently when we're root
-              set -l color_cwd $fish_color_cwd
-              set -l suffix ';:'
-              if functions -q fish_is_root_user; and fish_is_root_user
-                  if set -q fish_color_cwd_root
-                      set color_cwd $fish_color_cwd_root
-                  end
-                  set suffix '#'
-              end
+            # Color the prompt differently when we're root
+            set -l color_cwd $fish_color_cwd
+            set -l suffix ';:'
+            if functions -q fish_is_root_user; and fish_is_root_user
+                if set -q fish_color_cwd_root
+                    set color_cwd $fish_color_cwd_root
+                end
+                set suffix '#'
+            end
 
-              # Write pipestatus
-              # If the status was carried over (if no command is issued or if `set` leaves the status untouched), don't bold it.
-              set -l bold_flag --bold
-              set -q __fish_prompt_status_generation; or set -g __fish_prompt_status_generation $status_generation
-              if test $__fish_prompt_status_generation = $status_generation
-                  set bold_flag
-              end
-              set __fish_prompt_status_generation $status_generation
-              set -l status_color (set_color $fish_color_status)
-              set -l statusb_color (set_color $bold_flag $fish_color_status)
-              set -l prompt_status (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
-              set -l last_command_time (humantime $CMD_DURATION)
-              set -l cur_date (date '+%H:%M:%S %d %b %Y')
+            # Write pipestatus
+            # If the status was carried over (if no command is issued or if `set` leaves the status untouched), don't bold it.
+            set -l bold_flag --bold
+            set -q __fish_prompt_status_generation; or set -g __fish_prompt_status_generation $status_generation
+            if test $__fish_prompt_status_generation = $status_generation
+                set bold_flag
+            end
+            set __fish_prompt_status_generation $status_generation
+            set -l status_color (set_color $fish_color_status)
+            set -l statusb_color (set_color $bold_flag $fish_color_status)
+            set -l prompt_status (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
+            set -l last_command_time (humantime $CMD_DURATION)
+            set -l cur_date (date '+%H:%M:%S %d %b %Y')
 
-              test "$__ksi_prompt_state" != prompt-start
-              and printf "\e]133;D\a"
-              set --global __ksi_prompt_state prompt-start
-              printf "\e]133;A\a"
-              printf "\e]133;P\a"
-              echo -e -n -s (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status " "(set_color cyan)$cur_date $normal " "$last_command_time "\n" $suffix " "
-              printf "\e]133;B\a"
+            test "$__ksi_prompt_state" != prompt-start
+            and printf "\e]133;D\a"
+            set --global __ksi_prompt_state prompt-start
+            printf "\e]133;A\a"
+            printf "\e]133;P\a"
+            echo -e -n -s (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status " "(set_color cyan)$cur_date $normal " "$last_command_time "\n" $suffix " "
+            printf "\e]133;B\a"
           '';
         };
       };

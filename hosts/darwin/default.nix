@@ -1,4 +1,5 @@
-{ inputs
+{
+  inputs,
 }:
 let
   inherit (inputs.self.lib)
@@ -24,22 +25,26 @@ let
 
         extraModules =
           let
-            home = { config, ... }: {
-              home-manager = {
-                users = import ../../users/catacendre;
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                verbose = true;
+            home =
+              { config, ... }:
+              {
+                home-manager = {
+                  users = import ../../users/catacendre;
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  verbose = true;
 
-                extraSpecialArgs = specialArgs // {
-                  super = config;
+                  extraSpecialArgs = specialArgs // {
+                    super = config;
+                  };
                 };
               };
-            };
 
-            nix = { lib, ... }: {
-              # nix.package = lib.mkForce inputs.nix.packages.${system}.default;
-            };
+            nix =
+              { lib, ... }:
+              {
+                # nix.package = lib.mkForce inputs.nix.packages.${system}.default;
+              };
           in
           [
             inputs.home.darwinModules.home-manager
@@ -52,28 +57,41 @@ let
 
 in
 
-builtins.mapAttrs
-  (flip
-    ({ extraModules ? [ ], hostname ? null, ... }@value: hostname':
-    builtins.removeAttrs value [ "extraModules" "hostname" ] // {
-      modules =
-        let
-          host = if hostname != null then hostname else hostname';
-        in
-        [
-          # inputs.agenix.darwinModules.age
+builtins.mapAttrs (flip (
+  {
+    extraModules ? [ ],
+    hostname ? null,
+    ...
+  }@value:
+  hostname':
+  builtins.removeAttrs value [
+    "extraModules"
+    "hostname"
+  ]
+  // {
+    modules =
+      let
+        host = if hostname != null then hostname else hostname';
+      in
+      [
+        # inputs.agenix.darwinModules.age
 
+        {
+          _module.args = specialArgs;
+          nixpkgs.config = nixpkgsConfig;
+          nixpkgs.overlays = nixpkgsOverlays;
+        }
+        (
+          { lib, ... }:
           {
-            _module.args = specialArgs;
-            nixpkgs.config = nixpkgsConfig;
-            nixpkgs.overlays = nixpkgsOverlays;
+            networking.hostName = lib.mkDefault host;
           }
-          ({ lib, ... }: { networking.hostName = lib.mkDefault host; })
+        )
 
-          ../_common
-          # ./_modules
-          (./. + "/${host}/configuration.nix")
-        ]
-        ++ extraModules;
-    }))
-  machines
+        ../_common
+        # ./_modules
+        (./. + "/${host}/configuration.nix")
+      ]
+      ++ extraModules;
+  }
+)) machines

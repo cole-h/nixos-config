@@ -2,18 +2,17 @@
 let
   # https://github.com/PassthroughPOST/VFIO-Tools/blob/0bdc0aa462c0acd8db344c44e8692ad3a281449a/libvirt_hooks/qemu
   # TODO: just pkgs.runCommand and sed the shebang away
-  qemuHook = pkgs.stdenv.mkDerivation
-    {
-      name = "qemu-hook";
-      src = pkgs.fetchFromGitHub {
-        owner = "PassthroughPOST";
-        repo = "VFIO-Tools";
-        rev = "0bdc0aa462c0acd8db344c44e8692ad3a281449a";
-        sha256 = "XAKMd8ZKhXuWT8pph+3QhATAl7FRt3swvHSK+SCXHuQ=";
-      };
-
-      installPhase = "cp libvirt_hooks/qemu $out";
+  qemuHook = pkgs.stdenv.mkDerivation {
+    name = "qemu-hook";
+    src = pkgs.fetchFromGitHub {
+      owner = "PassthroughPOST";
+      repo = "VFIO-Tools";
+      rev = "0bdc0aa462c0acd8db344c44e8692ad3a281449a";
+      sha256 = "XAKMd8ZKhXuWT8pph+3QhATAl7FRt3swvHSK+SCXHuQ=";
     };
+
+    installPhase = "cp libvirt_hooks/qemu $out";
+  };
 in
 {
   boot.kernelModules = [ "vfio-pci" ];

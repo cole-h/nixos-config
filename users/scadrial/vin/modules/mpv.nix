@@ -1,4 +1,9 @@
-{ config, pkgs, my, ... }:
+{
+  config,
+  pkgs,
+  my,
+  ...
+}:
 
 {
   home.packages = with pkgs; [
@@ -8,13 +13,14 @@
   ];
 
   xdg.configFile = with pkgs; {
-    "mpv/scripts/navigator.lua".source = fetchFromGitHub
-      {
+    "mpv/scripts/navigator.lua".source =
+      fetchFromGitHub {
         owner = "jonniek";
         repo = "mpv-filenavigator";
         rev = "a67c8280a7711cfaa5871f55d53ddb017f6d7b4c";
         sha256 = "0kvj36nwxz5izps0qm6qw6yrcd5fkkh1kb9zgb2z32hfbmvq22sy";
-      } + "/navigator.lua";
+      }
+      + "/navigator.lua";
   };
 
   programs.mpv = {
@@ -47,7 +53,7 @@
       "Alt+x" = "quit-watch-later";
       "1" = "cycle border";
       "Ctrl+a" = "cycle ontop";
-      n = ''show-text ''${media-title}'';
+      n = "show-text \${media-title}";
       MBTN_LEFT = "cycle pause";
       MBTN_LEFT_DBL = "cycle fullscreen";
       MBTN_RIGHT = "ignore";

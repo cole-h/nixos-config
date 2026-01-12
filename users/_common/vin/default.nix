@@ -1,10 +1,15 @@
-{ inputs, config, lib, pkgs, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./modules
-    ];
+  imports = [
+    ./modules
+  ];
 
   home.username = "vin";
   # home.homeDirectory = "/home/vin";
@@ -30,29 +35,28 @@
     enableDebugInfo = true;
     extraOutputsToInstall = [ "man" ];
 
-    packages = with pkgs;
-      [
-        # calibre # ebook manager
-        cargo-limit # deal with errors one at a time
-        cargo-temp # create temporary cargo projects
-        cargo-watch # watch rust projects for changes
-        dfmt # par + fmt but better
-        # foliate
-        gh # GitHub cli
-        git-absorb
-        hyperfine # runtime performance measuring
-        ijq # interactive json fiddling
-        jq # json fiddling
-        libnotify # notifications part 2: electric boogaloo
-        watchman # for jujutsu
-        pgcli # much better than psql
-        rustup
-        llvmPackages_20.bintools # includes lld linker for rust
-        sd # sed but more intuitive
-        vault
-        yt-dlp # youtube-dl but better
-        zellij # better than tmux
-      ];
+    packages = with pkgs; [
+      # calibre # ebook manager
+      cargo-limit # deal with errors one at a time
+      cargo-temp # create temporary cargo projects
+      cargo-watch # watch rust projects for changes
+      dfmt # par + fmt but better
+      # foliate
+      gh # GitHub cli
+      git-absorb
+      hyperfine # runtime performance measuring
+      ijq # interactive json fiddling
+      jq # json fiddling
+      libnotify # notifications part 2: electric boogaloo
+      watchman # for jujutsu
+      pgcli # much better than psql
+      rustup
+      llvmPackages_20.bintools # includes lld linker for rust
+      sd # sed but more intuitive
+      vault
+      yt-dlp # youtube-dl but better
+      zellij # better than tmux
+    ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
     # otherwise sessionVariables won't be sourced in new shells
@@ -62,8 +66,8 @@
 
       CARGO_HOME = "${config.home.homeDirectory}/.cargo";
 
-      _ZO_FZF_OPTS="--no-sort --reverse --border --height 40%"; # zoxide fzf options
-      LS_COLORS="ow=36:di=1;34;40:fi=32:ex=31:ln=35:";
+      _ZO_FZF_OPTS = "--no-sort --reverse --border --height 40%"; # zoxide fzf options
+      LS_COLORS = "ow=36:di=1;34;40:fi=32:ex=31:ln=35:";
 
       # I only want NIX_PATH available for my user, not for the entire system.
       NIX_PATH = builtins.concatStringsSep ":" [

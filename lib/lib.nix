@@ -1,4 +1,5 @@
-{ inputs
+{
+  inputs,
 }:
 rec {
   linuxSystems = [ "x86_64-linux" ];
@@ -21,8 +22,9 @@ rec {
   ];
 
   pkgsFor =
-    { nixpkgs
-    , system
+    {
+      nixpkgs,
+      system,
     }:
     import nixpkgs {
       inherit system;
@@ -30,14 +32,18 @@ rec {
       overlays = nixpkgsOverlays;
     };
 
-  forAllSystems = f: genAttrs allSystems
-    (system: f {
-      inherit system;
-      pkgs = pkgsFor {
+  forAllSystems =
+    f:
+    genAttrs allSystems (
+      system:
+      f {
         inherit system;
-        inherit (inputs) nixpkgs;
-      };
-    });
+        pkgs = pkgsFor {
+          inherit system;
+          inherit (inputs) nixpkgs;
+        };
+      }
+    );
 
   specialArgs = {
     inherit inputs;
@@ -50,16 +56,18 @@ rec {
   };
 
   mkNixosSystem =
-    { system
-    , modules
+    {
+      system,
+      modules,
     }:
     inputs.nixpkgs.lib.nixosSystem {
       inherit system modules specialArgs;
     };
 
   mkDarwinSystem =
-    { system
-    , modules
+    {
+      system,
+      modules,
     }:
     inputs.darwin.lib.darwinSystem {
       inherit system modules specialArgs;

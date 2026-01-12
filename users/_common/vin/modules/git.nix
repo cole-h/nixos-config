@@ -1,4 +1,10 @@
-{ config, lib, pkgs, my, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  my,
+  ...
+}:
 {
   xdg.configFile = {
     "git/ignore".text = ''

@@ -4,7 +4,10 @@
     nixPath = [ ];
     distributedBuilds = true; # necessary for settings.builders to not be defined in the nix-daemon upstream module
     settings = {
-      extra-experimental-features = [ "nix-command" "flakes" ];
+      extra-experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       flake-registry = "/etc/nix/registry.json";
       builders = [ "@/etc/nix/machines" ];
       extra-trusted-public-keys = [
@@ -18,7 +21,10 @@
       };
 
       nixpkgs = {
-        from = { id = "nixpkgs"; type = "indirect"; };
+        from = {
+          id = "nixpkgs";
+          type = "indirect";
+        };
         flake = inputs.nixpkgs;
       };
     };

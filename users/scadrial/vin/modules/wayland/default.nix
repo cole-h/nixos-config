@@ -4,10 +4,9 @@ let
   cursorSize = config.home.pointerCursor.size;
 in
 {
-  imports =
-    [
-      ./niri # niri config
-    ];
+  imports = [
+    ./niri # niri config
+  ];
 
   home.packages = with pkgs; [
     jq # json fiddling

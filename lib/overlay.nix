@@ -16,11 +16,17 @@ in
   mpv-unwrapped = prev.mpv-unwrapped.override { cddaSupport = true; };
 
   # https://github.com/NixOS/nixpkgs/pull/328485
-  safeeyes = prev.safeeyes.overrideAttrs ({ propagatedBuildInputs ? [ ], ... }: {
-    propagatedBuildInputs = propagatedBuildInputs ++ [
-      final.python3.pkgs.setuptools
-    ];
-  });
+  safeeyes = prev.safeeyes.overrideAttrs (
+    {
+      propagatedBuildInputs ? [ ],
+      ...
+    }:
+    {
+      propagatedBuildInputs = propagatedBuildInputs ++ [
+        final.python3.pkgs.setuptools
+      ];
+    }
+  );
 
   ghostty = inputs.ghostty.packages.${final.stdenv.hostPlatform.system}.default;
 
@@ -51,8 +57,13 @@ in
   #     '';
   #   });
 
-  _1password-gui = prev._1password-gui.overrideAttrs
-    ({ buildInputs ? [ ], postFixup ? "", ... }: {
+  _1password-gui = prev._1password-gui.overrideAttrs (
+    {
+      buildInputs ? [ ],
+      postFixup ? "",
+      ...
+    }:
+    {
       buildInputs = buildInputs ++ [
         final.makeWrapper
       ];
@@ -61,11 +72,15 @@ in
         wrapProgram $out/bin/1password \
           --unset NIXOS_OZONE_WL
       '';
-    });
+    }
+  );
 
-  clamav = prev.clamav.overrideAttrs ({ ... }: {
-    doCheck = false;
-  });
+  clamav = prev.clamav.overrideAttrs (
+    { ... }:
+    {
+      doCheck = false;
+    }
+  );
 
   python312 = prev.python312.override {
     packageOverrides = pyfinal: pyprev: {

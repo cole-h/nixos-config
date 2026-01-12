@@ -1,4 +1,5 @@
-{ lib
+{
+  lib,
 }:
 {
   wallpaper = ./wallpaper.png;

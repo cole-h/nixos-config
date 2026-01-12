@@ -5,8 +5,17 @@
   security.doas = {
     enable = true;
     extraRules = [
-      { groups = [ "wheel" ]; keepEnv = true; persist = true; }
-      { groups = [ "wheel" ]; keepEnv = true; noPass = true; cmd = "virsh"; }
+      {
+        groups = [ "wheel" ];
+        keepEnv = true;
+        persist = true;
+      }
+      {
+        groups = [ "wheel" ];
+        keepEnv = true;
+        noPass = true;
+        cmd = "virsh";
+      }
     ];
   };
 

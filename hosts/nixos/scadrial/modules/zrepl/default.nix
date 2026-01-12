@@ -1,4 +1,10 @@
-{ config, pkgs, lib, secretsPath, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  secretsPath,
+  ...
+}:
 {
   age.secrets = {
     scadrial-key = {
@@ -142,7 +148,12 @@
   systemd.timers.zrepl-replicate = {
     description = "Trigger zrepl replication for scadrial_to_cultivation";
     wantedBy = [ "timers.target" ];
-    after = [ "default.target" "network.target" "zrepl.service" "tailscaled.service" ];
+    after = [
+      "default.target"
+      "network.target"
+      "zrepl.service"
+      "tailscaled.service"
+    ];
     timerConfig = {
       Unit = "zrepl-replicate.service";
       OnCalendar = "hourly";

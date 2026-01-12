@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   addr = lib.elemAt config.networking.interfaces.${interface}.ipv4.addresses 0;
 
@@ -8,20 +13,22 @@ let
 
   # https://github.com/NixOS/nixpkgs/pull/258250#issuecomment-1849556138
   # https://cyberchaos.dev/cyberchaoscreatures/nixlib/-/blob/ae8275e565018b6b256302dbc7203c941d654f6a/lib/ipUtil/default.nix
-  mask = 
+  mask =
     let
-      pow = base: exponent:
-        if exponent == 0 then 1 else lib.foldr (x: y: y * base) base (lib.range 2 exponent);
+      pow =
+        base: exponent: if exponent == 0 then 1 else lib.foldr (x: y: y * base) base (lib.range 2 exponent);
 
-      encode = num:
-        lib.concatStringsSep "." (map (x: toString (lib.mod (num / x) 256))
-          (lib.reverseList (lib.genList (x: pow 2 (x * 8)) 4)));
+      encode =
+        num:
+        lib.concatStringsSep "." (
+          map (x: toString (lib.mod (num / x) 256)) (lib.reverseList (lib.genList (x: pow 2 (x * 8)) 4))
+        );
 
-      netmask = prefixLength:
-        encode ((lib.foldl (x: y: 2 * x + 1) 0 (lib.range 1 prefixLength))
-          * (pow 2 (32 - prefixLength)));
+      netmask =
+        prefixLength:
+        encode ((lib.foldl (x: y: 2 * x + 1) 0 (lib.range 1 prefixLength)) * (pow 2 (32 - prefixLength)));
     in
-  netmask addr.prefixLength;
+    netmask addr.prefixLength;
 in
 {
   boot.kernelParams = [
@@ -57,9 +64,9 @@ in
   # Rollback things to a blank snapshot (currently only /tmp)
   boot.initrd.systemd.services.rollback = {
     description = "Rollback ZFS datasets to a pristine state";
-    wantedBy = [ "initrd.target" ]; 
+    wantedBy = [ "initrd.target" ];
     after = [ "zfs-import.target" ];
-    before = [  "sysroot.mount" ];
+    before = [ "sysroot.mount" ];
     path = [ config.boot.zfs.package ];
     unitConfig.DefaultDependencies = "no";
     serviceConfig.Type = "oneshot";

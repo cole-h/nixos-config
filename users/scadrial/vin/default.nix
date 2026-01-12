@@ -1,11 +1,16 @@
-{ inputs, config, lib, pkgs, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./modules
-      ../../_common/vin
-    ];
+  imports = [
+    ./modules
+    ../../_common/vin
+  ];
 
   home.homeDirectory = "/home/vin";
 
@@ -19,28 +24,27 @@
   };
 
   home = {
-    packages = with pkgs;
-      [
-        firefox-bin
-        qimgv # image viewer
-        nh
-        deploy-rs
+    packages = with pkgs; [
+      firefox-bin
+      qimgv # image viewer
+      nh
+      deploy-rs
 
-        (vscode-with-extensions.override {
-          vscodeExtensions = with vscode-extensions; [
-            ms-vsliveshare.vsliveshare
-            # https://github.com/NixOS/nixpkgs/pull/383049
-            # rust-lang.rust-analyzer
-            hashicorp.terraform
-            golang.go
-            eamodio.gitlens
-            bbenoist.nix
-            stkb.rewrap
-            usernamehw.errorlens
-            editorconfig.editorconfig
-          ];
-        })
-      ];
+      (vscode-with-extensions.override {
+        vscodeExtensions = with vscode-extensions; [
+          ms-vsliveshare.vsliveshare
+          # https://github.com/NixOS/nixpkgs/pull/383049
+          # rust-lang.rust-analyzer
+          hashicorp.terraform
+          golang.go
+          eamodio.gitlens
+          bbenoist.nix
+          stkb.rewrap
+          usernamehw.errorlens
+          editorconfig.editorconfig
+        ];
+      })
+    ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,
     # otherwise sessionVariables won't be sourced in new shells

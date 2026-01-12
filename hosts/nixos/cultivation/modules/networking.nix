@@ -29,7 +29,8 @@ in
     "--advertise-routes=192.168.1.0/24"
     "--advertise-exit-node"
   ];
-  systemd.services.tailscaled.serviceConfig.ExecStartPost = "${config.services.tailscale.package}/bin/tailscale up ${lib.escapeShellArgs config.services.tailscale.extraUpFlags}";
+  systemd.services.tailscaled.serviceConfig.ExecStartPost =
+    "${config.services.tailscale.package}/bin/tailscale up ${lib.escapeShellArgs config.services.tailscale.extraUpFlags}";
 
   # Enable IP forwarding for tailscale's subnet routing
   boot.kernel.sysctl = {
