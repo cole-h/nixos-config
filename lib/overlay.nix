@@ -15,19 +15,6 @@ in
   rofi = prev.rofi.override { plugins = [ final.rofi-emoji ]; };
   mpv-unwrapped = prev.mpv-unwrapped.override { cddaSupport = true; };
 
-  # https://github.com/NixOS/nixpkgs/pull/328485
-  safeeyes = prev.safeeyes.overrideAttrs (
-    {
-      propagatedBuildInputs ? [ ],
-      ...
-    }:
-    {
-      propagatedBuildInputs = propagatedBuildInputs ++ [
-        final.python3.pkgs.setuptools
-      ];
-    }
-  );
-
   ghostty = inputs.ghostty.packages.${final.stdenv.hostPlatform.system}.default;
 
   deploy-rs = inputs.deploy-rs.packages.${final.stdenv.hostPlatform.system}.default;
