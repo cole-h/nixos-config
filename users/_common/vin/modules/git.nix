@@ -42,6 +42,7 @@
       init.defaultBranch = "main";
       absorb.maxStack = "100";
       commit.verbose = true;
+      core.hooksPath = "/dev/null";
 
       diff."nodiff".command = "${pkgs.coreutils}/bin/true";
 
