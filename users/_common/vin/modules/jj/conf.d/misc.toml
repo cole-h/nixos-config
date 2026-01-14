@@ -91,3 +91,46 @@ jj new ${new_base}
 """, "jj-renew"]
 
 gcl = ["git", "clone", "--colocate"]
+
+# TODO: improve over time
+# Useful for me because the FAQ item makes my brain hurty
+# https://docs.jj-vcs.dev/latest/faq/#i-accidentally-changed-files-in-the-wrong-commit-how-do-i-move-the-recent-changes-into-another-commit
+separate-changes = ["util", "exec", "--", "sh", "-c", """
+set -e
+
+old_commit="$1"
+current_commit="$2"
+
+if [ -z "$old_commit" ] || [ -z "$current_commit" ]; then
+  echo "Usage: jj separate-changes <old-commit-id> <current-commit-id>"
+  exit 1
+fi
+
+if ! jj log -r "$old_commit" --no-graph --ignore-working-copy >/dev/null 2>&1; then
+  echo "Error: old commit '$old_commit' does not exist"
+  exit 1
+fi
+
+if ! jj log -r "$current_commit" --no-graph --ignore-working-copy >/dev/null 2>&1; then
+  echo "Error: current commit '$current_commit' does not exist"
+  exit 1
+fi
+
+jj st >/dev/null 2>&1
+
+operation_id=$(jj op log --no-graph -T 'id.short()' --limit 1)
+
+trap 'echo -e "\nUndo this with: jj op restore '$operation_id'"' EXIT
+
+jj new "$old_commit" -m "separated changes" --no-edit >/dev/null 2>&1
+new_commit=$(jj log -r "$old_commit+" --no-graph -T 'change_id.short()' --limit 1)
+
+jj restore --from "$current_commit" --to "$new_commit"
+
+jj rebase --source "$current_commit" --onto "$new_commit"
+
+jj bookmark move --from "$current_commit" --to "$old_commit" 2>/dev/null || true
+
+jj abandon "$current_commit"
+
+""", "jj-separate-changes"]
