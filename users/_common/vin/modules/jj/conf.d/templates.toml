@@ -49,11 +49,7 @@ label(
     label("mark", " "),
     format_short_change_id_with_hidden_and_divergent_info(self),
     padded_description(self),
-    commit_id.shortest(8),
   )
-  ++ " "
-  ++ author.timestamp().ago()
-  ++ if(!empty && !description, "\n" ++ diff.summary())
 )
 '''
 
@@ -61,7 +57,7 @@ label(
 separate(
   " ",
   if(x.current_working_copy(), "working_copy"),
-  if(x.immutable(), "immutable"),
+  if(x.immutable(), "immutable", "mutable"),
   if(x.conflict(), "conflict"),
   if(x.contained_in('denylist()'), "private"),
 )
@@ -75,7 +71,7 @@ label(
     if(commit.hidden(), "hidden"),
     if(commit.divergent(), "divergent"),
   ),
-  format_short_change_id(commit.change_id()),
+  format_short_change_id_with_change_offset(commit),
 )
 '''
 
@@ -112,8 +108,11 @@ separate(
 "info_of(x)" = '''
 separate(
   " ",
-  x.tags(),
   x.bookmarks(),
+  x.tags(),
   if(!x.contained_in("mine()"), x.author().name()),
+  commit_id.shortest(8),
+  author.timestamp().ago(),
+  if(!empty && !description, "\n" ++ diff.summary()),
 )
 '''
