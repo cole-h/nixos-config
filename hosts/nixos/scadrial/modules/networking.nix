@@ -36,10 +36,12 @@ in
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22000 # syncthing
+    53317 # localsend
   ];
 
   networking.firewall.allowedUDPPorts = [
     21027 # syncthing
     51821
+    53317 # localsend
   ];
 }
