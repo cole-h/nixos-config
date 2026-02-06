@@ -5,6 +5,7 @@
     ./sonarr.nix
     ./torrent.nix
     ./jellyfin.nix
+    ./radarr.nix
   ];
 
   users.groups.downloads.gid = 947;
