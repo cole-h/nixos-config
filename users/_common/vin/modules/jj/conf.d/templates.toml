@@ -113,6 +113,7 @@ separate(
   if(!x.contained_in("mine()"), x.author().name()),
   commit_id.shortest(8),
   author.timestamp().ago(),
-  if(!empty && !description, "\n" ++ diff.summary()),
+  "\n",
+  if(!empty && !description, diff.summary()),
 )
 '''
