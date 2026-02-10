@@ -48,7 +48,7 @@
       ijq # interactive json fiddling
       jq # json fiddling
       libnotify # notifications part 2: electric boogaloo
-      watchman # for jujutsu
+      # watchman # for jujutsu
       pgcli # much better than psql
       rustup
       llvmPackages_20.bintools # includes lld linker for rust
