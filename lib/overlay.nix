@@ -19,6 +19,13 @@ in
 
   deploy-rs = inputs.deploy-rs.packages.${final.stdenv.hostPlatform.system}.default;
 
+  python313 = prev.python313.override {
+    packageOverrides = pfinal: pprev: {
+      # https://github.com/NixOS/nixpkgs/pull/493391
+      picosvg = pprev.picosvg.overridePythonAttrs ({ ... }: { doCheck = false; });
+    };
+  };
+
   # larger overrides
   # element-desktop = prev.element-desktop.overrideAttrs
   #   ({ buildInputs ? [ ], postFixup ? "", ... }: {
