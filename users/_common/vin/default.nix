@@ -50,7 +50,7 @@
       libnotify # notifications part 2: electric boogaloo
       # watchman # for jujutsu
       pgcli # much better than psql
-      rustup
+      # rustup
       llvmPackages_20.bintools # includes lld linker for rust
       sd # sed but more intuitive
       vault
