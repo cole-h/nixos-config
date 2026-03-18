@@ -88,19 +88,19 @@
         }
       )) (import ./hosts/nixos { inherit inputs; });
 
-      darwinConfigurations = builtins.mapAttrs (flip (
-        {
-          system,
-          modules ? [ ],
-        }:
-        hostname:
-        mkDarwinSystem {
-          inherit
-            system
-            modules
-            ;
-        }
-      )) (import ./hosts/darwin { inherit inputs; });
+      # darwinConfigurations = builtins.mapAttrs (flip (
+      #   {
+      #     system,
+      #     modules ? [ ],
+      #   }:
+      #   hostname:
+      #   mkDarwinSystem {
+      #     inherit
+      #       system
+      #       modules
+      #       ;
+      #   }
+      # )) (import ./hosts/darwin { inherit inputs; });
 
       deploy.nodes = {
         scadrial = {
