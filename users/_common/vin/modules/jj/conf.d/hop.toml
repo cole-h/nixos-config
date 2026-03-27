@@ -13,8 +13,8 @@ heads(
 '''
 
 'closest_untracked_bookmark(to)' = 'exactly(closest_untracked_bookmarks(to), 1)'
-'closest_bookmark(to)' = 'exactly(closest_bookmarks(to), 1)'
-'closest_pushable(to)' = 'exactly(closest_pushables(to), 1)'
+'closest_bookmark(to)' = 'closest_bookmarks(to)'
+'closest_pushable(to)' = 'closest_pushables(to)'
 
 [aliases]
 hop = ["util", "exec", "--", "sh", "-c", """
