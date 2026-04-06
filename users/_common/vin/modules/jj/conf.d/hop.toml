@@ -8,7 +8,7 @@ heads(
   & mutable()
   & ~description(exact:"")
   & ~descendants(denylist())
-  & (~empty() | merges())
+  & (~empty() | ~merges())
 )
 '''
 

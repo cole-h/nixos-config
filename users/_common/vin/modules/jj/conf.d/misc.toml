@@ -78,10 +78,10 @@ jj new "tip($rev)"
 # - jj retrunk -s 'all:roots(open())'
 retrunk = ["rebase", "-d", "trunk()"]
 
-retrunk-all = ["retrunk", "-s", "all:roots(open())"]
+retrunk-all = ["retrunk", "-s", "roots(open())"]
 
 # Retrunk the current stack of work.
-reheat = ["rebase", "-d", "trunk()", "-s", "all:roots(trunk()..stack(@))"]
+reheat = ["rebase", "-d", "trunk()", "-s", "roots(trunk()..stack(@))"]
 
 renew = ["util", "exec", "--", "sh", "-c", """
 set -eu
