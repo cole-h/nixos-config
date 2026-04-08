@@ -93,6 +93,11 @@
                 return 1
             end
 
+            # Do I want to skip the prompt in this repo?
+            if jj config get skip-prompt &>/dev/null
+                return 1
+            end
+
             # Generate prompt
             set -l info "$(
                 set -l op_id (jj op log --ignore-working-copy --no-graph --limit=1 --template 'self.id().short()')
