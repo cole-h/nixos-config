@@ -61,7 +61,7 @@ wip() | (descendants(wip()) ~ descendants(merges() ~ ancestors(trunk())))
 # useful when trying to squash an entire branch with `jj squash --from 'base(x)+::' --into 'base(x)'` and just put in any change on that branch as x
 'base(x)' = 'fork_point(trunk()..x)+ & ::x'
 
-'tip(x)' = 'exactly(heads(x::) ~ empty(), 1)'
+'tip(x)' = 'exactly(heads(x:: ~ (empty() & description(exact:"")) ~ (x:: & merges())::), 1)'
 
 [aliases]
 tip = ["util", "exec", "--", "sh", "-c", """
