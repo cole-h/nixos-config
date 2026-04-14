@@ -13,7 +13,6 @@
     binutils # ld, strip
     efibootmgr
     evince # pdf viewer
-    gcc # compilation, but also for rust
     gdb # debugging
     gitFull # ...git
     file-roller # gui archive manager
@@ -21,7 +20,6 @@
     libressl.nc # netcat-openbsd
     man-pages # man-pages stuff
     man-pages-posix # posix man pages
-    musl.dev # for musl-gcc, static compilation of rust programs
     pavucontrol # volume gui
     pciutils # lspci, etc
     psmisc # ps
