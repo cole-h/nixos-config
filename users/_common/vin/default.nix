@@ -43,6 +43,7 @@
       dfmt # par + fmt but better
       # foliate
       gh # GitHub cli
+      gron # json diffing
       git-absorb
       hyperfine # runtime performance measuring
       ijq # interactive json fiddling
@@ -51,7 +52,7 @@
       # watchman # for jujutsu
       pgcli # much better than psql
       # rustup
-      llvmPackages_20.bintools # includes lld linker for rust
+      lld # lld linker for rust
       sd # sed but more intuitive
       vault
       yt-dlp # youtube-dl but better
