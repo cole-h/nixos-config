@@ -1,30 +1,46 @@
-# https://github.com/jj-vcs/jj/issues/6612#issuecomment-2971953935
+# Inspired by https://github.com/jj-vcs/jj/issues/6612#issuecomment-2971953935
 
 [aliases]
-# Usage: jj addparent <child aka mergerev> <newparent>
+# Usage: jj addrelation --parent/-p <parent> --child/-c <child>
 #
-# jj rebase -s <mergerev> -d all:<mergerev>- -d <newparent>
-addparent = ["util", "exec", "--", "bash", "-c", '''
-    jj rebase -s $1 -d "$1-" -d $2
-''', "jj-addparent"]
+# Adds <parent> as a parent of <child>.
+# jj rebase -s <child> -d <child>- -d <parent>
+addrelation = ["util", "exec", "--", "bash", "-c", '''
+    PARENT="" CHILD=""
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -p|--parent) PARENT="$2"; shift 2;;
+            -c|--child) CHILD="$2"; shift 2;;
+            *) echo "Unknown argument: $1" >&2; exit 1;;
+        esac
+    done
+    if [[ -z "$PARENT" || -z "$CHILD" ]]; then
+        echo "Usage: jj addrelation --parent/-p REV --child/-c REV" >&2; exit 1
+    fi
+    jj rebase -s "$CHILD" -d "$CHILD-" -d "$PARENT"
+''', "jj-addrelation"]
 
-# Usage: jj rmparent <child aka mergerev> <oldparent>
+# Usage: jj rmrelation --parent/-p <parent> --child/-c <child>
 #
-# jj rebase -s <mergerev> -d "all:<mergerev>- ~ <oldparent>"
-rmparent = ["util", "exec", "--", "bash", "-c", '''
-    jj rebase -s $1 -d "$1- ~ $2"
-''', "jj-rmparent"]
+# Removes <parent> as a parent of <child>.
+# jj rebase -s <child> -d "all:<child>- ~ <parent>"
+rmrelation = ["util", "exec", "--", "bash", "-c", '''
+    PARENT="" CHILD=""
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -p|--parent) PARENT="$2"; shift 2;;
+            -c|--child) CHILD="$2"; shift 2;;
+            *) echo "Unknown argument: $1" >&2; exit 1;;
+        esac
+    done
+    if [[ -z "$PARENT" || -z "$CHILD" ]]; then
+        echo "Usage: jj rmrelation --parent/-p REV --child/-c REV" >&2; exit 1
+    fi
+    jj rebase -s "$CHILD" -d "$CHILD- ~ $PARENT"
+''', "jj-rmrelation"]
 
-# Usage: jj addchild <parent> <newchild>
-#
-# jj rebase -s <mergerev> -d <parent>- -d <newchild>
-addchild = ["util", "exec", "--", "bash", "-c", '''
-    jj rebase -s $2 -d "$2-" -d $1
-''', "jj-addchild"]
-
-# Usage: jj rmchild <parent> <oldchild>
-#
-# jj rebase -s <parent> -d "<parent>- ~ <oldchild>"
-rmchild = ["util", "exec", "--", "bash", "-c", '''
-    jj rebase -s $2 -d "$2- ~ $1"
-''', "jj-rmchild"]
+# Backcompat aliases
+addparent = ["util", "exec", "--", "bash", "-c", "jj addrelation -c $1 -p $2", "jj-addparent"]
+rmparent = ["util", "exec", "--", "bash", "-c", "jj rmrelation -c $1 -p $2", "jj-rmparent"]
+addchild = ["util", "exec", "--", "bash", "-c", "jj addrelation -p $1 -c $2", "jj-addchild"]
+rmchild = ["util", "exec", "--", "bash", "-c", "jj rmrelation -p $1 -c $2", "jj-rmchild"]
