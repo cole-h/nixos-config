@@ -57,6 +57,7 @@
       vault
       yt-dlp # youtube-dl but better
       zellij # better than tmux
+      ov # WAY better than less
     ];
 
     # NOTE: if you log in from a tty, make sure to erase __HM_SESS_VARS_SOURCED,

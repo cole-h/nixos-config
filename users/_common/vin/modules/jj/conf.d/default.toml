@@ -8,7 +8,7 @@ email = "cole.e.helbling@outlook.com"
 
 [ui]
 revsets-use-glob-by-default=true
-pager = "less -FRX"
+pager = "ov -FXb 1 --wrap=false"
 default-command = ["log", "-r", "stack()"]
 diff-editor = ":builtin"
 bookmark-list-sort-keys = ["committer-date-", "author-date-", "name"]
