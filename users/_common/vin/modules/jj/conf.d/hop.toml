@@ -31,6 +31,12 @@ jj hop
 jj git push "$@"
 """, "jj-nudge"]
 
+bhop = ["util", "exec", "--", "sh", "-c", """
+set -eu
+bookmark="$1"
+jj bookmark move --from "$bookmark" --to "tip($bookmark)"
+""", "jj-bhop"]
+
 
 # https://andre.arko.net/2025/09/28/stupid-jj-tricks/
 pr = ["util", "exec", "--", "bash", "-c", """
