@@ -17,9 +17,9 @@
 
 # Private and WIP commits that should never be pushed anywhere. Often part of
 # work-in-progress merge stacks.
-# 'wip()' = 'description(glob-i:"wip:*") | description(glob-i:"[[]WIP[]]*")'
+# 'wip()' = 'mutable() & (description(glob-i:"wip:*") | description(glob-i:"[[]WIP[]]*"))'
 'wip()' = 'none()'
-'private()' = 'description(glob-i:"private:*") | description(glob-i:"[[]PRIVATE[]]*")'
+'private()' = 'mutable() & (description(glob-i:"private:*") | description(glob-i:"[[]PRIVATE[]]*"))'
 'denylist()' = '''
 wip() | (descendants(wip()) ~ descendants(merges() ~ ancestors(trunk())))
 | private() | (descendants(private()) ~ descendants(merges() ~ ancestors(trunk())))
